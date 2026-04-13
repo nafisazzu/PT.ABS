@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buat Laporan – SIGAP</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;--bg:#f0f4fa;--card-bg:#ffffff;--text:#1a2540;--muted:#7a8aaa;--border:#e0e7ef;--sidebar-w:260px;--radius:16px;--shadow:0 4px 24px rgba(11,24,41,0.10);--transition:0.28s cubic-bezier(.4,0,.2,1);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;}
+.sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
+.sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,0.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
+.sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,0.07);}
+.brand-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(0,212,255,0.35);flex-shrink:0;}
+.brand-text{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:#fff;letter-spacing:2px;}
+.brand-sub{font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
+.sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;}
+.nav-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:14px 12px 6px;font-weight:600;}
+.sidebar-nav a{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.65);text-decoration:none;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;transition:all var(--transition);margin-bottom:2px;position:relative;}
+.sidebar-nav a .nav-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(255,255,255,0.06);flex-shrink:0;transition:all var(--transition);}
+.sidebar-nav a:hover{color:#fff;background:rgba(255,255,255,0.07);}
+.sidebar-nav a:hover .nav-icon{background:rgba(0,212,255,0.18);color:var(--accent);}
+.sidebar-nav a.active{color:#fff;background:linear-gradient(90deg,rgba(0,212,255,0.18),rgba(0,212,255,0.05));}
+.sidebar-nav a.active .nav-icon{background:linear-gradient(135deg,var(--accent),#0099cc);color:#fff;box-shadow:0 3px 10px rgba(0,212,255,0.4);}
+.sidebar-nav a.active::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--accent);border-radius:3px 0 0 3px;}
+.sidebar-nav a.logout-btn{color:rgba(255,78,106,0.75);}
+.sidebar-nav a.logout-btn:hover{color:var(--accent2);background:rgba(255,78,106,0.08);}
+.sidebar-nav a.logout-btn .nav-icon{background:rgba(255,78,106,0.1);}
+.sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,0.07);}
+.sidebar-user{display:flex;align-items:center;gap:10px;}
+.user-avatar{width:36px;height:36px;background:linear-gradient(135deg,var(--accent3),#ff8c00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:700;}
+.user-info .user-name{font-size:13px;font-weight:600;color:#fff;}
+.user-info .user-role{font-size:11px;color:var(--muted);}
+.main{margin-left:var(--sidebar-w);min-height:100vh;}
+.topbar{background:var(--card-bg);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,0.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.05);}
+.topbar-left h5{font-size:15px;font-weight:700;color:var(--navy);margin:0;}
+.topbar-left span{font-size:12px;color:var(--muted);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.topbar-btn{width:38px;height:38px;border-radius:10px;background:var(--bg);border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
+.topbar-btn:hover{background:#e2e8f5;color:var(--navy);}
+.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:var(--bg);cursor:pointer;}
+.topbar-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
+.topbar-uname{font-size:13px;font-weight:600;color:var(--text);}
+.content{padding:28px 32px 48px;}
+.page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+.title-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(0,212,255,0.3);}
+.page-sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
+.steps-bar{display:flex;align-items:center;background:var(--card-bg);border-radius:var(--radius);padding:16px 24px;box-shadow:var(--shadow);margin-bottom:24px;}
+.step{display:flex;align-items:center;gap:10px;flex:1;position:relative;}
+.step:not(:last-child)::after{content:'';position:absolute;left:120px;right:0;top:50%;transform:translateY(-50%);height:2px;background:var(--border);}
+.step.done:not(:last-child)::after{background:var(--accent4);}
+.step-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;border:2px solid var(--border);color:var(--muted);transition:all var(--transition);}
+.step.active .step-num{background:linear-gradient(135deg,var(--accent),#0099cc);border-color:var(--accent);color:#fff;box-shadow:0 4px 12px rgba(0,212,255,0.35);}
+.step.done .step-num{background:var(--accent4);border-color:var(--accent4);color:#fff;}
+.step-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;}
+.step-name{font-size:13px;font-weight:600;color:var(--text);}
+.step.active .step-name{color:var(--navy);}
+.form-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px;animation:fadeUp 0.4s ease both;}
+.form-section-header{padding:20px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,#f7faff,var(--card-bg));}
+.section-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.section-icon.blue{background:rgba(0,212,255,0.10);color:var(--accent);}
+.section-icon.yellow{background:rgba(255,200,67,0.12);color:#d4960a;}
+.section-icon.green{background:rgba(34,224,161,0.10);color:var(--accent4);}
+.section-icon.red{background:rgba(255,78,106,0.10);color:var(--accent2);}
+.section-title-text{font-size:15px;font-weight:700;color:var(--navy);}
+.section-sub-text{font-size:12px;color:var(--muted);margin-top:1px;}
+.form-body{padding:28px;}
+.field-label{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.lbl-icon{color:var(--muted);font-size:12px;}
+.form-control,.form-select{border:1.5px solid var(--border);border-radius:10px;padding:11px 16px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:#fff;transition:all var(--transition);width:100%;}
+.form-control:focus,.form-select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,0.12);}
+.form-control.is-invalid{border-color:var(--accent2);box-shadow:0 0 0 3px rgba(255,78,106,0.10);}
+.form-control.is-valid{border-color:var(--accent4);}
+textarea.form-control{resize:vertical;min-height:130px;line-height:1.6;}
+.char-count{font-size:11px;color:var(--muted);text-align:right;margin-top:4px;}
+.char-count.warn{color:var(--accent3);}.char-count.danger{color:var(--accent2);}
+.field-error{font-size:11px;color:var(--accent2);margin-top:5px;display:none;}
+.field-error.show{display:block;}
+.risk-pills,.status-pills{display:flex;flex-wrap:wrap;gap:8px;}
+.risk-pill,.status-pill{display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;border:2px solid var(--border);cursor:pointer;font-size:13px;font-weight:600;transition:all var(--transition);background:#fff;user-select:none;}
+.risk-pill input,.status-pill input{display:none;}
+.risk-pill.critical:hover,.risk-pill.critical.selected{border-color:#e74c3c;background:rgba(231,76,60,0.07);color:#c0392b;}
+.risk-pill.high:hover,.risk-pill.high.selected{border-color:#e67e22;background:rgba(230,126,34,0.07);color:#d35400;}
+.risk-pill.medium:hover,.risk-pill.medium.selected{border-color:#2e9fd4;background:rgba(46,159,212,0.07);color:#1a7fbf;}
+.risk-pill.low:hover,.risk-pill.low.selected{border-color:#27ae60;background:rgba(39,174,96,0.07);color:#1a8a60;}
+.pill-dot{width:10px;height:10px;border-radius:50%;}
+.critical .pill-dot{background:#e74c3c;}.high .pill-dot{background:#e67e22;}.medium .pill-dot{background:#2e9fd4;}.low .pill-dot{background:#27ae60;}
+.status-pill.s-open:hover,.status-pill.s-open.selected{border-color:#e6a800;background:rgba(255,200,67,0.08);color:#b37d00;}
+.status-pill.s-prog:hover,.status-pill.s-prog.selected{border-color:var(--accent);background:rgba(0,212,255,0.08);color:#0099cc;}
+.status-pill.s-closed:hover,.status-pill.s-closed.selected{border-color:var(--accent4);background:rgba(34,224,161,0.08);color:#19866b;}
+.form-divider{height:1px;background:var(--border);margin:24px 0;}
+.upload-zone{border:2px dashed var(--border);border-radius:12px;padding:36px 24px;text-align:center;cursor:pointer;transition:all var(--transition);background:#fafcff;position:relative;}
+.upload-zone:hover,.upload-zone.dragover{border-color:var(--accent);background:rgba(0,212,255,0.04);}
+.upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.upload-icon{width:56px;height:56px;background:rgba(0,212,255,0.10);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--accent);margin:0 auto 12px;}
+.upload-title{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:4px;}
+.upload-sub{font-size:12px;color:var(--muted);}
+.preview-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+.preview-item{width:90px;height:90px;border-radius:10px;overflow:hidden;position:relative;border:2px solid var(--border);}
+.preview-item img{width:100%;height:100%;object-fit:cover;}
+.remove-btn{position:absolute;top:4px;right:4px;width:22px;height:22px;background:var(--accent2);color:#fff;border-radius:50%;border:none;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity var(--transition);}
+.preview-item:hover .remove-btn{opacity:1;}
+.submit-row{padding:20px 28px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:#fafcff;flex-wrap:wrap;gap:12px;}
+.btn-reset-form{padding:11px 24px;border-radius:10px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;transition:all var(--transition);font-family:'DM Sans',sans-serif;}
+.btn-reset-form:hover{border-color:var(--accent2);color:var(--accent2);}
+.btn-submit{padding:11px 32px;border-radius:10px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:all var(--transition);display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;box-shadow:0 4px 14px rgba(11,24,41,0.25);}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(11,24,41,0.30);}
+.alert-box{border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;font-size:14px;font-weight:500;margin-bottom:20px;animation:fadeUp 0.3s ease;}
+.alert-box.success{background:rgba(34,224,161,0.10);border:1px solid rgba(34,224,161,0.3);color:#127754;}
+.alert-box.error{background:rgba(255,78,106,0.08);border:1px solid rgba(255,78,106,0.3);color:#c0202e;}
+.menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:768px){.menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.sidebar-overlay.open{display:block;}.main{margin-left:0;}.topbar{padding:14px 16px 14px 64px;}.content{padding:20px 16px 40px;}.form-body{padding:18px 16px;}.steps-bar{display:none;}}
+</style>
+</head>
+<body>
+<button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
+    <div><div class="brand-text">SIGAP</div><div class="brand-sub">Safety System</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-label">Menu Utama</div>
+    <a href="dashboard.html"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
+    <a href="buat_laporan.html" class="active"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
+    <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
+    <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
+    <div class="nav-label">Data & Dokumen</div>
+    <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
+    <a href="laporan.html"><span class="nav-icon"><i class="fas fa-list"></i></span>Laporan</a>
+    <div class="nav-label">Akun</div>
+    <a href="#" onclick="logout()" class="logout-btn"><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatarLetter">U</div>
+      <div class="user-info"><div class="user-name" id="sidebarUserName">User</div><div class="user-role">Safety Officer</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left"><h5>PT. Insani Baraperkasa</h5><span>Sistem Informasi Keselamatan Kerja</span></div>
+    <div class="topbar-right">
+      <button class="topbar-btn"><i class="fas fa-bell"></i></button>
+      <button class="topbar-btn"><i class="fas fa-cog"></i></button>
+      <div class="topbar-user"><div class="topbar-avatar"><i class="fas fa-user"></i></div><span class="topbar-uname" id="userNameDisplay">User</span></div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="page-title"><div class="title-icon"><i class="fas fa-plus-circle"></i></div>Buat Laporan</div>
+    <div class="page-sub">Formulir Pelaporan Hazard dan Kejadian Keselamatan Kerja</div>
+
+    <div class="steps-bar">
+      <div class="step active" id="step1"><div class="step-num">1</div><div><div class="step-label">Langkah 1</div><div class="step-name">Informasi Dasar</div></div></div>
+      <div class="step" id="step2"><div class="step-num">2</div><div><div class="step-label">Langkah 2</div><div class="step-name">Detail Kejadian</div></div></div>
+      <div class="step" id="step3"><div class="step-num">3</div><div><div class="step-label">Langkah 3</div><div class="step-name">Risiko & Status</div></div></div>
+      <div class="step" id="step4"><div class="step-num">4</div><div><div class="step-label">Langkah 4</div><div class="step-name">Foto & Kirim</div></div></div>
+    </div>
+
+    <div id="alertBox" style="display:none;"></div>
+
+    <form id="reportForm" novalidate>
+      <!-- SECTION 1: INFO DASAR -->
+      <div class="form-card">
+        <div class="form-section-header">
+          <div class="section-icon blue"><i class="fas fa-info-circle"></i></div>
+          <div><div class="section-title-text">Informasi Dasar</div><div class="section-sub-text">Data umum pelapor dan waktu kejadian</div></div>
+        </div>
+        <div class="form-body">
+          <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+              <label class="field-label"><i class="fas fa-calendar-alt lbl-icon"></i> Tanggal Kejadian <span style="color:var(--accent2)">*</span></label>
+              <input type="date" class="form-control" id="tanggal" required>
+              <div class="field-error" id="err-tanggal">Tanggal wajib diisi.</div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label class="field-label"><i class="fas fa-user lbl-icon"></i> Nama Pelapor <span style="color:var(--accent2)">*</span></label>
+              <input type="text" class="form-control" id="pelapor" placeholder="Nama lengkap pelapor" required maxlength="100">
+              <div class="field-error" id="err-pelapor">Nama pelapor wajib diisi.</div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label class="field-label"><i class="fas fa-building lbl-icon"></i> Departemen</label>
+              <input type="text" class="form-control" id="departemen" placeholder="Departemen..." list="deptList">
+              <datalist id="deptList"><option value="PRODUKSI"><option value="PLANT"><option value="LOGISTIK"><option value="HRGA"><option value="SHE"><option value="ENGGINERING"></datalist>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label class="field-label"><i class="fas fa-map-marker-alt lbl-icon"></i> Area Kerja <span style="color:var(--accent2)">*</span></label>
+              <input type="text" class="form-control" id="area" placeholder="Contoh: Workshop A1, Pit Tambang" list="areaSugg" required>
+              <datalist id="areaSugg"><option value="Workshop A1"><option value="Workshop A2"><option value="Gudang B1"><option value="Gudang B2"><option value="Kantor HSE"><option value="Pit Tambang"><option value="Area Parkir"></datalist>
+              <div class="field-error" id="err-area">Area kerja wajib diisi.</div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label class="field-label"><i class="fas fa-tools lbl-icon"></i> Aktivitas Kerja <span style="color:var(--accent2)">*</span></label>
+              <input type="text" class="form-control" id="aktivitas" placeholder="Contoh: Perbaikan mesin" required maxlength="150">
+              <div class="field-error" id="err-aktivitas">Aktivitas wajib diisi.</div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label class="field-label"><i class="fas fa-tag lbl-icon"></i> Jenis Laporan</label>
+              <select class="form-select" id="jenisLaporan">
+                <option value="Unsafe Act">Unsafe Act – Tindakan Tidak Aman</option>
+                <option value="Unsafe Condition">Unsafe Condition – Kondisi Tidak Aman</option>
+                <option value="Near Miss">Near Miss – Hampir Celaka</option>
+                <option value="Incident">Incident – Kecelakaan Kerja</option>
+                <option value="Observasi">Observasi – Inspeksi</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: DETAIL -->
+      <div class="form-card">
+        <div class="form-section-header">
+          <div class="section-icon yellow"><i class="fas fa-align-left"></i></div>
+          <div><div class="section-title-text">Detail Kejadian</div><div class="section-sub-text">Deskripsi lengkap hazard atau kejadian</div></div>
+        </div>
+        <div class="form-body">
+          <div class="row g-4">
+            <div class="col-12">
+              <label class="field-label"><i class="fas fa-file-alt lbl-icon"></i> Deskripsi Hazard / Kejadian <span style="color:var(--accent2)">*</span></label>
+              <textarea class="form-control" id="deskripsi" rows="5" placeholder="Jelaskan secara detail temuan hazard atau kejadian yang terjadi..." required maxlength="1000" oninput="updateCharCount(this,'charDeskripsi',1000)"></textarea>
+              <div class="char-count" id="charDeskripsi">0 / 1000</div>
+              <div class="field-error" id="err-deskripsi">Deskripsi wajib diisi.</div>
+            </div>
+            <div class="col-12">
+              <label class="field-label"><i class="fas fa-lightbulb lbl-icon"></i> Tindakan Perbaikan yang Disarankan</label>
+              <textarea class="form-control" id="tindakan" rows="3" placeholder="Tuliskan rekomendasi tindakan perbaikan..." maxlength="500" oninput="updateCharCount(this,'charTindakan',500)"></textarea>
+              <div class="char-count" id="charTindakan">0 / 500</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: RISIKO -->
+      <div class="form-card">
+        <div class="form-section-header">
+          <div class="section-icon red"><i class="fas fa-exclamation-triangle"></i></div>
+          <div><div class="section-title-text">Kategori Risiko & Status</div><div class="section-sub-text">Tentukan tingkat risiko dan status awal laporan</div></div>
+        </div>
+        <div class="form-body">
+          <div class="row g-4">
+            <div class="col-12">
+              <label class="field-label"><i class="fas fa-exclamation-triangle lbl-icon"></i> Kategori Risiko <span style="color:var(--accent2)">*</span></label>
+              <div class="risk-pills">
+                <label class="risk-pill critical" onclick="selectPill(this,'risk')"><input type="radio" name="kategoriRisiko" value="Critical"><span class="pill-dot"></span><i class="fas fa-skull-crossbones" style="font-size:12px"></i> Critical</label>
+                <label class="risk-pill high" onclick="selectPill(this,'risk')"><input type="radio" name="kategoriRisiko" value="High"><span class="pill-dot"></span><i class="fas fa-fire" style="font-size:12px"></i> High</label>
+                <label class="risk-pill medium" onclick="selectPill(this,'risk')"><input type="radio" name="kategoriRisiko" value="Medium"><span class="pill-dot"></span><i class="fas fa-exclamation-circle" style="font-size:12px"></i> Medium</label>
+                <label class="risk-pill low" onclick="selectPill(this,'risk')"><input type="radio" name="kategoriRisiko" value="Low"><span class="pill-dot"></span><i class="fas fa-check-circle" style="font-size:12px"></i> Low</label>
+              </div>
+              <div class="field-error" id="err-risiko">Pilih salah satu kategori risiko.</div>
+            </div>
+            <div class="col-12">
+              <div class="form-divider"></div>
+              <label class="field-label"><i class="fas fa-info-circle lbl-icon"></i> Status Awal Laporan</label>
+              <div class="status-pills">
+                <label class="status-pill s-open selected" onclick="selectPill(this,'status')"><input type="radio" name="statusLaporan" value="Open" checked><i class="fas fa-folder-open" style="font-size:13px"></i> Open</label>
+                <label class="status-pill s-prog" onclick="selectPill(this,'status')"><input type="radio" name="statusLaporan" value="Progress"><i class="fas fa-spinner" style="font-size:13px"></i> Progress</label>
+                <label class="status-pill s-closed" onclick="selectPill(this,'status')"><input type="radio" name="statusLaporan" value="Closed"><i class="fas fa-check-circle" style="font-size:13px"></i> Closed</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: FOTO -->
+      <div class="form-card">
+        <div class="form-section-header">
+          <div class="section-icon green"><i class="fas fa-camera"></i></div>
+          <div><div class="section-title-text">Dokumentasi Foto</div><div class="section-sub-text">Upload foto bukti kejadian (opsional, maks. 5 foto)</div></div>
+        </div>
+        <div class="form-body">
+          <div class="upload-zone" id="uploadZone" ondragover="handleDragOver(event)" ondragleave="handleDragLeave()" ondrop="handleDrop(event)">
+            <input type="file" id="fotoInput" accept="image/*" multiple onchange="handleFiles(this.files)">
+            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="upload-title">Drag & Drop foto di sini</div>
+            <div class="upload-sub">atau klik untuk memilih file · JPG, PNG, WEBP · Maks. 5 MB per file</div>
+          </div>
+          <div class="preview-grid" id="previewGrid"></div>
+        </div>
+        <div class="submit-row">
+          <button type="button" class="btn-reset-form" onclick="resetForm()"><i class="fas fa-undo me-2"></i> Reset Form</button>
+          <button type="submit" class="btn-submit" id="submitBtn"><i class="fas fa-paper-plane"></i> Kirim Laporan</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// KEY TUNGGAL — dipakai oleh ketiga halaman
+// ══════════════════════════════════════════
+const REPORTS_KEY = 'sigap_reports_v1';
+
+(function(){
+  const name = localStorage.getItem('userName')||'User';
+  ['userNameDisplay','sidebarUserName'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=name;});
+  const av=document.getElementById('sidebarAvatarLetter');if(av)av.textContent=name.charAt(0).toUpperCase();
+  document.getElementById('tanggal').value=new Date().toISOString().split('T')[0];
+})();
+
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open');}
+function logout(){if(confirm('Yakin ingin logout?')){localStorage.removeItem('userName');window.location.href='index.html';}}
+
+function updateCharCount(el,id,max){
+  const len=el.value.length,c=document.getElementById(id);if(!c)return;
+  c.textContent=len+' / '+max;
+  c.className='char-count'+(len>max*0.9?(len>=max?' danger':' warn'):'');
+}
+
+function selectPill(label,group){
+  const container=label.closest('.risk-pills,.status-pills');if(!container)return;
+  container.querySelectorAll('label').forEach(l=>l.classList.remove('selected'));
+  label.classList.add('selected');label.querySelector('input').checked=true;updateSteps();
+}
+
+function updateSteps(){
+  const d1=document.getElementById('tanggal').value&&document.getElementById('pelapor').value.trim()&&document.getElementById('area').value.trim()&&document.getElementById('aktivitas').value.trim();
+  const d2=document.getElementById('deskripsi').value.trim().length>0;
+  const d3=!!document.querySelector('input[name="kategoriRisiko"]:checked');
+  function setStep(n,en,done){const el=document.getElementById('step'+n);if(!el)return;el.classList.remove('active','done');if(done)el.classList.add('done');else if(en)el.classList.add('active');}
+  setStep(1,true,d1);setStep(2,d1,d2);setStep(3,d2,d3);setStep(4,d3,false);
+}
+['tanggal','pelapor','area','aktivitas','deskripsi'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',updateSteps);});
+
+let uploadedFiles=[];
+function handleFiles(files){
+  Array.from(files).forEach(file=>{
+    if(uploadedFiles.filter(Boolean).length>=5){showAlert('Maksimal 5 foto.','error');return;}
+    if(file.size>5*1024*1024){showAlert('Ukuran file maks. 5 MB.','error');return;}
+    const idx=uploadedFiles.length;uploadedFiles.push(file);
+    const r=new FileReader();r.onload=e=>addPreview(e.target.result,idx);r.readAsDataURL(file);
+  });
+}
+function addPreview(src,idx){
+  const grid=document.getElementById('previewGrid'),item=document.createElement('div');
+  item.className='preview-item';item.id='prev-'+idx;
+  item.innerHTML=`<img src="${src}"><button class="remove-btn" type="button" onclick="removePreview(${idx})"><i class="fas fa-times"></i></button>`;
+  grid.appendChild(item);
+}
+function removePreview(idx){uploadedFiles[idx]=null;const el=document.getElementById('prev-'+idx);if(el)el.remove();}
+function handleDragOver(e){e.preventDefault();document.getElementById('uploadZone').classList.add('dragover');}
+function handleDragLeave(){document.getElementById('uploadZone').classList.remove('dragover');}
+function handleDrop(e){e.preventDefault();handleDragLeave();handleFiles(e.dataTransfer.files);}
+
+function showAlert(msg,type){
+  const box=document.getElementById('alertBox'),icon=type==='success'?'fa-check-circle':'fa-exclamation-circle';
+  box.innerHTML=`<div class="alert-box ${type}"><i class="fas ${icon}" style="margin-top:2px;flex-shrink:0"></i><span>${msg}</span></div>`;
+  box.style.display='block';box.scrollIntoView({behavior:'smooth',block:'nearest'});
+  if(type==='success')setTimeout(()=>{box.style.display='none';},4000);
+}
+
+function validateForm(){
+  let valid=true;
+  [['tanggal','err-tanggal','Tanggal wajib diisi.'],['pelapor','err-pelapor','Nama pelapor wajib diisi.'],
+   ['area','err-area','Area kerja wajib diisi.'],['aktivitas','err-aktivitas','Aktivitas wajib diisi.'],
+   ['deskripsi','err-deskripsi','Deskripsi wajib diisi.']].forEach(([id,errId,msg])=>{
+    const el=document.getElementById(id),err=document.getElementById(errId);
+    if(!el.value.trim()){el.classList.add('is-invalid');if(err){err.textContent=msg;err.classList.add('show');}valid=false;}
+    else{el.classList.remove('is-invalid');el.classList.add('is-valid');if(err)err.classList.remove('show');}
+  });
+  const risiko=document.querySelector('input[name="kategoriRisiko"]:checked');
+  const errR=document.getElementById('err-risiko');
+  if(!risiko){if(errR)errR.classList.add('show');valid=false;}else{if(errR)errR.classList.remove('show');}
+  return valid;
+}
+
+document.getElementById('reportForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  if(!validateForm()){showAlert('Mohon lengkapi semua field yang wajib diisi.','error');return;}
+  const btn=document.getElementById('submitBtn');
+  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Menyimpan...';btn.style.pointerEvents='none';
+
+  const fotoFiles=uploadedFiles.filter(Boolean);
+  const fotoPromises=fotoFiles.map(file=>new Promise(res=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.readAsDataURL(file);}));
+
+  Promise.all(fotoPromises).then(fotoBase64=>{
+    const data={
+      id:'RPT-'+Date.now(),
+      tanggal:document.getElementById('tanggal').value,
+      pelapor:document.getElementById('pelapor').value.trim(),
+      departemen:document.getElementById('departemen').value.trim().toUpperCase()||'-',
+      area:document.getElementById('area').value.trim(),
+      aktivitas:document.getElementById('aktivitas').value.trim(),
+      jenis:document.getElementById('jenisLaporan').value,
+      deskripsi:document.getElementById('deskripsi').value.trim(),
+      tindakan:document.getElementById('tindakan').value.trim()||'-',
+      risiko:document.querySelector('input[name="kategoriRisiko"]:checked').value,
+      status:document.querySelector('input[name="statusLaporan"]:checked')?.value||'Open',
+      foto:fotoBase64,
+      createdAt:new Date().toISOString(),
+      createdBy:localStorage.getItem('userName')||'User'
+    };
+    try{
+      const existing=JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]');
+      existing.unshift(data);
+      localStorage.setItem(REPORTS_KEY,JSON.stringify(existing));
+    }catch(ex){
+      showAlert('Gagal menyimpan: storage penuh.','error');
+      btn.innerHTML='<i class="fas fa-paper-plane"></i> Kirim Laporan';btn.style.pointerEvents='';return;
+    }
+    btn.innerHTML='<i class="fas fa-paper-plane"></i> Kirim Laporan';btn.style.pointerEvents='';
+    showAlert('✅ Laporan berhasil disimpan! Mengalihkan ke halaman laporan...','success');
+    setTimeout(()=>{window.location.href='laporan.html';},2000);
+  });
+});
+
+function resetForm(){
+  if(!confirm('Reset semua isian form?'))return;
+  document.getElementById('reportForm').reset();
+  document.getElementById('tanggal').value=new Date().toISOString().split('T')[0];
+  document.querySelectorAll('.is-invalid,.is-valid').forEach(el=>el.classList.remove('is-invalid','is-valid'));
+  document.querySelectorAll('.field-error.show').forEach(el=>el.classList.remove('show'));
+  document.querySelectorAll('.risk-pill.selected,.status-pill.selected').forEach(el=>el.classList.remove('selected'));
+  const op=document.querySelector('.status-pill.s-open');if(op){op.classList.add('selected');document.querySelector('input[value="Open"]').checked=true;}
+  uploadedFiles=[];document.getElementById('previewGrid').innerHTML='';
+  document.getElementById('alertBox').style.display='none';
+  ['charDeskripsi','charTindakan'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='0 / '+(id.includes('Deskripsi')?1000:500);});
+  updateSteps();
+}
+</script>
+</body>
+</html>

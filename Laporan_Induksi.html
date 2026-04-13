@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laporan Induksi K3LH – SIGAP</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<style>
+:root {
+  --navy:       #0b1829;
+  --navy-mid:   #122040;
+  --navy-light: #1a3460;
+  --accent:     #00d4ff;
+  --accent2:    #ff4e6a;
+  --accent3:    #ffc843;
+  --accent4:    #22e0a1;
+  --bg:         #f0f4fa;
+  --card-bg:    #ffffff;
+  --text:       #1a2540;
+  --muted:      #7a8aaa;
+  --border:     #e0e7ef;
+  --sidebar-w:  260px;
+  --radius:     16px;
+  --shadow:     0 4px 24px rgba(11,24,41,0.10);
+  --transition: 0.28s cubic-bezier(.4,0,.2,1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); font-family: 'DM Sans', sans-serif; color: var(--text); min-height: 100vh; font-size: 14px; }
+
+/* ─── SIDEBAR ─── */
+.sidebar {
+  width: var(--sidebar-w); height: 100vh;
+  background: var(--navy); position: fixed; top: 0; left: 0;
+  display: flex; flex-direction: column; z-index: 1000;
+  transition: transform var(--transition); overflow: hidden;
+}
+.sidebar::before {
+  content: ''; position: absolute;
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(0,212,255,0.12) 0%, transparent 70%);
+  top: -60px; left: -60px; pointer-events: none;
+}
+.sidebar-brand {
+  display: flex; align-items: center; gap: 12px;
+  padding: 28px 24px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.brand-icon {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, var(--accent), #0099cc);
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: #fff;
+  box-shadow: 0 4px 14px rgba(0,212,255,0.35); flex-shrink: 0;
+}
+.brand-text { font-family: 'Space Mono', monospace; font-size: 20px; font-weight: 700; color: #fff; letter-spacing: 2px; }
+.brand-sub  { font-size: 10px; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-top: 1px; }
+.sidebar-nav { flex: 1; padding: 16px 12px; overflow-y: auto; }
+.nav-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.3); padding: 14px 12px 6px; font-weight: 600; }
+.sidebar-nav a {
+  display: flex; align-items: center; gap: 12px;
+  color: rgba(255,255,255,0.65); text-decoration: none;
+  padding: 11px 14px; border-radius: 10px;
+  font-size: 14px; font-weight: 500;
+  transition: all var(--transition); margin-bottom: 2px; position: relative;
+}
+.sidebar-nav a .nav-icon {
+  width: 34px; height: 34px; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; background: rgba(255,255,255,0.06);
+  flex-shrink: 0; transition: all var(--transition);
+}
+.sidebar-nav a:hover { color: #fff; background: rgba(255,255,255,0.07); }
+.sidebar-nav a:hover .nav-icon { background: rgba(0,212,255,0.18); color: var(--accent); }
+.sidebar-nav a.active { color: #fff; background: linear-gradient(90deg, rgba(0,212,255,0.18), rgba(0,212,255,0.05)); }
+.sidebar-nav a.active .nav-icon { background: linear-gradient(135deg, var(--accent), #0099cc); color: #fff; box-shadow: 0 3px 10px rgba(0,212,255,0.4); }
+.sidebar-nav a.active::after { content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 20px; background: var(--accent); border-radius: 3px 0 0 3px; }
+.sidebar-nav a.logout-btn { color: rgba(255,78,106,0.75); }
+.sidebar-nav a.logout-btn:hover { color: var(--accent2); background: rgba(255,78,106,0.08); }
+.sidebar-nav a.logout-btn .nav-icon { background: rgba(255,78,106,0.1); }
+.sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.07); }
+.sidebar-user { display: flex; align-items: center; gap: 10px; }
+.user-avatar { width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent3), #ff8c00); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; color: #fff; font-weight: 700; }
+.user-info .user-name { font-size: 13px; font-weight: 600; color: #fff; }
+.user-info .user-role { font-size: 11px; color: var(--muted); }
+
+/* ─── MAIN ─── */
+.main { margin-left: var(--sidebar-w); min-height: 100vh; }
+
+/* ─── TOPBAR ─── */
+.topbar {
+  background: var(--card-bg); padding: 16px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+.topbar-left h5 { font-size: 15px; font-weight: 700; color: var(--navy); margin: 0; }
+.topbar-left span { font-size: 12px; color: var(--muted); }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+.topbar-btn { width: 38px; height: 38px; border-radius: 10px; background: var(--bg); border: none; display: flex; align-items: center; justify-content: center; color: var(--muted); cursor: pointer; transition: all var(--transition); }
+.topbar-btn:hover { background: #e2e8f5; color: var(--navy); }
+.topbar-user { display: flex; align-items: center; gap: 10px; padding: 6px 14px; border-radius: 12px; background: var(--bg); cursor: pointer; transition: background var(--transition); }
+.topbar-user:hover { background: #e2e8f5; }
+.topbar-avatar { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), #0099cc); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #fff; }
+.topbar-uname { font-size: 13px; font-weight: 600; color: var(--text); }
+
+/* ─── CONTENT ─── */
+.content { padding: 28px 32px 48px; }
+.page-header { margin-bottom: 24px; }
+.page-title { font-size: 26px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 12px; }
+.title-icon { width: 44px; height: 44px; background: linear-gradient(135deg, #8b5cf6, #6d28d9); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff; box-shadow: 0 4px 14px rgba(109,40,217,0.3); }
+.page-sub { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+/* ─── STATS ─── */
+.stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-bottom: 24px; }
+.stat-card {
+  background: var(--card-bg); border-radius: var(--radius);
+  padding: 18px 16px; box-shadow: var(--shadow);
+  position: relative; overflow: hidden;
+  transition: transform var(--transition);
+  animation: fadeUp 0.4s ease both;
+}
+.stat-card:hover { transform: translateY(-3px); }
+.stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: var(--radius) var(--radius) 0 0; }
+.stat-card.c-total::before   { background: #2e9fd4; }
+.stat-card.c-lulus::before   { background: var(--accent4); }
+.stat-card.c-ulang::before   { background: var(--accent2); }
+.stat-card.c-pengawas::before{ background: var(--accent3); }
+.stat-card.c-newhire::before { background: #8b5cf6; }
+.stat-card.c-visitor::before { background: var(--muted); }
+.stat-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; margin-bottom: 10px; }
+.c-total   .stat-icon { background: rgba(46,159,212,0.10); color: #2e9fd4; }
+.c-lulus   .stat-icon { background: rgba(34,224,161,0.10); color: var(--accent4); }
+.c-ulang   .stat-icon { background: rgba(255,78,106,0.10); color: var(--accent2); }
+.c-pengawas .stat-icon{ background: rgba(255,200,67,0.12); color: #c08a00; }
+.c-newhire .stat-icon { background: rgba(139,92,246,0.10); color: #8b5cf6; }
+.c-visitor .stat-icon { background: rgba(122,138,170,0.10); color: var(--muted); }
+.stat-label { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 0.3px; }
+.stat-value { font-family: 'Space Mono', monospace; font-size: 26px; font-weight: 700; line-height: 1; margin-top: 2px; }
+.c-total   .stat-value { color: #2e9fd4; }
+.c-lulus   .stat-value { color: var(--accent4); }
+.c-ulang   .stat-value { color: var(--accent2); }
+.c-pengawas .stat-value{ color: #c08a00; }
+.c-newhire .stat-value { color: #8b5cf6; }
+.c-visitor .stat-value { color: var(--muted); }
+
+/* ─── STORAGE BAR ─── */
+.storage-bar {
+  background: var(--card-bg); border-radius: var(--radius);
+  padding: 14px 20px; box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+  animation: fadeUp 0.35s ease both;
+  border-left: 4px solid var(--accent4);
+}
+.storage-status { display: flex; align-items: center; gap: 10px; }
+.storage-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent4); box-shadow: 0 0 0 3px rgba(34,224,161,0.2); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 3px rgba(34,224,161,0.2)} 50%{box-shadow:0 0 0 6px rgba(34,224,161,0.05)} }
+.storage-label { font-size: 13px; font-weight: 600; color: var(--navy); }
+.storage-meta  { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.storage-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.btn-storage {
+  padding: 8px 16px; border-radius: 10px; border: none;
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all var(--transition);
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-storage:hover { transform: translateY(-1px); }
+.btn-export  { background: rgba(0,212,255,0.12); color: #007fa3; }
+.btn-export:hover  { background: rgba(0,212,255,0.22); }
+.btn-import  { background: rgba(139,92,246,0.12); color: #5b21b6; }
+.btn-import:hover  { background: rgba(139,92,246,0.22); }
+.btn-excel   { background: rgba(34,197,94,0.12); color: #166534; }
+.btn-excel:hover   { background: rgba(34,197,94,0.22); }
+.btn-reset   { background: rgba(255,78,106,0.10); color: #b91c1c; }
+.btn-reset:hover   { background: rgba(255,78,106,0.20); }
+
+/* ─── CARD ─── */
+.data-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 20px; animation: fadeUp 0.5s ease both; }
+.card-head { padding: 16px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; background: linear-gradient(90deg, #f7faff, var(--card-bg)); }
+.card-head-left { display: flex; align-items: center; gap: 10px; }
+.card-head-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.card-head-icon.purple { background: rgba(139,92,246,0.10); color: #8b5cf6; }
+.card-head-icon.blue   { background: rgba(0,212,255,0.10);  color: var(--accent); }
+.card-head-title { font-size: 15px; font-weight: 700; color: var(--navy); }
+.card-head-sub   { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.card-body { padding: 22px; }
+
+/* ─── FORM ─── */
+.field-label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
+.form-control, .form-select { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text); background: #fafcff; transition: all var(--transition); outline: none; }
+.form-control:focus, .form-select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,212,255,0.12); background: #fff; }
+.btn-save { padding: 10px 24px; border-radius: 10px; background: linear-gradient(135deg, var(--navy-mid), var(--navy-light)); color: #fff; border: none; font-size: 13px; font-weight: 600; cursor: pointer; transition: all var(--transition); display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Sans', sans-serif; box-shadow: 0 4px 14px rgba(11,24,41,0.20); }
+.btn-save:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(11,24,41,0.25); }
+.btn-cancel { padding: 10px 20px; border-radius: 10px; background: #fff; border: 1.5px solid var(--border); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all var(--transition); font-family: 'DM Sans', sans-serif; display: none; }
+.btn-cancel:hover { border-color: var(--accent2); color: var(--accent2); }
+
+/* ─── TOOLBAR ─── */
+.toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.search-wrap { position: relative; }
+.search-wrap .s-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 13px; pointer-events: none; }
+.search-input { padding-left: 34px !important; width: 220px; }
+.filter-select { width: auto; min-width: 130px; padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text); background: #fafcff; outline: none; cursor: pointer; transition: border-color var(--transition); }
+.filter-select:focus { border-color: var(--accent); }
+
+/* ─── TABLE ─── */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+thead tr { background: linear-gradient(90deg, var(--navy-mid), var(--navy-light)); color: #fff; }
+th { padding: 11px 14px; text-align: left; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; }
+tbody tr { border-bottom: 1px solid var(--border); transition: background var(--transition); }
+tbody tr:hover { background: #f5f8ff; }
+td { padding: 11px 14px; font-size: 13px; vertical-align: middle; }
+.no-col   { color: var(--muted); font-size: 12px; font-family: 'Space Mono', monospace; }
+.name-col { font-weight: 600; color: var(--navy); }
+.nik-col  { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); }
+.date-col { font-size: 12px; color: var(--muted); }
+
+/* BADGES */
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.2px; }
+.badge-lulus   { background: rgba(34,224,161,0.12); color: #127754; }
+.badge-ulang   { background: rgba(255,78,106,0.10); color: #b91c1c; }
+.badge-visitor { background: #f1f5f9; color: #475569; }
+.badge-pengawas{ background: rgba(255,200,67,0.15); color: #92400e; }
+.badge-newhire { background: rgba(139,92,246,0.10); color: #5b21b6; }
+.badge-staff   { background: rgba(0,212,255,0.10);  color: #007fa3; }
+.badge-nonstaff{ background: rgba(46,159,212,0.10); color: #075985; }
+
+/* SCORE BAR */
+.score-wrap { display: flex; align-items: center; gap: 8px; }
+.score-bg   { flex: 1; height: 6px; background: #e0e7ef; border-radius: 3px; min-width: 50px; }
+.score-fill { height: 100%; border-radius: 3px; transition: width 0.4s; }
+.score-val  { font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; min-width: 30px; text-align: right; }
+
+/* ACTION */
+.btn-edit { padding: 5px 10px; border-radius: 7px; background: rgba(0,212,255,0.10); color: #007fa3; border: none; font-size: 12px; cursor: pointer; transition: all var(--transition); margin-right: 4px; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+.btn-edit:hover { background: rgba(0,212,255,0.20); }
+.btn-del  { padding: 5px 10px; border-radius: 7px; background: rgba(255,78,106,0.10); color: #b91c1c; border: none; font-size: 12px; cursor: pointer; transition: all var(--transition); font-family: 'DM Sans', sans-serif; font-weight: 600; }
+.btn-del:hover  { background: rgba(255,78,106,0.20); }
+
+/* ─── PAGINATION ─── */
+.pagination-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.page-info { font-size: 12px; color: var(--muted); }
+.page-btns { display: flex; gap: 4px; }
+.page-btn { padding: 5px 12px; border: 1.5px solid var(--border); background: #fff; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; color: var(--text); transition: all var(--transition); font-family: 'DM Sans', sans-serif; }
+.page-btn:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+.page-btn.active { background: var(--accent); color: var(--navy); border-color: var(--accent); font-weight: 700; }
+.page-btn:disabled { opacity: 0.35; cursor: default; }
+
+/* ─── EMPTY ─── */
+.empty-state { text-align: center; padding: 48px 20px; color: var(--muted); }
+.empty-icon { width: 64px; height: 64px; border-radius: 16px; background: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 14px; }
+
+/* ─── MODAL ─── */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(11,24,41,0.55); z-index: 2000; align-items: center; justify-content: center; }
+.modal-overlay.show { display: flex; }
+.modal-box { background: #fff; border-radius: var(--radius); padding: 28px; width: 90%; max-width: 440px; box-shadow: 0 24px 64px rgba(11,24,41,0.25); animation: fadeUp 0.2s ease; }
+.modal-title { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+.modal-body  { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+.btn-modal-cancel { padding: 9px 20px; border-radius: 9px; background: var(--bg); border: 1.5px solid var(--border); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all var(--transition); }
+.btn-modal-cancel:hover { border-color: var(--muted); }
+.btn-modal-del { padding: 9px 20px; border-radius: 9px; background: var(--accent2); color: #fff; border: none; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all var(--transition); box-shadow: 0 4px 12px rgba(255,78,106,0.3); }
+.btn-modal-del:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* ─── RESET CONFIRM MODAL ─── */
+#resetModal .modal-box { max-width: 420px; }
+
+/* ─── TOAST ─── */
+.toast-box { position: fixed; bottom: 24px; right: 24px; background: var(--navy); color: #fff; padding: 12px 20px; border-radius: 12px; font-size: 13px; font-weight: 600; opacity: 0; transform: translateY(12px); transition: all 0.3s; z-index: 3000; pointer-events: none; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 24px rgba(11,24,41,0.25); }
+.toast-box.show { opacity: 1; transform: translateY(0); }
+
+/* ─── MOBILE ─── */
+.menu-toggle { display: none; position: fixed; top: 16px; left: 16px; z-index: 1100; width: 40px; height: 40px; border-radius: 10px; background: var(--navy); border: none; color: #fff; font-size: 16px; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 3px 12px rgba(0,0,0,0.25); }
+.sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 999; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 1200px) { .stats-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px) {
+  .menu-toggle { display: flex; }
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay.open { display: block; }
+  .main { margin-left: 0; }
+  .topbar { padding: 14px 16px 14px 64px; }
+  .content { padding: 20px 14px 40px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .card-body { padding: 16px; }
+  .toolbar { gap: 8px; }
+  .search-input { width: 160px; }
+  .page-title { font-size: 22px; }
+  .storage-bar { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 480px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
+    <div>
+      <div class="brand-text">SIGAP</div>
+      <div class="brand-sub">Safety System</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-label">Menu Utama</div>
+    <a href="dashboard.html"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
+    <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
+    <a href="laporan_induksi.html" class="active"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
+    <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
+    <div class="nav-label">Data & Dokumen</div>
+    <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
+    <a href="laporan.html"><span class="nav-icon"><i class="fas fa-list"></i></span>Laporan</a>
+    <div class="nav-label">Akun</div>
+    <a href="#" onclick="logout()" class="logout-btn"><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatarLetter">U</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">User</div>
+        <div class="user-role">Safety Officer</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h5>PT. Insani Baraperkasa</h5>
+      <span>Sistem Informasi Keselamatan Kerja</span>
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-btn"><i class="fas fa-bell"></i></button>
+      <button class="topbar-btn"><i class="fas fa-cog"></i></button>
+      <div class="topbar-user">
+        <div class="topbar-avatar"><i class="fas fa-user"></i></div>
+        <span class="topbar-uname" id="userNameDisplay">User</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- HEADER -->
+    <div class="page-header">
+      <div class="page-title">
+        <div class="title-icon"><i class="fas fa-user-shield"></i></div>
+        Laporan Induksi K3LH
+      </div>
+      <div class="page-sub">Sistem Manajemen Data Induksi Karyawan, Pengawas & Visitor — PT. ABS</div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid" id="statsGrid"></div>
+
+    <!-- STORAGE BAR -->
+    <div class="storage-bar" id="storageBar">
+      <div class="storage-status">
+        <div class="storage-dot" id="storageDot"></div>
+        <div>
+          <div class="storage-label" id="storageLabel">💾 Data tersimpan di browser ini</div>
+          <div class="storage-meta" id="storageMeta">Memuat...</div>
+        </div>
+      </div>
+      <div class="storage-actions">
+        <button class="btn-storage btn-export" onclick="exportJSON()">
+          <i class="fas fa-file-export"></i> Export Backup
+        </button>
+        <label class="btn-storage btn-import" style="cursor:pointer;margin:0;">
+          <i class="fas fa-file-import"></i> Import Backup
+          <input type="file" accept=".json" onchange="importJSON(event)" style="display:none">
+        </label>
+        <button class="btn-storage btn-excel" onclick="exportExcel()">
+          <i class="fas fa-file-excel"></i> Export Excel
+        </button>
+        <button class="btn-storage btn-reset" onclick="openResetModal()">
+          <i class="fas fa-undo"></i> Reset Data
+        </button>
+      </div>
+    </div>
+
+    <!-- FORM INPUT -->
+    <div class="data-card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-head-icon purple"><i class="fas fa-pen"></i></div>
+          <div>
+            <div class="card-head-title" id="formTitle">Input Data Induksi</div>
+            <div class="card-head-sub">Tambah data peserta induksi baru</div>
+          </div>
+        </div>
+        <button class="btn-cancel" id="cancelBtn" onclick="resetForm()">
+          <i class="fas fa-times" style="font-size:11px"></i> Batal
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-lg-3 col-md-6">
+            <label class="field-label">Nama Lengkap *</label>
+            <input class="form-control" type="text" id="namaInduksi" placeholder="Nama karyawan...">
+          </div>
+          <div class="col-lg-2 col-md-6">
+            <label class="field-label">NIK</label>
+            <input class="form-control" type="text" id="nikInduksi" placeholder="Nomor induk...">
+          </div>
+          <div class="col-lg-2 col-md-6">
+            <label class="field-label">Departemen</label>
+            <input class="form-control" type="text" id="deptInduksi" placeholder="Departemen..." list="deptList">
+            <datalist id="deptList">
+              <option value="PRODUKSI"><option value="PLANT"><option value="LOGISTIK">
+              <option value="HRGA"><option value="SHE"><option value="ENGGINERING">
+            </datalist>
+          </div>
+          <div class="col-lg-2 col-md-6">
+            <label class="field-label">Jabatan</label>
+            <select class="form-select" id="jabatanInduksi">
+              <option value="Staff">Staff</option>
+              <option value="Non Staff">Non Staff</option>
+              <option value="Visitor">Visitor</option>
+            </select>
+          </div>
+          <div class="col-lg-1 col-md-4">
+            <label class="field-label">Tipe</label>
+            <select class="form-select" id="tipeInduksi">
+              <option value="Pengawas">Pengawas</option>
+              <option value="New Hire">New Hire</option>
+              <option value="Visitor">Visitor</option>
+            </select>
+          </div>
+          <div class="col-lg-1 col-md-4">
+            <label class="field-label">Nilai</label>
+            <input class="form-control" type="number" id="nilaiInduksi" placeholder="0–365" min="0" max="365">
+          </div>
+          <div class="col-lg-1 col-md-4">
+            <label class="field-label">Tanggal</label>
+            <input class="form-control" type="date" id="tanggalInduksi">
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;align-items:center;">
+          <button class="btn-save" id="saveBtn" onclick="saveData()">
+            <i class="fas fa-save"></i> <span id="saveBtnText">Simpan Data</span>
+          </button>
+          <input type="hidden" id="editIndex" value="-1">
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="data-card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-head-icon blue"><i class="fas fa-table"></i></div>
+          <div>
+            <div class="card-head-title">Data Induksi Karyawan</div>
+            <div class="card-head-sub" id="tableSubTitle">Memuat data...</div>
+          </div>
+        </div>
+        <div class="toolbar">
+          <div class="search-wrap">
+            <i class="fas fa-search s-icon"></i>
+            <input class="form-control search-input" type="text" id="searchInput" placeholder="Cari nama / NIK..." oninput="applyFilter()">
+          </div>
+          <select class="filter-select" id="filterTipe" onchange="applyFilter()">
+            <option value="">Semua Tipe</option>
+            <option value="Pengawas">Pengawas</option>
+            <option value="New Hire">New Hire</option>
+            <option value="Visitor">Visitor</option>
+          </select>
+          <select class="filter-select" id="filterStatus" onchange="applyFilter()">
+            <option value="">Semua Status</option>
+            <option value="Lulus">Lulus</option>
+            <option value="Ulang">Perlu Ulang</option>
+          </select>
+          <select class="filter-select" id="filterDept" onchange="applyFilter()">
+            <option value="">Semua Dept</option>
+          </select>
+        </div>
+      </div>
+      <div class="card-body" style="padding-bottom:8px;">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>No</th><th>Nama</th><th>NIK</th><th>Departemen</th>
+                <th>Jabatan</th><th>Tipe</th><th>Nilai</th>
+                <th>Status</th><th>Tanggal</th><th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="induksiTable"></tbody>
+          </table>
+        </div>
+        <div id="emptyState" class="empty-state" style="display:none;">
+          <div class="empty-icon"><i class="fas fa-search"></i></div>
+          <div style="font-weight:600;color:var(--navy);margin-bottom:4px;">Tidak ada data</div>
+          <div>Coba ubah filter pencarian Anda</div>
+        </div>
+        <div class="pagination-row">
+          <span class="page-info" id="pageInfo"></span>
+          <div class="page-btns" id="pageBtns"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL HAPUS -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal-box">
+    <div class="modal-title"><i class="fas fa-trash-alt" style="color:var(--accent2);margin-right:8px"></i>Konfirmasi Hapus</div>
+    <div class="modal-body">Apakah Anda yakin ingin menghapus data <strong id="deleteNameLabel" style="color:var(--navy)"></strong>? Tindakan ini tidak dapat dibatalkan.</div>
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" onclick="closeModal('deleteModal')"><i class="fas fa-times"></i> Batal</button>
+      <button class="btn-modal-del"    onclick="confirmDelete()"><i class="fas fa-trash-alt"></i> Hapus</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL RESET -->
+<div class="modal-overlay" id="resetModal">
+  <div class="modal-box" id="resetModal">
+    <div class="modal-title"><i class="fas fa-undo" style="color:var(--accent3);margin-right:8px"></i>Reset ke Data Awal</div>
+    <div class="modal-body">
+      Semua perubahan akan hilang dan data akan kembali ke <strong style="color:var(--navy)">data awal dari Excel</strong>.<br><br>
+      <span style="color:var(--accent2);font-size:12px;font-weight:600;"><i class="fas fa-exclamation-triangle"></i> Pastikan sudah Export Backup terlebih dahulu jika ada data baru yang penting.</span>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" onclick="closeModal('resetModal')"><i class="fas fa-times"></i> Batal</button>
+      <button class="btn-modal-del" style="background:var(--accent3);color:var(--navy);box-shadow:0 4px 12px rgba(255,200,67,0.3);" onclick="confirmReset()"><i class="fas fa-undo"></i> Reset Sekarang</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-box" id="toast"></div>
+
+<script>
+const MAX_SCORE = 365;
+const PASS_THRESHOLD = 200;
+const STORAGE_KEY  = 'sigap_induksi_data_v2';
+const STORAGE_META = 'sigap_induksi_meta_v2';
+
+// ─── DEFAULT DATA (dari Excel) ────────────────────
+const DEFAULT_DATA = [{"nama":"Eril","nik":"1180161","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-05","nilai":250,"tipe":"New Hire"},{"nama":"Fajar Septiawan","nik":"2251678","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-05","nilai":268,"tipe":"New Hire"},{"nama":"Agus Tri Prasetyo","nik":"1180021","jabatan":"Staff","departemen":"PLANT","tanggal":"2025-12-05","nilai":307,"tipe":"Pengawas"},{"nama":"Abdussobur","nik":"1180032","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2025-12-05","nilai":340,"tipe":"Pengawas"},{"nama":"Amaluddin","nik":"1210599","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-04","nilai":350,"tipe":"Pengawas"},{"nama":"Mohamad Firdaus","nik":"2241504","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-03","nilai":335,"tipe":"Pengawas"},{"nama":"Muhammad Yunus","nik":"221300","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-03","nilai":240,"tipe":"Pengawas"},{"nama":"Hamzah","nik":"1200470","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-03","nilai":310,"tipe":"Pengawas"},{"nama":"Pujianto","nik":"2241559","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-03","nilai":351,"tipe":"Pengawas"},{"nama":"Adi Kurniawan","nik":"2231159","jabatan":"Staff","departemen":"PLANT","tanggal":"2025-12-03","nilai":316,"tipe":"Pengawas"},{"nama":"Muhammad Sayfudin","nik":"2231290","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-02","nilai":305,"tipe":"New Hire"},{"nama":"Tri Wulan Totok Hartono","nik":"2251677","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-02","nilai":246,"tipe":"Pengawas"},{"nama":"Atrika Bolota","nik":"2251696","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-01","nilai":236,"tipe":"New Hire"},{"nama":"Polmer Purba","nik":"2251695","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-01","nilai":282,"tipe":"New Hire"},{"nama":"Sandhye Ramadhan","nik":"2251693","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-01","nilai":232,"tipe":"New Hire"},{"nama":"Dedi Utomo","nik":"1220924","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-01","nilai":325,"tipe":"Pengawas"},{"nama":"Hariyoko","nik":"2241602","jabatan":"Staff","departemen":"PLANT","tanggal":"2025-12-01","nilai":297,"tipe":"Pengawas"},{"nama":"Ishak","nik":"1220903","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-01","nilai":293,"tipe":"Pengawas"},{"nama":"Afista Feri Bastian","nik":"2241562","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-01","nilai":287,"tipe":"Pengawas"},{"nama":"Fiki Sainal Arifin","nik":"2231433","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-30","nilai":313,"tipe":"Pengawas"},{"nama":"Rusdiansyah","nik":"0","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-30","nilai":252,"tipe":"New Hire"},{"nama":"Agus Setiawan","nik":"2231435","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-27","nilai":340,"tipe":"Pengawas"},{"nama":"Rabil","nik":"2220962","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-27","nilai":310,"tipe":"Pengawas"},{"nama":"Tangsi","nik":"1180110","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2025-11-25","nilai":310,"tipe":"Pengawas"},{"nama":"Padli","nik":"2210732","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-25","nilai":258,"tipe":"Pengawas"},{"nama":"Iqrar Dinata","nik":"1190442","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-25","nilai":330,"tipe":"Pengawas"},{"nama":"Ahmad Nur Hidayat","nik":"2231409","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-25","nilai":301,"tipe":"Pengawas"},{"nama":"Choiron Imam Syafii","nik":"1041","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2025-11-25","nilai":306,"tipe":"Pengawas"},{"nama":"Moh. Jaenudin","nik":"1210592","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-24","nilai":228,"tipe":"Pengawas"},{"nama":"M.Jumardin","nik":"1241520","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-24","nilai":325,"tipe":"Pengawas"},{"nama":"Gusti Rahmat Wahyudya","nik":"1220923","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-24","nilai":335,"tipe":"Pengawas"},{"nama":"Muhammad Idris","nik":"2241561","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-24","nilai":365,"tipe":"Pengawas"},{"nama":"Herman","nik":"2241558","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-23","nilai":354,"tipe":"Pengawas"},{"nama":"Junaidi Andup","nik":"1231264","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-23","nilai":232,"tipe":"New Hire"},{"nama":"Suriansyah","nik":"1190388","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-23","nilai":280,"tipe":"New Hire"},{"nama":"Riswan","nik":"1220937","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-23","nilai":303,"tipe":"New Hire"},{"nama":"Retno Okta Pratama","nik":"1221077","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-23","nilai":338,"tipe":"Pengawas"},{"nama":"Supardi","nik":"1220862","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2025-11-22","nilai":312,"tipe":"New Hire"},{"nama":"Firman","nik":"1190393","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-22","nilai":308,"tipe":"New Hire"},{"nama":"Lukman Hakim","nik":"2251692","jabatan":"Staff","departemen":"PLANT","tanggal":"2025-11-21","nilai":290,"tipe":"New Hire"},{"nama":"Andre Cipta Pratama","nik":"2231284","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-21","nilai":290,"tipe":"Pengawas"},{"nama":"Djoko Suseno","nik":"1220826","jabatan":"Staff","departemen":"PLANT","tanggal":"2025-11-20","nilai":332,"tipe":"Pengawas"},{"nama":"Budi Utomo","nik":"2231478","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-20","nilai":305,"tipe":"Pengawas"},{"nama":"Jurniansyah","nik":"2220886","jabatan":"Non Staff","departemen":"LOGISTIK","tanggal":"2025-11-19","nilai":315,"tipe":"Pengawas"},{"nama":"Joppy Turang","nik":"1190359","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2025-11-19","nilai":281,"tipe":"Pengawas"},{"nama":"Tegar Gultom","nik":"1212010211010001","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-19","nilai":192,"tipe":"New Hire"},{"nama":"Amin","nik":"2231221","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-19","nilai":192,"tipe":"Pengawas"},{"nama":"Syaiful Ichsan","nik":"1220961","jabatan":"Staff","departemen":"PLANT","tanggal":"2025-11-18","nilai":350,"tipe":"Pengawas"},{"nama":"Aprianur","nik":"2220935","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-18","nilai":305,"tipe":"Pengawas"},{"nama":"Riswanto","nik":"2231400","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-18","nilai":356,"tipe":"Pengawas"},{"nama":"Ahmad Faisal","nik":"2231048","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-17","nilai":315,"tipe":"Pengawas"},{"nama":"Fajar Maulana","nik":"2220760","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-15","nilai":321,"tipe":"Pengawas"},{"nama":"Hengki Adha","nik":"2231498","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-15","nilai":297,"tipe":"Pengawas"},{"nama":"Nasir","nik":"2220949","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-15","nilai":330,"tipe":"Pengawas"},{"nama":"Muh Riyada","nik":"2251691","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-15","nilai":262,"tipe":"New Hire"},{"nama":"Mustari","nik":"2231399","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-14","nilai":300,"tipe":"New Hire"},{"nama":"Suheruddin","nik":"1190392","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-14","nilai":340,"tipe":"Pengawas"},{"nama":"Hamdani","nik":"1200517","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-13","nilai":318,"tipe":"Pengawas"},{"nama":"Roubert Herman","nik":"2220764","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-13","nilai":270,"tipe":"Pengawas"},{"nama":"Aditya","nik":"2241551","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-12","nilai":320,"tipe":"Pengawas"},{"nama":"Herwin","nik":"8231136","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-12","nilai":303,"tipe":"Pengawas"},{"nama":"Suroto","nik":"1180046","jabatan":"Staff","departemen":"PLANT","tanggal":"2025-11-11","nilai":272,"tipe":"Pengawas"},{"nama":"Aristan","nik":"1231092","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-11","nilai":259,"tipe":"Pengawas"},{"nama":"Alpius Irfan","nik":"2251649","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-10","nilai":198,"tipe":"Pengawas"},{"nama":"Mahmud","nik":"2220979","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-10","nilai":320,"tipe":"Pengawas"},{"nama":"Ruslan","nik":"2231124","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-10","nilai":325,"tipe":"Pengawas"},{"nama":"Ahmad Alianur","nik":"2231466","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-09","nilai":250,"tipe":"Pengawas"},{"nama":"Rahmuji","nik":"1190351","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2025-11-09","nilai":280,"tipe":"Pengawas"},{"nama":"Yanuarius Samson Dulla","nik":"2231487","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-09","nilai":327,"tipe":"Pengawas"},{"nama":"Gok Mauliate Sitohang","nik":"1210618","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2025-11-09","nilai":345,"tipe":"Pengawas"},{"nama":"Bagus Tamim Akrom","nik":"2231334","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-09","nilai":303,"tipe":"Pengawas"},{"nama":"Fitriani","nik":"7315065011010002","jabatan":"Non Staff","departemen":"ENGGINERING","tanggal":"2025-11-08","nilai":222,"tipe":"New Hire"},{"nama":"Alan","nik":"2231137","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-08","nilai":319,"tipe":"Pengawas"},{"nama":"Muhammad Abil Riskyani","nik":"2231259","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-08","nilai":310,"tipe":"Pengawas"},{"nama":"Masbi","nik":"1210565","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-07","nilai":244,"tipe":"Pengawas"},{"nama":"Ahmad Sadudin","nik":"2231497","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-05","nilai":288,"tipe":"Pengawas"},{"nama":"Raka Rahmatullah","nik":"2231175","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-05","nilai":325,"tipe":"Pengawas"},{"nama":"Lasuriansyah","nik":"2231374","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-05","nilai":221,"tipe":"Pengawas"},{"nama":"Kamil","nik":"2221056","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-04","nilai":201,"tipe":"Pengawas"},{"nama":"Sudarmin","nik":"2210700","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-04","nilai":345,"tipe":"Pengawas"},{"nama":"Danang Kukuh Prasojo","nik":"222083","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2025-11-04","nilai":330,"tipe":"Pengawas"},{"nama":"Rahmad Fadli","nik":"1180082","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-11-01","nilai":240,"tipe":"New Hire"},{"nama":"Yuhanto","nik":"2220828","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-11-01","nilai":325,"tipe":"Pengawas"},{"nama":"Husaini","nik":"1221070","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-31","nilai":186,"tipe":"Pengawas"},{"nama":"Dedi Setiawan","nik":"1180048","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-31","nilai":315,"tipe":"Pengawas"},{"nama":"Aditya Saputra","nik":"2231187","jabatan":"Non Staff","departemen":"SHE","tanggal":"2025-10-31","nilai":327,"tipe":"Pengawas"},{"nama":"Sahat Martohap Nainggolan","nik":"2210690","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-30","nilai":340,"tipe":"Pengawas"},{"nama":"Ansar","nik":"2251663","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-29","nilai":271,"tipe":"Pengawas"},{"nama":"Yudi Rahman","nik":"2231168","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-29","nilai":360,"tipe":"Pengawas"},{"nama":"Muhammad Iqbal Yusuf","nik":"1210669","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-28","nilai":205,"tipe":"New Hire"},{"nama":"Figo","nik":"1190304","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-28","nilai":235,"tipe":"New Hire"},{"nama":"Muliadi","nik":"2210740","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-28","nilai":320,"tipe":"Pengawas"},{"nama":"Fachrizal Maulana","nik":"2251690","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-27","nilai":288,"tipe":"New Hire"},{"nama":"Ahmad Fahreza Syam","nik":"2251688","jabatan":"Non Staff","departemen":"HRGA","tanggal":"2025-10-26","nilai":286,"tipe":"New Hire"},{"nama":"Ngadianto","nik":"2221062","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-26","nilai":320,"tipe":"Pengawas"},{"nama":"Aidil Lanna","nik":"2231252","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-25","nilai":315,"tipe":"Pengawas"},{"nama":"Kasmuri Budianto","nik":"4240328","jabatan":"Staff","departemen":"PLANT","tanggal":"2025-10-25","nilai":266,"tipe":"Pengawas"},{"nama":"Adi Syahputra Simanjuntak","nik":"2241503","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-25","nilai":286,"tipe":"Pengawas"},{"nama":"Dimas Ramadhan","nik":"22516","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2025-10-25","nilai":156,"tipe":"Pengawas"},{"nama":"Ahmad Gazali","nik":"2231343","jabatan":"Staff","departemen":"ENGGINERING","tanggal":"2025-10-23","nilai":346,"tipe":"Pengawas"},{"nama":"Supriadi L","nik":"1221063","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-23","nilai":235,"tipe":"Pengawas"},{"nama":"Annes Ogi Palangda","nik":"1190428","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-22","nilai":221,"tipe":"New Hire"},{"nama":"Mujtahidin","nik":"1190342","jabatan":"Staff","departemen":"LOGISTIK","tanggal":"2025-10-21","nilai":292,"tipe":"Pengawas"},{"nama":"Sudiono","nik":"1241518","jabatan":"Staff","departemen":"LOGISTIK","tanggal":"2025-10-20","nilai":333,"tipe":"Pengawas"},{"nama":"Dedy Josi","nik":"1180045","jabatan":"Staff","departemen":"PLANT","tanggal":"2025-10-20","nilai":323,"tipe":"Pengawas"},{"nama":"Adolfus Dale Openg","nik":"2210692","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-20","nilai":360,"tipe":"Pengawas"},{"nama":"Taofik Korahim","nik":"2231370","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-20","nilai":335,"tipe":"Pengawas"},{"nama":"Mohammad Fredi","nik":"1180086","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2025-10-20","nilai":330,"tipe":"Pengawas"},{"nama":"Ilham Noor Rahman","nik":"1200481","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-19","nilai":240,"tipe":"Pengawas"},{"nama":"Syamsu Rijal","nik":"2241594","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-19","nilai":236,"tipe":"Pengawas"},{"nama":"Muhammad Maulana","nik":"2231248","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-19","nilai":310,"tipe":"Pengawas"},{"nama":"Deppalangge","nik":"223212","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-18","nilai":255,"tipe":"Pengawas"},{"nama":"Muhammad Al Farisi","nik":"1231468","jabatan":"Non Staff","departemen":"LOGISTIK","tanggal":"2025-10-18","nilai":292,"tipe":"Pengawas"},{"nama":"Juli Yasman","nik":"1190387","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-17","nilai":310,"tipe":"Pengawas"},{"nama":"Imam Ghozali","nik":"1220809","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-17","nilai":255,"tipe":"Pengawas"},{"nama":"Abdi Alfarizi","nik":"2251687","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-16","nilai":283,"tipe":"New Hire"},{"nama":"Darmawan","nik":"2231454","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-16","nilai":220,"tipe":"Pengawas"},{"nama":"Teguhraharjo","nik":"1210688","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-16","nilai":290,"tipe":"New Hire"},{"nama":"Anton Tangdilintin","nik":"1190288","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2025-10-15","nilai":330,"tipe":"Pengawas"},{"nama":"Riski Dwi Prasetiyo","nik":"1220969","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-15","nilai":285,"tipe":"Pengawas"},{"nama":"Budi Iskandar","nik":"2231247","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-15","nilai":345,"tipe":"Pengawas"},{"nama":"Muhammad Aly Wardhana","nik":"1200490","jabatan":"Staff","departemen":"PLANT","tanggal":"2025-10-14","nilai":320,"tipe":"Pengawas"},{"nama":"Handhika Syadewa","nik":"2231216","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-14","nilai":320,"tipe":"Pengawas"},{"nama":"Syamsuddin","nik":"2210698","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-14","nilai":310,"tipe":"Pengawas"},{"nama":"Tri Juanta","nik":"2231251","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-14","nilai":345,"tipe":"Pengawas"},{"nama":"Muhammad Munir","nik":"2231372","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-13","nilai":303,"tipe":"Pengawas"},{"nama":"Marianto","nik":"22331172","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-13","nilai":320,"tipe":"Pengawas"},{"nama":"Fathir Hadi Sakhli","nik":"1190355","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-13","nilai":332,"tipe":"Pengawas"},{"nama":"M Nur Jali","nik":"1220777","jabatan":"Non Staff","departemen":"LOGISTIK","tanggal":"2025-10-13","nilai":338,"tipe":"Pengawas"},{"nama":"Fakhri Prayoga Dwinanda","nik":"2220885","jabatan":"Non Staff","departemen":"LOGISTIK","tanggal":"2025-10-12","nilai":310,"tipe":"Pengawas"},{"nama":"Arman","nik":"2231480","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-12","nilai":275,"tipe":"Pengawas"},{"nama":"Nathan Kendek","nik":"2231336","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-11","nilai":245,"tipe":"Pengawas"},{"nama":"Jr Mekanik","nik":"8115940099","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-11","nilai":305,"tipe":"Pengawas"},{"nama":"Ahmad Zaky Ramadhan","nik":"2241578","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-11","nilai":320,"tipe":"Pengawas"},{"nama":"Muhammad Salam","nik":"2231342","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-11","nilai":313,"tipe":"Pengawas"},{"nama":"Samsir","nik":"2231135","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-10","nilai":245,"tipe":"Pengawas"},{"nama":"Adi Kurniawan","nik":"2231371","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-10","nilai":345,"tipe":"Pengawas"},{"nama":"Ismail","nik":"2251683","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-09","nilai":292,"tipe":"New Hire"},{"nama":"Haryadin","nik":"2251685","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-09","nilai":209,"tipe":"New Hire"},{"nama":"Fikriyansyah","nik":"1190336","jabatan":"Staff","departemen":"PLANT","tanggal":"2025-10-09","nilai":320,"tipe":"Pengawas"},{"nama":"Nur Rahmat","nik":"1220983","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-09","nilai":330,"tipe":"Pengawas"},{"nama":"Masruri","nik":"1220877","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-08","nilai":335,"tipe":"Pengawas"},{"nama":"Muh Sahrul","nik":"2231335","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-08","nilai":345,"tipe":"Pengawas"},{"nama":"Ahmad","nik":"2241528","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-08","nilai":316,"tipe":"Pengawas"},{"nama":"Rudy Prihandika","nik":"2251684","jabatan":"Non Staff","departemen":"LOGISTIK","tanggal":"2025-10-07","nilai":216,"tipe":"New Hire"},{"nama":"Sigit Prayuda","nik":"2231229","jabatan":"Non Staff","departemen":"LOGISTIK","tanggal":"2025-10-07","nilai":245,"tipe":"Pengawas"},{"nama":"Ardiansyah (Ancah)","nik":"1190311","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-07","nilai":295,"tipe":"Pengawas"},{"nama":"Rachmat Fehendi","nik":"1220867","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-07","nilai":315,"tipe":"Pengawas"},{"nama":"Angga Budi Pratama","nik":"2220948","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-05","nilai":313,"tipe":"Pengawas"},{"nama":"Benny Kurniawan Brahmana","nik":"2241541","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-05","nilai":251,"tipe":"Pengawas"},{"nama":"Moh Deby Prasetyo","nik":"2231314","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-05","nilai":308,"tipe":"Pengawas"},{"nama":"Martono","nik":"2220844","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-04","nilai":295,"tipe":"Pengawas"},{"nama":"Arlan Barung Allo","nik":"1190337","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-03","nilai":296,"tipe":"Pengawas"},{"nama":"Maulana Hidayat","nik":"1180047","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-10-03","nilai":313,"tipe":"Pengawas"},{"nama":"Rezki","nik":"1180059","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2025-10-03","nilai":327,"tipe":"Pengawas"},{"nama":"Mustofa","nik":"2241544","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-10-02","nilai":115,"tipe":"New Hire"},{"nama":"Suardi","nik":"2231332","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-09-30","nilai":290,"tipe":"Pengawas"},{"nama":"Herianto","nik":"2231346","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-09-29","nilai":295,"tipe":"Pengawas"},{"nama":"Yuliansyah","nik":"2231169","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-09-29","nilai":355,"tipe":"Pengawas"},{"nama":"Didik Dariantoro","nik":"2231144","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-09-28","nilai":300,"tipe":"Pengawas"},{"nama":"Angga Ade Yowansyah","nik":"2251668","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-09-27","nilai":237,"tipe":"New Hire"},{"nama":"Rico Triyadi","nik":"1190426","jabatan":"Non Staff","departemen":"LOGISTIK","tanggal":"2025-12-06","nilai":330,"tipe":"Pengawas"},{"nama":"Idris Pawara","nik":"2231281","jabatan":"Staff","departemen":"HRGA","tanggal":"2025-12-07","nilai":185,"tipe":"New Hire"},{"nama":"Sandy Fredyawan","nik":"2251633","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-08","nilai":345,"tipe":"Pengawas"},{"nama":"Sepriadi","nik":"2231160","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-09","nilai":340,"tipe":"Pengawas"},{"nama":"Hamda","nik":"2231450","jabatan":"Non Staff","departemen":"LOGISTIK","tanggal":"2025-12-09","nilai":250,"tipe":"Pengawas"},{"nama":"Heru Setio","nik":"2251682","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2025-12-10","nilai":300,"tipe":"Pengawas"},{"nama":"Jumadin Zai","nik":"1190281","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-10","nilai":280,"tipe":"New Hire"},{"nama":"Arman","nik":"1190268","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-10","nilai":350,"tipe":"Pengawas"},{"nama":"Pristiwa Surbakti","nik":"1220866","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-10","nilai":290,"tipe":"Pengawas"},{"nama":"Nabil Muhkrim","nik":"2231301","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-10","nilai":280,"tipe":"Pengawas"},{"nama":"Abdul Muis","nik":"1220871","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-11","nilai":355,"tipe":"Pengawas"},{"nama":"Said Muhammad Zein","nik":"2231104","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-12","nilai":360,"tipe":"Pengawas"},{"nama":"Aris","nik":"2231102","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-12","nilai":360,"tipe":"Pengawas"},{"nama":"Muhammad Imam Fahrizal","nik":"2220939","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-13","nilai":315,"tipe":"Pengawas"},{"nama":"Marco Surbakti","nik":"2220859","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-14","nilai":350,"tipe":"Pengawas"},{"nama":"Ijas Satriawan","nik":"1180132","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-15","nilai":335,"tipe":"Pengawas"},{"nama":"Aloisius Gonzaga","nik":"1231413","jabatan":"Non Staff","departemen":"LOGISTIK","tanggal":"2025-12-15","nilai":320,"tipe":"Pengawas"},{"nama":"Surinsyah","nik":"1190310","jabatan":"Staff","departemen":"PLANT","tanggal":"2025-12-15","nilai":277,"tipe":"Pengawas"},{"nama":"Saiful Bahri","nik":"2251700","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-16","nilai":269,"tipe":"New Hire"},{"nama":"Diansyah","nik":"2251699","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-16","nilai":266,"tipe":"New Hire"},{"nama":"Fabian Pribadi","nik":"2231139","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-16","nilai":305,"tipe":"Pengawas"},{"nama":"Ahmad Novian","nik":"2231173","jabatan":"Non Staff","departemen":"LOGISTIK","tanggal":"2025-12-19","nilai":335,"tipe":"Pengawas"},{"nama":"Kasmadi","nik":"2231303","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-19","nilai":325,"tipe":"Pengawas"},{"nama":"Ardy Kismantoro","nik":"2231472","jabatan":"Staff","departemen":"PLANT","tanggal":"2025-12-21","nilai":350,"tipe":"Pengawas"},{"nama":"Disal","nik":"1190400","jabatan":"Non Staff","departemen":"LOGISTIK","tanggal":"2025-12-21","nilai":330,"tipe":"Pengawas"},{"nama":"Komarodin","nik":"1109331","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-21","nilai":265,"tipe":"New Hire"},{"nama":"Noor Rohman","nik":"1221024","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-21","nilai":340,"tipe":"Pengawas"},{"nama":"Jacac Saputra Simanjuntak","nik":"1210657","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-22","nilai":343,"tipe":"Pengawas"},{"nama":"Hery Surianto","nik":"1180186","jabatan":"Staff","departemen":"PLANT","tanggal":"2025-12-22","nilai":321,"tipe":"Pengawas"},{"nama":"Muhammad Sulaiman","nik":"2231287","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2025-12-25","nilai":290,"tipe":"Pengawas"},{"nama":"Wahyu Dwi Sakti","nik":"2231127","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-25","nilai":351,"tipe":"Pengawas"},{"nama":"Andika Sorongan","nik":"2231185","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-26","nilai":205,"tipe":"Pengawas"},{"nama":"Muhammad Rusli","nik":"2251702","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2025-12-26","nilai":320,"tipe":"Pengawas"},{"nama":"Joko Prayitno","nik":"2251701","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-26","nilai":258,"tipe":"New Hire"},{"nama":"Yayang Rudianto","nik":"1241600","jabatan":"Staff","departemen":"LOGISTIK","tanggal":"2025-12-27","nilai":263,"tipe":"Pengawas"},{"nama":"Bayu Peramayuda","nik":"2241531","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2025-12-30","nilai":271,"tipe":"Pengawas"},{"nama":"Rezki","nik":"1180059","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2025-12-31","nilai":325,"tipe":"Pengawas"},{"nama":"Antonius","nik":"2231161","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-01-02","nilai":272,"tipe":"Pengawas"},{"nama":"Yakobus Jogo Noe","nik":"2231360","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-01-02","nilai":330,"tipe":"Pengawas"},{"nama":"Muhammad Arif","nik":"2251638","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-01-03","nilai":275,"tipe":"Pengawas"},{"nama":"Rizal Gunawan","nik":"2241574","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-01-03","nilai":280,"tipe":"Pengawas"},{"nama":"Stepanus Pambunan","nik":"2210739","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2026-01-03","nilai":331,"tipe":"Pengawas"},{"nama":"Fikriyansyah","nik":"1190336","jabatan":"Staff","departemen":"PLANT","tanggal":"2026-01-04","nilai":360,"tipe":"Pengawas"},{"nama":"Muhammad Ferdy","nik":"2220827","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-01-05","nilai":325,"tipe":"Pengawas"},{"nama":"Eko Aryadi","nik":"1210610","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2026-01-06","nilai":320,"tipe":"Pengawas"},{"nama":"Syah Rianda","nik":"2231316","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2026-01-07","nilai":315,"tipe":"Pengawas"},{"nama":"Andi Edi Yatma Kusuma","nik":"2261703","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-01-07","nilai":301,"tipe":"New Hire"},{"nama":"Didik Dariantoro","nik":"2231144","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-01-08","nilai":300,"tipe":"Pengawas"},{"nama":"Cucuk Cahyanto Pratama","nik":"2251686","jabatan":"Staff","departemen":"SHE","tanggal":"2026-01-08","nilai":288,"tipe":"Pengawas"},{"nama":"Misran Banne","nik":"1221043","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2026-01-09","nilai":305,"tipe":"Pengawas"},{"nama":"Alfraldo","nik":"2241545","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2026-01-09","nilai":305,"tipe":"Pengawas"},{"nama":"Aris Saleda","nik":"2231285","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-01-11","nilai":331,"tipe":"Pengawas"},{"nama":"Maulana Hidayat","nik":"1180047","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2026-01-11","nilai":325,"tipe":"Pengawas"},{"nama":"Renaldo Samrat Tiwow","nik":"2231155","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2026-01-12","nilai":310,"tipe":"Pengawas"},{"nama":"Sahat Martohap","nik":"2210690","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-01-12","nilai":360,"tipe":"Pengawas"},{"nama":"Zulfikri Al Asri","nik":"2231481","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2026-01-12","nilai":350,"tipe":"Pengawas"},{"nama":"Jamaluddin","nik":"2231448","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2026-01-12","nilai":355,"tipe":"Pengawas"},{"nama":"Mujtahidin","nik":"1190342","jabatan":"Staff","departemen":"LOGISTIK","tanggal":"2026-01-14","nilai":312,"tipe":"Pengawas"},{"nama":"Zaenal","nik":"1220971","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2026-01-15","nilai":273,"tipe":"Pengawas"},{"nama":"Ary Sugiyanto","nik":"1190297","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2026-01-15","nilai":310,"tipe":"Pengawas"},{"nama":"Yudi Rahman","nik":"2231168","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2026-01-16","nilai":340,"tipe":"Pengawas"},{"nama":"Teguh Raharjo","nik":"1210688","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-01-18","nilai":325,"tipe":"Pengawas"},{"nama":"Raka Rahmatullah","nik":"2231175","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-01-20","nilai":315,"tipe":"Pengawas"},{"nama":"Adi Kurniawan","nik":"2231371","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-01-22","nilai":335,"tipe":"Pengawas"},{"nama":"M.Arianto","nik":"2231172","jabatan":"Non Staff","departemen":"PLANT","tanggal":"2026-01-23","nilai":360,"tipe":"Pengawas"},{"nama":"Masruri","nik":"1220877","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-01-10","nilai":314,"tipe":"New Hire"},{"nama":"Rikki Sitorus","nik":"22312779","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-01-13","nilai":295,"tipe":"New Hire"},{"nama":"Muhammad Roychan","nik":"2261707","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-02-03","nilai":245,"tipe":"New Hire"},{"nama":"Ismail","nik":"7316052207840001","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-02-13","nilai":255,"tipe":"New Hire"},{"nama":"Mahmud","nik":"2220979","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-02-13","nilai":227,"tipe":"New Hire"},{"nama":"Mustari","nik":"2231399","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-02-15","nilai":225,"tipe":"New Hire"},{"nama":"Ahmad Riadho Rohman","nik":"2261709","jabatan":"Staff","departemen":"SHE","tanggal":"2026-03-03","nilai":275,"tipe":"New Hire"},{"nama":"Erwin Yusi","nik":"2261710","jabatan":"Staff","departemen":"PRODUKSI","tanggal":"2026-03-06","nilai":201,"tipe":"New Hire"},{"nama":"Niel Paulus Rumapea","nik":"2261711","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-03-10","nilai":167,"tipe":"New Hire"},{"nama":"Riswan","nik":"10220937","jabatan":"Non Staff","departemen":"PRODUKSI","tanggal":"2026-03-18","nilai":307,"tipe":"Pengawas"},{"nama":"Rizal,D","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2025-12-05","nilai":0,"tipe":"Visitor"},{"nama":"Danang Kukuh Prasojo","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2025-11-04","nilai":0,"tipe":"Visitor"},{"nama":"Rahmad Hidayat","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2025-10-23","nilai":0,"tipe":"Visitor"},{"nama":"Toha","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2025-10-23","nilai":0,"tipe":"Visitor"},{"nama":"Norman Safari","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2025-10-18","nilai":0,"tipe":"Visitor"},{"nama":"Adnan Firmansyah","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2025-10-18","nilai":0,"tipe":"Visitor"},{"nama":"Nathan Kendek","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2025-10-11","nilai":0,"tipe":"Visitor"},{"nama":"M.Arianto","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2025-10-13","nilai":0,"tipe":"Visitor"},{"nama":"Pebri Arief","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2025-10-03","nilai":0,"tipe":"Visitor"},{"nama":"Suleman Balik","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2025-09-27","nilai":0,"tipe":"Visitor"},{"nama":"Feri Kurniawan","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2026-02-03","nilai":0,"tipe":"Visitor"},{"nama":"Mahmud","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2026-02-13","nilai":0,"tipe":"Visitor"},{"nama":"Kasmadi","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2025-12-19","nilai":0,"tipe":"Visitor"},{"nama":"Noviyanto Wibowo","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2025-12-24","nilai":0,"tipe":"Visitor"},{"nama":"Yohanes Natan Rombe","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2025-12-27","nilai":0,"tipe":"Visitor"},{"nama":"Risal Purnawan","nik":"-","jabatan":"Visitor","departemen":"-","tanggal":"2026-01-14","nilai":0,"tipe":"Visitor"}];
+
+let rawData = [];
+let filtered = [];
+let currentPage = 1;
+const PAGE_SIZE = 20;
+let deleteIdx = -1;
+
+// ════════════════════════════════════════════════
+// STORAGE FUNCTIONS
+// ════════════════════════════════════════════════
+
+function saveToStorage() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(rawData));
+    const now = new Date().toLocaleString('id-ID', { dateStyle:'medium', timeStyle:'short' });
+    localStorage.setItem(STORAGE_META, now);
+    updateStorageUI(now);
+  } catch(e) {
+    // localStorage mungkin penuh
+    showToast('<i class="fas fa-exclamation-triangle"></i> Storage penuh! Segera lakukan Export Backup.', true);
+  }
+}
+
+function loadFromStorage() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      rawData = JSON.parse(saved);
+      const meta = localStorage.getItem(STORAGE_META) || '-';
+      updateStorageUI(meta);
+      return true;
+    }
+  } catch(e) {}
+  return false;
+}
+
+function updateStorageUI(metaText) {
+  const label = document.getElementById('storageLabel');
+  const meta  = document.getElementById('storageMeta');
+  const dot   = document.getElementById('storageDot');
+  if (label) label.textContent = '💾 Data tersimpan di browser ini';
+  if (meta)  meta.textContent  = 'Terakhir disimpan: ' + metaText + ' • Pindah device? Gunakan Export Backup';
+  if (dot)   dot.style.background = 'var(--accent4)';
+}
+
+function exportJSON() {
+  const meta = {
+    exportedAt: new Date().toISOString(),
+    exportedBy: localStorage.getItem('userName') || 'User',
+    totalData: rawData.length,
+    appVersion: 'SIGAP v2'
+  };
+  const payload = { meta, data: rawData };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `backup-induksi-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('<i class="fas fa-file-export"></i> Backup berhasil didownload!');
+}
+
+function importJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const parsed = JSON.parse(e.target.result);
+      // Support dua format: array langsung atau {meta, data}
+      let imported;
+      if (Array.isArray(parsed)) {
+        imported = parsed;
+      } else if (parsed.data && Array.isArray(parsed.data)) {
+        imported = parsed.data;
+      } else {
+        throw new Error('Format tidak dikenali');
+      }
+      // Validasi minimal
+      if (!imported.length || !imported[0].nama) throw new Error('Data kosong atau tidak valid');
+      rawData = imported;
+      saveToStorage();
+      rebuildDeptFilter();
+      applyFilter();
+      showToast(`<i class="fas fa-file-import"></i> Berhasil import ${imported.length} data!`);
+    } catch(err) {
+      showToast('<i class="fas fa-times-circle"></i> File tidak valid! Gunakan file backup JSON dari SIGAP.', true);
+    }
+    event.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+function openResetModal() {
+  document.getElementById('resetModal').classList.add('show');
+}
+
+function confirmReset() {
+  rawData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  saveToStorage();
+  rebuildDeptFilter();
+  applyFilter();
+  closeModal('resetModal');
+  showToast('<i class="fas fa-undo"></i> Data berhasil direset ke data awal!');
+}
+
+// ════════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════════
+
+function getStatus(d) {
+  if (d.tipe === 'Visitor') return 'Visitor';
+  return d.nilai >= PASS_THRESHOLD ? 'Lulus' : 'Perlu Ulang';
+}
+function getScoreColor(v) {
+  const p = v / MAX_SCORE;
+  if (p >= 0.7) return '#127754';
+  if (p >= 0.5) return '#c08a00';
+  return '#b91c1c';
+}
+
+// ════════════════════════════════════════════════
+// STATS
+// ════════════════════════════════════════════════
+
+function buildStats() {
+  const total    = rawData.length;
+  const lulus    = rawData.filter(d => d.tipe !== 'Visitor' && d.nilai >= PASS_THRESHOLD).length;
+  const ulang    = rawData.filter(d => d.tipe !== 'Visitor' && d.nilai < PASS_THRESHOLD).length;
+  const pengawas = rawData.filter(d => d.tipe === 'Pengawas').length;
+  const newhire  = rawData.filter(d => d.tipe === 'New Hire').length;
+  const visitor  = rawData.filter(d => d.tipe === 'Visitor').length;
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card c-total" style="animation-delay:.05s">
+      <div class="stat-icon"><i class="fas fa-users"></i></div>
+      <div class="stat-label">Total Data</div><div class="stat-value">${total}</div>
+    </div>
+    <div class="stat-card c-lulus" style="animation-delay:.10s">
+      <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+      <div class="stat-label">Lulus</div><div class="stat-value">${lulus}</div>
+    </div>
+    <div class="stat-card c-ulang" style="animation-delay:.15s">
+      <div class="stat-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="stat-label">Perlu Ulang</div><div class="stat-value">${ulang}</div>
+    </div>
+    <div class="stat-card c-pengawas" style="animation-delay:.20s">
+      <div class="stat-icon"><i class="fas fa-hard-hat"></i></div>
+      <div class="stat-label">Pengawas</div><div class="stat-value">${pengawas}</div>
+    </div>
+    <div class="stat-card c-newhire" style="animation-delay:.25s">
+      <div class="stat-icon"><i class="fas fa-user-plus"></i></div>
+      <div class="stat-label">New Hire</div><div class="stat-value">${newhire}</div>
+    </div>
+    <div class="stat-card c-visitor" style="animation-delay:.30s">
+      <div class="stat-icon"><i class="fas fa-id-badge"></i></div>
+      <div class="stat-label">Visitor</div><div class="stat-value">${visitor}</div>
+    </div>`;
+}
+
+// ════════════════════════════════════════════════
+// FILTER & TABLE
+// ════════════════════════════════════════════════
+
+function buildDeptFilter() {
+  const depts = [...new Set(rawData.map(d => d.departemen).filter(d => d && d !== '-'))].sort();
+  const sel = document.getElementById('filterDept');
+  sel.innerHTML = '<option value="">Semua Dept</option>';
+  depts.forEach(d => { const o = document.createElement('option'); o.value = d; o.textContent = d; sel.appendChild(o); });
+}
+
+function rebuildDeptFilter() {
+  buildDeptFilter();
+}
+
+function applyFilter() {
+  const q      = document.getElementById('searchInput').value.toLowerCase();
+  const tipe   = document.getElementById('filterTipe').value;
+  const status = document.getElementById('filterStatus').value;
+  const dept   = document.getElementById('filterDept').value;
+  filtered = rawData.filter(d => {
+    const matchQ = !q || d.nama.toLowerCase().includes(q) || String(d.nik).toLowerCase().includes(q);
+    const matchT = !tipe || d.tipe === tipe;
+    const matchD = !dept || d.departemen === dept;
+    const s = getStatus(d);
+    const matchS = !status || s === status || (status === 'Ulang' && s === 'Perlu Ulang');
+    return matchQ && matchT && matchD && matchS;
+  });
+  currentPage = 1;
+  renderTable();
+}
+
+function renderTable() {
+  const tbody = document.getElementById('induksiTable');
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const pageData = filtered.slice(start, start + PAGE_SIZE);
+  document.getElementById('tableSubTitle').textContent = `${filtered.length} dari ${rawData.length} data ditampilkan`;
+
+  if (!filtered.length) {
+    tbody.innerHTML = '';
+    document.getElementById('emptyState').style.display = '';
+  } else {
+    document.getElementById('emptyState').style.display = 'none';
+    tbody.innerHTML = pageData.map((d, i) => {
+      const globalIdx = rawData.indexOf(d);
+      const status = getStatus(d);
+      const pct    = Math.min(100, Math.round(d.nilai / MAX_SCORE * 100));
+      const color  = getScoreColor(d.nilai);
+      const statusBadge = status === 'Lulus'
+        ? `<span class="badge badge-lulus"><i class="fas fa-check" style="font-size:9px"></i> Lulus</span>`
+        : status === 'Visitor'
+        ? `<span class="badge badge-visitor"><i class="fas fa-id-badge" style="font-size:9px"></i> Visitor</span>`
+        : `<span class="badge badge-ulang"><i class="fas fa-exclamation" style="font-size:9px"></i> Ulang</span>`;
+      const tipeBadge = d.tipe === 'Pengawas'
+        ? `<span class="badge badge-pengawas">Pengawas</span>`
+        : d.tipe === 'New Hire'
+        ? `<span class="badge badge-newhire">New Hire</span>`
+        : `<span class="badge badge-visitor">Visitor</span>`;
+      const jabBadge = d.jabatan === 'Staff'
+        ? `<span class="badge badge-staff">Staff</span>`
+        : d.jabatan === 'Non Staff'
+        ? `<span class="badge badge-nonstaff">Non Staff</span>`
+        : `<span class="badge badge-visitor">Visitor</span>`;
+      const scoreDisplay = d.tipe === 'Visitor'
+        ? `<span style="color:var(--muted);font-size:12px">—</span>`
+        : `<div class="score-wrap"><div class="score-bg"><div class="score-fill" style="width:${pct}%;background:${color}"></div></div><span class="score-val" style="color:${color}">${d.nilai}</span></div>`;
+      return `<tr>
+        <td class="no-col">${start + i + 1}</td>
+        <td class="name-col">${d.nama}</td>
+        <td class="nik-col">${d.nik}</td>
+        <td>${d.departemen !== '-' ? d.departemen : '<span style="color:var(--muted)">—</span>'}</td>
+        <td>${jabBadge}</td><td>${tipeBadge}</td>
+        <td style="min-width:120px">${scoreDisplay}</td>
+        <td>${statusBadge}</td>
+        <td class="date-col">${d.tanggal}</td>
+        <td>
+          <button class="btn-edit" onclick="editRow(${globalIdx})"><i class="fas fa-pen"></i></button>
+          <button class="btn-del"  onclick="deleteRow(${globalIdx})"><i class="fas fa-trash-alt"></i></button>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+  renderPagination();
+  buildStats();
+}
+
+function renderPagination() {
+  const total = filtered.length;
+  const pages = Math.ceil(total / PAGE_SIZE);
+  const start = (currentPage - 1) * PAGE_SIZE + 1;
+  const end   = Math.min(currentPage * PAGE_SIZE, total);
+  document.getElementById('pageInfo').textContent = total ? `Menampilkan ${start}–${end} dari ${total} data` : 'Tidak ada data';
+  const btns = document.getElementById('pageBtns');
+  let html = `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹ Prev</button>`;
+  for (let p = Math.max(1,currentPage-2); p <= Math.min(pages,currentPage+2); p++) {
+    html += `<button class="page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
+  }
+  html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===pages||!pages?'disabled':''}>Next ›</button>`;
+  btns.innerHTML = html;
+}
+
+function goPage(p) {
+  const pages = Math.ceil(filtered.length / PAGE_SIZE);
+  if (p < 1 || p > pages) return;
+  currentPage = p;
+  renderTable();
+}
+
+// ════════════════════════════════════════════════
+// CRUD
+// ════════════════════════════════════════════════
+
+function saveData() {
+  const nama    = document.getElementById('namaInduksi').value.trim();
+  const nik     = document.getElementById('nikInduksi').value.trim();
+  const dept    = document.getElementById('deptInduksi').value.trim();
+  const jabatan = document.getElementById('jabatanInduksi').value;
+  const tipe    = document.getElementById('tipeInduksi').value;
+  const nilai   = parseInt(document.getElementById('nilaiInduksi').value) || 0;
+  const tanggal = document.getElementById('tanggalInduksi').value;
+  if (!nama) { showToast('<i class="fas fa-exclamation-triangle"></i> Nama wajib diisi!', true); return; }
+  const entry = { nama, nik: nik||'-', jabatan, departemen: dept ? dept.toUpperCase() : '-', tipe, nilai, tanggal: tanggal||new Date().toISOString().slice(0,10) };
+  const editIdx = parseInt(document.getElementById('editIndex').value);
+  if (editIdx >= 0) {
+    rawData[editIdx] = entry;
+    showToast('<i class="fas fa-check-circle"></i> Data berhasil diperbarui!');
+  } else {
+    rawData.unshift(entry);
+    showToast('<i class="fas fa-check-circle"></i> Data berhasil disimpan!');
+  }
+  saveToStorage();
+  resetForm();
+  rebuildDeptFilter();
+  applyFilter();
+}
+
+function editRow(idx) {
+  const d = rawData[idx];
+  document.getElementById('namaInduksi').value    = d.nama;
+  document.getElementById('nikInduksi').value     = d.nik === '-' ? '' : d.nik;
+  document.getElementById('deptInduksi').value    = d.departemen === '-' ? '' : d.departemen;
+  document.getElementById('jabatanInduksi').value = d.jabatan;
+  document.getElementById('tipeInduksi').value    = d.tipe;
+  document.getElementById('nilaiInduksi').value   = d.nilai;
+  document.getElementById('tanggalInduksi').value = d.tanggal;
+  document.getElementById('editIndex').value      = idx;
+  document.getElementById('formTitle').textContent    = 'Edit Data Induksi';
+  document.getElementById('saveBtnText').textContent  = 'Update Data';
+  document.getElementById('cancelBtn').style.display  = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetForm() {
+  ['namaInduksi','nikInduksi','deptInduksi','nilaiInduksi','tanggalInduksi'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('jabatanInduksi').value = 'Staff';
+  document.getElementById('tipeInduksi').value    = 'Pengawas';
+  document.getElementById('editIndex').value      = -1;
+  document.getElementById('formTitle').textContent    = 'Input Data Induksi';
+  document.getElementById('saveBtnText').textContent  = 'Simpan Data';
+  document.getElementById('cancelBtn').style.display  = 'none';
+}
+
+function deleteRow(idx) {
+  deleteIdx = idx;
+  document.getElementById('deleteNameLabel').textContent = rawData[idx].nama;
+  document.getElementById('deleteModal').classList.add('show');
+}
+
+function confirmDelete() {
+  if (deleteIdx < 0) return;
+  rawData.splice(deleteIdx, 1);
+  deleteIdx = -1;
+  saveToStorage();
+  closeModal('deleteModal');
+  rebuildDeptFilter();
+  applyFilter();
+  showToast('<i class="fas fa-trash-alt"></i> Data berhasil dihapus!');
+}
+
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+// ════════════════════════════════════════════════
+// TOAST
+// ════════════════════════════════════════════════
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.innerHTML = msg;
+  t.style.background = isError ? 'var(--accent2)' : 'var(--navy)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function exportExcel() {
+  if (!rawData.length) { showToast('<i class="fas fa-exclamation-triangle"></i> Tidak ada data untuk diekspor!', true); return; }
+
+  // 1. Buat data rows dengan header yang rapi
+  const header = ['No','Nama','NIK','Jabatan','Departemen','Tipe Induksi','Nilai','Status','Tanggal'];
+  const rows = rawData.map((d, i) => {
+    const status = d.tipe === 'Visitor' ? 'Visitor' : d.nilai >= PASS_THRESHOLD ? 'Lulus' : 'Perlu Ulang';
+    return [
+      i + 1,
+      d.nama,
+      d.nik,
+      d.jabatan,
+      d.departemen,
+      d.tipe,
+      d.tipe === 'Visitor' ? '-' : d.nilai,
+      status,
+      d.tanggal
+    ];
+  });
+
+  // 2. Buat workbook & worksheet
+  const wb = XLSX.utils.book_new();
+
+  // --- Sheet 1: Data Lengkap ---
+  const wsData = XLSX.utils.aoa_to_sheet([header, ...rows]);
+
+  // Lebar kolom otomatis
+  wsData['!cols'] = [
+    { wch: 5 },   // No
+    { wch: 28 },  // Nama
+    { wch: 18 },  // NIK
+    { wch: 12 },  // Jabatan
+    { wch: 14 },  // Departemen
+    { wch: 14 },  // Tipe
+    { wch: 8 },   // Nilai
+    { wch: 14 },  // Status
+    { wch: 14 },  // Tanggal
+  ];
+
+  // Style header (bold, background hijau gelap)
+  const headerRange = XLSX.utils.decode_range(wsData['!ref']);
+  for (let C = headerRange.s.c; C <= headerRange.e.c; C++) {
+    const cellAddr = XLSX.utils.encode_cell({ r: 0, c: C });
+    if (!wsData[cellAddr]) continue;
+    wsData[cellAddr].s = {
+      font: { bold: true, color: { rgb: 'FFFFFF' }, sz: 11 },
+      fill: { fgColor: { rgb: '122040' } },
+      alignment: { horizontal: 'center', vertical: 'center' },
+      border: {
+        bottom: { style: 'thin', color: { rgb: '00D4FF' } }
+      }
+    };
+  }
+
+  XLSX.utils.book_append_sheet(wb, wsData, 'Data Induksi');
+
+  // --- Sheet 2: Rekap Statistik ---
+  const total    = rawData.length;
+  const lulus    = rawData.filter(d => d.tipe !== 'Visitor' && d.nilai >= PASS_THRESHOLD).length;
+  const ulang    = rawData.filter(d => d.tipe !== 'Visitor' && d.nilai < PASS_THRESHOLD).length;
+  const pengawas = rawData.filter(d => d.tipe === 'Pengawas').length;
+  const newhire  = rawData.filter(d => d.tipe === 'New Hire').length;
+  const visitor  = rawData.filter(d => d.tipe === 'Visitor').length;
+  const pctLulus = total > 0 ? ((lulus / (total - visitor)) * 100).toFixed(1) + '%' : '0%';
+
+  // Rekap per departemen
+  const deptMap = {};
+  rawData.filter(d => d.departemen !== '-').forEach(d => {
+    if (!deptMap[d.departemen]) deptMap[d.departemen] = { total: 0, lulus: 0, ulang: 0 };
+    deptMap[d.departemen].total++;
+    if (d.tipe !== 'Visitor') {
+      if (d.nilai >= PASS_THRESHOLD) deptMap[d.departemen].lulus++;
+      else deptMap[d.departemen].ulang++;
+    }
+  });
+
+  const rekapRows = [
+    ['REKAP LAPORAN INDUKSI K3LH — PT. INSANI BARAPERKASA'],
+    ['Digenerate oleh SIGAP Safety System'],
+    ['Tanggal Export:', new Date().toLocaleDateString('id-ID', { dateStyle: 'full' })],
+    [],
+    ['RINGKASAN UMUM'],
+    ['Keterangan', 'Jumlah'],
+    ['Total Peserta', total],
+    ['Lulus (≥200)', lulus],
+    ['Perlu Mengulang', ulang],
+    ['Persentase Lulus', pctLulus],
+    ['Tipe: Pengawas', pengawas],
+    ['Tipe: New Hire', newhire],
+    ['Tipe: Visitor', visitor],
+    [],
+    ['REKAP PER DEPARTEMEN'],
+    ['Departemen', 'Total', 'Lulus', 'Perlu Ulang', '% Lulus'],
+    ...Object.entries(deptMap).sort().map(([dept, v]) => [
+      dept, v.total, v.lulus, v.ulang,
+      v.total > 0 ? ((v.lulus / v.total) * 100).toFixed(1) + '%' : '0%'
+    ])
+  ];
+
+  const wsRekap = XLSX.utils.aoa_to_sheet(rekapRows);
+  wsRekap['!cols'] = [{ wch: 28 }, { wch: 10 }, { wch: 10 }, { wch: 14 }, { wch: 12 }];
+  XLSX.utils.book_append_sheet(wb, wsRekap, 'Rekap Statistik');
+
+  // 3. Download file
+  const fileName = `Laporan-Induksi-SIGAP-${new Date().toISOString().slice(0,10)}.xlsx`;
+  XLSX.writeFile(wb, fileName);
+  showToast('<i class="fas fa-file-excel"></i> File Excel berhasil didownload!');
+}
+
+// ════════════════════════════════════════════════
+// ════════════════════════════════════════════════
+
+(function() {
+  const name = localStorage.getItem('userName') || 'User';
+  ['userNameDisplay','sidebarUserName'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = name; });
+  const av = document.getElementById('sidebarAvatarLetter');
+  if (av) av.textContent = name.charAt(0).toUpperCase();
+})();
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+function logout() {
+  if (confirm('Yakin ingin logout?')) { localStorage.removeItem('userName'); window.location.href = 'index.html'; }
+}
+
+// ════════════════════════════════════════════════
+// INIT — Load storage, fallback ke DEFAULT_DATA
+// ════════════════════════════════════════════════
+
+(function init() {
+  const loaded = loadFromStorage();
+  if (!loaded) {
+    // Pertama kali buka: pakai data default lalu simpan
+    rawData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+    saveToStorage();
+  }
+  buildStats();
+  buildDeptFilter();
+  applyFilter();
+})();
+</script>
+</body>
+</html>

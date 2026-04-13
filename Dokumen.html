@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dokumen – SIGAP</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --navy:       #0b1829;
+  --navy-mid:   #122040;
+  --navy-light: #1a3460;
+  --accent:     #00d4ff;
+  --accent2:    #ff4e6a;
+  --accent3:    #ffc843;
+  --accent4:    #22e0a1;
+  --bg:         #f0f4fa;
+  --card-bg:    #ffffff;
+  --text:       #1a2540;
+  --muted:      #7a8aaa;
+  --border:     #e0e7ef;
+  --sidebar-w:  260px;
+  --radius:     16px;
+  --shadow:     0 4px 24px rgba(11,24,41,0.10);
+  --transition: 0.28s cubic-bezier(.4,0,.2,1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+}
+
+/* ─── SIDEBAR ───────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w); height: 100vh;
+  background: var(--navy);
+  position: fixed; top: 0; left: 0;
+  display: flex; flex-direction: column;
+  z-index: 1000; transition: transform var(--transition); overflow: hidden;
+}
+.sidebar::before {
+  content: ''; position: absolute;
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(0,212,255,0.12) 0%, transparent 70%);
+  top: -60px; left: -60px; pointer-events: none;
+}
+.sidebar-brand { display: flex; align-items: center; gap: 12px; padding: 28px 24px 24px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.brand-icon { width: 42px; height: 42px; background: linear-gradient(135deg, var(--accent), #0099cc); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff; box-shadow: 0 4px 14px rgba(0,212,255,0.35); flex-shrink: 0; }
+.brand-text { font-family: 'Space Mono', monospace; font-size: 20px; font-weight: 700; color: #fff; letter-spacing: 2px; }
+.brand-sub  { font-size: 10px; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-top: 1px; }
+.sidebar-nav { flex: 1; padding: 16px 12px; overflow-y: auto; }
+.nav-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.3); padding: 14px 12px 6px; font-weight: 600; }
+.sidebar-nav a { display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,0.65); text-decoration: none; padding: 11px 14px; border-radius: 10px; font-size: 14px; font-weight: 500; transition: all var(--transition); margin-bottom: 2px; position: relative; }
+.sidebar-nav a .nav-icon { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 14px; background: rgba(255,255,255,0.06); flex-shrink: 0; transition: all var(--transition); }
+.sidebar-nav a:hover { color: #fff; background: rgba(255,255,255,0.07); }
+.sidebar-nav a:hover .nav-icon { background: rgba(0,212,255,0.18); color: var(--accent); }
+.sidebar-nav a.active { color: #fff; background: linear-gradient(90deg, rgba(0,212,255,0.18), rgba(0,212,255,0.05)); }
+.sidebar-nav a.active .nav-icon { background: linear-gradient(135deg, var(--accent), #0099cc); color: #fff; box-shadow: 0 3px 10px rgba(0,212,255,0.4); }
+.sidebar-nav a.active::after { content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 20px; background: var(--accent); border-radius: 3px 0 0 3px; }
+.sidebar-nav a.logout-btn { color: rgba(255,78,106,0.75); }
+.sidebar-nav a.logout-btn:hover { color: var(--accent2); background: rgba(255,78,106,0.08); }
+.sidebar-nav a.logout-btn .nav-icon { background: rgba(255,78,106,0.1); }
+.sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.07); }
+.sidebar-user { display: flex; align-items: center; gap: 10px; }
+.user-avatar { width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent3), #ff8c00); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; color: #fff; font-weight: 700; }
+.user-info .user-name { font-size: 13px; font-weight: 600; color: #fff; }
+.user-info .user-role { font-size: 11px; color: var(--muted); }
+
+/* ─── MAIN ──────────────────────────────── */
+.main { margin-left: var(--sidebar-w); padding: 0; min-height: 100vh; }
+
+/* ─── TOPBAR ────────────────────────────── */
+.topbar { background: var(--card-bg); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.06); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+.topbar-left h5 { font-size: 15px; font-weight: 700; color: var(--navy); margin: 0; }
+.topbar-left span { font-size: 12px; color: var(--muted); }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+.topbar-btn { width: 38px; height: 38px; border-radius: 10px; background: var(--bg); border: none; display: flex; align-items: center; justify-content: center; color: var(--muted); cursor: pointer; transition: all var(--transition); }
+.topbar-btn:hover { background: #e2e8f5; color: var(--navy); }
+.topbar-user { display: flex; align-items: center; gap: 10px; padding: 6px 14px; border-radius: 12px; background: var(--bg); cursor: pointer; transition: background var(--transition); }
+.topbar-user:hover { background: #e2e8f5; }
+.topbar-avatar { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), #0099cc); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #fff; }
+.topbar-uname { font-size: 13px; font-weight: 600; color: var(--text); }
+
+/* ─── CONTENT ───────────────────────────── */
+.content { padding: 28px 32px 48px; }
+
+.page-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+.page-title { font-size: 26px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 12px; }
+.title-icon { width: 44px; height: 44px; background: linear-gradient(135deg, #0ea5e9, #0284c7); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff; box-shadow: 0 4px 14px rgba(14,165,233,0.35); }
+.page-sub { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+/* UPLOAD BTN */
+.btn-upload {
+  display: flex; align-items: center; gap: 8px;
+  padding: 11px 22px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--navy-mid), var(--navy-light));
+  color: #fff; border: none; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all var(--transition);
+  font-family: 'DM Sans', sans-serif;
+  box-shadow: 0 4px 14px rgba(11,24,41,0.22);
+}
+.btn-upload:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(11,24,41,0.28); }
+
+/* ─── STATS ─────────────────────────────── */
+.stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 24px; }
+.stat-card { background: var(--card-bg); border-radius: var(--radius); padding: 18px 16px; box-shadow: var(--shadow); position: relative; overflow: hidden; transition: transform var(--transition); animation: fadeUp 0.4s ease both; cursor: pointer; }
+.stat-card:hover { transform: translateY(-3px); }
+.stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: var(--radius) var(--radius) 0 0; }
+.stat-card.cs-all::before   { background: linear-gradient(90deg, var(--accent), #0099cc); }
+.stat-card.cs-sop::before   { background: #3b82f6; }
+.stat-card.cs-form::before  { background: #8b5cf6; }
+.stat-card.cs-reg::before   { background: #f59e0b; }
+.stat-card.cs-k3::before    { background: var(--accent2); }
+.stat-card.cs-sert::before  { background: var(--accent4); }
+.stat-card.active-filter { box-shadow: 0 0 0 2px var(--accent), var(--shadow); }
+
+.stat-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; margin-bottom: 10px; }
+.stat-label { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 0.3px; }
+.stat-value { font-family: 'Space Mono', monospace; font-size: 26px; font-weight: 700; line-height: 1; margin-top: 3px; }
+
+.cs-all  .stat-icon { background: rgba(0,212,255,0.10);  color: var(--accent); }  .cs-all  .stat-value { color: var(--accent); }
+.cs-sop  .stat-icon { background: rgba(59,130,246,0.10); color: #3b82f6; }         .cs-sop  .stat-value { color: #3b82f6; }
+.cs-form .stat-icon { background: rgba(139,92,246,0.10); color: #8b5cf6; }         .cs-form .stat-value { color: #8b5cf6; }
+.cs-reg  .stat-icon { background: rgba(245,158,11,0.12); color: #d97706; }         .cs-reg  .stat-value { color: #d97706; }
+.cs-k3   .stat-icon { background: rgba(255,78,106,0.10); color: var(--accent2); }  .cs-k3   .stat-value { color: var(--accent2); }
+.cs-sert .stat-icon { background: rgba(34,224,161,0.10); color: var(--accent4); }  .cs-sert .stat-value { color: var(--accent4); }
+
+/* ─── TOOLBAR ───────────────────────────── */
+.toolbar-card { background: var(--card-bg); border-radius: var(--radius); padding: 16px 20px; box-shadow: var(--shadow); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; animation: fadeUp 0.45s ease both; }
+.search-wrap { position: relative; flex: 1; min-width: 200px; }
+.search-wrap .s-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 14px; pointer-events: none; }
+.search-input { width: 100%; padding: 10px 14px 10px 38px; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text); background: #fafcff; outline: none; transition: all var(--transition); }
+.search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,212,255,0.10); }
+
+.toolbar-filter { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.filter-select { padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text); background: #fafcff; outline: none; cursor: pointer; transition: all var(--transition); }
+.filter-select:focus { border-color: var(--accent); }
+
+.view-toggle { display: flex; gap: 4px; }
+.view-btn { width: 36px; height: 36px; border-radius: 8px; border: 1.5px solid var(--border); background: #fff; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all var(--transition); }
+.view-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+.view-btn:hover:not(.active) { background: #e2e8f5; }
+
+/* ─── GRID VIEW ─────────────────────────── */
+.docs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; animation: fadeUp 0.5s ease both; }
+
+.doc-card {
+  background: var(--card-bg); border-radius: var(--radius);
+  box-shadow: var(--shadow); overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+  cursor: pointer; position: relative;
+}
+.doc-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(11,24,41,0.14); }
+
+.doc-card-top { padding: 20px 20px 14px; display: flex; flex-direction: column; align-items: center; gap: 10px; position: relative; }
+.doc-type-bar { position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.doc-icon { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-top: 6px; }
+.doc-name { font-size: 13px; font-weight: 700; color: var(--navy); text-align: center; line-height: 1.4; }
+.doc-meta { font-size: 11px; color: var(--muted); text-align: center; }
+
+.doc-card-bottom { padding: 12px 16px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.doc-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+.doc-actions { display: flex; gap: 6px; }
+.doc-action-btn { width: 30px; height: 30px; border-radius: 8px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all var(--transition); }
+.btn-preview { background: rgba(0,212,255,0.10); color: #007fa3; }
+.btn-preview:hover { background: rgba(0,212,255,0.20); }
+.btn-download { background: rgba(34,224,161,0.10); color: #127754; }
+.btn-download:hover { background: rgba(34,224,161,0.20); }
+.btn-delete { background: rgba(255,78,106,0.10); color: #b91c1c; }
+.btn-delete:hover { background: rgba(255,78,106,0.20); }
+
+/* ─── LIST VIEW ─────────────────────────── */
+.docs-list { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; animation: fadeUp 0.5s ease both; }
+.docs-list table { width: 100%; border-collapse: collapse; }
+.docs-list thead tr { background: linear-gradient(90deg, var(--navy-mid), var(--navy-light)); color: #fff; }
+.docs-list th { padding: 11px 16px; text-align: left; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; }
+.docs-list tbody tr { border-bottom: 1px solid var(--border); transition: background var(--transition); cursor: pointer; }
+.docs-list tbody tr:hover { background: #f5f8ff; }
+.docs-list td { padding: 12px 16px; font-size: 13px; vertical-align: middle; }
+.file-icon-sm { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+
+/* ─── UPLOAD MODAL ──────────────────────── */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(11,24,41,0.55); z-index: 2000; align-items: center; justify-content: center; }
+.modal-overlay.show { display: flex; }
+.modal-box { background: #fff; border-radius: var(--radius); width: 90%; max-width: 540px; box-shadow: 0 24px 64px rgba(11,24,41,0.25); animation: fadeUp 0.25s ease; overflow: hidden; }
+.modal-head { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.modal-head-title { font-size: 16px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 10px; }
+.modal-head-icon { width: 36px; height: 36px; background: rgba(14,165,233,0.12); color: #0ea5e9; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+.btn-close-modal { width: 32px; height: 32px; border-radius: 8px; border: none; background: var(--bg); color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all var(--transition); }
+.btn-close-modal:hover { background: #e2e8f5; color: var(--navy); }
+.modal-body { padding: 24px; }
+
+/* UPLOAD ZONE */
+.upload-zone { border: 2px dashed var(--border); border-radius: 12px; padding: 32px 24px; text-align: center; cursor: pointer; transition: all var(--transition); background: #fafcff; position: relative; margin-bottom: 20px; }
+.upload-zone:hover, .upload-zone.dragover { border-color: var(--accent); background: rgba(0,212,255,0.04); }
+.upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.upload-zone-icon { width: 52px; height: 52px; background: rgba(0,212,255,0.10); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--accent); margin: 0 auto 12px; }
+.upload-zone-title { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.upload-zone-sub { font-size: 12px; color: var(--muted); }
+.selected-file { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.2); border-radius: 10px; margin-top: 12px; font-size: 13px; color: var(--navy); font-weight: 500; }
+
+.field-label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
+.form-control, .form-select-modal {
+  width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 10px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text);
+  background: #fafcff; outline: none; transition: all var(--transition);
+}
+.form-control:focus, .form-select-modal:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,212,255,0.10); }
+textarea.form-control { resize: vertical; min-height: 80px; }
+
+.modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; background: #fafcff; }
+.btn-cancel-modal { padding: 10px 20px; border-radius: 10px; background: #fff; border: 1.5px solid var(--border); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all var(--transition); }
+.btn-cancel-modal:hover { border-color: var(--accent2); color: var(--accent2); }
+.btn-save-modal { padding: 10px 24px; border-radius: 10px; background: linear-gradient(135deg, var(--navy-mid), var(--navy-light)); color: #fff; border: none; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; box-shadow: 0 4px 14px rgba(11,24,41,0.22); display: flex; align-items: center; gap: 8px; transition: all var(--transition); }
+.btn-save-modal:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(11,24,41,0.28); }
+
+/* PREVIEW MODAL */
+.preview-modal-box { background: #fff; border-radius: var(--radius); width: 90%; max-width: 680px; max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 64px rgba(11,24,41,0.25); animation: fadeUp 0.25s ease; }
+.preview-body { padding: 24px; }
+.preview-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+.preview-field { background: var(--bg); border-radius: 10px; padding: 12px 14px; }
+.preview-field-label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+.preview-field-val { font-size: 13px; font-weight: 600; color: var(--navy); }
+.preview-doc-icon { width: 80px; height: 80px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 16px; }
+.preview-doc-name { font-size: 18px; font-weight: 700; color: var(--navy); text-align: center; line-height: 1.3; margin-bottom: 6px; }
+.preview-doc-desc { font-size: 13px; color: var(--muted); text-align: center; line-height: 1.6; }
+.btn-download-full { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 10px; background: linear-gradient(135deg, var(--accent4), #19a37a); color: #fff; border: none; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 20px; transition: all var(--transition); font-family: 'DM Sans', sans-serif; }
+.btn-download-full:hover { transform: translateY(-1px); opacity: 0.9; }
+
+/* EMPTY */
+.empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
+.empty-icon { width: 72px; height: 72px; border-radius: 18px; background: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 16px; }
+
+/* TOAST */
+.toast-box { position: fixed; bottom: 24px; right: 24px; background: var(--navy); color: #fff; padding: 12px 20px; border-radius: 12px; font-size: 13px; font-weight: 600; opacity: 0; transform: translateY(12px); transition: all 0.3s; z-index: 3000; pointer-events: none; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 24px rgba(11,24,41,0.25); }
+.toast-box.show { opacity: 1; transform: translateY(0); }
+
+/* MOBILE */
+.menu-toggle { display: none; position: fixed; top: 16px; left: 16px; z-index: 1100; width: 40px; height: 40px; border-radius: 10px; background: var(--navy); border: none; color: #fff; font-size: 16px; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 3px 12px rgba(0,0,0,0.25); }
+.sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 999; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 1100px) { .stats-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px) {
+  .menu-toggle { display: flex; }
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay.open { display: block; }
+  .main { margin-left: 0; }
+  .topbar { padding: 14px 16px 14px 64px; }
+  .content { padding: 20px 14px 40px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .docs-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+  .page-header { flex-direction: column; align-items: flex-start; }
+  .toolbar-card { gap: 10px; }
+  .page-title { font-size: 22px; }
+  .preview-info-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
+    <div><div class="brand-text">SIGAP</div><div class="brand-sub">Safety System</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-label">Menu Utama</div>
+    <a href="dashboard.html"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
+    <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
+    <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
+    <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
+    <div class="nav-label">Data & Dokumen</div>
+    <a href="dokumen.html" class="active"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
+    <a href="laporan.html"><span class="nav-icon"><i class="fas fa-list"></i></span>Laporan</a>
+    <div class="nav-label">Akun</div>
+    <a href="#" onclick="logout()" class="logout-btn"><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatarLetter">U</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">User</div>
+        <div class="user-role">Safety Officer</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h5>PT. Insani Baraperkasa</h5>
+      <span>Sistem Informasi Keselamatan Kerja</span>
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-btn"><i class="fas fa-bell"></i></button>
+      <button class="topbar-btn"><i class="fas fa-cog"></i></button>
+      <div class="topbar-user">
+        <div class="topbar-avatar"><i class="fas fa-user"></i></div>
+        <span class="topbar-uname" id="userNameDisplay">User</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- HEADER -->
+    <div class="page-header">
+      <div>
+        <div class="page-title">
+          <div class="title-icon"><i class="fas fa-folder-open"></i></div>
+          Manajemen Dokumen
+        </div>
+        <div class="page-sub">Kelola dokumen K3 — SOP, Formulir, Regulasi, Laporan & Sertifikat</div>
+      </div>
+      <button class="btn-upload" onclick="openUploadModal()">
+        <i class="fas fa-cloud-upload-alt"></i> Upload Dokumen
+      </button>
+    </div>
+
+    <!-- STATS KATEGORI -->
+    <div class="stats-grid" id="statsGrid"></div>
+
+    <!-- TOOLBAR -->
+    <div class="toolbar-card">
+      <div class="search-wrap">
+        <i class="fas fa-search s-icon"></i>
+        <input class="search-input" type="text" id="searchInput" placeholder="Cari nama dokumen, nomor, atau deskripsi..." oninput="applyFilter()">
+      </div>
+      <div class="toolbar-filter">
+        <select class="filter-select" id="filterKategori" onchange="applyFilter()">
+          <option value="">Semua Kategori</option>
+          <option value="SOP">SOP / Prosedur</option>
+          <option value="Form">Form & Formulir</option>
+          <option value="Regulasi">Regulasi</option>
+          <option value="Laporan K3">Laporan K3</option>
+          <option value="Sertifikat">Sertifikat & Izin</option>
+        </select>
+        <select class="filter-select" id="filterTipe" onchange="applyFilter()">
+          <option value="">Semua Tipe File</option>
+          <option value="PDF">PDF</option>
+          <option value="DOCX">Word (DOCX)</option>
+          <option value="XLSX">Excel (XLSX)</option>
+          <option value="PPTX">PowerPoint</option>
+        </select>
+        <select class="filter-select" id="filterSort" onchange="applyFilter()">
+          <option value="terbaru">Terbaru</option>
+          <option value="terlama">Terlama</option>
+          <option value="az">A → Z</option>
+          <option value="za">Z → A</option>
+        </select>
+      </div>
+      <div class="view-toggle">
+        <button class="view-btn active" id="btnGrid" onclick="setView('grid')" title="Grid"><i class="fas fa-th-large"></i></button>
+        <button class="view-btn" id="btnList" onclick="setView('list')" title="List"><i class="fas fa-list"></i></button>
+      </div>
+    </div>
+
+    <!-- DOCS AREA -->
+    <div id="docsArea"></div>
+
+  </div>
+</div>
+
+<!-- UPLOAD MODAL -->
+<div class="modal-overlay" id="uploadModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-head-title">
+        <div class="modal-head-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+        Upload Dokumen Baru
+      </div>
+      <button class="btn-close-modal" onclick="closeUploadModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="upload-zone" id="uploadZone"
+           ondragover="handleDragOver(event)" ondragleave="handleDragLeave()" ondrop="handleDrop(event)">
+        <input type="file" id="fileInput"
+               accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.png,.jpg,.jpeg"
+               onchange="handleFileSelect(this)">
+        <div class="upload-zone-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+        <div class="upload-zone-title">Drag & Drop file di sini</div>
+        <div class="upload-zone-sub">atau klik untuk memilih · PDF, DOCX, XLSX, PPTX · Maks. 20 MB</div>
+      </div>
+      <div id="selectedFile" style="display:none;" class="selected-file">
+        <i class="fas fa-file-alt" style="color:var(--accent);font-size:18px;flex-shrink:0"></i>
+        <span id="selectedFileName" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></span>
+        <span id="selectedFileSize" style="color:var(--muted);font-size:12px;flex-shrink:0;"></span>
+      </div>
+
+      <div class="row g-3 mt-1">
+        <div class="col-12">
+          <label class="field-label">Nama Dokumen *</label>
+          <input class="form-control" type="text" id="docNama" placeholder="Contoh: SOP-K3-001 Prosedur Kerja Aman">
+        </div>
+        <div class="col-md-6">
+          <label class="field-label">Nomor Dokumen</label>
+          <input class="form-control" type="text" id="docNomor" placeholder="Contoh: SOP-K3-001">
+        </div>
+        <div class="col-md-6">
+          <label class="field-label">Kategori *</label>
+          <select class="form-select-modal" id="docKategori">
+            <option value="">Pilih kategori...</option>
+            <option value="SOP">SOP / Prosedur Kerja</option>
+            <option value="Form">Form & Formulir</option>
+            <option value="Regulasi">Regulasi / Peraturan</option>
+            <option value="Laporan K3">Laporan K3</option>
+            <option value="Sertifikat">Sertifikat & Izin</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="field-label">Tanggal Terbit</label>
+          <input class="form-control" type="date" id="docTanggal">
+        </div>
+        <div class="col-md-6">
+          <label class="field-label">Dibuat Oleh</label>
+          <input class="form-control" type="text" id="docPembuat" placeholder="Nama pembuat dokumen">
+        </div>
+        <div class="col-12">
+          <label class="field-label">Deskripsi</label>
+          <textarea class="form-control" id="docDeskripsi" placeholder="Tuliskan deskripsi singkat isi dokumen..."></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel-modal" onclick="closeUploadModal()"><i class="fas fa-times"></i> Batal</button>
+      <button class="btn-save-modal" onclick="saveDocument()"><i class="fas fa-save"></i> Simpan Dokumen</button>
+    </div>
+  </div>
+</div>
+
+<!-- PREVIEW MODAL -->
+<div class="modal-overlay" id="previewModal">
+  <div class="preview-modal-box">
+    <div class="modal-head">
+      <div class="modal-head-title">
+        <div class="modal-head-icon" style="background:rgba(34,224,161,0.12);color:var(--accent4);"><i class="fas fa-eye"></i></div>
+        Detail Dokumen
+      </div>
+      <button class="btn-close-modal" onclick="closePreviewModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="preview-body">
+      <div id="previewContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE CONFIRM MODAL -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal-box" style="max-width:420px;">
+    <div class="modal-head">
+      <div class="modal-head-title">
+        <div class="modal-head-icon" style="background:rgba(255,78,106,0.10);color:var(--accent2);"><i class="fas fa-trash-alt"></i></div>
+        Konfirmasi Hapus
+      </div>
+      <button class="btn-close-modal" onclick="closeDeleteModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:var(--muted);line-height:1.6;">
+        Apakah Anda yakin ingin menghapus dokumen <strong id="deleteDocName" style="color:var(--navy)"></strong>?
+        Tindakan ini tidak dapat dibatalkan.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel-modal" onclick="closeDeleteModal()"><i class="fas fa-times"></i> Batal</button>
+      <button style="padding:10px 22px;border-radius:10px;background:var(--accent2);color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 12px rgba(255,78,106,0.3);" onclick="confirmDelete()">
+        <i class="fas fa-trash-alt"></i> Hapus
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-box" id="toast"></div>
+
+<script>
+// ─── CATEGORY CONFIG ──────────────────────────────
+const kategoriConfig = {
+  'SOP':       { color: '#3b82f6', bg: 'rgba(59,130,246,0.10)',  icon: 'fa-book-open',     label: 'SOP / Prosedur' },
+  'Form':      { color: '#8b5cf6', bg: 'rgba(139,92,246,0.10)', icon: 'fa-file-alt',       label: 'Form & Formulir' },
+  'Regulasi':  { color: '#d97706', bg: 'rgba(245,158,11,0.12)', icon: 'fa-gavel',          label: 'Regulasi' },
+  'Laporan K3':{ color: '#ff4e6a', bg: 'rgba(255,78,106,0.10)', icon: 'fa-chart-line',     label: 'Laporan K3' },
+  'Sertifikat':{ color: '#22e0a1', bg: 'rgba(34,224,161,0.10)', icon: 'fa-certificate',    label: 'Sertifikat & Izin' },
+};
+
+const tipeConfig = {
+  'PDF':  { icon: 'fa-file-pdf',        color: '#ef4444', bg: 'rgba(239,68,68,0.10)' },
+  'DOCX': { icon: 'fa-file-word',       color: '#3b82f6', bg: 'rgba(59,130,246,0.10)' },
+  'DOC':  { icon: 'fa-file-word',       color: '#3b82f6', bg: 'rgba(59,130,246,0.10)' },
+  'XLSX': { icon: 'fa-file-excel',      color: '#22c55e', bg: 'rgba(34,197,94,0.10)' },
+  'XLS':  { icon: 'fa-file-excel',      color: '#22c55e', bg: 'rgba(34,197,94,0.10)' },
+  'PPTX': { icon: 'fa-file-powerpoint', color: '#f97316', bg: 'rgba(249,115,22,0.10)' },
+  'PPT':  { icon: 'fa-file-powerpoint', color: '#f97316', bg: 'rgba(249,115,22,0.10)' },
+  'PNG':  { icon: 'fa-file-image',      color: '#8b5cf6', bg: 'rgba(139,92,246,0.10)' },
+  'JPG':  { icon: 'fa-file-image',      color: '#8b5cf6', bg: 'rgba(139,92,246,0.10)' },
+  'JPEG': { icon: 'fa-file-image',      color: '#8b5cf6', bg: 'rgba(139,92,246,0.10)' },
+};
+
+// ─── INITIAL DATA ─────────────────────────────────
+let documents = [
+  { id:1, nama:'SOP-K3-001 Prosedur Kerja Aman di Tambang', nomor:'SOP-K3-001', kategori:'SOP', tipe:'PDF', tanggal:'2025-01-15', pembuat:'Dept. SHE', deskripsi:'Prosedur standar keselamatan kerja di area tambang meliputi penggunaan APD, komunikasi, dan evakuasi darurat.', ukuran:'2.4 MB' },
+  { id:2, nama:'SOP-K3-002 Prosedur Pengoperasian Alat Berat', nomor:'SOP-K3-002', kategori:'SOP', tipe:'PDF', tanggal:'2025-02-10', pembuat:'Dept. Plant', deskripsi:'Panduan pengoperasian dump truck, excavator, dan alat berat lainnya sesuai standar keselamatan.', ukuran:'3.1 MB' },
+  { id:3, nama:'SOP-K3-003 Prosedur Penanganan Bahan B3', nomor:'SOP-K3-003', kategori:'SOP', tipe:'DOCX', tanggal:'2025-03-05', pembuat:'Dept. SHE', deskripsi:'Tata cara penanganan, penyimpanan, dan pembuangan bahan berbahaya dan beracun (B3).', ukuran:'1.8 MB' },
+  { id:4, nama:'SOP-K3-004 Prosedur LOTO (Lock Out Tag Out)', nomor:'SOP-K3-004', kategori:'SOP', tipe:'PDF', tanggal:'2025-04-20', pembuat:'Dept. Plant', deskripsi:'Prosedur pemasangan kunci pengaman saat melakukan perbaikan dan perawatan peralatan.', ukuran:'1.2 MB' },
+  { id:5, nama:'Form-SAP-001 Formulir Safety Activity Program', nomor:'FORM-SAP-001', kategori:'Form', tipe:'XLSX', tanggal:'2025-01-20', pembuat:'Dept. SHE', deskripsi:'Formulir pencatatan dan pelaporan aktivitas keselamatan kerja harian pengawas.', ukuran:'0.5 MB' },
+  { id:6, nama:'Form-HAZ-001 Formulir Hazard Report', nomor:'FORM-HAZ-001', kategori:'Form', tipe:'DOCX', tanggal:'2025-02-14', pembuat:'Dept. SHE', deskripsi:'Formulir pelaporan temuan bahaya dan tindakan pengendalian yang telah dilakukan.', ukuran:'0.3 MB' },
+  { id:7, nama:'Form-IND-001 Formulir Laporan Induksi K3LH', nomor:'FORM-IND-001', kategori:'Form', tipe:'XLSX', tanggal:'2025-03-01', pembuat:'Dept. SHE', deskripsi:'Formulir pendataan peserta dan nilai hasil induksi K3LH karyawan baru dan pengawas.', ukuran:'0.8 MB' },
+  { id:8, nama:'PP No. 50 Tahun 2012 SMK3', nomor:'REG-PP50-2012', kategori:'Regulasi', tipe:'PDF', tanggal:'2024-11-10', pembuat:'Pemerintah RI', deskripsi:'Peraturan Pemerintah tentang penerapan Sistem Manajemen Keselamatan dan Kesehatan Kerja.', ukuran:'4.2 MB' },
+  { id:9, nama:'UU No. 1 Tahun 1970 Keselamatan Kerja', nomor:'REG-UU01-1970', kategori:'Regulasi', tipe:'PDF', tanggal:'2024-11-10', pembuat:'Pemerintah RI', deskripsi:'Undang-Undang dasar keselamatan kerja di Indonesia yang menjadi acuan implementasi K3.', ukuran:'1.5 MB' },
+  { id:10, nama:'Kepmen 555K Keselamatan Tambang', nomor:'REG-KPM555', kategori:'Regulasi', tipe:'PDF', tanggal:'2024-12-01', pembuat:'Kementerian ESDM', deskripsi:'Keputusan Menteri ESDM tentang keselamatan dan kesehatan kerja pertambangan umum.', ukuran:'3.8 MB' },
+  { id:11, nama:'Laporan K3 Triwulan I 2025', nomor:'LPR-K3-Q1-2025', kategori:'Laporan K3', tipe:'PPTX', tanggal:'2025-04-05', pembuat:'Dept. SHE', deskripsi:'Laporan rekapitulasi kegiatan dan statistik keselamatan kerja Triwulan I Tahun 2025.', ukuran:'5.6 MB' },
+  { id:12, nama:'Laporan Investigasi Insiden Maret 2025', nomor:'LPR-INV-03-2025', kategori:'Laporan K3', tipe:'PDF', tanggal:'2025-04-10', pembuat:'Tim Investigasi SHE', deskripsi:'Laporan hasil investigasi insiden kerja yang terjadi pada bulan Maret 2025 beserta rekomendasi tindakan.', ukuran:'2.9 MB' },
+  { id:13, nama:'Laporan Statistik Kecelakaan 2024', nomor:'LPR-STAT-2024', kategori:'Laporan K3', tipe:'XLSX', tanggal:'2025-01-31', pembuat:'Dept. SHE', deskripsi:'Rekapitulasi statistik kecelakaan kerja dan near miss selama tahun 2024.', ukuran:'1.1 MB' },
+  { id:14, nama:'Sertifikat SMK3 Perusahaan 2025', nomor:'SERT-SMK3-2025', kategori:'Sertifikat', tipe:'PDF', tanggal:'2025-03-15', pembuat:'Kemnaker RI', deskripsi:'Sertifikat penerapan Sistem Manajemen K3 yang diterbitkan oleh Kementerian Ketenagakerjaan.', ukuran:'0.9 MB' },
+  { id:15, nama:'Izin Lingkungan PT. ABS', nomor:'SERT-LINGK-2024', kategori:'Sertifikat', tipe:'PDF', tanggal:'2024-09-20', pembuat:'KLHK', deskripsi:'Surat izin lingkungan dan AMDAL yang dikeluarkan oleh Kementerian Lingkungan Hidup dan Kehutanan.', ukuran:'2.2 MB' },
+  { id:16, nama:'Sertifikat Kompetensi Pengawas K3 Tambang', nomor:'SERT-KOMP-2025', kategori:'Sertifikat', tipe:'PDF', tanggal:'2025-02-28', pembuat:'BNSP', deskripsi:'Sertifikat kompetensi pengawas operasional pertama (POP) dan pengawas operasional madya (POM).', ukuran:'0.7 MB' },
+];
+
+let filtered = [...documents];
+let currentView = 'grid';
+let activeKategori = '';
+let deleteDocId = null;
+
+// ─── STATS ───────────────────────────────────────
+function buildStats() {
+  const cats = ['all','SOP','Form','Regulasi','Laporan K3','Sertifikat'];
+  const icons = { all:'fa-layer-group', SOP:'fa-book-open', Form:'fa-file-alt', Regulasi:'fa-gavel', 'Laporan K3':'fa-chart-line', Sertifikat:'fa-certificate' };
+  const colors = { all:'cs-all', SOP:'cs-sop', Form:'cs-form', Regulasi:'cs-reg', 'Laporan K3':'cs-k3', Sertifikat:'cs-sert' };
+
+  document.getElementById('statsGrid').innerHTML = cats.map((c, i) => {
+    const count = c === 'all' ? documents.length : documents.filter(d => d.kategori === c).length;
+    const label = c === 'all' ? 'Semua Dokumen' : (kategoriConfig[c]?.label || c);
+    const isActive = (c === 'all' && !activeKategori) || c === activeKategori;
+    return `<div class="stat-card ${colors[c]} ${isActive ? 'active-filter' : ''}" style="animation-delay:${i*0.05}s" onclick="filterByKategori('${c === 'all' ? '' : c}')">
+      <div class="stat-icon"><i class="fas ${icons[c]}"></i></div>
+      <div class="stat-label">${label}</div>
+      <div class="stat-value">${count}</div>
+    </div>`;
+  }).join('');
+}
+
+function filterByKategori(kat) {
+  activeKategori = kat;
+  document.getElementById('filterKategori').value = kat;
+  buildStats();
+  applyFilter();
+}
+
+// ─── FILTER ──────────────────────────────────────
+function applyFilter() {
+  const q    = document.getElementById('searchInput').value.toLowerCase();
+  const kat  = document.getElementById('filterKategori').value;
+  const tipe = document.getElementById('filterTipe').value;
+  const sort = document.getElementById('filterSort').value;
+
+  activeKategori = kat;
+  buildStats();
+
+  filtered = documents.filter(d => {
+    const mQ = !q || d.nama.toLowerCase().includes(q) || (d.nomor||'').toLowerCase().includes(q) || (d.deskripsi||'').toLowerCase().includes(q);
+    const mK = !kat  || d.kategori === kat;
+    const mT = !tipe || d.tipe === tipe;
+    return mQ && mK && mT;
+  });
+
+  filtered.sort((a, b) => {
+    if (sort === 'terbaru') return new Date(b.tanggal) - new Date(a.tanggal);
+    if (sort === 'terlama') return new Date(a.tanggal) - new Date(b.tanggal);
+    if (sort === 'az')      return a.nama.localeCompare(b.nama);
+    if (sort === 'za')      return b.nama.localeCompare(a.nama);
+    return 0;
+  });
+
+  renderDocs();
+}
+
+// ─── RENDER ───────────────────────────────────────
+function setView(v) {
+  currentView = v;
+  document.getElementById('btnGrid').classList.toggle('active', v === 'grid');
+  document.getElementById('btnList').classList.toggle('active', v === 'list');
+  renderDocs();
+}
+
+function renderDocs() {
+  const area = document.getElementById('docsArea');
+  if (!filtered.length) {
+    area.innerHTML = `<div class="empty-state">
+      <div class="empty-icon"><i class="fas fa-folder-open"></i></div>
+      <div style="font-weight:600;color:var(--navy);margin-bottom:4px;font-size:16px;">Tidak ada dokumen</div>
+      <div>Coba ubah filter atau upload dokumen baru</div>
+    </div>`;
+    return;
+  }
+  if (currentView === 'grid') renderGrid();
+  else renderList();
+}
+
+function getTipeConf(tipe) {
+  return tipeConfig[tipe.toUpperCase()] || { icon: 'fa-file', color: '#7a8aaa', bg: 'rgba(122,138,170,0.10)' };
+}
+
+function getKatConf(kat) {
+  return kategoriConfig[kat] || { color: '#7a8aaa', bg: 'rgba(122,138,170,0.10)', label: kat };
+}
+
+function renderGrid() {
+  const area = document.getElementById('docsArea');
+  area.innerHTML = `<div class="docs-grid">${filtered.map(d => {
+    const tc = getTipeConf(d.tipe);
+    const kc = getKatConf(d.kategori);
+    return `<div class="doc-card" onclick="openPreview(${d.id})">
+      <div class="doc-type-bar" style="background:${kc.color}"></div>
+      <div class="doc-card-top">
+        <div class="doc-icon" style="background:${tc.bg}; color:${tc.color}">
+          <i class="fas ${tc.icon}"></i>
+        </div>
+        <div class="doc-name">${d.nama}</div>
+        <div class="doc-meta">${d.nomor ? d.nomor + ' · ' : ''}${formatTanggal(d.tanggal)}</div>
+      </div>
+      <div class="doc-card-bottom" onclick="event.stopPropagation()">
+        <span class="doc-badge" style="background:${kc.bg};color:${kc.color}">
+          <i class="fas ${kc.icon}" style="font-size:9px"></i> ${kc.label}
+        </span>
+        <div class="doc-actions">
+          <button class="doc-action-btn btn-preview" onclick="openPreview(${d.id})" title="Lihat Detail"><i class="fas fa-eye"></i></button>
+          <button class="doc-action-btn btn-download" onclick="downloadDoc(${d.id})" title="Download"><i class="fas fa-download"></i></button>
+          <button class="doc-action-btn btn-delete" onclick="openDeleteModal(${d.id})" title="Hapus"><i class="fas fa-trash-alt"></i></button>
+        </div>
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function renderList() {
+  const area = document.getElementById('docsArea');
+  area.innerHTML = `<div class="docs-list">
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Dokumen</th>
+          <th>Nomor</th>
+          <th>Kategori</th>
+          <th>Tipe</th>
+          <th>Tanggal</th>
+          <th>Ukuran</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${filtered.map((d, i) => {
+          const tc = getTipeConf(d.tipe);
+          const kc = getKatConf(d.kategori);
+          return `<tr onclick="openPreview(${d.id})">
+            <td style="color:var(--muted);font-family:'Space Mono',monospace;font-size:12px">${i+1}</td>
+            <td>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div class="file-icon-sm" style="background:${tc.bg};color:${tc.color}"><i class="fas ${tc.icon}"></i></div>
+                <div>
+                  <div style="font-weight:600;color:var(--navy);font-size:13px">${d.nama}</div>
+                  <div style="font-size:11px;color:var(--muted);margin-top:2px">${d.pembuat || '—'}</div>
+                </div>
+              </div>
+            </td>
+            <td style="font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)">${d.nomor || '—'}</td>
+            <td><span class="doc-badge" style="background:${kc.bg};color:${kc.color}"><i class="fas ${kc.icon}" style="font-size:9px"></i> ${kc.label}</span></td>
+            <td><span style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:${tc.color}">${d.tipe}</span></td>
+            <td style="font-size:12px;color:var(--muted)">${formatTanggal(d.tanggal)}</td>
+            <td style="font-size:12px;color:var(--muted)">${d.ukuran}</td>
+            <td onclick="event.stopPropagation()" style="white-space:nowrap">
+              <button class="doc-action-btn btn-preview" onclick="openPreview(${d.id})" title="Lihat"><i class="fas fa-eye"></i></button>
+              <button class="doc-action-btn btn-download" onclick="downloadDoc(${d.id})" title="Download"><i class="fas fa-download"></i></button>
+              <button class="doc-action-btn btn-delete" onclick="openDeleteModal(${d.id})" title="Hapus"><i class="fas fa-trash-alt"></i></button>
+            </td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+function formatTanggal(t) {
+  if (!t) return '—';
+  const [y,m,d] = t.split('-');
+  const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  return `${parseInt(d)} ${months[parseInt(m)-1]} ${y}`;
+}
+
+// ─── UPLOAD ──────────────────────────────────────
+let selectedFileData = null;
+
+function openUploadModal() {
+  document.getElementById('uploadModal').classList.add('show');
+  document.getElementById('docTanggal').value = new Date().toISOString().split('T')[0];
+}
+function closeUploadModal() {
+  document.getElementById('uploadModal').classList.remove('show');
+  resetUploadForm();
+}
+function resetUploadForm() {
+  ['docNama','docNomor','docDeskripsi','docPembuat'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('docKategori').value = '';
+  document.getElementById('docTanggal').value = new Date().toISOString().split('T')[0];
+  document.getElementById('selectedFile').style.display = 'none';
+  selectedFileData = null;
+}
+
+function handleFileSelect(input) {
+  if (input.files && input.files[0]) processFile(input.files[0]);
+}
+function handleDragOver(e) { e.preventDefault(); document.getElementById('uploadZone').classList.add('dragover'); }
+function handleDragLeave()  { document.getElementById('uploadZone').classList.remove('dragover'); }
+function handleDrop(e)      { e.preventDefault(); handleDragLeave(); if (e.dataTransfer.files[0]) processFile(e.dataTransfer.files[0]); }
+
+function processFile(file) {
+  const ext = file.name.split('.').pop().toUpperCase();
+  const sizeMB = (file.size / 1024 / 1024).toFixed(1) + ' MB';
+  selectedFileData = { name: file.name, tipe: ext, ukuran: sizeMB };
+  document.getElementById('selectedFileName').textContent = file.name;
+  document.getElementById('selectedFileSize').textContent = sizeMB;
+  document.getElementById('selectedFile').style.display = 'flex';
+  if (!document.getElementById('docNama').value)
+    document.getElementById('docNama').value = file.name.replace(/\.[^/.]+$/, '');
+}
+
+function saveDocument() {
+  const nama     = document.getElementById('docNama').value.trim();
+  const kategori = document.getElementById('docKategori').value;
+  if (!nama)     { showToast('<i class="fas fa-exclamation-triangle"></i> Nama dokumen wajib diisi!', true); return; }
+  if (!kategori) { showToast('<i class="fas fa-exclamation-triangle"></i> Pilih kategori dokumen!', true); return; }
+
+  const newDoc = {
+    id:       Date.now(),
+    nama,
+    nomor:    document.getElementById('docNomor').value.trim(),
+    kategori,
+    tipe:     selectedFileData?.tipe || 'PDF',
+    tanggal:  document.getElementById('docTanggal').value || new Date().toISOString().split('T')[0],
+    pembuat:  document.getElementById('docPembuat').value.trim() || localStorage.getItem('userName') || 'Admin',
+    deskripsi:document.getElementById('docDeskripsi').value.trim(),
+    ukuran:   selectedFileData?.ukuran || '—',
+  };
+
+  documents.unshift(newDoc);
+  closeUploadModal();
+  buildStats();
+  applyFilter();
+  showToast('<i class="fas fa-check-circle"></i> Dokumen berhasil disimpan!');
+}
+
+// ─── PREVIEW ─────────────────────────────────────
+function openPreview(id) {
+  const d = documents.find(x => x.id === id);
+  if (!d) return;
+  const tc = getTipeConf(d.tipe);
+  const kc = getKatConf(d.kategori);
+  document.getElementById('previewContent').innerHTML = `
+    <div style="text-align:center">
+      <div class="preview-doc-icon" style="background:${tc.bg};color:${tc.color}"><i class="fas ${tc.icon}"></i></div>
+      <div class="preview-doc-name">${d.nama}</div>
+      <div class="preview-doc-desc">${d.deskripsi || 'Tidak ada deskripsi.'}</div>
+    </div>
+    <div class="preview-info-grid">
+      <div class="preview-field"><div class="preview-field-label">Nomor Dokumen</div><div class="preview-field-val">${d.nomor || '—'}</div></div>
+      <div class="preview-field"><div class="preview-field-label">Kategori</div>
+        <div class="preview-field-val" style="display:flex;align-items:center;gap:6px;">
+          <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;background:${kc.bg};color:${kc.color}">
+            <i class="fas ${kc.icon}" style="font-size:9px"></i> ${kc.label}
+          </span>
+        </div>
+      </div>
+      <div class="preview-field"><div class="preview-field-label">Tipe File</div><div class="preview-field-val" style="color:${tc.color}">${d.tipe}</div></div>
+      <div class="preview-field"><div class="preview-field-label">Ukuran File</div><div class="preview-field-val">${d.ukuran}</div></div>
+      <div class="preview-field"><div class="preview-field-label">Tanggal Terbit</div><div class="preview-field-val">${formatTanggal(d.tanggal)}</div></div>
+      <div class="preview-field"><div class="preview-field-label">Dibuat Oleh</div><div class="preview-field-val">${d.pembuat || '—'}</div></div>
+    </div>
+    <button class="btn-download-full" onclick="downloadDoc(${d.id})">
+      <i class="fas fa-download"></i> Download Dokumen
+    </button>`;
+  document.getElementById('previewModal').classList.add('show');
+}
+function closePreviewModal() { document.getElementById('previewModal').classList.remove('show'); }
+
+// ─── DELETE ───────────────────────────────────────
+function openDeleteModal(id) {
+  deleteDocId = id;
+  const d = documents.find(x => x.id === id);
+  document.getElementById('deleteDocName').textContent = d ? d.nama : '';
+  document.getElementById('deleteModal').classList.add('show');
+}
+function closeDeleteModal() { document.getElementById('deleteModal').classList.remove('show'); deleteDocId = null; }
+function confirmDelete() {
+  if (!deleteDocId) return;
+  documents = documents.filter(d => d.id !== deleteDocId);
+  closeDeleteModal();
+  closePreviewModal();
+  buildStats();
+  applyFilter();
+  showToast('<i class="fas fa-trash-alt"></i> Dokumen berhasil dihapus!');
+}
+
+function downloadDoc(id) {
+  const d = documents.find(x => x.id === id);
+  if (!d) return;
+  showToast('<i class="fas fa-download"></i> Mengunduh ' + d.nama + '...');
+}
+
+// ─── TOAST ───────────────────────────────────────
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.innerHTML = msg;
+  t.style.background = isError ? 'var(--accent2)' : 'var(--navy)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ─── AUTH & SIDEBAR ──────────────────────────────
+(function() {
+  const name = localStorage.getItem('userName') || 'User';
+  ['userNameDisplay','sidebarUserName'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = name;
+  });
+  const av = document.getElementById('sidebarAvatarLetter');
+  if (av) av.textContent = name.charAt(0).toUpperCase();
+})();
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+function logout() {
+  if (confirm('Yakin ingin logout?')) { localStorage.clear(); window.location.href = 'index.html'; }
+}
+
+// ─── INIT ─────────────────────────────────────────
+buildStats();
+applyFilter();
+</script>
+</body>
+</html>

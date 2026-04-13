@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIGAP Dashboard</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;--bg:#f0f4fa;--card-bg:#ffffff;--text:#1a2540;--muted:#7a8aaa;--border:#e0e7ef;--sidebar-w:260px;--radius:16px;--shadow:0 4px 24px rgba(11,24,41,0.10);--transition:0.28s cubic-bezier(.4,0,.2,1);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden;}
+.sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
+.sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,0.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
+.sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,0.07);}
+.brand-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(0,212,255,0.35);flex-shrink:0;}
+.brand-text{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:#fff;letter-spacing:2px;}
+.brand-sub{font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
+.sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;}
+.nav-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:14px 12px 6px;font-weight:600;}
+.sidebar-nav a{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.65);text-decoration:none;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;transition:all var(--transition);margin-bottom:2px;position:relative;}
+.sidebar-nav a .nav-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(255,255,255,0.06);flex-shrink:0;transition:all var(--transition);}
+.sidebar-nav a:hover{color:#fff;background:rgba(255,255,255,0.07);}
+.sidebar-nav a:hover .nav-icon{background:rgba(0,212,255,0.18);color:var(--accent);}
+.sidebar-nav a.active{color:#fff;background:linear-gradient(90deg,rgba(0,212,255,0.18),rgba(0,212,255,0.05));}
+.sidebar-nav a.active .nav-icon{background:linear-gradient(135deg,var(--accent),#0099cc);color:#fff;box-shadow:0 3px 10px rgba(0,212,255,0.4);}
+.sidebar-nav a.active::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--accent);border-radius:3px 0 0 3px;}
+.sidebar-nav a.logout-btn{color:rgba(255,78,106,0.75);}
+.sidebar-nav a.logout-btn:hover{color:var(--accent2);background:rgba(255,78,106,0.08);}
+.sidebar-nav a.logout-btn .nav-icon{background:rgba(255,78,106,0.1);}
+.sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,0.07);}
+.sidebar-user{display:flex;align-items:center;gap:10px;}
+.user-avatar{width:36px;height:36px;background:linear-gradient(135deg,var(--accent3),#ff8c00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:700;}
+.user-info .user-name{font-size:13px;font-weight:600;color:#fff;}
+.user-info .user-role{font-size:11px;color:var(--muted);}
+.main{margin-left:var(--sidebar-w);min-height:100vh;transition:margin var(--transition);}
+.topbar{background:var(--card-bg);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,0.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.05);}
+.topbar-left h5{font-size:15px;font-weight:700;color:var(--navy);margin:0;}
+.topbar-left span{font-size:12px;color:var(--muted);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.topbar-btn{width:38px;height:38px;border-radius:10px;background:var(--bg);border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);position:relative;}
+.topbar-btn:hover{background:#e2e8f5;color:var(--navy);}
+.notif-dot{position:absolute;top:7px;right:7px;width:8px;height:8px;background:var(--accent2);border-radius:50%;border:2px solid #fff;}
+.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:var(--bg);cursor:pointer;transition:background var(--transition);}
+.topbar-user:hover{background:#e2e8f5;}
+.topbar-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
+.topbar-uname{font-size:13px;font-weight:600;color:var(--text);}
+.content{padding:28px 32px 40px;}
+.page-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;}
+.page-title{font-size:26px;font-weight:700;color:var(--navy);line-height:1.2;}
+.page-sub{font-size:13px;color:var(--muted);margin-top:4px;}
+.date-badge{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);background:var(--card-bg);border:1px solid #e0e7ef;padding:6px 14px;border-radius:20px;}
+
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px;}
+.stat-card{background:var(--card-bg);border-radius:var(--radius);padding:22px 22px 18px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform var(--transition),box-shadow var(--transition);animation:fadeUp 0.5s ease both;}
+.stat-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(11,24,41,0.13);}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0;}
+.stat-card.c-total::before{background:var(--accent2);}
+.stat-card.c-open::before{background:var(--accent3);}
+.stat-card.c-prog::before{background:var(--accent);}
+.stat-card.c-closed::before{background:var(--accent4);}
+.stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px;}
+.c-total .stat-icon{background:rgba(255,78,106,0.10);color:var(--accent2);}
+.c-open .stat-icon{background:rgba(255,200,67,0.12);color:#e6a800;}
+.c-prog .stat-icon{background:rgba(0,212,255,0.10);color:var(--accent);}
+.c-closed .stat-icon{background:rgba(34,224,161,0.10);color:var(--accent4);}
+.stat-label{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:0.3px;margin-bottom:4px;}
+.stat-number{font-family:'Space Mono',monospace;font-size:32px;font-weight:700;line-height:1;}
+.c-total .stat-number{color:var(--accent2);}
+.c-open .stat-number{color:#e6a800;}
+.c-prog .stat-number{color:var(--accent);}
+.c-closed .stat-number{color:var(--accent4);}
+.stat-change{font-size:11px;color:var(--muted);margin-top:8px;display:flex;align-items:center;gap:4px;}
+
+/* RISK CARDS */
+.section-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,#dde4f0,transparent);}
+.risk-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
+.risk-card{border-radius:var(--radius);padding:20px;color:#fff;position:relative;overflow:hidden;transition:transform var(--transition),box-shadow var(--transition);animation:fadeUp 0.5s ease both;}
+.risk-card:hover{transform:translateY(-4px) scale(1.02);}
+.risk-card::after{content:'';position:absolute;bottom:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.1);}
+.risk-card.critical{background:linear-gradient(135deg,#c0392b,#e74c3c);box-shadow:0 6px 20px rgba(231,76,60,0.35);}
+.risk-card.high{background:linear-gradient(135deg,#d35400,#e67e22);box-shadow:0 6px 20px rgba(230,126,34,0.35);}
+.risk-card.medium{background:linear-gradient(135deg,#1a7fbf,#2e9fd4);box-shadow:0 6px 20px rgba(46,159,212,0.30);}
+.risk-card.low{background:linear-gradient(135deg,#1a8a60,#27ae60);box-shadow:0 6px 20px rgba(39,174,96,0.30);}
+.risk-label{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;opacity:0.85;margin-bottom:10px;}
+.risk-number{font-family:'Space Mono',monospace;font-size:38px;font-weight:700;line-height:1;}
+.risk-icon{position:absolute;top:16px;right:18px;font-size:22px;opacity:0.3;}
+
+/* BOTTOM GRID */
+.bottom-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:20px;}
+
+/* TABLE CARD */
+.table-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;animation:fadeUp 0.6s ease both;}
+.card-head{padding:18px 22px;border-bottom:1px solid #eef1f8;display:flex;justify-content:space-between;align-items:center;}
+.card-head h5{font-size:15px;font-weight:700;color:var(--navy);margin:0;}
+.view-all{font-size:12px;color:var(--accent);text-decoration:none;font-weight:600;transition:opacity var(--transition);}
+.view-all:hover{opacity:0.7;}
+.table-card table{width:100%;border-collapse:collapse;}
+.table-card thead th{padding:10px 14px;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;background:#f8fafd;border-bottom:1px solid #eef1f8;}
+.table-card tbody tr{border-bottom:1px solid #f2f4fa;transition:background var(--transition);}
+.table-card tbody tr:hover{background:#f7f9ff;cursor:pointer;}
+.table-card tbody td{padding:12px 14px;font-size:13px;color:var(--text);}
+.table-card tbody td:first-child{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);}
+.badge-risk{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:0.3px;}
+.badge-risk.critical{background:rgba(231,76,60,0.12);color:#c0392b;}
+.badge-risk.high{background:rgba(230,126,34,0.12);color:#d35400;}
+.badge-risk.medium{background:rgba(46,159,212,0.12);color:#1a7fbf;}
+.badge-risk.low{background:rgba(39,174,96,0.12);color:#1a8a60;}
+.badge-status{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+.badge-status.open{background:rgba(255,200,67,0.12);color:#c08a00;}
+.badge-status.progress{background:rgba(0,212,255,0.10);color:#007fa3;}
+.badge-status.closed{background:rgba(34,224,161,0.10);color:#19866b;}
+
+/* EMPTY TABLE */
+.empty-row td{text-align:center;padding:40px 20px;color:var(--muted);}
+.empty-row td a{color:var(--accent);font-weight:600;text-decoration:none;}
+
+/* CHART CARD */
+.chart-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;animation:fadeUp 0.6s ease both;}
+.chart-body{padding:20px;}
+
+/* MOBILE */
+.menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,0.25);}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.stat-card:nth-child(1){animation-delay:.05s;}.stat-card:nth-child(2){animation-delay:.10s;}.stat-card:nth-child(3){animation-delay:.15s;}.stat-card:nth-child(4){animation-delay:.20s;}
+.risk-card:nth-child(1){animation-delay:.10s;}.risk-card:nth-child(2){animation-delay:.15s;}.risk-card:nth-child(3){animation-delay:.20s;}.risk-card:nth-child(4){animation-delay:.25s;}
+
+@media(max-width:1100px){.stat-grid{grid-template-columns:repeat(2,1fr);}.risk-grid{grid-template-columns:repeat(2,1fr);}.bottom-grid{grid-template-columns:1fr;}}
+@media(max-width:768px){
+  .menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}
+  .sidebar-overlay.open{display:block;}.main{margin-left:0;}.topbar{padding:14px 16px 14px 64px;}
+  .content{padding:20px 16px 40px;}.stat-grid{grid-template-columns:repeat(2,1fr);gap:12px;}.risk-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+  .page-header{flex-direction:column;align-items:flex-start;gap:10px;}.stat-number{font-size:26px;}.risk-number{font-size:30px;}
+}
+</style>
+</head>
+<body>
+<button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
+    <div><div class="brand-text">SIGAP</div><div class="brand-sub">Safety System</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-label">Menu Utama</div>
+    <a href="dashboard.html" class="active"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
+    <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
+    <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
+    <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
+    <div class="nav-label">Data & Dokumen</div>
+    <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
+    <a href="laporan.html"><span class="nav-icon"><i class="fas fa-list"></i></span>Laporan</a>
+    <div class="nav-label">Akun</div>
+    <a href="#" onclick="logout()" class="logout-btn"><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatarLetter">U</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">User</div>
+        <div class="user-role">Safety Officer</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h5>PT. Insani Baraperkasa</h5>
+      <span id="currentDateDisplay"></span>
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-btn"><i class="fas fa-bell"></i><span class="notif-dot" id="notifDot" style="display:none"></span></button>
+      <button class="topbar-btn"><i class="fas fa-cog"></i></button>
+      <div class="topbar-user"><div class="topbar-avatar"><i class="fas fa-user"></i></div><span class="topbar-uname" id="userNameDisplay">User</span></div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="page-header">
+      <div>
+        <div class="page-title">Dashboard</div>
+        <div class="page-sub">Ringkasan laporan keselamatan kerja</div>
+      </div>
+      <div class="date-badge" id="monthYearBadge"></div>
+    </div>
+
+    <!-- STAT CARDS -->
+    <div class="stat-grid">
+      <div class="stat-card c-total">
+        <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
+        <div class="stat-label">Total Laporan</div>
+        <div class="stat-number" id="totalReports">0</div>
+        <div class="stat-change"><i class="fas fa-circle-dot" style="font-size:8px"></i> Semua laporan masuk</div>
+      </div>
+      <div class="stat-card c-open">
+        <div class="stat-icon"><i class="fas fa-folder-open"></i></div>
+        <div class="stat-label">Open</div>
+        <div class="stat-number" id="openReports">0</div>
+        <div class="stat-change"><i class="fas fa-circle-dot" style="font-size:8px"></i> Menunggu tindakan</div>
+      </div>
+      <div class="stat-card c-prog">
+        <div class="stat-icon"><i class="fas fa-spinner"></i></div>
+        <div class="stat-label">In Progress</div>
+        <div class="stat-number" id="progressReports">0</div>
+        <div class="stat-change"><i class="fas fa-circle-dot" style="font-size:8px"></i> Sedang ditangani</div>
+      </div>
+      <div class="stat-card c-closed">
+        <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+        <div class="stat-label">Closed</div>
+        <div class="stat-number" id="closedReports">0</div>
+        <div class="stat-change"><i class="fas fa-circle-dot" style="font-size:8px"></i> Selesai ditangani</div>
+      </div>
+    </div>
+
+    <!-- RISK LEVEL -->
+    <div class="section-title"><i class="fas fa-exclamation-triangle" style="color:var(--accent3)"></i> Risk Level</div>
+    <div class="risk-grid">
+      <div class="risk-card critical"><i class="fas fa-skull-crossbones risk-icon"></i><div class="risk-label">Critical Risk</div><div class="risk-number" id="criticalRisk">0</div></div>
+      <div class="risk-card high"><i class="fas fa-fire risk-icon"></i><div class="risk-label">High Risk</div><div class="risk-number" id="highRisk">0</div></div>
+      <div class="risk-card medium"><i class="fas fa-exclamation-circle risk-icon"></i><div class="risk-label">Medium Risk</div><div class="risk-number" id="mediumRisk">0</div></div>
+      <div class="risk-card low"><i class="fas fa-check-shield risk-icon"></i><div class="risk-label">Low Risk</div><div class="risk-number" id="lowRisk">0</div></div>
+    </div>
+
+    <!-- BOTTOM GRID -->
+    <div class="bottom-grid">
+      <!-- LAPORAN TERBARU -->
+      <div class="table-card">
+        <div class="card-head">
+          <h5><i class="fas fa-clock" style="color:var(--accent3);margin-right:8px;font-size:14px"></i>Laporan Terbaru</h5>
+          <a href="laporan.html" class="view-all">Lihat Semua <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>No</th><th>Tanggal</th><th>Pelapor</th><th>Area</th><th>Risiko</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="recentReportsTable"></tbody>
+        </table>
+      </div>
+
+      <!-- CHART -->
+      <div class="chart-card">
+        <div class="card-head"><h5>Grafik Risk Level</h5></div>
+        <div class="chart-body"><canvas id="riskChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// KEY TUNGGAL — sama dengan buat_laporan.html & laporan.html
+// ══════════════════════════════════════════
+const REPORTS_KEY = 'sigap_reports_v1';
+
+// ─── Tanggal ──────────────────────────────────────
+(function(){
+  const now=new Date();
+  const el=document.getElementById('currentDateDisplay');
+  const badge=document.getElementById('monthYearBadge');
+  if(el) el.textContent=now.toLocaleDateString('id-ID',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  if(badge) badge.textContent=now.toLocaleDateString('id-ID',{month:'long',year:'numeric'});
+})();
+
+// ─── User ─────────────────────────────────────────
+(function(){
+  const name=localStorage.getItem('userName')||'User';
+  ['userNameDisplay','sidebarUserName'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=name;});
+  const av=document.getElementById('sidebarAvatarLetter');if(av)av.textContent=name.charAt(0).toUpperCase();
+})();
+
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open');}
+function logout(){if(confirm('Yakin ingin logout?')){localStorage.removeItem('userName');window.location.href='index.html';}}
+
+// ─── Load & Render Data ────────────────────────────
+function loadDashboard(){
+  let reports=[];
+  try{ reports=JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]'); }catch(e){}
+
+  const total=reports.length;
+  const open=reports.filter(r=>r.status==='Open').length;
+  const prog=reports.filter(r=>r.status==='Progress').length;
+  const closed=reports.filter(r=>r.status==='Closed').length;
+  const crit=reports.filter(r=>r.risiko==='Critical').length;
+  const high=reports.filter(r=>r.risiko==='High').length;
+  const med=reports.filter(r=>r.risiko==='Medium').length;
+  const low=reports.filter(r=>r.risiko==='Low').length;
+
+  // Update counters
+  document.getElementById('totalReports').textContent=total;
+  document.getElementById('openReports').textContent=open;
+  document.getElementById('progressReports').textContent=prog;
+  document.getElementById('closedReports').textContent=closed;
+  document.getElementById('criticalRisk').textContent=crit;
+  document.getElementById('highRisk').textContent=high;
+  document.getElementById('mediumRisk').textContent=med;
+  document.getElementById('lowRisk').textContent=low;
+
+  // Notif dot jika ada open
+  const nd=document.getElementById('notifDot');
+  if(nd) nd.style.display=open>0?'':'none';
+
+  // ─── Tabel laporan terbaru ────────────────────────
+  const tbody=document.getElementById('recentReportsTable');
+  if(!reports.length){
+    tbody.innerHTML=`<tr class="empty-row"><td colspan="6" style="text-align:center;padding:40px 20px;color:var(--muted);">
+      Belum ada laporan. <a href="buat_laporan.html" style="color:var(--accent);font-weight:600;">Buat sekarang →</a>
+    </td></tr>`;
+  }else{
+    const recent=reports.slice(0,7);
+    const rMap={'Critical':'critical','High':'high','Medium':'medium','Low':'low'};
+    const sMap={'Open':'open','Progress':'progress','Closed':'closed'};
+    tbody.innerHTML=recent.map((r,i)=>`
+      <tr onclick="window.location.href='laporan.html'" style="cursor:pointer">
+        <td>${i+1}</td>
+        <td>${r.tanggal}</td>
+        <td style="font-weight:600;color:var(--navy)">${r.pelapor}</td>
+        <td style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.area}</td>
+        <td><span class="badge-risk ${rMap[r.risiko]||'medium'}">${r.risiko}</span></td>
+        <td><span class="badge-status ${sMap[r.status]||'open'}">${r.status}</span></td>
+      </tr>`).join('');
+  }
+
+  // ─── Grafik Doughnut ──────────────────────────────
+  const ctx=document.getElementById('riskChart');
+  if(ctx){
+    if(window._riskChartInst) window._riskChartInst.destroy();
+    window._riskChartInst=new Chart(ctx,{
+      type:'doughnut',
+      data:{
+        labels:['Critical','High','Medium','Low'],
+        datasets:[{data:[crit,high,med,low],backgroundColor:['#e74c3c','#e67e22','#2e9fd4','#27ae60'],borderWidth:0,hoverOffset:8}]
+      },
+      options:{
+        responsive:true,cutout:'68%',
+        plugins:{
+          legend:{position:'bottom',labels:{font:{family:'DM Sans',size:12},padding:14,usePointStyle:true,pointStyleWidth:10}},
+          tooltip:{callbacks:{label:function(ctx){const total=ctx.dataset.data.reduce((a,b)=>a+b,0);const pct=total?Math.round(ctx.raw/total*100):0;return ` ${ctx.label}: ${ctx.raw} (${pct}%)`;}}},
+        }
+      }
+    });
+  }
+}
+
+// Jalankan saat halaman load
+document.addEventListener('DOMContentLoaded', loadDashboard);
+</script>
+</body>
+</html>
