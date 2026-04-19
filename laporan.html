@@ -3,205 +3,239 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Laporan K3 – SIGAP</title>
+<title>Dokumen – AIMS</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
-:root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;--bg:#f0f4fa;--card-bg:#ffffff;--text:#1a2540;--muted:#7a8aaa;--border:#e0e7ef;--sidebar-w:260px;--radius:16px;--shadow:0 4px 24px rgba(11,24,41,0.10);--transition:0.28s cubic-bezier(.4,0,.2,1);}
+:root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;--bg:#f0f4fa;--card-bg:#fff;--text:#1a2540;--muted:#7a8aaa;--border:#e0e7ef;--sidebar-w:260px;--radius:16px;--shadow:0 4px 24px rgba(11,24,41,.10);--transition:.28s cubic-bezier(.4,0,.2,1);
+  --lv1:#6366f1;--lv2:#0ea5e9;--lv3:#f59e0b;--lv4:#22e0a1;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;font-size:14px;}
+/* ─── SIDEBAR ─────────────────────────────── */
 .sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
-.sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,0.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
-.sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,0.07);}
-.brand-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(0,212,255,0.35);flex-shrink:0;}
+.sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
+.sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,.07);}
+.brand-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(0,212,255,.35);flex-shrink:0;}
 .brand-text{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:#fff;letter-spacing:2px;}
 .brand-sub{font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
 .sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;}
-.nav-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:14px 12px 6px;font-weight:600;}
-.sidebar-nav a{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.65);text-decoration:none;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;transition:all var(--transition);margin-bottom:2px;position:relative;}
-.sidebar-nav a .nav-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(255,255,255,0.06);flex-shrink:0;transition:all var(--transition);}
-.sidebar-nav a:hover{color:#fff;background:rgba(255,255,255,0.07);}
-.sidebar-nav a:hover .nav-icon{background:rgba(0,212,255,0.18);color:var(--accent);}
-.sidebar-nav a.active{color:#fff;background:linear-gradient(90deg,rgba(0,212,255,0.18),rgba(0,212,255,0.05));}
-.sidebar-nav a.active .nav-icon{background:linear-gradient(135deg,var(--accent),#0099cc);color:#fff;box-shadow:0 3px 10px rgba(0,212,255,0.4);}
+.nav-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3);padding:14px 12px 6px;font-weight:600;}
+.sidebar-nav a{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.65);text-decoration:none;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;transition:all var(--transition);margin-bottom:2px;position:relative;}
+.sidebar-nav a .nav-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(255,255,255,.06);flex-shrink:0;transition:all var(--transition);}
+.sidebar-nav a:hover{color:#fff;background:rgba(255,255,255,.07);}
+.sidebar-nav a:hover .nav-icon{background:rgba(0,212,255,.18);color:var(--accent);}
+.sidebar-nav a.active{color:#fff;background:linear-gradient(90deg,rgba(0,212,255,.18),rgba(0,212,255,.05));}
+.sidebar-nav a.active .nav-icon{background:linear-gradient(135deg,var(--accent),#0099cc);color:#fff;box-shadow:0 3px 10px rgba(0,212,255,.4);}
 .sidebar-nav a.active::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--accent);border-radius:3px 0 0 3px;}
-.sidebar-nav a.logout-btn{color:rgba(255,78,106,0.75);}
-.sidebar-nav a.logout-btn:hover{color:var(--accent2);background:rgba(255,78,106,0.08);}
-.sidebar-nav a.logout-btn .nav-icon{background:rgba(255,78,106,0.1);}
-/* SIGAP IBP external link */
-.sidebar-nav a.ext-link .nav-icon{background:rgba(34,224,161,0.10);color:var(--accent4);}
-.sidebar-nav a.ext-link:hover .nav-icon{background:rgba(34,224,161,0.22);color:var(--accent4);}
-.ext-badge{font-size:9px;font-weight:700;background:rgba(34,224,161,0.18);color:var(--accent4);padding:2px 7px;border-radius:20px;letter-spacing:.3px;margin-left:auto;flex-shrink:0;}
-.sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,0.07);}
+.sidebar-nav a.logout-btn{color:rgba(255,78,106,.75);}
+.sidebar-nav a.logout-btn:hover{color:var(--accent2);background:rgba(255,78,106,.08);}
+.sidebar-nav a.logout-btn .nav-icon{background:rgba(255,78,106,.1);}
+.sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.07);}
 .sidebar-user{display:flex;align-items:center;gap:10px;}
 .user-avatar{width:36px;height:36px;background:linear-gradient(135deg,var(--accent3),#ff8c00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:700;}
 .user-info .user-name{font-size:13px;font-weight:600;color:#fff;}
 .user-info .user-role{font-size:11px;color:var(--muted);}
-.main{margin-left:var(--sidebar-w);min-height:100vh;}
-.topbar{background:var(--card-bg);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,0.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.05);}
+/* ─── MAIN ──────────────────────────────── */
+.main{margin-left:var(--sidebar-w);padding:0;min-height:100vh;}
+.topbar{background:var(--card-bg);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.05);}
 .topbar-left h5{font-size:15px;font-weight:700;color:var(--navy);margin:0;}
 .topbar-left span{font-size:12px;color:var(--muted);}
 .topbar-right{display:flex;align-items:center;gap:12px;}
 .topbar-btn{width:38px;height:38px;border-radius:10px;background:var(--bg);border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
 .topbar-btn:hover{background:#e2e8f5;color:var(--navy);}
 .topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:var(--bg);cursor:pointer;}
+.topbar-user:hover{background:#e2e8f5;}
 .topbar-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
 .topbar-uname{font-size:13px;font-weight:600;color:var(--text);}
+.role-badge{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.3px;}
+.role-badge.she{background:rgba(34,224,161,.12);color:#127754;border:1px solid rgba(34,224,161,.25);}
+.role-badge.dok{background:rgba(0,212,255,.10);color:#007fa3;border:1px solid rgba(0,212,255,.25);}
+.role-badge.other{background:rgba(122,138,170,.12);color:var(--muted);border:1px solid var(--border);}
 .content{padding:28px 32px 48px;}
-.page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;margin-bottom:6px;}
-.title-icon{width:44px;height:44px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(245,158,11,0.3);}
-.page-sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
-/* STATS */
-.stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:24px;}
-.stat-card{background:var(--card-bg);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform var(--transition);animation:fadeUp 0.4s ease both;}
+/* ─── PAGE HEADER ─────────────────────────── */
+.page-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;flex-wrap:wrap;gap:16px;}
+.page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;}
+.title-icon{width:44px;height:44px;background:linear-gradient(135deg,#0ea5e9,#0284c7);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(14,165,233,.35);}
+.page-sub{font-size:13px;color:var(--muted);margin-top:6px;}
+/* ─── UPLOAD BUTTON & LOCK ─────────────────── */
+.btn-upload{display:flex;align-items:center;gap:8px;padding:11px 22px;border-radius:10px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:all var(--transition);font-family:'DM Sans',sans-serif;box-shadow:0 4px 14px rgba(11,24,41,.22);}
+.btn-upload:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(11,24,41,.28);}
+.btn-upload.locked{background:linear-gradient(135deg,#7a8aaa,#94a3b8);cursor:not-allowed;}
+.btn-upload.locked:hover{transform:none;box-shadow:0 4px 14px rgba(11,24,41,.22);}
+.upload-lock-notice{display:flex;align-items:center;gap:8px;padding:9px 14px;background:rgba(255,200,67,.08);border:1px solid rgba(255,200,67,.3);border-radius:10px;font-size:12px;color:#b37d00;font-weight:500;}
+/* ─── DEPARTMENT NAV ─────────────────────── */
+.dept-nav{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);padding:6px 8px;margin-bottom:20px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;overflow-x:auto;animation:fadeUp .3s ease both;}
+.dept-nav-btn{display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;border:none;background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--muted);transition:all var(--transition);white-space:nowrap;position:relative;}
+.dept-nav-btn:hover{background:var(--bg);color:var(--navy);}
+.dept-nav-btn.active{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;box-shadow:0 3px 12px rgba(11,24,41,.2);}
+.dept-nav-btn .dept-count{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 5px;border-radius:20px;font-size:10px;font-weight:800;background:rgba(255,255,255,.2);transition:all var(--transition);}
+.dept-nav-btn:not(.active) .dept-count{background:rgba(11,24,41,.08);color:var(--navy);}
+.dept-nav-icon{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
+.dept-nav-btn.active .dept-nav-icon{background:rgba(255,255,255,.2);}
+.dept-nav-btn:not(.active) .dept-nav-icon{background:rgba(11,24,41,.07);color:var(--navy);}
+.dept-divider{width:1px;height:28px;background:var(--border);margin:0 2px;flex-shrink:0;}
+/* ─── LEVEL SECTIONS ─────────────────────── */
+.level-section{margin-bottom:28px;animation:fadeUp .4s ease both;}
+.level-section-header{display:flex;align-items:center;gap:14px;padding:16px 22px;border-radius:var(--radius) var(--radius) 0 0;cursor:pointer;user-select:none;transition:all var(--transition);}
+.level-section-header:hover{filter:brightness(1.05);}
+.lv1-header{background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(99,102,241,.05));border:1.5px solid rgba(99,102,241,.25);border-bottom:none;}
+.lv2-header{background:linear-gradient(135deg,rgba(14,165,233,.15),rgba(14,165,233,.05));border:1.5px solid rgba(14,165,233,.25);border-bottom:none;}
+.lv3-header{background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(245,158,11,.05));border:1.5px solid rgba(245,158,11,.25);border-bottom:none;}
+.lv4-header{background:linear-gradient(135deg,rgba(34,224,161,.15),rgba(34,224,161,.05));border:1.5px solid rgba(34,224,161,.25);border-bottom:none;}
+.level-icon-big{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.lv1-icon{background:rgba(99,102,241,.15);color:#4f46e5;}
+.lv2-icon{background:rgba(14,165,233,.15);color:#0284c7;}
+.lv3-icon{background:rgba(245,158,11,.15);color:#d97706;}
+.lv4-icon{background:rgba(34,224,161,.15);color:#127754;}
+.level-title{font-size:16px;font-weight:800;flex:1;}
+.lv1-title{color:#4f46e5;}.lv2-title{color:#0284c7;}.lv3-title{color:#d97706;}.lv4-title{color:#127754;}
+.level-subtitle{font-size:11px;color:var(--muted);margin-top:1px;font-weight:400;}
+.level-count-badge{padding:5px 14px;border-radius:20px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0;}
+.lv1-cnt{background:rgba(99,102,241,.12);color:#4f46e5;}
+.lv2-cnt{background:rgba(14,165,233,.12);color:#0284c7;}
+.lv3-cnt{background:rgba(245,158,11,.12);color:#d97706;}
+.lv4-cnt{background:rgba(34,224,161,.12);color:#127754;}
+.level-toggle-icon{font-size:13px;color:var(--muted);transition:transform var(--transition);}
+.level-toggle-icon.open{transform:rotate(180deg);}
+.level-section-body{border-radius:0 0 var(--radius) var(--radius);border:1.5px solid;border-top:none;padding:18px;}
+.lv1-body{border-color:rgba(99,102,241,.25);}
+.lv2-body{border-color:rgba(14,165,233,.25);}
+.lv3-body{border-color:rgba(245,158,11,.25);}
+.lv4-body{border-color:rgba(34,224,161,.25);}
+/* ─── TOOLBAR ─────────────────────────────── */
+.toolbar-bar{background:var(--card-bg);border-radius:var(--radius);padding:12px 16px;box-shadow:var(--shadow);margin-bottom:20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;animation:fadeUp .35s ease both;}
+.search-wrap{position:relative;flex:1;min-width:180px;}
+.search-wrap .s-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none;}
+.search-input{width:100%;padding:10px 14px 10px 34px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;transition:all var(--transition);}
+.search-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,.10);}
+.filter-sel{padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;cursor:pointer;transition:all var(--transition);}
+.filter-sel:focus{border-color:var(--accent);}
+.view-toggle{display:flex;gap:4px;}
+.view-btn{width:36px;height:36px;border-radius:8px;border:1.5px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all var(--transition);}
+.view-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.view-btn:hover:not(.active){background:#e2e8f5;}
+/* ─── STAT CARDS ─────────────────────────── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
+.stat-card{background:var(--card-bg);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform var(--transition);animation:fadeUp .4s ease both;cursor:pointer;}
 .stat-card:hover{transform:translateY(-3px);}
 .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0;}
-.sc-total::before{background:#2e9fd4;}.sc-open::before{background:var(--accent3);}.sc-prog::before{background:var(--accent);}
-.sc-closed::before{background:var(--accent4);}.sc-crit::before{background:var(--accent2);}.sc-high::before{background:#e67e22;}
-.stat-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:10px;}
-.sc-total .stat-icon{background:rgba(46,159,212,0.10);color:#2e9fd4;}
-.sc-open .stat-icon{background:rgba(255,200,67,0.12);color:#c08a00;}
-.sc-prog .stat-icon{background:rgba(0,212,255,0.10);color:var(--accent);}
-.sc-closed .stat-icon{background:rgba(34,224,161,0.10);color:#059669;}
-.sc-crit .stat-icon{background:rgba(255,78,106,0.10);color:var(--accent2);}
-.sc-high .stat-icon{background:rgba(230,126,34,0.10);color:#d35400;}
-.stat-label{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:0.3px;}
-.stat-value{font-family:'Space Mono',monospace;font-size:24px;font-weight:700;line-height:1;margin-top:2px;}
-.sc-total .stat-value{color:#2e9fd4;}.sc-open .stat-value{color:#c08a00;}.sc-prog .stat-value{color:var(--accent);}
-.sc-closed .stat-value{color:#059669;}.sc-crit .stat-value{color:var(--accent2);}.sc-high .stat-value{color:#d35400;}
-/* CHART */
-.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;}
-.chart-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;animation:fadeUp 0.5s ease both;}
-.chart-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-.chart-dot{width:8px;height:8px;border-radius:50%;}
-canvas{max-height:220px;}
-/* DATA CARD */
-.data-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px;animation:fadeUp 0.5s ease both;}
-.card-head{padding:16px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;background:linear-gradient(90deg,#f7faff,var(--card-bg));}
-.card-head-left{display:flex;align-items:center;gap:10px;}
-.card-head-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(245,158,11,0.10);color:#d97706;}
-.card-head-title{font-size:15px;font-weight:700;color:var(--navy);}
-.card-head-sub{font-size:11px;color:var(--muted);margin-top:1px;}
-.card-body{padding:22px;}
-/* TOOLBAR */
-.toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.search-wrap{position:relative;}
-.search-wrap .s-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none;}
-.search-input{padding-left:34px !important;width:190px;}
-.filter-sel{width:auto;min-width:110px;padding:8px 11px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;cursor:pointer;}
-.filter-sel:focus{border-color:var(--accent);}
-.form-control-sm{padding:8px 11px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;}
-.form-control-sm:focus{border-color:var(--accent);}
-.btn-act{padding:8px 14px;border-radius:10px;border:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all var(--transition);display:inline-flex;align-items:center;gap:6px;}
-.btn-act:hover{transform:translateY(-1px);}
-.btn-new{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;box-shadow:0 3px 10px rgba(11,24,41,0.2);}
-.btn-export-json{background:rgba(0,212,255,0.12);color:#007fa3;}
-.btn-export-json:hover{background:rgba(0,212,255,0.22);}
-.btn-export-xl{background:rgba(34,197,94,0.12);color:#166534;}
-.btn-export-xl:hover{background:rgba(34,197,94,0.22);}
-.btn-import{background:rgba(139,92,246,0.12);color:#5b21b6;}
-.btn-import:hover{background:rgba(139,92,246,0.22);}
-/* TABLE */
-.table-wrap{overflow-x:auto;}
-table{width:100%;border-collapse:collapse;}
-thead tr{background:linear-gradient(90deg,var(--navy-mid),var(--navy-light));color:#fff;}
-th{padding:11px 14px;text-align:left;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;white-space:nowrap;}
-tbody tr{border-bottom:1px solid var(--border);transition:background var(--transition);cursor:pointer;}
-tbody tr:hover{background:#f5f8ff;}
-td{padding:11px 14px;font-size:13px;vertical-align:middle;}
-.no-col{color:var(--muted);font-size:12px;font-family:'Space Mono',monospace;}
-.id-col{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);}
-.date-col{font-size:12px;color:var(--muted);}
-/* BADGES */
-.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
-.b-critical{background:rgba(231,76,60,0.12);color:#c0392b;}
-.b-high{background:rgba(230,126,34,0.12);color:#d35400;}
-.b-medium{background:rgba(46,159,212,0.12);color:#1a7fbf;}
-.b-low{background:rgba(39,174,96,0.12);color:#1a8a60;}
-.b-open{background:rgba(255,200,67,0.12);color:#c08a00;}
-.b-progress{background:rgba(0,212,255,0.10);color:#007fa3;}
-.b-closed{background:rgba(34,224,161,0.12);color:#127754;}
-.b-ua{background:rgba(255,78,106,0.10);color:#b91c1c;}
-.b-uc{background:rgba(255,200,67,0.15);color:#92400e;}
-.b-nm{background:rgba(139,92,246,0.10);color:#5b21b6;}
-.b-obs{background:rgba(34,224,161,0.12);color:#127754;}
-.b-lain{background:rgba(0,212,255,0.10);color:#007fa3;}
-/* ACTION BTNS */
-.btn-view{padding:4px 10px;border-radius:7px;background:rgba(0,212,255,0.10);color:#007fa3;border:none;font-size:12px;cursor:pointer;transition:all var(--transition);margin-right:4px;font-family:'DM Sans',sans-serif;font-weight:600;}
-.btn-view:hover{background:rgba(0,212,255,0.20);}
-.btn-del{padding:4px 10px;border-radius:7px;background:rgba(255,78,106,0.10);color:#b91c1c;border:none;font-size:12px;cursor:pointer;transition:all var(--transition);font-family:'DM Sans',sans-serif;font-weight:600;}
-.btn-del:hover{background:rgba(255,78,106,0.20);}
-/* STATUS TIMELINE */
-.status-timeline{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px;}
-.tl-step{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:70px;}
-.tl-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid transparent;transition:all var(--transition);}
-.tl-dot.done{background:var(--accent4);color:#0b1829;border-color:var(--accent4);}
-.tl-dot.active{background:var(--accent);color:#0b1829;border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,0.2);}
-.tl-dot.pending{background:#f0f4fa;color:var(--muted);border-color:var(--border);}
-.tl-label{font-size:10px;font-weight:600;color:var(--muted);text-align:center;}
-.tl-label.active{color:var(--navy);}
-.tl-line{height:2px;flex:1;border-radius:2px;min-width:20px;}
-.tl-line.done{background:var(--accent4);}
-.tl-line.pending{background:var(--border);}
-.btn-status{padding:7px 14px;border-radius:9px;border:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all var(--transition);margin-right:6px;}
-.btn-status:hover{transform:translateY(-1px);}
-.btn-to-progress{background:rgba(0,212,255,0.12);color:#007fa3;}
-.btn-to-progress:hover{background:rgba(0,212,255,0.22);}
-.btn-to-closed{background:rgba(34,224,161,0.12);color:#127754;}
-.btn-to-closed:hover{background:rgba(34,224,161,0.22);}
-.btn-to-open{background:rgba(255,200,67,0.12);color:#c08a00;}
-.btn-to-open:hover{background:rgba(255,200,67,0.22);}
-/* PAGINATION */
-.pagination-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:16px;}
-.page-info{font-size:12px;color:var(--muted);}
-.page-btns{display:flex;gap:4px;}
-.page-btn{padding:5px 12px;border:1.5px solid var(--border);background:#fff;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;color:var(--text);transition:all var(--transition);font-family:'DM Sans',sans-serif;}
-.page-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
-.page-btn.active{background:var(--accent);color:var(--navy);border-color:var(--accent);font-weight:700;}
-.page-btn:disabled{opacity:0.35;cursor:default;}
-/* EMPTY */
-.empty-state{text-align:center;padding:56px 20px;color:var(--muted);}
-.empty-icon{width:72px;height:72px;border-radius:18px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px;}
-/* MODALS */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(11,24,41,0.6);z-index:2000;align-items:center;justify-content:center;padding:20px;}
+.sc-lv1::before{background:var(--lv1);}.sc-lv2::before{background:var(--lv2);}.sc-lv3::before{background:var(--lv3);}.sc-lv4::before{background:var(--lv4);}
+.sc-lv1.active-sc{box-shadow:0 0 0 2px var(--lv1),var(--shadow);}
+.sc-lv2.active-sc{box-shadow:0 0 0 2px var(--lv2),var(--shadow);}
+.sc-lv3.active-sc{box-shadow:0 0 0 2px var(--lv3),var(--shadow);}
+.sc-lv4.active-sc{box-shadow:0 0 0 2px var(--lv4),var(--shadow);}
+.stat-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:8px;}
+.sc-lv1 .stat-icon{background:rgba(99,102,241,.12);color:#4f46e5;}.sc-lv1 .stat-val{color:#4f46e5;}
+.sc-lv2 .stat-icon{background:rgba(14,165,233,.12);color:#0284c7;}.sc-lv2 .stat-val{color:#0284c7;}
+.sc-lv3 .stat-icon{background:rgba(245,158,11,.12);color:#d97706;}.sc-lv3 .stat-val{color:#d97706;}
+.sc-lv4 .stat-icon{background:rgba(34,224,161,.12);color:#127754;}.sc-lv4 .stat-val{color:#127754;}
+.stat-lbl{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.3px;}
+.stat-val{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;line-height:1;margin-top:2px;}
+.stat-sub{font-size:10px;color:var(--muted);margin-top:3px;}
+/* ─── DOC GRID ───────────────────────────── */
+.docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+.doc-card{background:var(--card-bg);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;transition:transform var(--transition),box-shadow var(--transition);cursor:pointer;border:1.5px solid transparent;}
+.doc-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(11,24,41,.14);}
+.doc-card.lv1-card{border-color:rgba(99,102,241,.2);}.doc-card.lv1-card:hover{border-color:rgba(99,102,241,.4);}
+.doc-card.lv2-card{border-color:rgba(14,165,233,.2);}.doc-card.lv2-card:hover{border-color:rgba(14,165,233,.4);}
+.doc-card.lv3-card{border-color:rgba(245,158,11,.2);}.doc-card.lv3-card:hover{border-color:rgba(245,158,11,.4);}
+.doc-card.lv4-card{border-color:rgba(34,224,161,.2);}.doc-card.lv4-card:hover{border-color:rgba(34,224,161,.4);}
+.doc-level-stripe{height:4px;}
+.lv1-stripe{background:linear-gradient(90deg,var(--lv1),#818cf8);}
+.lv2-stripe{background:linear-gradient(90deg,var(--lv2),#38bdf8);}
+.lv3-stripe{background:linear-gradient(90deg,var(--lv3),#fbbf24);}
+.lv4-stripe{background:linear-gradient(90deg,var(--lv4),#34d399);}
+.doc-card-top{padding:16px 14px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;}
+.doc-type-icon{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.doc-name{font-size:12px;font-weight:700;color:var(--navy);text-align:center;line-height:1.4;}
+.doc-meta{font-size:10px;color:var(--muted);text-align:center;}
+.doc-badges{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center;}
+.badge-sm{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;}
+.doc-card-bottom{padding:10px 13px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.doc-actions{display:flex;gap:5px;}
+.act-btn{width:28px;height:28px;border-radius:7px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all var(--transition);}
+.act-view{background:rgba(0,212,255,.10);color:#007fa3;}.act-view:hover{background:rgba(0,212,255,.20);}
+.act-dl{background:rgba(34,224,161,.10);color:#127754;}.act-dl:hover{background:rgba(34,224,161,.20);}
+.act-del{background:rgba(255,78,106,.10);color:#b91c1c;}.act-del:hover{background:rgba(255,78,106,.20);}
+.act-del:disabled{opacity:.3;cursor:not-allowed;}
+/* ─── DOC LIST ───────────────────────────── */
+.docs-list{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+.docs-list table{width:100%;border-collapse:collapse;}
+.docs-list thead tr{background:linear-gradient(90deg,var(--navy-mid),var(--navy-light));color:#fff;}
+.docs-list th{padding:10px 13px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;}
+.docs-list tbody tr{border-bottom:1px solid var(--border);transition:background var(--transition);cursor:pointer;}
+.docs-list tbody tr:hover{background:#f5f8ff;}
+.docs-list td{padding:9px 13px;font-size:13px;vertical-align:middle;}
+.file-icon-sm{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+/* ─── LEVEL BADGES ───────────────────────── */
+.lb{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.3px;}
+.lb-1{background:rgba(99,102,241,.12);color:#4f46e5;}
+.lb-2{background:rgba(14,165,233,.12);color:#0284c7;}
+.lb-3{background:rgba(245,158,11,.12);color:#d97706;}
+.lb-4{background:rgba(34,224,161,.12);color:#127754;}
+.dept-tag{padding:2px 9px;border-radius:20px;font-size:10px;font-weight:600;background:rgba(11,24,41,.07);color:var(--navy);}
+/* ─── EMPTY ───────────────────────────────── */
+.empty-section{text-align:center;padding:36px 20px;color:var(--muted);background:rgba(11,24,41,.02);border-radius:10px;}
+.empty-full{text-align:center;padding:56px 20px;color:var(--muted);}
+.empty-full-icon{width:70px;height:70px;border-radius:18px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 13px;}
+/* ─── MODALS ─────────────────────────────── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(11,24,41,.55);z-index:2000;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.show{display:flex;}
-.modal-box{background:#fff;border-radius:var(--radius);width:100%;max-width:640px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(11,24,41,0.28);animation:fadeUp 0.22s ease;}
-.modal-head{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#fff;z-index:1;}
-.modal-head-title{font-size:16px;font-weight:700;color:var(--navy);}
-.modal-close{width:32px;height:32px;border-radius:8px;background:var(--bg);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);transition:all var(--transition);}
-.modal-close:hover{background:#fee2e2;color:var(--accent2);}
-.modal-body{padding:20px 24px 24px;}
-.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.detail-item{background:#fafcff;border-radius:10px;padding:12px 14px;}
-.detail-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px;}
-.detail-value{font-size:13px;font-weight:600;color:var(--navy);}
-.detail-full{grid-column:1/-1;}
-.foto-grid{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
-.foto-thumb{width:80px;height:80px;border-radius:10px;object-fit:cover;border:2px solid var(--border);cursor:pointer;transition:transform var(--transition);}
-.foto-thumb:hover{transform:scale(1.05);}
-.del-modal-box{background:#fff;border-radius:var(--radius);padding:28px;width:90%;max-width:420px;box-shadow:0 24px 64px rgba(11,24,41,0.28);animation:fadeUp 0.2s ease;}
-.del-modal-title{font-size:17px;font-weight:700;color:var(--navy);margin-bottom:10px;}
-.del-modal-body{font-size:14px;color:var(--muted);line-height:1.6;}
-.del-modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:22px;}
-.btn-mc{padding:9px 20px;border-radius:9px;background:var(--bg);border:1.5px solid var(--border);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.btn-md{padding:9px 20px;border-radius:9px;background:var(--accent2);color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 12px rgba(255,78,106,0.3);}
+.modal-box{background:#fff;border-radius:var(--radius);width:100%;max-width:560px;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;overflow:hidden;}
+.modal-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#f7faff,#fff);}
+.modal-head-title{font-size:15px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:10px;}
+.modal-head-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.btn-close-m{width:32px;height:32px;border-radius:8px;border:none;background:var(--bg);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all var(--transition);}
+.btn-close-m:hover{background:#e2e8f5;color:var(--navy);}
+.modal-body{padding:20px 22px;}
+.modal-footer{padding:13px 22px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;background:#fafcff;}
+.btn-cancel-m{padding:10px 20px;border-radius:10px;background:#fff;border:1.5px solid var(--border);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-cancel-m:hover{border-color:var(--accent2);color:var(--accent2);}
+.btn-save-m{padding:10px 22px;border-radius:10px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:7px;}
+.btn-save-m:hover{opacity:.9;}
+.upload-zone{border:2px dashed var(--border);border-radius:12px;padding:24px 18px;text-align:center;cursor:pointer;transition:all var(--transition);background:#fafcff;position:relative;margin-bottom:16px;}
+.upload-zone:hover,.upload-zone.dragover{border-color:var(--accent);background:rgba(0,212,255,.04);}
+.upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.uz-icon{width:48px;height:48px;background:rgba(0,212,255,.10);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--accent);margin:0 auto 10px;}
+.sel-file{display:flex;align-items:center;gap:10px;padding:9px 13px;background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.2);border-radius:10px;margin-bottom:14px;font-size:13px;color:var(--navy);font-weight:500;}
+.fl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;display:block;}
+.fc,.fs{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;transition:all var(--transition);}
+.fc:focus,.fs:focus{border-color:var(--accent);}
+textarea.fc{resize:vertical;min-height:70px;}
+/* RESTRICTED MODAL */
+.restr-box{background:#fff;border-radius:var(--radius);width:90%;max-width:400px;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;text-align:center;padding:36px 28px;}
+.restr-icon{width:72px;height:72px;background:rgba(255,78,106,.10);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--accent2);margin:0 auto 16px;}
+.restr-title{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.restr-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.restr-roles{display:flex;justify-content:center;gap:10px;margin-bottom:22px;flex-wrap:wrap;}
+.btn-ok{padding:11px 28px;border-radius:10px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+/* PREVIEW MODAL */
+.prev-box{background:#fff;border-radius:var(--radius);width:100%;max-width:620px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;}
+.prev-body{padding:22px 24px;}
+.prev-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+.prev-field{background:var(--bg);border-radius:10px;padding:11px 13px;}
+.prev-label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
+.prev-val{font-size:13px;font-weight:600;color:var(--navy);}
+.prev-doc-icon{width:72px;height:72px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 12px;}
+.prev-doc-name{font-size:17px;font-weight:700;color:var(--navy);text-align:center;margin-bottom:5px;}
+.prev-doc-desc{font-size:13px;color:var(--muted);text-align:center;line-height:1.6;}
+.prev-level-stripe{height:6px;border-radius:4px;margin:12px auto 0;max-width:80px;}
+.btn-dl-full{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:10px;background:linear-gradient(135deg,var(--accent4),#19a37a);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;width:100%;margin-top:16px;font-family:'DM Sans',sans-serif;}
+.btn-dl-full:hover{opacity:.9;}
 /* TOAST */
-.toast-box{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transform:translateY(12px);transition:all 0.3s;z-index:3000;pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(11,24,41,0.25);}
+.toast-box{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transform:translateY(12px);transition:all .3s;z-index:3000;pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(11,24,41,.25);}
 .toast-box.show{opacity:1;transform:translateY(0);}
 /* MOBILE */
 .menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;}
-.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
-@media(max-width:1200px){.stats-grid{grid-template-columns:repeat(3,1fr);}.chart-grid{grid-template-columns:1fr;}}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:1100px){.stats-row{grid-template-columns:repeat(2,1fr);}.docs-grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));}}
 @media(max-width:768px){
   .menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}
   .sidebar-overlay.open{display:block;}.main{margin-left:0;}.topbar{padding:14px 16px 14px 64px;}
-  .content{padding:20px 14px 40px;}.stats-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
-  .chart-grid{grid-template-columns:1fr;}.detail-grid{grid-template-columns:1fr;}
-  .toolbar{gap:6px;}.search-input{width:140px;}
+  .content{padding:18px 13px 40px;}.stats-row{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .page-header{flex-direction:column;align-items:flex-start;}.prev-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -209,7 +243,6 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
 <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
 <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-<!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
   <div class="sidebar-brand">
     <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
@@ -221,14 +254,14 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
     <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
     <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
     <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
-    <div class="nav-label">Data & Dokumen</div>
-    <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
-    <a href="laporan.html" class="active"><span class="nav-icon"><i class="fas fa-list"></i></span>Laporan</a>
-    <div class="nav-label">Tautan</div>
-    <a href="https://sigap.ibp.co.id" target="_blank" class="ext-link">
-      <span class="nav-icon"><i class="fas fa-external-link-alt"></i></span>
+    <div class="nav-label">Data &amp; Dokumen</div>
+    <a href="dokumen.html" class="active"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
+    <a href="laporan.html"><span class="nav-icon"><i class="fas fa-list"></i></span>Laporan</a>
+    <div class="nav-label">Eksternal</div>
+    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener noreferrer" style="color:rgba(0,212,255,0.85);">
+      <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent);"><i class="fas fa-external-link-alt"></i></span>
       SIGAP IBP
-      <span class="ext-badge">IBP</span>
+      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.55;"></i>
     </a>
     <div class="nav-label">Akun</div>
     <a href="#" onclick="logout()" class="logout-btn"><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
@@ -238,22 +271,19 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
       <div class="user-avatar" id="sidebarAvatarLetter">U</div>
       <div class="user-info">
         <div class="user-name" id="sidebarUserName">User</div>
-        <div class="user-role">Safety Officer</div>
+        <div class="user-role" id="sidebarUserRole">—</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
   <div class="topbar">
-    <div class="topbar-left">
-      <h5>Arta Integrated Manajemen System</h5>
-      <span>Sistem Informasi Keselamatan Kerja</span>
-    </div>
+    <div class="topbar-left"><h5>Arta Integrated Manajemen System</h5><span>Sistem Informasi Keselamatan Kerja</span></div>
     <div class="topbar-right">
       <button class="topbar-btn"><i class="fas fa-bell"></i></button>
       <button class="topbar-btn"><i class="fas fa-cog"></i></button>
+      <span class="role-badge" id="roleBadge">—</span>
       <div class="topbar-user">
         <div class="topbar-avatar"><i class="fas fa-user"></i></div>
         <span class="topbar-uname" id="userNameDisplay">User</span>
@@ -262,112 +292,195 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
   </div>
 
   <div class="content">
-    <div class="page-title"><div class="title-icon"><i class="fas fa-list-alt"></i></div>Rekap Laporan K3</div>
-    <div class="page-sub">Semua laporan keselamatan kerja — data masuk otomatis dari halaman Buat Laporan</div>
-
-    <!-- STATS (no Incident card) -->
-    <div class="stats-grid" id="statsGrid"></div>
-
-    <!-- CHARTS (no Incident color in donut) -->
-    <div class="chart-grid">
-      <div class="chart-card" style="animation-delay:.05s">
-        <div class="chart-title"><div class="chart-dot" style="background:var(--accent2)"></div>Laporan per Jenis</div>
-        <canvas id="chartJenis"></canvas>
+    <div class="page-header">
+      <div>
+        <div class="page-title"><div class="title-icon"><i class="fas fa-folder-open"></i></div>Manajemen Dokumen</div>
+        <div class="page-sub">Dokumen K3 terstruktur berdasarkan Level &amp; Departemen</div>
       </div>
-      <div class="chart-card" style="animation-delay:.10s">
-        <div class="chart-title"><div class="chart-dot" style="background:#8b5cf6"></div>Tren Laporan per Bulan</div>
-        <canvas id="chartBulan"></canvas>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+        <button class="btn-upload" id="btnUpload" onclick="handleUploadClick()">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <span id="btnUploadText">Upload Dokumen</span>
+        </button>
+        <div class="upload-lock-notice" id="uploadLockNotice" style="display:none;">
+          <i class="fas fa-lock"></i>
+          Upload hanya untuk <strong style="margin-left:3px">Safety Officer / Dok Kontrol</strong>
+        </div>
       </div>
     </div>
 
-    <div class="data-card">
-      <div class="card-head">
-        <div class="card-head-left">
-          <div class="card-head-icon"><i class="fas fa-table"></i></div>
-          <div>
-            <div class="card-head-title">Daftar Laporan</div>
-            <div class="card-head-sub" id="tableSubTitle">Memuat data...</div>
-          </div>
+    <div class="dept-nav" id="deptNav"></div>
+    <div class="stats-row" id="statsRow"></div>
+
+    <div class="toolbar-bar">
+      <div class="search-wrap">
+        <i class="fas fa-search s-icon"></i>
+        <input class="search-input" type="text" id="searchInput" placeholder="Cari nama, nomor, deskripsi..." oninput="applyFilter()">
+      </div>
+      <select class="filter-sel" id="filterKat" onchange="applyFilter()">
+        <option value="">Semua Kategori</option>
+        <option value="SOP">SOP / Prosedur</option>
+        <option value="Form">Form &amp; Formulir</option>
+        <option value="Regulasi">Regulasi</option>
+        <option value="Laporan K3">Laporan K3</option>
+        <option value="Sertifikat">Sertifikat &amp; Izin</option>
+      </select>
+      <select class="filter-sel" id="filterTipe" onchange="applyFilter()">
+        <option value="">Semua Tipe</option>
+        <option value="PDF">PDF</option>
+        <option value="DOCX">Word (DOCX)</option>
+        <option value="XLSX">Excel (XLSX)</option>
+        <option value="PPTX">PowerPoint</option>
+      </select>
+      <select class="filter-sel" id="filterSort" onchange="applyFilter()">
+        <option value="terbaru">Terbaru</option>
+        <option value="terlama">Terlama</option>
+        <option value="az">A → Z</option>
+        <option value="za">Z → A</option>
+      </select>
+      <div class="view-toggle">
+        <button class="view-btn active" id="btnGrid" onclick="setView('grid')" title="Grid"><i class="fas fa-th-large"></i></button>
+        <button class="view-btn" id="btnList" onclick="setView('list')" title="List"><i class="fas fa-list"></i></button>
+      </div>
+    </div>
+
+    <div id="docsArea"></div>
+  </div>
+</div>
+
+<!-- UPLOAD MODAL -->
+<div class="modal-overlay" id="uploadModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-head-title">
+        <div class="modal-head-icon" style="background:rgba(14,165,233,.12);color:#0ea5e9"><i class="fas fa-cloud-upload-alt"></i></div>
+        Upload Dokumen Baru
+      </div>
+      <button class="btn-close-m" onclick="closeUploadModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" style="max-height:70vh;overflow-y:auto;">
+      <div class="upload-zone" id="uploadZone" ondragover="dzOver(event)" ondragleave="dzLeave()" ondrop="dzDrop(event)">
+        <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.png,.jpg" onchange="fileSelect(this)">
+        <div class="uz-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+        <div style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:3px">Drag &amp; Drop file di sini</div>
+        <div style="font-size:11px;color:var(--muted)">atau klik untuk memilih · PDF, DOCX, XLSX, PPTX · Maks 20 MB</div>
+      </div>
+      <div id="selFile" class="sel-file" style="display:none">
+        <i class="fas fa-file-alt" style="color:var(--accent);font-size:18px;flex-shrink:0"></i>
+        <span id="selFileName" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+        <span id="selFileSize" style="color:var(--muted);font-size:12px;flex-shrink:0"></span>
+      </div>
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="fl">Nama Dokumen *</label>
+          <input class="fc" type="text" id="uNama" placeholder="Contoh: SOP-K3-001 Prosedur Kerja Aman">
         </div>
-        <div class="toolbar">
-          <div class="search-wrap">
-            <i class="fas fa-search s-icon"></i>
-            <input class="form-control-sm search-input" type="text" id="searchInput" placeholder="Cari laporan..." oninput="applyFilter()">
-          </div>
-          <select class="filter-sel" id="filterRisiko" onchange="applyFilter()">
-            <option value="">Semua Risiko</option>
-            <option value="Critical">Critical</option>
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
+        <div class="col-md-6">
+          <label class="fl">Nomor Dokumen</label>
+          <input class="fc" type="text" id="uNomor" placeholder="Contoh: SOP-K3-001">
+        </div>
+        <div class="col-md-6">
+          <label class="fl">Level Dokumen *</label>
+          <select class="fs" id="uLevel" onchange="onLevelChange()">
+            <option value="">— Pilih level —</option>
+            <option value="1">Level 1 — Kebijakan (Policy)</option>
+            <option value="2">Level 2 — Prosedur (SOP)</option>
+            <option value="3">Level 3 — Instruksi Kerja (IK)</option>
+            <option value="4">Level 4 — Formulir &amp; Rekaman</option>
           </select>
-          <select class="filter-sel" id="filterStatus" onchange="applyFilter()">
-            <option value="">Semua Status</option>
-            <option value="Open">Open</option>
-            <option value="Progress">Progress</option>
-            <option value="Closed">Closed</option>
+        </div>
+        <div class="col-md-6">
+          <label class="fl">Kategori *</label>
+          <select class="fs" id="uKategori">
+            <option value="">— Pilih kategori —</option>
+            <option value="SOP">SOP / Prosedur Kerja</option>
+            <option value="Form">Form &amp; Formulir</option>
+            <option value="Regulasi">Regulasi / Peraturan</option>
+            <option value="Laporan K3">Laporan K3</option>
+            <option value="Sertifikat">Sertifikat &amp; Izin</option>
           </select>
-          <!-- ① Incident DIHAPUS dari dropdown jenis -->
-          <select class="filter-sel" id="filterJenis" onchange="applyFilter()">
-            <option value="">Semua Jenis</option>
-            <option value="Unsafe Act">Unsafe Act</option>
-            <option value="Unsafe Condition">Unsafe Condition</option>
-            <option value="Near Miss">Near Miss</option>
-            <option value="Observasi">Observasi</option>
-            <option value="Lainnya">Lainnya</option>
+        </div>
+        <div class="col-md-6">
+          <label class="fl">Departemen *</label>
+          <select class="fs" id="uDept">
+            <option value="">— Pilih departemen —</option>
+            <option value="Umum">Umum (Semua Dept)</option>
+            <option value="SHE">SHE</option>
+            <option value="Produksi">Produksi</option>
+            <option value="Plant">Plant</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Logistik">Logistik</option>
+            <option value="HRGA">HRGA</option>
           </select>
-          <input class="form-control-sm" type="month" id="filterBulan" onchange="applyFilter()" style="width:145px;">
-          <button class="btn-act btn-export-json" onclick="exportJSON()"><i class="fas fa-file-code"></i> JSON</button>
-          <button class="btn-act btn-export-xl" onclick="exportExcel()"><i class="fas fa-file-excel"></i> Excel</button>
-          <label class="btn-act btn-import" style="cursor:pointer;margin:0;"><i class="fas fa-file-import"></i> Import<input type="file" accept=".json" onchange="importJSON(event)" style="display:none"></label>
-          <a href="buat_laporan.html" class="btn-act btn-new" style="text-decoration:none;"><i class="fas fa-plus"></i> Buat Laporan</a>
+        </div>
+        <div class="col-12" id="levelPreviewWrap" style="display:none">
+          <div id="levelPreview" style="padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;"></div>
+        </div>
+        <div class="col-md-6">
+          <label class="fl">Tanggal Terbit</label>
+          <input class="fc" type="date" id="uTanggal">
+        </div>
+        <div class="col-md-6">
+          <label class="fl">Dibuat Oleh</label>
+          <input class="fc" type="text" id="uPembuat" placeholder="Nama / Departemen">
+        </div>
+        <div class="col-12">
+          <label class="fl">Deskripsi</label>
+          <textarea class="fc" id="uDeskripsi" placeholder="Deskripsi singkat isi dokumen..."></textarea>
         </div>
       </div>
-      <div class="card-body" style="padding-bottom:8px;">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr><th>No</th><th>ID</th><th>Tanggal</th><th>Pelapor</th><th>Area</th><th>Jenis</th><th>Risiko</th><th>Status</th><th>Aksi</th></tr>
-            </thead>
-            <tbody id="laporanTable"></tbody>
-          </table>
-        </div>
-        <div id="emptyState" class="empty-state" style="display:none;">
-          <div class="empty-icon"><i class="fas fa-clipboard-list"></i></div>
-          <div style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px;">Belum ada laporan</div>
-          <div style="margin-bottom:16px;">Mulai buat laporan pertama Anda</div>
-          <a href="buat_laporan.html" style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;">
-            <i class="fas fa-plus"></i> Buat Laporan Sekarang
-          </a>
-        </div>
-        <div class="pagination-row">
-          <span class="page-info" id="pageInfo"></span>
-          <div class="page-btns" id="pageBtns"></div>
-        </div>
-      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel-m" onclick="closeUploadModal()"><i class="fas fa-times"></i> Batal</button>
+      <button class="btn-save-m" onclick="saveDoc()"><i class="fas fa-save"></i> Simpan Dokumen</button>
     </div>
   </div>
 </div>
 
-<!-- DETAIL MODAL -->
-<div class="modal-overlay" id="detailModal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <div class="modal-head-title" id="modalTitle">Detail Laporan</div>
-      <button class="modal-close" onclick="closeModal('detailModal')"><i class="fas fa-times"></i></button>
+<!-- RESTRICTED MODAL -->
+<div class="modal-overlay" id="restrictedModal">
+  <div class="restr-box">
+    <div class="restr-icon"><i class="fas fa-lock"></i></div>
+    <div class="restr-title">Akses Terbatas</div>
+    <div class="restr-sub">Fitur upload &amp; hapus dokumen hanya dapat diakses oleh pengguna dengan role:</div>
+    <div class="restr-roles">
+      <span class="role-badge she" style="font-size:13px;padding:7px 18px"><i class="fas fa-shield-alt"></i> Safety Officer</span>
+      <span class="role-badge dok" style="font-size:13px;padding:7px 18px"><i class="fas fa-folder-open"></i> Dok Kontrol</span>
     </div>
-    <div class="modal-body" id="modalBody"></div>
+    <button class="btn-ok" onclick="document.getElementById('restrictedModal').classList.remove('show')">Saya Mengerti</button>
+  </div>
+</div>
+
+<!-- PREVIEW MODAL -->
+<div class="modal-overlay" id="previewModal">
+  <div class="prev-box">
+    <div class="modal-head">
+      <div class="modal-head-title">
+        <div class="modal-head-icon" style="background:rgba(34,224,161,.12);color:var(--accent4)"><i class="fas fa-eye"></i></div>
+        Detail Dokumen
+      </div>
+      <button class="btn-close-m" onclick="closePrev()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="prev-body"><div id="prevContent"></div></div>
   </div>
 </div>
 
 <!-- DELETE MODAL -->
 <div class="modal-overlay" id="deleteModal">
-  <div class="del-modal-box">
-    <div class="del-modal-title"><i class="fas fa-trash-alt" style="color:var(--accent2);margin-right:8px"></i>Konfirmasi Hapus</div>
-    <div class="del-modal-body">Yakin hapus laporan <strong id="delLabel" style="color:var(--navy)"></strong>? Tindakan ini tidak dapat dibatalkan.</div>
-    <div class="del-modal-footer">
-      <button class="btn-mc" onclick="closeModal('deleteModal')"><i class="fas fa-times"></i> Batal</button>
-      <button class="btn-md" onclick="confirmDelete()"><i class="fas fa-trash-alt"></i> Hapus</button>
+  <div class="modal-box" style="max-width:420px">
+    <div class="modal-head">
+      <div class="modal-head-title">
+        <div class="modal-head-icon" style="background:rgba(255,78,106,.10);color:var(--accent2)"><i class="fas fa-trash-alt"></i></div>
+        Konfirmasi Hapus
+      </div>
+      <button class="btn-close-m" onclick="closeDel()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:var(--muted);line-height:1.6">Yakin hapus <strong id="delName" style="color:var(--navy)"></strong>? Tindakan ini tidak dapat dibatalkan.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel-m" onclick="closeDel()"><i class="fas fa-times"></i> Batal</button>
+      <button onclick="confirmDel()" style="padding:10px 22px;border-radius:10px;background:var(--accent2);color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;"><i class="fas fa-trash-alt"></i> Hapus</button>
     </div>
   </div>
 </div>
@@ -375,303 +488,405 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
 <div class="toast-box" id="toast"></div>
 
 <script>
-const REPORTS_KEY = 'sigap_reports_v1';
-let allData=[], filtered=[], currentPage=1, deleteIdx=-1;
-const PAGE_SIZE=15;
-let chartJ=null, chartB=null;
+// ═══════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════
+const UPLOAD_ROLES = ['Safety Officer','Dok Kontrol','Admin'];
 
-function loadData(){
-  try{ allData=JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]'); }catch(e){ allData=[]; }
-}
+const DEPARTMENTS = [
+  { id:'', label:'Semua', icon:'fa-globe', color:'#0b1829' },
+  { id:'SHE', label:'SHE', icon:'fa-shield-alt', color:'#22e0a1' },
+  { id:'Produksi', label:'Produksi', icon:'fa-industry', color:'#ff4e6a' },
+  { id:'Plant', label:'Plant', icon:'fa-cogs', color:'#f59e0b' },
+  { id:'Engineering', label:'Engineering', icon:'fa-wrench', color:'#8b5cf6' },
+  { id:'Logistik', label:'Logistik', icon:'fa-truck', color:'#0ea5e9' },
+  { id:'HRGA', label:'HRGA', icon:'fa-users', color:'#ec4899' },
+  { id:'Umum', label:'Umum', icon:'fa-building', color:'#7a8aaa' }
+];
 
-// ─── Badge helpers ────────────────────────────────────────────────────────
-function rBadge(r){
-  const m={'Critical':'b-critical','High':'b-high','Medium':'b-medium','Low':'b-low'};
-  return `<span class="badge ${m[r]||'b-medium'}">${r||'—'}</span>`;
-}
-function sBadge(s){
-  const m={'Open':'b-open','Progress':'b-progress','Closed':'b-closed'};
-  return `<span class="badge ${m[s]||'b-open'}">${s}</span>`;
-}
-// ② Incident DIHAPUS dari jBadge mapping dan dibiarkan fallback ke b-lain
-function jBadge(j){
-  const m={
-    'Unsafe Act':'b-ua',
-    'Unsafe Condition':'b-uc',
-    'Near Miss':'b-nm',
-    'Observasi':'b-obs',
-    'Lainnya':'b-lain'
-  };
-  return `<span class="badge ${m[j]||'b-lain'}">${j||'—'}</span>`;
-}
+const LEVELS = [
+  { id:'1', label:'Level 1', sub:'Kebijakan (Policy)', icon:'fa-crown', cls:'lb-1', stripe:'lv1-stripe', header:'lv1-header', body:'lv1-body', icon2:'lv1-icon', cnt:'lv1-cnt', card:'lv1-card', sc:'sc-lv1', color:'#4f46e5', title:'lv1-title' },
+  { id:'2', label:'Level 2', sub:'Prosedur / SOP', icon:'fa-book-open', cls:'lb-2', stripe:'lv2-stripe', header:'lv2-header', body:'lv2-body', icon2:'lv2-icon', cnt:'lv2-cnt', card:'lv2-card', sc:'sc-lv2', color:'#0284c7', title:'lv2-title' },
+  { id:'3', label:'Level 3', sub:'Instruksi Kerja', icon:'fa-tools', cls:'lb-3', stripe:'lv3-stripe', header:'lv3-header', body:'lv3-body', icon2:'lv3-icon', cnt:'lv3-cnt', card:'lv3-card', sc:'sc-lv3', color:'#d97706', title:'lv3-title' },
+  { id:'4', label:'Level 4', sub:'Formulir & Rekaman', icon:'fa-file-alt', cls:'lb-4', stripe:'lv4-stripe', header:'lv4-header', body:'lv4-body', icon2:'lv4-icon', cnt:'lv4-cnt', card:'lv4-card', sc:'sc-lv4', color:'#127754', title:'lv4-title' }
+];
 
-// ─── Stats (no Incident card) ─────────────────────────────────────────────
-function buildStats(){
-  const total  = allData.length;
-  const open   = allData.filter(d=>d.status==='Open').length;
-  const prog   = allData.filter(d=>d.status==='Progress').length;
-  const closed = allData.filter(d=>d.status==='Closed').length;
-  const crit   = allData.filter(d=>d.risiko==='Critical').length;
-  const high   = allData.filter(d=>d.risiko==='High').length;
-  // ② Kartu Incident dihapus — diganti kartu High Risk
-  document.getElementById('statsGrid').innerHTML=`
-    <div class="stat-card sc-total" style="animation-delay:.05s"><div class="stat-icon"><i class="fas fa-clipboard-list"></i></div><div class="stat-label">Total Laporan</div><div class="stat-value">${total}</div></div>
-    <div class="stat-card sc-open"  style="animation-delay:.08s"><div class="stat-icon"><i class="fas fa-folder-open"></i></div><div class="stat-label">Open</div><div class="stat-value">${open}</div></div>
-    <div class="stat-card sc-prog"  style="animation-delay:.11s"><div class="stat-icon"><i class="fas fa-spinner"></i></div><div class="stat-label">In Progress</div><div class="stat-value">${prog}</div></div>
-    <div class="stat-card sc-closed"style="animation-delay:.14s"><div class="stat-icon"><i class="fas fa-check-circle"></i></div><div class="stat-label">Closed</div><div class="stat-value">${closed}</div></div>
-    <div class="stat-card sc-crit"  style="animation-delay:.17s"><div class="stat-icon"><i class="fas fa-skull-crossbones"></i></div><div class="stat-label">Critical</div><div class="stat-value">${crit}</div></div>
-    <div class="stat-card sc-high"  style="animation-delay:.20s"><div class="stat-icon"><i class="fas fa-fire"></i></div><div class="stat-label">High Risk</div><div class="stat-value">${high}</div></div>`;
-}
+const KAT = { 'SOP':{color:'#3b82f6',bg:'rgba(59,130,246,.10)',icon:'fa-book-open',label:'SOP'}, 'Form':{color:'#8b5cf6',bg:'rgba(139,92,246,.10)',icon:'fa-file-alt',label:'Form'}, 'Regulasi':{color:'#d97706',bg:'rgba(245,158,11,.12)',icon:'fa-gavel',label:'Regulasi'}, 'Laporan K3':{color:'#ff4e6a',bg:'rgba(255,78,106,.10)',icon:'fa-chart-line',label:'Laporan K3'}, 'Sertifikat':{color:'#22e0a1',bg:'rgba(34,224,161,.10)',icon:'fa-certificate',label:'Sertifikat'} };
+const TIPE = { 'PDF':{icon:'fa-file-pdf',color:'#ef4444',bg:'rgba(239,68,68,.10)'}, 'DOCX':{icon:'fa-file-word',color:'#3b82f6',bg:'rgba(59,130,246,.10)'}, 'DOC':{icon:'fa-file-word',color:'#3b82f6',bg:'rgba(59,130,246,.10)'}, 'XLSX':{icon:'fa-file-excel',color:'#22c55e',bg:'rgba(34,197,94,.10)'}, 'XLS':{icon:'fa-file-excel',color:'#22c55e',bg:'rgba(34,197,94,.10)'}, 'PPTX':{icon:'fa-file-powerpoint',color:'#f97316',bg:'rgba(249,115,22,.10)'}, 'PPT':{icon:'fa-file-powerpoint',color:'#f97316',bg:'rgba(249,115,22,.10)'}, 'PNG':{icon:'fa-file-image',color:'#8b5cf6',bg:'rgba(139,92,246,.10)'}, 'JPG':{icon:'fa-file-image',color:'#8b5cf6',bg:'rgba(139,92,246,.10)'} };
 
-// ─── Charts (no Incident color) ───────────────────────────────────────────
-function buildCharts(){
-  // ② jColors: Incident DIHAPUS — warna merah #ef4444 tidak dipakai
-  const jColors={
-    'Unsafe Act':     'rgba(255,78,106,0.85)',
-    'Unsafe Condition':'rgba(255,200,67,0.85)',
-    'Near Miss':      'rgba(139,92,246,0.85)',
-    'Observasi':      'rgba(34,224,161,0.85)',
-    'Lainnya':        'rgba(0,212,255,0.85)'
-  };
+// ═══════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════
+let documents = [
+  {id:1,nama:'Kebijakan K3 Perusahaan 2025',nomor:'KBJ-K3-2025',level:'1',kategori:'Regulasi',dept:'Umum',tipe:'PDF',tanggal:'2025-01-05',pembuat:'Manajemen',deskripsi:'Kebijakan K3 resmi perusahaan sebagai komitmen K3 yang berlaku untuk seluruh unit kerja.',ukuran:'1.2 MB'},
+  {id:2,nama:'Kebijakan Lingkungan & Energi PT. ABS',nomor:'KBJ-LH-2025',level:'1',kategori:'Regulasi',dept:'SHE',tipe:'PDF',tanggal:'2025-01-10',pembuat:'Dept. SHE',deskripsi:'Komitmen manajemen terhadap pengelolaan lingkungan dan efisiensi energi.',ukuran:'0.9 MB'},
+  {id:3,nama:'PP No. 50 Tahun 2012 SMK3',nomor:'REG-PP50-2012',level:'1',kategori:'Regulasi',dept:'Umum',tipe:'PDF',tanggal:'2024-11-10',pembuat:'Pemerintah RI',deskripsi:'Peraturan Pemerintah tentang penerapan Sistem Manajemen K3.',ukuran:'4.2 MB'},
+  {id:4,nama:'UU No. 1 Tahun 1970 Keselamatan Kerja',nomor:'REG-UU01-1970',level:'1',kategori:'Regulasi',dept:'Umum',tipe:'PDF',tanggal:'2024-11-10',pembuat:'Pemerintah RI',deskripsi:'Undang-Undang dasar keselamatan kerja di Indonesia.',ukuran:'1.5 MB'},
+  {id:5,nama:'Kepmen 555K Keselamatan Tambang',nomor:'REG-KPM555',level:'1',kategori:'Regulasi',dept:'Produksi',tipe:'PDF',tanggal:'2024-12-01',pembuat:'Kementerian ESDM',deskripsi:'Keputusan Menteri ESDM tentang keselamatan kerja pertambangan.',ukuran:'3.8 MB'},
+  {id:6,nama:'Sertifikat SMK3 Perusahaan 2025',nomor:'SERT-SMK3-2025',level:'1',kategori:'Sertifikat',dept:'Umum',tipe:'PDF',tanggal:'2025-03-15',pembuat:'Kemnaker RI',deskripsi:'Sertifikat penerapan Sistem Manajemen K3.',ukuran:'0.9 MB'},
+  {id:7,nama:'SOP-K3-001 Prosedur Kerja Aman di Tambang',nomor:'SOP-K3-001',level:'2',kategori:'SOP',dept:'Produksi',tipe:'PDF',tanggal:'2025-02-15',pembuat:'Dept. SHE',deskripsi:'Prosedur standar keselamatan kerja di area tambang.',ukuran:'2.4 MB'},
+  {id:8,nama:'SOP-K3-002 Prosedur Pengoperasian Alat Berat',nomor:'SOP-K3-002',level:'2',kategori:'SOP',dept:'Plant',tipe:'PDF',tanggal:'2025-02-20',pembuat:'Dept. Plant',deskripsi:'Panduan pengoperasian alat berat sesuai standar keselamatan.',ukuran:'3.1 MB'},
+  {id:9,nama:'SOP-K3-003 Prosedur Penanganan Bahan B3',nomor:'SOP-K3-003',level:'2',kategori:'SOP',dept:'Produksi',tipe:'DOCX',tanggal:'2025-03-05',pembuat:'Dept. SHE',deskripsi:'Tata cara penanganan dan pembuangan bahan berbahaya dan beracun.',ukuran:'1.8 MB'},
+  {id:10,nama:'SOP-K3-004 Prosedur LOTO',nomor:'SOP-K3-004',level:'2',kategori:'SOP',dept:'Plant',tipe:'PDF',tanggal:'2025-03-15',pembuat:'Dept. Plant',deskripsi:'Prosedur pemasangan kunci pengaman saat perbaikan peralatan.',ukuran:'1.2 MB'},
+  {id:11,nama:'SOP-HSE-001 Prosedur Inspeksi Keselamatan',nomor:'SOP-HSE-001',level:'2',kategori:'SOP',dept:'SHE',tipe:'PDF',tanggal:'2025-04-01',pembuat:'Dept. SHE',deskripsi:'Prosedur inspeksi keselamatan terencana di seluruh area kerja.',ukuran:'1.5 MB'},
+  {id:12,nama:'SOP-LOG-001 Prosedur Pengelolaan Gudang',nomor:'SOP-LOG-001',level:'2',kategori:'SOP',dept:'Logistik',tipe:'PDF',tanggal:'2025-04-10',pembuat:'Dept. Logistik',deskripsi:'Tata cara penerimaan dan pengeluaran barang di area gudang.',ukuran:'1.4 MB'},
+  {id:13,nama:'SOP-ENG-001 Prosedur Pemeliharaan Unit Alat',nomor:'SOP-ENG-001',level:'2',kategori:'SOP',dept:'Engineering',tipe:'DOCX',tanggal:'2025-04-20',pembuat:'Dept. Engineering',deskripsi:'Prosedur preventive dan corrective maintenance unit alat berat.',ukuran:'2.0 MB'},
+  {id:14,nama:'SOP-HRGA-001 Prosedur Induksi Karyawan Baru',nomor:'SOP-HRGA-001',level:'2',kategori:'SOP',dept:'HRGA',tipe:'PDF',tanggal:'2025-05-01',pembuat:'Dept. HRGA',deskripsi:'Prosedur orientasi karyawan baru termasuk induksi K3LH.',ukuran:'1.6 MB'},
+  {id:15,nama:'IK-OPR-001 Instruksi Kerja Operasi Dump Truck',nomor:'IK-OPR-001',level:'3',kategori:'SOP',dept:'Produksi',tipe:'PDF',tanggal:'2025-05-10',pembuat:'Dept. Produksi',deskripsi:'Instruksi kerja untuk operator dump truck dalam kondisi normal dan darurat.',ukuran:'0.8 MB'},
+  {id:16,nama:'IK-SHE-001 Instruksi Penggunaan APAR',nomor:'IK-SHE-001',level:'3',kategori:'SOP',dept:'SHE',tipe:'PDF',tanggal:'2025-05-25',pembuat:'Dept. SHE',deskripsi:'Instruksi teknis penggunaan APAR untuk berbagai jenis kebakaran.',ukuran:'0.5 MB'},
+  {id:17,nama:'Form-SAP-001 Formulir Safety Activity Program',nomor:'FORM-SAP-001',level:'4',kategori:'Form',dept:'SHE',tipe:'XLSX',tanggal:'2025-01-20',pembuat:'Dept. SHE',deskripsi:'Formulir pencatatan aktivitas keselamatan kerja harian pengawas.',ukuran:'0.5 MB'},
+  {id:18,nama:'Form-HAZ-001 Formulir Hazard Report',nomor:'FORM-HAZ-001',level:'4',kategori:'Form',dept:'SHE',tipe:'DOCX',tanggal:'2025-02-14',pembuat:'Dept. SHE',deskripsi:'Formulir pelaporan temuan bahaya dan tindakan pengendalian.',ukuran:'0.3 MB'},
+  {id:19,nama:'Form-IND-001 Formulir Laporan Induksi K3LH',nomor:'FORM-IND-001',level:'4',kategori:'Form',dept:'SHE',tipe:'XLSX',tanggal:'2025-03-01',pembuat:'Dept. SHE',deskripsi:'Formulir pendataan peserta dan nilai induksi K3LH.',ukuran:'0.8 MB'},
+  {id:20,nama:'Laporan K3 Triwulan I 2025',nomor:'LPR-K3-Q1-2025',level:'4',kategori:'Laporan K3',dept:'SHE',tipe:'PPTX',tanggal:'2025-04-05',pembuat:'Dept. SHE',deskripsi:'Laporan statistik keselamatan kerja Triwulan I 2025.',ukuran:'5.6 MB'},
+];
 
-  // Hitung hanya jenis yang ada di jColors (Incident akan masuk Lainnya)
-  const jenisMap={};
-  allData.forEach(d=>{
-    const key = jColors[d.jenis] ? d.jenis : 'Lainnya';
-    jenisMap[key]=(jenisMap[key]||0)+1;
-  });
+let activeDept='', filteredDocs=[...documents], currentView='grid', deleteDocId=null, selFileData=null, currentUserRole='';
+const collapsedLevels={};
 
-  if(chartJ)chartJ.destroy();
-  chartJ=new Chart(document.getElementById('chartJenis'),{
-    type:'doughnut',
-    data:{
-      labels: Object.keys(jenisMap),
-      datasets:[{
-        data: Object.values(jenisMap),
-        backgroundColor: Object.keys(jenisMap).map(k=>jColors[k]||'rgba(0,212,255,0.85)'),
-        borderWidth:2,
-        borderColor:'#fff'
-      }]
-    },
-    options:{
-      responsive:true,
-      plugins:{legend:{position:'right',labels:{font:{family:'DM Sans',size:12},boxWidth:12}}},
-      cutout:'65%'
-    }
-  });
-
-  // Bar bulan
-  const bulanMap={};
-  allData.forEach(d=>{if(!d.tanggal)return;const b=d.tanggal.slice(0,7);bulanMap[b]=(bulanMap[b]||0)+1;});
-  const sortedB=Object.keys(bulanMap).sort().slice(-8);
-  if(chartB)chartB.destroy();
-  chartB=new Chart(document.getElementById('chartBulan'),{
-    type:'bar',
-    data:{
-      labels:sortedB.map(b=>{const[y,m]=b.split('-');return['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'][parseInt(m)-1]+' '+y.slice(2);}),
-      datasets:[{label:'Laporan',data:sortedB.map(b=>bulanMap[b]),backgroundColor:'rgba(139,92,246,0.75)',borderRadius:8,borderSkipped:false}]
-    },
-    options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.05)'},ticks:{font:{family:'DM Sans',size:11}}},x:{grid:{display:false},ticks:{font:{family:'DM Sans',size:11}}}}}
-  });
-}
-
-// ─── Filter ───────────────────────────────────────────────────────────────
-function applyFilter(){
-  const q      = document.getElementById('searchInput').value.toLowerCase();
-  const risiko = document.getElementById('filterRisiko').value;
-  const status = document.getElementById('filterStatus').value;
-  const jenis  = document.getElementById('filterJenis').value;
-  const bulan  = document.getElementById('filterBulan').value;
-  filtered=allData.filter(d=>{
-    const mQ=!q||d.pelapor?.toLowerCase().includes(q)||d.area?.toLowerCase().includes(q)||d.id?.toLowerCase().includes(q)||d.deskripsi?.toLowerCase().includes(q);
-    const mR=!risiko||d.risiko===risiko;
-    const mS=!status||d.status===status;
-    const mJ=!jenis||d.jenis===jenis;
-    const mB=!bulan||(d.tanggal&&d.tanggal.startsWith(bulan));
-    return mQ&&mR&&mS&&mJ&&mB;
-  });
-  currentPage=1;renderTable();
-}
-
-// ─── Table ────────────────────────────────────────────────────────────────
-function renderTable(){
-  const tbody=document.getElementById('laporanTable');
-  const start=(currentPage-1)*PAGE_SIZE;
-  const pageData=filtered.slice(start,start+PAGE_SIZE);
-  document.getElementById('tableSubTitle').textContent=`${filtered.length} dari ${allData.length} laporan ditampilkan`;
-  if(!filtered.length){
-    tbody.innerHTML='';
-    document.getElementById('emptyState').style.display='';
-  }else{
-    document.getElementById('emptyState').style.display='none';
-    tbody.innerHTML=pageData.map((d,i)=>{
-      const idx=allData.indexOf(d);
-      return `<tr onclick="viewDetail(${idx})">
-        <td class="no-col">${start+i+1}</td>
-        <td class="id-col">${d.id}</td>
-        <td class="date-col">${d.tanggal}</td>
-        <td style="font-weight:600;color:var(--navy)">${d.pelapor}</td>
-        <td style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${d.area}">${d.area}</td>
-        <td>${jBadge(d.jenis)}</td>
-        <td>${rBadge(d.risiko)}</td>
-        <td>${sBadge(d.status)}</td>
-        <td onclick="event.stopPropagation()">
-          <button class="btn-view" onclick="viewDetail(${idx})"><i class="fas fa-eye"></i></button>
-          <button class="btn-del"  onclick="deleteRow(${idx})"><i class="fas fa-trash-alt"></i></button>
-        </td>
-      </tr>`;
-    }).join('');
+// ═══════════════════════════════════════════════════════
+// INIT USER & AUTH CHECK
+// ═══════════════════════════════════════════════════════
+(function initUser(){
+  // ✅ CEK LOGIN — redirect ke index.html jika belum login
+  if (localStorage.getItem('isLoggedIn') !== 'true') {
+    window.location.href = 'index.html';
+    return;
   }
-  renderPagination();
-}
 
-function renderPagination(){
-  const total=filtered.length,pages=Math.ceil(total/PAGE_SIZE);
-  const start=(currentPage-1)*PAGE_SIZE+1,end=Math.min(currentPage*PAGE_SIZE,total);
-  document.getElementById('pageInfo').textContent=total?`Menampilkan ${start}–${end} dari ${total} laporan`:'Tidak ada data';
-  const btns=document.getElementById('pageBtns');
-  let html=`<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹ Prev</button>`;
-  for(let p=Math.max(1,currentPage-2);p<=Math.min(pages,currentPage+2);p++){
-    html+=`<button class="page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
-  }
-  html+=`<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===pages||!pages?'disabled':''}>Next ›</button>`;
-  btns.innerHTML=html;
-}
-function goPage(p){const pages=Math.ceil(filtered.length/PAGE_SIZE);if(p<1||p>pages)return;currentPage=p;renderTable();}
-
-// ─── Status Timeline helper ───────────────────────────────────────────────
-function statusTimeline(current, idx){
-  const steps=['Open','Progress','Closed'];
-  const icons=['fa-folder-open','fa-spinner','fa-check-circle'];
-  const curIdx=steps.indexOf(current);
-  let tl=`<div class="status-timeline">`;
-  steps.forEach((s,i)=>{
-    const cls=i<curIdx?'done':i===curIdx?'active':'pending';
-    tl+=`<div class="tl-step"><div class="tl-dot ${cls}"><i class="fas ${icons[i]}" style="font-size:10px"></i></div><div class="tl-label ${cls==='active'?'active':''}">${s}</div></div>`;
-    if(i<steps.length-1) tl+=`<div class="tl-line ${i<curIdx?'done':'pending'}"></div>`;
-  });
-  tl+=`</div><div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;">`;
-  if(current==='Open')    tl+=`<button class="btn-status btn-to-progress" onclick="updateStatus(${idx},'Progress')"><i class="fas fa-play"></i> Tandai Progress</button>`;
-  if(current==='Progress')tl+=`<button class="btn-status btn-to-closed"   onclick="updateStatus(${idx},'Closed')"><i class="fas fa-check"></i> Tandai Closed</button><button class="btn-status btn-to-open" onclick="updateStatus(${idx},'Open')"><i class="fas fa-undo"></i> Kembalikan Open</button>`;
-  if(current==='Closed')  tl+=`<button class="btn-status btn-to-open"     onclick="updateStatus(${idx},'Open')"><i class="fas fa-undo"></i> Buka Kembali</button>`;
-  tl+=`</div>`;
-  return tl;
-}
-
-function updateStatus(idx, newStatus){
-  allData[idx].status=newStatus;
-  localStorage.setItem(REPORTS_KEY,JSON.stringify(allData));
-  buildStats();buildCharts();applyFilter();
-  viewDetail(idx);
-  showToast(`<i class="fas fa-check-circle"></i> Status diperbarui ke <strong>${newStatus}</strong>`);
-}
-
-// ─── Detail Modal ─────────────────────────────────────────────────────────
-function viewDetail(idx){
-  const d=allData[idx];
-  document.getElementById('modalTitle').innerHTML=`<i class="fas fa-clipboard" style="color:var(--accent);margin-right:8px"></i>${d.id}`;
-  const foto=d.foto&&d.foto.length?`<div class="detail-full detail-item"><div class="detail-label">Foto Dokumentasi</div><div class="foto-grid">${d.foto.map(f=>`<img class="foto-thumb" src="${f}" onclick="window.open('${f}','_blank')">`).join('')}</div></div>`:'';
-  document.getElementById('modalBody').innerHTML=`
-    <div class="detail-grid">
-      <div class="detail-item"><div class="detail-label">Tanggal</div><div class="detail-value">${d.tanggal}</div></div>
-      <div class="detail-item"><div class="detail-label">Pelapor</div><div class="detail-value">${d.pelapor}</div></div>
-      <div class="detail-item"><div class="detail-label">Departemen</div><div class="detail-value">${d.departemen||'-'}</div></div>
-      <div class="detail-item"><div class="detail-label">Area Kerja</div><div class="detail-value">${d.area}</div></div>
-      <div class="detail-item"><div class="detail-label">Aktivitas</div><div class="detail-value">${d.aktivitas}</div></div>
-      <div class="detail-item"><div class="detail-label">Jenis Laporan</div><div class="detail-value">${jBadge(d.jenis)}</div></div>
-      <div class="detail-item"><div class="detail-label">Kategori Risiko</div><div class="detail-value">${rBadge(d.risiko)}</div></div>
-      <div class="detail-full detail-item">
-        <div class="detail-label">Status & Tindak Lanjut</div>
-        ${statusTimeline(d.status, idx)}
-      </div>
-      <div class="detail-full detail-item"><div class="detail-label">Deskripsi Kejadian</div><div class="detail-value" style="font-weight:400;line-height:1.6;white-space:pre-wrap;">${d.deskripsi}</div></div>
-      <div class="detail-full detail-item"><div class="detail-label">Tindakan Perbaikan</div><div class="detail-value" style="font-weight:400;line-height:1.6;">${d.tindakan||'-'}</div></div>
-      <div class="detail-item"><div class="detail-label">Dibuat Oleh</div><div class="detail-value">${d.createdBy||'-'}</div></div>
-      <div class="detail-item"><div class="detail-label">Waktu Input</div><div class="detail-value">${new Date(d.createdAt).toLocaleString('id-ID')}</div></div>
-      ${foto}
-    </div>`;
-  document.getElementById('detailModal').classList.add('show');
-}
-
-// ─── Delete ───────────────────────────────────────────────────────────────
-function deleteRow(idx){
-  deleteIdx=idx;
-  document.getElementById('delLabel').textContent=allData[idx].id;
-  document.getElementById('deleteModal').classList.add('show');
-}
-function confirmDelete(){
-  if(deleteIdx<0)return;
-  allData.splice(deleteIdx,1);deleteIdx=-1;
-  localStorage.setItem(REPORTS_KEY,JSON.stringify(allData));
-  closeModal('deleteModal');buildStats();buildCharts();applyFilter();
-  showToast('<i class="fas fa-trash-alt"></i> Laporan berhasil dihapus!');
-}
-function closeModal(id){document.getElementById(id).classList.remove('show');}
-
-// ─── Export / Import ──────────────────────────────────────────────────────
-function exportJSON(){
-  const blob=new Blob([JSON.stringify({meta:{exportedAt:new Date().toISOString(),total:allData.length},data:allData},null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob),a=document.createElement('a');
-  a.href=url;a.download=`backup-laporan-${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(url);
-  showToast('<i class="fas fa-file-code"></i> JSON berhasil didownload!');
-}
-
-function exportExcel(){
-  if(!allData.length){showToast('<i class="fas fa-exclamation-triangle"></i> Tidak ada data!',true);return;}
-  const wb=XLSX.utils.book_new();
-  const header=['No','ID','Tanggal','Pelapor','Departemen','Area','Aktivitas','Jenis','Risiko','Status','Deskripsi','Tindakan','Dibuat Oleh'];
-  const rows=allData.map((d,i)=>[i+1,d.id,d.tanggal,d.pelapor,d.departemen||'-',d.area,d.aktivitas,d.jenis,d.risiko,d.status,d.deskripsi,d.tindakan||'-',d.createdBy||'-']);
-  const ws=XLSX.utils.aoa_to_sheet([header,...rows]);
-  ws['!cols']=[{wch:4},{wch:16},{wch:12},{wch:22},{wch:14},{wch:18},{wch:22},{wch:16},{wch:10},{wch:10},{wch:40},{wch:30},{wch:14}];
-  XLSX.utils.book_append_sheet(wb,ws,'Laporan K3');
-  const total=allData.length,open=allData.filter(d=>d.status==='Open').length,prog=allData.filter(d=>d.status==='Progress').length,closed=allData.filter(d=>d.status==='Closed').length;
-  const crit=allData.filter(d=>d.risiko==='Critical').length,high=allData.filter(d=>d.risiko==='High').length,med=allData.filter(d=>d.risiko==='Medium').length,low=allData.filter(d=>d.risiko==='Low').length;
-  const wsR=XLSX.utils.aoa_to_sheet([
-    ['REKAP LAPORAN K3 — PT. INSANI BARAPERKASA — SIGAP'],['Export: '+new Date().toLocaleDateString('id-ID',{dateStyle:'full'})],[],
-    ['STATUS','Jumlah'],['Open',open],['In Progress',prog],['Closed',closed],['Total',total],[],
-    ['RISK LEVEL','Jumlah'],['Critical',crit],['High',high],['Medium',med],['Low',low]
-  ]);
-  wsR['!cols']=[{wch:20},{wch:10}];
-  XLSX.utils.book_append_sheet(wb,wsR,'Rekap');
-  XLSX.writeFile(wb,`Laporan-K3-SIGAP-${new Date().toISOString().slice(0,10)}.xlsx`);
-  showToast('<i class="fas fa-file-excel"></i> Excel berhasil didownload!');
-}
-
-function importJSON(event){
-  const file=event.target.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=function(e){
-    try{
-      const parsed=JSON.parse(e.target.result);
-      const imported=Array.isArray(parsed)?parsed:(parsed.data&&Array.isArray(parsed.data)?parsed.data:null);
-      if(!imported)throw new Error('format salah');
-      allData=imported;localStorage.setItem(REPORTS_KEY,JSON.stringify(allData));
-      buildStats();buildCharts();applyFilter();
-      showToast(`<i class="fas fa-file-import"></i> Berhasil import ${imported.length} laporan!`);
-    }catch(e){showToast('<i class="fas fa-times-circle"></i> File tidak valid!',true);}
-    event.target.value='';
-  };
-  reader.readAsText(file);
-}
-
-// ─── Toast ────────────────────────────────────────────────────────────────
-function showToast(msg,isError){
-  const t=document.getElementById('toast');t.innerHTML=msg;
-  t.style.background=isError?'var(--accent2)':'var(--navy)';
-  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);
-}
-
-// ─── Sidebar / Auth ───────────────────────────────────────────────────────
-(function(){
-  const name=localStorage.getItem('userName')||'User';
+  const name = localStorage.getItem('userName')||'User';
+  const role = localStorage.getItem('userRole')||'Supervisor';
+  currentUserRole = role;
   ['userNameDisplay','sidebarUserName'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=name;});
   const av=document.getElementById('sidebarAvatarLetter');if(av)av.textContent=name.charAt(0).toUpperCase();
-})();
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open');}
-function logout(){if(confirm('Yakin ingin logout?')){localStorage.removeItem('userName');window.location.href='index.html';}}
+  const roleEl=document.getElementById('sidebarUserRole');if(roleEl)roleEl.textContent=role;
+  const badge=document.getElementById('roleBadge');
+  if(badge){badge.textContent=role;badge.className=role==='Safety Officer'?'role-badge she':role==='Dok Kontrol'?'role-badge dok':'role-badge other';}
 
-// ─── INIT ─────────────────────────────────────────────────────────────────
-loadData();buildStats();buildCharts();applyFilter();
+  const canUpload = UPLOAD_ROLES.includes(role);
+  if(!canUpload){
+    const btn=document.getElementById('btnUpload');
+    if(btn){btn.classList.add('locked');document.getElementById('btnUploadText').innerHTML='<i class="fas fa-lock" style="margin-right:4px"></i>Upload Terkunci';}
+    const notice=document.getElementById('uploadLockNotice');if(notice)notice.style.display='flex';
+  }
+})();
+
+function handleUploadClick(){
+  if(!UPLOAD_ROLES.includes(currentUserRole)){
+    document.getElementById('restrictedModal').classList.add('show'); return;
+  }
+  openUpload();
+}
+
+// ═══════════════════════════════════════════════════════
+// DEPARTMENT NAV
+// ═══════════════════════════════════════════════════════
+function buildDeptNav(){
+  const nav = document.getElementById('deptNav');
+  nav.innerHTML = DEPARTMENTS.map((d,i)=>{
+    const count = d.id===''
+      ? documents.length
+      : documents.filter(x=>x.dept===d.id||x.dept==='Umum').length;
+    const isActive = activeDept===d.id;
+    return (i===1?'<div class="dept-divider"></div>':'')
+      +'<button class="dept-nav-btn '+(isActive?'active':'')+'" onclick="setDept(\''+d.id+'\')">'
+      +'<div class="dept-nav-icon"><i class="fas '+d.icon+'" style="'+(isActive?'color:#fff':'color:'+d.color)+'"></i></div>'
+      +'<span>'+d.label+'</span>'
+      +'<span class="dept-count">'+count+'</span>'
+      +'</button>';
+  }).join('');
+}
+
+function setDept(id){
+  activeDept=id;
+  buildDeptNav();
+  applyFilter();
+}
+
+// ═══════════════════════════════════════════════════════
+// STAT CARDS
+// ═══════════════════════════════════════════════════════
+function buildStats(){
+  const base = filteredDocs;
+  document.getElementById('statsRow').innerHTML = LEVELS.map((lv,i)=>{
+    const cnt = base.filter(d=>d.level===lv.id).length;
+    return '<div class="stat-card '+lv.sc+'" style="animation-delay:'+(i*.07)+'s" onclick="scrollToLevel(\''+lv.id+'\')">'
+      +'<div class="stat-icon"><i class="fas '+lv.icon+'"></i></div>'
+      +'<div class="stat-lbl">'+lv.label+' — '+lv.sub+'</div>'
+      +'<div class="stat-val">'+cnt+'</div>'
+      +'<div class="stat-sub">dokumen</div>'
+      +'</div>';
+  }).join('');
+}
+
+function scrollToLevel(lvId){
+  const el=document.getElementById('lvsec-'+lvId);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ═══════════════════════════════════════════════════════
+// FILTER
+// ═══════════════════════════════════════════════════════
+function applyFilter(){
+  const q=(document.getElementById('searchInput').value||'').toLowerCase();
+  const kat=document.getElementById('filterKat').value;
+  const tipe=document.getElementById('filterTipe').value;
+  const sort=document.getElementById('filterSort').value;
+
+  filteredDocs = documents.filter(d=>{
+    const mQ=!q||d.nama.toLowerCase().includes(q)||(d.nomor||'').toLowerCase().includes(q)||(d.deskripsi||'').toLowerCase().includes(q);
+    const mK=!kat||d.kategori===kat;
+    const mT=!tipe||d.tipe===tipe;
+    const mD=!activeDept||d.dept===activeDept||d.dept==='Umum';
+    return mQ&&mK&&mT&&mD;
+  });
+
+  filteredDocs.sort((a,b)=>{
+    if(sort==='terbaru')return new Date(b.tanggal)-new Date(a.tanggal);
+    if(sort==='terlama')return new Date(a.tanggal)-new Date(b.tanggal);
+    if(sort==='az')return a.nama.localeCompare(b.nama);
+    if(sort==='za')return b.nama.localeCompare(a.nama);
+    return 0;
+  });
+
+  buildStats();
+  renderAll();
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER LEVEL SECTIONS
+// ═══════════════════════════════════════════════════════
+function renderAll(){
+  const area=document.getElementById('docsArea');
+  if(!filteredDocs.length){
+    area.innerHTML='<div class="empty-full"><div class="empty-full-icon"><i class="fas fa-folder-open"></i></div><div style="font-weight:700;color:var(--navy);font-size:15px;margin-bottom:6px">Tidak ada dokumen</div><div>Coba ubah filter atau departemen</div></div>';
+    return;
+  }
+
+  area.innerHTML = LEVELS.map(lv=>{
+    const lvDocs = filteredDocs.filter(d=>d.level===lv.id);
+    if(!lvDocs.length) return '';
+    const isOpen = collapsedLevels[lv.id]!==true;
+    return '<div class="level-section" id="lvsec-'+lv.id+'">'
+      +'<div class="level-section-header '+lv.header+'" onclick="toggleLevel(\''+lv.id+'\')">'
+      +'<div class="level-icon-big '+lv.icon2+'"><i class="fas '+lv.icon+'"></i></div>'
+      +'<div style="flex:1"><div class="level-title '+lv.title+'">'+lv.label+' <span style="opacity:.5;font-weight:500">—</span> '+lv.sub+'</div>'
+      +'<div class="level-subtitle">'+lvDocs.length+' dokumen</div></div>'
+      +'<span class="level-count-badge '+lv.cnt+'">'+lvDocs.length+'</span>'
+      +'<i class="fas fa-chevron-down level-toggle-icon '+(isOpen?'open':'')+'" id="lv-toggle-'+lv.id+'"></i>'
+      +'</div>'
+      +(isOpen
+        ? '<div class="level-section-body '+lv.body+'" id="lv-body-'+lv.id+'">'+(currentView==='grid'?renderLvGrid(lvDocs,lv):renderLvList(lvDocs,lv))+'</div>'
+        : '<div id="lv-body-'+lv.id+'" style="display:none"><div class="level-section-body '+lv.body+'">'+(currentView==='grid'?renderLvGrid(lvDocs,lv):renderLvList(lvDocs,lv))+'</div></div>')
+      +'</div>';
+  }).join('');
+}
+
+function toggleLevel(lvId){
+  collapsedLevels[lvId]=!collapsedLevels[lvId];
+  const body=document.getElementById('lv-body-'+lvId);
+  const icon=document.getElementById('lv-toggle-'+lvId);
+  if(collapsedLevels[lvId]){body.style.display='none';if(icon)icon.classList.remove('open');}
+  else{body.style.display='';if(icon)icon.classList.add('open');}
+}
+
+function renderLvGrid(docs,lv){
+  const canDel=UPLOAD_ROLES.includes(currentUserRole);
+  return '<div class="docs-grid">'+docs.map(d=>{
+    const tc=getTipe(d.tipe),kc=getKat(d.kategori);
+    return '<div class="doc-card '+lv.card+'" onclick="openPrev('+d.id+')">'
+      +'<div class="doc-level-stripe '+lv.stripe+'"></div>'
+      +'<div class="doc-card-top">'
+      +'<div class="doc-type-icon" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div>'
+      +'<div class="doc-name">'+d.nama+'</div>'
+      +'<div class="doc-meta">'+(d.nomor?d.nomor+' · ':'')+fmtTgl(d.tanggal)+'</div>'
+      +'<div class="doc-badges">'
+      +'<span class="lb '+lv.cls+'"><i class="fas '+lv.icon+'" style="font-size:8px"></i> '+lv.label+'</span>'
+      +'<span class="dept-tag">'+d.dept+'</span>'
+      +'</div></div>'
+      +'<div class="doc-card-bottom" onclick="event.stopPropagation()">'
+      +'<span class="badge-sm" style="background:'+kc.bg+';color:'+kc.color+'"><i class="fas '+kc.icon+'" style="font-size:8px"></i> '+kc.label+'</span>'
+      +'<div class="doc-actions">'
+      +'<button class="act-btn act-view" onclick="openPrev('+d.id+')" title="Detail"><i class="fas fa-eye"></i></button>'
+      +'<button class="act-btn act-dl" onclick="downloadDoc('+d.id+')" title="Download"><i class="fas fa-download"></i></button>'
+      +'<button class="act-btn act-del" onclick="openDel('+d.id+')" title="Hapus"'+(canDel?'':' disabled')+'><i class="fas fa-trash-alt"></i></button>'
+      +'</div></div></div>';
+  }).join('')+'</div>';
+}
+
+function renderLvList(docs,lv){
+  const canDel=UPLOAD_ROLES.includes(currentUserRole);
+  return '<div class="docs-list"><table><thead><tr><th>No</th><th>Dokumen</th><th>Kategori</th><th>Departemen</th><th>Tipe</th><th>Tanggal</th><th>Ukuran</th><th>Aksi</th></tr></thead><tbody>'
+    +docs.map((d,i)=>{
+      const tc=getTipe(d.tipe),kc=getKat(d.kategori);
+      return '<tr onclick="openPrev('+d.id+')">'
+        +'<td style="color:var(--muted);font-size:11px;font-family:\'Space Mono\',monospace">'+(i+1)+'</td>'
+        +'<td><div style="display:flex;align-items:center;gap:10px">'
+        +'<div class="file-icon-sm" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div>'
+        +'<div><div style="font-weight:600;color:var(--navy);font-size:13px">'+d.nama+'</div>'
+        +'<div style="font-size:10px;color:var(--muted);margin-top:1px">'+(d.nomor||'—')+'</div></div></div></td>'
+        +'<td><span class="badge-sm" style="background:'+kc.bg+';color:'+kc.color+'"><i class="fas '+kc.icon+'" style="font-size:8px"></i> '+kc.label+'</span></td>'
+        +'<td><span class="dept-tag">'+d.dept+'</span></td>'
+        +'<td><span style="font-family:\'Space Mono\',monospace;font-size:11px;font-weight:700;color:'+tc.color+'">'+d.tipe+'</span></td>'
+        +'<td style="font-size:12px;color:var(--muted)">'+fmtTgl(d.tanggal)+'</td>'
+        +'<td style="font-size:12px;color:var(--muted)">'+d.ukuran+'</td>'
+        +'<td onclick="event.stopPropagation()" style="white-space:nowrap">'
+        +'<button class="act-btn act-view" onclick="openPrev('+d.id+')"><i class="fas fa-eye"></i></button> '
+        +'<button class="act-btn act-dl" onclick="downloadDoc('+d.id+')"><i class="fas fa-download"></i></button> '
+        +'<button class="act-btn act-del" onclick="openDel('+d.id+')"'+(canDel?'':' disabled')+'><i class="fas fa-trash-alt"></i></button>'
+        +'</td></tr>';
+    }).join('')+'</tbody></table></div>';
+}
+
+function setView(v){
+  currentView=v;
+  document.getElementById('btnGrid').classList.toggle('active',v==='grid');
+  document.getElementById('btnList').classList.toggle('active',v==='list');
+  renderAll();
+}
+
+// ═══════════════════════════════════════════════════════
+// PREVIEW
+// ═══════════════════════════════════════════════════════
+function openPrev(id){
+  const d=documents.find(x=>x.id===id);if(!d)return;
+  const tc=getTipe(d.tipe),kc=getKat(d.kategori);
+  const lv=LEVELS.find(l=>l.id===d.level)||LEVELS[3];
+  document.getElementById('prevContent').innerHTML=
+    '<div style="text-align:center">'
+    +'<div class="prev-doc-icon" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div>'
+    +'<div class="prev-doc-name">'+d.nama+'</div>'
+    +'<div style="display:flex;justify-content:center;gap:8px;margin:8px 0 4px">'
+    +'<span class="lb '+lv.cls+'"><i class="fas '+lv.icon+'" style="font-size:8px"></i> '+lv.label+' — '+lv.sub+'</span>'
+    +'<span class="dept-tag">'+d.dept+'</span></div>'
+    +'<div class="prev-level-stripe '+lv.stripe+'"></div>'
+    +'<div class="prev-doc-desc" style="margin-top:12px">'+(d.deskripsi||'Tidak ada deskripsi.')+'</div>'
+    +'</div>'
+    +'<div class="prev-grid">'
+    +'<div class="prev-field"><div class="prev-label">Nomor</div><div class="prev-val">'+(d.nomor||'—')+'</div></div>'
+    +'<div class="prev-field"><div class="prev-label">Kategori</div><div class="prev-val"><span class="badge-sm" style="background:'+kc.bg+';color:'+kc.color+'"><i class="fas '+kc.icon+'" style="font-size:9px"></i> '+kc.label+'</span></div></div>'
+    +'<div class="prev-field"><div class="prev-label">Level</div><div class="prev-val">'+lv.label+' — '+lv.sub+'</div></div>'
+    +'<div class="prev-field"><div class="prev-label">Departemen</div><div class="prev-val">'+d.dept+'</div></div>'
+    +'<div class="prev-field"><div class="prev-label">Tipe File</div><div class="prev-val" style="color:'+tc.color+'">'+d.tipe+'</div></div>'
+    +'<div class="prev-field"><div class="prev-label">Ukuran</div><div class="prev-val">'+d.ukuran+'</div></div>'
+    +'<div class="prev-field"><div class="prev-label">Tanggal Terbit</div><div class="prev-val">'+fmtTgl(d.tanggal)+'</div></div>'
+    +'<div class="prev-field"><div class="prev-label">Dibuat Oleh</div><div class="prev-val">'+(d.pembuat||'—')+'</div></div>'
+    +'</div>'
+    +'<button class="btn-dl-full" onclick="downloadDoc('+d.id+')"><i class="fas fa-download"></i> Download Dokumen</button>';
+  document.getElementById('previewModal').classList.add('show');
+}
+function closePrev(){document.getElementById('previewModal').classList.remove('show');}
+
+// ═══════════════════════════════════════════════════════
+// DELETE
+// ═══════════════════════════════════════════════════════
+function openDel(id){
+  if(!UPLOAD_ROLES.includes(currentUserRole)){document.getElementById('restrictedModal').classList.add('show');return;}
+  deleteDocId=id;
+  document.getElementById('delName').textContent=documents.find(x=>x.id===id)?.nama||'';
+  document.getElementById('deleteModal').classList.add('show');
+}
+function closeDel(){document.getElementById('deleteModal').classList.remove('show');deleteDocId=null;}
+function confirmDel(){
+  if(!deleteDocId)return;
+  documents=documents.filter(d=>d.id!==deleteDocId);
+  closeDel();closePrev();applyFilter();
+  showToast('<i class="fas fa-trash-alt"></i> Dokumen berhasil dihapus!');
+}
+function downloadDoc(id){
+  const d=documents.find(x=>x.id===id);
+  showToast('<i class="fas fa-download"></i> Mengunduh '+(d?d.nama:'')+'...');
+}
+
+// ═══════════════════════════════════════════════════════
+// UPLOAD
+// ═══════════════════════════════════════════════════════
+function openUpload(){
+  document.getElementById('uploadModal').classList.add('show');
+  document.getElementById('uTanggal').value=new Date().toISOString().split('T')[0];
+  document.getElementById('uPembuat').value=localStorage.getItem('userName')||'';
+  if(activeDept)document.getElementById('uDept').value=activeDept;
+}
+function closeUploadModal(){
+  document.getElementById('uploadModal').classList.remove('show');
+  ['uNama','uNomor','uDeskripsi','uPembuat'].forEach(id=>document.getElementById(id).value='');
+  ['uKategori','uLevel','uDept'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('selFile').style.display='none';selFileData=null;
+  document.getElementById('levelPreviewWrap').style.display='none';
+}
+function fileSelect(input){if(input.files&&input.files[0])procFile(input.files[0]);}
+function dzOver(e){e.preventDefault();document.getElementById('uploadZone').classList.add('dragover');}
+function dzLeave(){document.getElementById('uploadZone').classList.remove('dragover');}
+function dzDrop(e){e.preventDefault();dzLeave();if(e.dataTransfer.files[0])procFile(e.dataTransfer.files[0]);}
+function procFile(file){
+  const ext=file.name.split('.').pop().toUpperCase();
+  selFileData={tipe:ext,ukuran:(file.size/1024/1024).toFixed(1)+' MB'};
+  document.getElementById('selFileName').textContent=file.name;
+  document.getElementById('selFileSize').textContent=selFileData.ukuran;
+  document.getElementById('selFile').style.display='flex';
+  if(!document.getElementById('uNama').value)document.getElementById('uNama').value=file.name.replace(/\.[^/.]+$/,'');
+  if(!document.getElementById('uKategori').value){
+    if(ext==='XLSX'||ext==='XLS')document.getElementById('uKategori').value='Form';
+    else if(ext==='PPTX'||ext==='PPT')document.getElementById('uKategori').value='Laporan K3';
+    else if(ext==='PDF'||ext==='DOCX'||ext==='DOC')document.getElementById('uKategori').value='SOP';
+  }
+}
+function onLevelChange(){
+  const lv=document.getElementById('uLevel').value;
+  const wrap=document.getElementById('levelPreviewWrap');
+  const prev=document.getElementById('levelPreview');
+  if(!lv){wrap.style.display='none';return;}
+  const cfg=LEVELS.find(l=>l.id===lv);
+  wrap.style.display='';
+  prev.style.background='rgba(0,0,0,.04)';
+  prev.innerHTML='<i class="fas '+cfg.icon+'" style="color:'+cfg.color+'"></i>'
+    +'<span style="color:'+cfg.color+';font-weight:700">'+cfg.label+' — '+cfg.sub+'</span>'
+    +'<div class="prev-level-stripe '+cfg.stripe+'" style="margin:0;flex:1;height:4px;border-radius:4px"></div>';
+}
+function saveDoc(){
+  const nama=document.getElementById('uNama').value.trim();
+  const level=document.getElementById('uLevel').value;
+  const kat=document.getElementById('uKategori').value;
+  const dept=document.getElementById('uDept').value;
+  if(!nama){showToast('<i class="fas fa-exclamation-triangle"></i> Nama dokumen wajib!',true);return;}
+  if(!level){showToast('<i class="fas fa-exclamation-triangle"></i> Pilih level dokumen!',true);return;}
+  if(!kat){showToast('<i class="fas fa-exclamation-triangle"></i> Pilih kategori!',true);return;}
+  if(!dept){showToast('<i class="fas fa-exclamation-triangle"></i> Pilih departemen!',true);return;}
+  documents.unshift({
+    id:Date.now(),nama,
+    nomor:document.getElementById('uNomor').value.trim(),
+    level,kategori:kat,dept,
+    tipe:selFileData?.tipe||'PDF',
+    tanggal:document.getElementById('uTanggal').value||new Date().toISOString().split('T')[0],
+    pembuat:document.getElementById('uPembuat').value.trim()||currentUserRole,
+    deskripsi:document.getElementById('uDeskripsi').value.trim(),
+    ukuran:selFileData?.ukuran||'—'
+  });
+  closeUploadModal();buildDeptNav();applyFilter();
+  showToast('<i class="fas fa-check-circle"></i> Dokumen berhasil disimpan!');
+}
+
+// ═══════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════
+function getTipe(t){return TIPE[(t||'').toUpperCase()]||{icon:'fa-file',color:'#7a8aaa',bg:'rgba(122,138,170,.10)'};}
+function getKat(k){return KAT[k]||{color:'#7a8aaa',bg:'rgba(122,138,170,.10)',icon:'fa-file',label:k||'—'};}
+function fmtTgl(t){if(!t)return'—';const[y,m,d]=t.split('-');const mo=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];return parseInt(d)+' '+mo[parseInt(m)-1]+' '+y;}
+function showToast(msg,err){const t=document.getElementById('toast');t.innerHTML=msg;t.style.background=err?'var(--accent2)':'var(--navy)';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open');}
+
+// ✅ LOGOUT — redirect ke index.html (bukan login.html)
+function logout(){
+  if(confirm('Yakin ingin logout?')){
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userRole');
+    window.location.href='index.html';
+  }
+}
+
+// ═══ INIT ═══
+buildDeptNav();
+applyFilter();
 </script>
 </body>
 </html>
