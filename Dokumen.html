@@ -3,16 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dokumen – AIMS</title>
+<title>Dokumen – SIGAP</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;--bg:#f0f4fa;--card-bg:#fff;--text:#1a2540;--muted:#7a8aaa;--border:#e0e7ef;--sidebar-w:260px;--radius:16px;--shadow:0 4px 24px rgba(11,24,41,.10);--transition:.28s cubic-bezier(.4,0,.2,1);
-  --lv1:#6366f1;--lv2:#0ea5e9;--lv3:#f59e0b;--lv4:#22e0a1;}
+:root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;--bg:#f0f4fa;--card-bg:#fff;--text:#1a2540;--muted:#7a8aaa;--border:#e0e7ef;--sidebar-w:260px;--radius:16px;--shadow:0 4px 24px rgba(11,24,41,.10);--transition:.28s cubic-bezier(.4,0,.2,1);}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;font-size:14px;}
-/* ─── SIDEBAR ─────────────────────────────── */
 .sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
 .sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
 .sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,.07);}
@@ -36,7 +34,6 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .user-avatar{width:36px;height:36px;background:linear-gradient(135deg,var(--accent3),#ff8c00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:700;}
 .user-info .user-name{font-size:13px;font-weight:600;color:#fff;}
 .user-info .user-role{font-size:11px;color:var(--muted);}
-/* ─── MAIN ──────────────────────────────── */
 .main{margin-left:var(--sidebar-w);padding:0;min-height:100vh;}
 .topbar{background:var(--card-bg);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.05);}
 .topbar-left h5{font-size:15px;font-weight:700;color:var(--navy);margin:0;}
@@ -44,7 +41,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .topbar-right{display:flex;align-items:center;gap:12px;}
 .topbar-btn{width:38px;height:38px;border-radius:10px;background:var(--bg);border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
 .topbar-btn:hover{background:#e2e8f5;color:var(--navy);}
-.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:var(--bg);cursor:pointer;}
+.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:var(--bg);cursor:pointer;transition:background var(--transition);}
 .topbar-user:hover{background:#e2e8f5;}
 .topbar-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
 .topbar-uname{font-size:13px;font-weight:600;color:var(--text);}
@@ -53,200 +50,162 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .role-badge.dok{background:rgba(0,212,255,.10);color:#007fa3;border:1px solid rgba(0,212,255,.25);}
 .role-badge.other{background:rgba(122,138,170,.12);color:var(--muted);border:1px solid var(--border);}
 .content{padding:28px 32px 48px;}
-/* ─── PAGE HEADER ─────────────────────────── */
 .page-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;flex-wrap:wrap;gap:16px;}
 .page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;}
 .title-icon{width:44px;height:44px;background:linear-gradient(135deg,#0ea5e9,#0284c7);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(14,165,233,.35);}
 .page-sub{font-size:13px;color:var(--muted);margin-top:6px;}
-/* ─── UPLOAD BUTTON & LOCK ─────────────────── */
 .btn-upload{display:flex;align-items:center;gap:8px;padding:11px 22px;border-radius:10px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:all var(--transition);font-family:'DM Sans',sans-serif;box-shadow:0 4px 14px rgba(11,24,41,.22);}
 .btn-upload:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(11,24,41,.28);}
-.btn-upload.locked{background:linear-gradient(135deg,#7a8aaa,#94a3b8);cursor:not-allowed;}
-.btn-upload.locked:hover{transform:none;box-shadow:0 4px 14px rgba(11,24,41,.22);}
+.btn-upload:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
 .upload-lock-notice{display:flex;align-items:center;gap:8px;padding:9px 14px;background:rgba(255,200,67,.08);border:1px solid rgba(255,200,67,.3);border-radius:10px;font-size:12px;color:#b37d00;font-weight:500;}
-/* ─── DEPARTMENT NAV ─────────────────────── */
-.dept-nav{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);padding:6px 8px;margin-bottom:20px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;overflow-x:auto;animation:fadeUp .3s ease both;}
-.dept-nav-btn{display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;border:none;background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--muted);transition:all var(--transition);white-space:nowrap;position:relative;}
-.dept-nav-btn:hover{background:var(--bg);color:var(--navy);}
-.dept-nav-btn.active{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;box-shadow:0 3px 12px rgba(11,24,41,.2);}
-.dept-nav-btn .dept-count{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 5px;border-radius:20px;font-size:10px;font-weight:800;background:rgba(255,255,255,.2);transition:all var(--transition);}
-.dept-nav-btn:not(.active) .dept-count{background:rgba(11,24,41,.08);color:var(--navy);}
-.dept-nav-icon{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
-.dept-nav-btn.active .dept-nav-icon{background:rgba(255,255,255,.2);}
-.dept-nav-btn:not(.active) .dept-nav-icon{background:rgba(11,24,41,.07);color:var(--navy);}
-.dept-divider{width:1px;height:28px;background:var(--border);margin:0 2px;flex-shrink:0;}
-/* ─── LEVEL SECTIONS ─────────────────────── */
-.level-section{margin-bottom:28px;animation:fadeUp .4s ease both;}
-.level-section-header{display:flex;align-items:center;gap:14px;padding:16px 22px;border-radius:var(--radius) var(--radius) 0 0;cursor:pointer;user-select:none;transition:all var(--transition);}
-.level-section-header:hover{filter:brightness(1.05);}
-.lv1-header{background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(99,102,241,.05));border:1.5px solid rgba(99,102,241,.25);border-bottom:none;}
-.lv2-header{background:linear-gradient(135deg,rgba(14,165,233,.15),rgba(14,165,233,.05));border:1.5px solid rgba(14,165,233,.25);border-bottom:none;}
-.lv3-header{background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(245,158,11,.05));border:1.5px solid rgba(245,158,11,.25);border-bottom:none;}
-.lv4-header{background:linear-gradient(135deg,rgba(34,224,161,.15),rgba(34,224,161,.05));border:1.5px solid rgba(34,224,161,.25);border-bottom:none;}
-.level-icon-big{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.lv1-icon{background:rgba(99,102,241,.15);color:#4f46e5;}
-.lv2-icon{background:rgba(14,165,233,.15);color:#0284c7;}
-.lv3-icon{background:rgba(245,158,11,.15);color:#d97706;}
-.lv4-icon{background:rgba(34,224,161,.15);color:#127754;}
-.level-title{font-size:16px;font-weight:800;flex:1;}
-.lv1-title{color:#4f46e5;}.lv2-title{color:#0284c7;}.lv3-title{color:#d97706;}.lv4-title{color:#127754;}
-.level-subtitle{font-size:11px;color:var(--muted);margin-top:1px;font-weight:400;}
-.level-count-badge{padding:5px 14px;border-radius:20px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0;}
-.lv1-cnt{background:rgba(99,102,241,.12);color:#4f46e5;}
-.lv2-cnt{background:rgba(14,165,233,.12);color:#0284c7;}
-.lv3-cnt{background:rgba(245,158,11,.12);color:#d97706;}
-.lv4-cnt{background:rgba(34,224,161,.12);color:#127754;}
-.level-toggle-icon{font-size:13px;color:var(--muted);transition:transform var(--transition);}
-.level-toggle-icon.open{transform:rotate(180deg);}
-.level-section-body{border-radius:0 0 var(--radius) var(--radius);border:1.5px solid;border-top:none;padding:18px;}
-.lv1-body{border-color:rgba(99,102,241,.25);}
-.lv2-body{border-color:rgba(14,165,233,.25);}
-.lv3-body{border-color:rgba(245,158,11,.25);}
-.lv4-body{border-color:rgba(34,224,161,.25);}
-/* ─── TOOLBAR ─────────────────────────────── */
-.toolbar-bar{background:var(--card-bg);border-radius:var(--radius);padding:12px 16px;box-shadow:var(--shadow);margin-bottom:20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;animation:fadeUp .35s ease both;}
+/* LEVEL LEGEND */
+.level-legend{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px;padding:14px 20px;background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);animation:fadeUp .4s ease both;}
+.level-legend-title{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-right:2px;flex-shrink:0;}
+.level-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;transition:all var(--transition);border:1.5px solid transparent;white-space:nowrap;}
+.level-pill:hover{transform:translateY(-1px);}
+.lv-all{background:rgba(11,24,41,.06);color:var(--navy);border-color:rgba(11,24,41,.15);}
+.lv-all.active{background:var(--navy);color:#fff;border-color:var(--navy);box-shadow:0 3px 10px rgba(11,24,41,.2);}
+.lv1{background:rgba(99,102,241,.10);color:#4f46e5;border-color:rgba(99,102,241,.2);}
+.lv1.active{background:#6366f1;color:#fff;border-color:#6366f1;box-shadow:0 3px 10px rgba(99,102,241,.3);}
+.lv2{background:rgba(14,165,233,.10);color:#0284c7;border-color:rgba(14,165,233,.2);}
+.lv2.active{background:#0ea5e9;color:#fff;border-color:#0ea5e9;box-shadow:0 3px 10px rgba(14,165,233,.3);}
+.lv3{background:rgba(245,158,11,.10);color:#d97706;border-color:rgba(245,158,11,.2);}
+.lv3.active{background:#f59e0b;color:#fff;border-color:#f59e0b;box-shadow:0 3px 10px rgba(245,158,11,.3);}
+.lv4{background:rgba(34,224,161,.10);color:#127754;border-color:rgba(34,224,161,.2);}
+.lv4.active{background:#22e0a1;color:var(--navy);border-color:#22e0a1;box-shadow:0 3px 10px rgba(34,224,161,.3);}
+/* DEPT TABS */
+.dept-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;animation:fadeUp .45s ease both;}
+.dept-tab{padding:7px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:#fff;color:var(--muted);transition:all var(--transition);}
+.dept-tab:hover{border-color:var(--accent);color:var(--accent);}
+.dept-tab.active{background:var(--navy-light);color:#fff;border-color:var(--navy-light);}
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:18px;}
+.stat-card{background:var(--card-bg);border-radius:var(--radius);padding:14px 12px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform var(--transition);animation:fadeUp .4s ease both;cursor:pointer;}
+.stat-card:hover{transform:translateY(-3px);}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0;}
+.stat-card.cs-all::before{background:linear-gradient(90deg,var(--accent),#0099cc);}
+.stat-card.cs-sop::before{background:#3b82f6;}
+.stat-card.cs-form::before{background:#8b5cf6;}
+.stat-card.cs-reg::before{background:#f59e0b;}
+.stat-card.cs-k3::before{background:var(--accent2);}
+.stat-card.cs-sert::before{background:var(--accent4);}
+.stat-card.active-filter{box-shadow:0 0 0 2px var(--accent),var(--shadow);}
+.stat-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;margin-bottom:7px;}
+.stat-label{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.3px;}
+.stat-value{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;line-height:1;margin-top:3px;}
+.cs-all  .stat-icon{background:rgba(0,212,255,.10);color:var(--accent);}   .cs-all  .stat-value{color:var(--accent);}
+.cs-sop  .stat-icon{background:rgba(59,130,246,.10);color:#3b82f6;}         .cs-sop  .stat-value{color:#3b82f6;}
+.cs-form .stat-icon{background:rgba(139,92,246,.10);color:#8b5cf6;}         .cs-form .stat-value{color:#8b5cf6;}
+.cs-reg  .stat-icon{background:rgba(245,158,11,.12);color:#d97706;}         .cs-reg  .stat-value{color:#d97706;}
+.cs-k3   .stat-icon{background:rgba(255,78,106,.10);color:var(--accent2);}  .cs-k3   .stat-value{color:var(--accent2);}
+.cs-sert .stat-icon{background:rgba(34,224,161,.10);color:var(--accent4);}  .cs-sert .stat-value{color:var(--accent4);}
+/* TOOLBAR */
+.toolbar-card{background:var(--card-bg);border-radius:var(--radius);padding:13px 18px;box-shadow:var(--shadow);margin-bottom:18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;animation:fadeUp .48s ease both;}
 .search-wrap{position:relative;flex:1;min-width:180px;}
 .search-wrap .s-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none;}
 .search-input{width:100%;padding:10px 14px 10px 34px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;transition:all var(--transition);}
 .search-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,.10);}
-.filter-sel{padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;cursor:pointer;transition:all var(--transition);}
-.filter-sel:focus{border-color:var(--accent);}
+.filter-select{padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;cursor:pointer;transition:all var(--transition);}
+.filter-select:focus{border-color:var(--accent);}
 .view-toggle{display:flex;gap:4px;}
 .view-btn{width:36px;height:36px;border-radius:8px;border:1.5px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all var(--transition);}
 .view-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
 .view-btn:hover:not(.active){background:#e2e8f5;}
-/* ─── STAT CARDS ─────────────────────────── */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
-.stat-card{background:var(--card-bg);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform var(--transition);animation:fadeUp .4s ease both;cursor:pointer;}
-.stat-card:hover{transform:translateY(-3px);}
-.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0;}
-.sc-lv1::before{background:var(--lv1);}.sc-lv2::before{background:var(--lv2);}.sc-lv3::before{background:var(--lv3);}.sc-lv4::before{background:var(--lv4);}
-.sc-lv1.active-sc{box-shadow:0 0 0 2px var(--lv1),var(--shadow);}
-.sc-lv2.active-sc{box-shadow:0 0 0 2px var(--lv2),var(--shadow);}
-.sc-lv3.active-sc{box-shadow:0 0 0 2px var(--lv3),var(--shadow);}
-.sc-lv4.active-sc{box-shadow:0 0 0 2px var(--lv4),var(--shadow);}
-.stat-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:8px;}
-.sc-lv1 .stat-icon{background:rgba(99,102,241,.12);color:#4f46e5;}.sc-lv1 .stat-val{color:#4f46e5;}
-.sc-lv2 .stat-icon{background:rgba(14,165,233,.12);color:#0284c7;}.sc-lv2 .stat-val{color:#0284c7;}
-.sc-lv3 .stat-icon{background:rgba(245,158,11,.12);color:#d97706;}.sc-lv3 .stat-val{color:#d97706;}
-.sc-lv4 .stat-icon{background:rgba(34,224,161,.12);color:#127754;}.sc-lv4 .stat-val{color:#127754;}
-.stat-lbl{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.3px;}
-.stat-val{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;line-height:1;margin-top:2px;}
-.stat-sub{font-size:10px;color:var(--muted);margin-top:3px;}
-/* ─── DOC GRID ───────────────────────────── */
-.docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
-.doc-card{background:var(--card-bg);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;transition:transform var(--transition),box-shadow var(--transition);cursor:pointer;border:1.5px solid transparent;}
-.doc-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(11,24,41,.14);}
-.doc-card.lv1-card{border-color:rgba(99,102,241,.2);}.doc-card.lv1-card:hover{border-color:rgba(99,102,241,.4);}
-.doc-card.lv2-card{border-color:rgba(14,165,233,.2);}.doc-card.lv2-card:hover{border-color:rgba(14,165,233,.4);}
-.doc-card.lv3-card{border-color:rgba(245,158,11,.2);}.doc-card.lv3-card:hover{border-color:rgba(245,158,11,.4);}
-.doc-card.lv4-card{border-color:rgba(34,224,161,.2);}.doc-card.lv4-card:hover{border-color:rgba(34,224,161,.4);}
-.doc-level-stripe{height:4px;}
-.lv1-stripe{background:linear-gradient(90deg,var(--lv1),#818cf8);}
-.lv2-stripe{background:linear-gradient(90deg,var(--lv2),#38bdf8);}
-.lv3-stripe{background:linear-gradient(90deg,var(--lv3),#fbbf24);}
-.lv4-stripe{background:linear-gradient(90deg,var(--lv4),#34d399);}
-.doc-card-top{padding:16px 14px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;}
-.doc-type-icon{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;}
-.doc-name{font-size:12px;font-weight:700;color:var(--navy);text-align:center;line-height:1.4;}
-.doc-meta{font-size:10px;color:var(--muted);text-align:center;}
-.doc-badges{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center;}
-.badge-sm{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;}
-.doc-card-bottom{padding:10px 13px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.doc-actions{display:flex;gap:5px;}
-.act-btn{width:28px;height:28px;border-radius:7px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all var(--transition);}
-.act-view{background:rgba(0,212,255,.10);color:#007fa3;}.act-view:hover{background:rgba(0,212,255,.20);}
-.act-dl{background:rgba(34,224,161,.10);color:#127754;}.act-dl:hover{background:rgba(34,224,161,.20);}
-.act-del{background:rgba(255,78,106,.10);color:#b91c1c;}.act-del:hover{background:rgba(255,78,106,.20);}
-.act-del:disabled{opacity:.3;cursor:not-allowed;}
-/* ─── DOC LIST ───────────────────────────── */
-.docs-list{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
-.docs-list table{width:100%;border-collapse:collapse;}
-.docs-list thead tr{background:linear-gradient(90deg,var(--navy-mid),var(--navy-light));color:#fff;}
-.docs-list th{padding:10px 13px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;}
-.docs-list tbody tr{border-bottom:1px solid var(--border);transition:background var(--transition);cursor:pointer;}
-.docs-list tbody tr:hover{background:#f5f8ff;}
-.docs-list td{padding:9px 13px;font-size:13px;vertical-align:middle;}
-.file-icon-sm{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
-/* ─── LEVEL BADGES ───────────────────────── */
-.lb{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.3px;}
+/* LEVEL & DEPT BADGES */
+.level-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.3px;}
 .lb-1{background:rgba(99,102,241,.12);color:#4f46e5;}
 .lb-2{background:rgba(14,165,233,.12);color:#0284c7;}
 .lb-3{background:rgba(245,158,11,.12);color:#d97706;}
 .lb-4{background:rgba(34,224,161,.12);color:#127754;}
-.dept-tag{padding:2px 9px;border-radius:20px;font-size:10px;font-weight:600;background:rgba(11,24,41,.07);color:var(--navy);}
-/* ─── EMPTY ───────────────────────────────── */
-.empty-section{text-align:center;padding:36px 20px;color:var(--muted);background:rgba(11,24,41,.02);border-radius:10px;}
-.empty-full{text-align:center;padding:56px 20px;color:var(--muted);}
-.empty-full-icon{width:70px;height:70px;border-radius:18px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 13px;}
-/* ─── MODALS ─────────────────────────────── */
+.dept-badge{padding:2px 9px;border-radius:20px;font-size:10px;font-weight:600;background:rgba(11,24,41,.07);color:var(--navy);}
+/* GRID */
+.docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:15px;animation:fadeUp .5s ease both;}
+.doc-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transition:transform var(--transition),box-shadow var(--transition);cursor:pointer;}
+.doc-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(11,24,41,.14);}
+.doc-card-top{padding:18px 16px 12px;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;}
+.doc-type-bar{position:absolute;top:0;left:0;right:0;height:4px;}
+.doc-icon{width:50px;height:50px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-top:4px;}
+.doc-name{font-size:12px;font-weight:700;color:var(--navy);text-align:center;line-height:1.4;}
+.doc-meta{font-size:10px;color:var(--muted);text-align:center;}
+.doc-level-dept{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center;}
+.doc-card-bottom{padding:10px 14px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.doc-badge{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;}
+.doc-actions{display:flex;gap:5px;}
+.doc-action-btn{width:28px;height:28px;border-radius:7px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all var(--transition);}
+.btn-preview{background:rgba(0,212,255,.10);color:#007fa3;} .btn-preview:hover{background:rgba(0,212,255,.20);}
+.btn-download{background:rgba(34,224,161,.10);color:#127754;} .btn-download:hover{background:rgba(34,224,161,.20);}
+.btn-delete{background:rgba(255,78,106,.10);color:#b91c1c;} .btn-delete:hover{background:rgba(255,78,106,.20);}
+.btn-delete:disabled{opacity:.3;cursor:not-allowed;}
+/* LIST */
+.docs-list{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;animation:fadeUp .5s ease both;}
+.docs-list table{width:100%;border-collapse:collapse;}
+.docs-list thead tr{background:linear-gradient(90deg,var(--navy-mid),var(--navy-light));color:#fff;}
+.docs-list th{padding:11px 13px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;}
+.docs-list tbody tr{border-bottom:1px solid var(--border);transition:background var(--transition);cursor:pointer;}
+.docs-list tbody tr:hover{background:#f5f8ff;}
+.docs-list td{padding:10px 13px;font-size:13px;vertical-align:middle;}
+.file-icon-sm{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+/* MODALS */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(11,24,41,.55);z-index:2000;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.show{display:flex;}
 .modal-box{background:#fff;border-radius:var(--radius);width:100%;max-width:560px;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;overflow:hidden;}
 .modal-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#f7faff,#fff);}
 .modal-head-title{font-size:15px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:10px;}
-.modal-head-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;}
-.btn-close-m{width:32px;height:32px;border-radius:8px;border:none;background:var(--bg);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all var(--transition);}
-.btn-close-m:hover{background:#e2e8f5;color:var(--navy);}
+.modal-head-icon{width:34px;height:34px;background:rgba(14,165,233,.12);color:#0ea5e9;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.btn-close-modal{width:32px;height:32px;border-radius:8px;border:none;background:var(--bg);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all var(--transition);}
+.btn-close-modal:hover{background:#e2e8f5;color:var(--navy);}
 .modal-body{padding:20px 22px;}
-.modal-footer{padding:13px 22px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;background:#fafcff;}
-.btn-cancel-m{padding:10px 20px;border-radius:10px;background:#fff;border:1.5px solid var(--border);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.btn-cancel-m:hover{border-color:var(--accent2);color:var(--accent2);}
-.btn-save-m{padding:10px 22px;border-radius:10px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:7px;}
-.btn-save-m:hover{opacity:.9;}
-.upload-zone{border:2px dashed var(--border);border-radius:12px;padding:24px 18px;text-align:center;cursor:pointer;transition:all var(--transition);background:#fafcff;position:relative;margin-bottom:16px;}
+.restricted-modal-box{background:#fff;border-radius:var(--radius);width:100%;max-width:400px;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;overflow:hidden;text-align:center;padding:40px 28px;}
+.restricted-icon{width:72px;height:72px;background:rgba(255,200,67,.12);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:30px;color:var(--accent3);margin:0 auto 16px;}
+.restricted-title{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.restricted-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.restricted-roles{display:flex;justify-content:center;gap:10px;margin-bottom:22px;flex-wrap:wrap;}
+.btn-ok{padding:11px 28px;border-radius:10px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.upload-zone{border:2px dashed var(--border);border-radius:12px;padding:26px 20px;text-align:center;cursor:pointer;transition:all var(--transition);background:#fafcff;position:relative;margin-bottom:16px;}
 .upload-zone:hover,.upload-zone.dragover{border-color:var(--accent);background:rgba(0,212,255,.04);}
 .upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-.uz-icon{width:48px;height:48px;background:rgba(0,212,255,.10);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--accent);margin:0 auto 10px;}
-.sel-file{display:flex;align-items:center;gap:10px;padding:9px 13px;background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.2);border-radius:10px;margin-bottom:14px;font-size:13px;color:var(--navy);font-weight:500;}
-.fl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;display:block;}
-.fc,.fs{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;transition:all var(--transition);}
-.fc:focus,.fs:focus{border-color:var(--accent);}
-textarea.fc{resize:vertical;min-height:70px;}
-/* RESTRICTED MODAL */
-.restr-box{background:#fff;border-radius:var(--radius);width:90%;max-width:400px;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;text-align:center;padding:36px 28px;}
-.restr-icon{width:72px;height:72px;background:rgba(255,78,106,.10);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--accent2);margin:0 auto 16px;}
-.restr-title{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px;}
-.restr-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
-.restr-roles{display:flex;justify-content:center;gap:10px;margin-bottom:22px;flex-wrap:wrap;}
-.btn-ok{padding:11px 28px;border-radius:10px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
-/* PREVIEW MODAL */
-.prev-box{background:#fff;border-radius:var(--radius);width:100%;max-width:620px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;}
-.prev-body{padding:22px 24px;}
-.prev-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
-.prev-field{background:var(--bg);border-radius:10px;padding:11px 13px;}
-.prev-label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
-.prev-val{font-size:13px;font-weight:600;color:var(--navy);}
-.prev-doc-icon{width:72px;height:72px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 12px;}
-.prev-doc-name{font-size:17px;font-weight:700;color:var(--navy);text-align:center;margin-bottom:5px;}
-.prev-doc-desc{font-size:13px;color:var(--muted);text-align:center;line-height:1.6;}
-.prev-level-stripe{height:6px;border-radius:4px;margin:12px auto 0;max-width:80px;}
-.btn-dl-full{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:10px;background:linear-gradient(135deg,var(--accent4),#19a37a);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;width:100%;margin-top:16px;font-family:'DM Sans',sans-serif;}
-.btn-dl-full:hover{opacity:.9;}
-/* TOAST */
+.upload-zone-icon{width:48px;height:48px;background:rgba(0,212,255,.10);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--accent);margin:0 auto 10px;}
+.upload-zone-title{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:3px;}
+.upload-zone-sub{font-size:11px;color:var(--muted);}
+.selected-file{display:flex;align-items:center;gap:10px;padding:9px 13px;background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.2);border-radius:10px;margin-bottom:14px;font-size:13px;color:var(--navy);font-weight:500;}
+.field-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;display:block;}
+.form-ctrl,.form-sel{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;transition:all var(--transition);}
+.form-ctrl:focus,.form-sel:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,.10);}
+textarea.form-ctrl{resize:vertical;min-height:70px;}
+.modal-footer{padding:13px 22px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;background:#fafcff;}
+.btn-cancel-m{padding:10px 20px;border-radius:10px;background:#fff;border:1.5px solid var(--border);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all var(--transition);}
+.btn-cancel-m:hover{border-color:var(--accent2);color:var(--accent2);}
+.btn-save-m{padding:10px 22px;border-radius:10px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 14px rgba(11,24,41,.22);display:flex;align-items:center;gap:7px;transition:all var(--transition);}
+.btn-save-m:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(11,24,41,.28);}
+.preview-modal-box{background:#fff;border-radius:var(--radius);width:100%;max-width:680px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;}
+.preview-body{padding:22px 24px;}
+.preview-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+.preview-field{background:var(--bg);border-radius:10px;padding:11px 13px;}
+.preview-field-label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
+.preview-field-val{font-size:13px;font-weight:600;color:var(--navy);}
+.preview-doc-icon{width:74px;height:74px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 13px;}
+.preview-doc-name{font-size:17px;font-weight:700;color:var(--navy);text-align:center;line-height:1.3;margin-bottom:5px;}
+.preview-doc-desc{font-size:13px;color:var(--muted);text-align:center;line-height:1.6;}
+.btn-download-full{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:10px;background:linear-gradient(135deg,var(--accent4),#19a37a);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;width:100%;margin-top:16px;transition:all var(--transition);font-family:'DM Sans',sans-serif;}
+.btn-download-full:hover{transform:translateY(-1px);opacity:.9;}
+.empty-state{text-align:center;padding:56px 20px;color:var(--muted);}
+.empty-icon{width:70px;height:70px;border-radius:18px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 13px;}
 .toast-box{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transform:translateY(12px);transition:all .3s;z-index:3000;pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(11,24,41,.25);}
 .toast-box.show{opacity:1;transform:translateY(0);}
-/* MOBILE */
-.menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;}
+.menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,.25);}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-@media(max-width:1100px){.stats-row{grid-template-columns:repeat(2,1fr);}.docs-grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));}}
-@media(max-width:768px){
-  .menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}
-  .sidebar-overlay.open{display:block;}.main{margin-left:0;}.topbar{padding:14px 16px 14px 64px;}
-  .content{padding:18px 13px 40px;}.stats-row{grid-template-columns:repeat(2,1fr);gap:10px;}
-  .page-header{flex-direction:column;align-items:flex-start;}.prev-grid{grid-template-columns:1fr;}
-}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:1200px){.stats-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:768px){.menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.sidebar-overlay.open{display:block;}.main{margin-left:0;}.topbar{padding:14px 16px 14px 64px;}.content{padding:18px 13px 40px;}.stats-grid{grid-template-columns:repeat(2,1fr);gap:10px;}.docs-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;}.page-header{flex-direction:column;align-items:flex-start;}.preview-info-grid{grid-template-columns:1fr;}.page-title{font-size:22px;}}
 </style>
 </head>
 <body>
 <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
 <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
-
 <div class="sidebar" id="sidebar">
   <div class="sidebar-brand">
     <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
-    <div><div class="brand-text">AIMS</div><div class="brand-sub">Safety System</div></div>
+    <div><div class="brand-text">SIGAP</div><div class="brand-sub">Safety System</div></div>
   </div>
   <nav class="sidebar-nav">
     <div class="nav-label">Menu Utama</div>
@@ -254,15 +213,9 @@ textarea.fc{resize:vertical;min-height:70px;}
     <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
     <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
     <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
-    <div class="nav-label">Data &amp; Dokumen</div>
+    <div class="nav-label">Data & Dokumen</div>
     <a href="dokumen.html" class="active"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
     <a href="laporan.html"><span class="nav-icon"><i class="fas fa-list"></i></span>Laporan</a>
-    <div class="nav-label">Eksternal</div>
-    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener noreferrer" style="color:rgba(0,212,255,0.85);">
-      <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent);"><i class="fas fa-external-link-alt"></i></span>
-      SIGAP IBP
-      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.55;"></i>
-    </a>
     <div class="nav-label">Akun</div>
     <a href="#" onclick="logout()" class="logout-btn"><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
   </nav>
@@ -276,10 +229,9 @@ textarea.fc{resize:vertical;min-height:70px;}
     </div>
   </div>
 </div>
-
 <div class="main">
   <div class="topbar">
-    <div class="topbar-left"><h5>Arta Integrated Manajemen System</h5><span>Sistem Informasi Keselamatan Kerja</span></div>
+    <div class="topbar-left"><h5>PT. Insani Baraperkasa</h5><span>Sistem Informasi Keselamatan Kerja</span></div>
     <div class="topbar-right">
       <button class="topbar-btn"><i class="fas fa-bell"></i></button>
       <button class="topbar-btn"><i class="fas fa-cog"></i></button>
@@ -290,49 +242,52 @@ textarea.fc{resize:vertical;min-height:70px;}
       </div>
     </div>
   </div>
-
   <div class="content">
     <div class="page-header">
       <div>
         <div class="page-title"><div class="title-icon"><i class="fas fa-folder-open"></i></div>Manajemen Dokumen</div>
-        <div class="page-sub">Dokumen K3 terstruktur berdasarkan Level &amp; Departemen</div>
+        <div class="page-sub">Dokumen K3 berdasarkan Level & Departemen — Upload hanya untuk Safety Officer / Dok Kontrol</div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
         <button class="btn-upload" id="btnUpload" onclick="handleUploadClick()">
-          <i class="fas fa-cloud-upload-alt"></i>
-          <span id="btnUploadText">Upload Dokumen</span>
+          <i class="fas fa-cloud-upload-alt"></i> Upload Dokumen
         </button>
         <div class="upload-lock-notice" id="uploadLockNotice" style="display:none;">
-          <i class="fas fa-lock"></i>
-          Upload hanya untuk <strong style="margin-left:3px">Safety Officer / Dok Kontrol</strong>
+          <i class="fas fa-lock"></i> Upload hanya untuk <strong style="margin-left:3px">Safety Officer / Dok Kontrol</strong>
         </div>
       </div>
     </div>
-
-    <div class="dept-nav" id="deptNav"></div>
-    <div class="stats-row" id="statsRow"></div>
-
-    <div class="toolbar-bar">
+    <div class="level-legend">
+      <span class="level-legend-title"><i class="fas fa-layer-group" style="margin-right:4px"></i>Filter Level:</span>
+      <span class="level-pill lv-all active" id="lvAll" onclick="setLevelFilter('')"><i class="fas fa-th-large" style="font-size:10px"></i> Semua Level</span>
+      <span class="level-pill lv1" id="lv1" onclick="setLevelFilter('1')"><i class="fas fa-crown" style="font-size:10px"></i> Level 1 — Kebijakan</span>
+      <span class="level-pill lv2" id="lv2" onclick="setLevelFilter('2')"><i class="fas fa-book-open" style="font-size:10px"></i> Level 2 — Prosedur</span>
+      <span class="level-pill lv3" id="lv3" onclick="setLevelFilter('3')"><i class="fas fa-tools" style="font-size:10px"></i> Level 3 — Instruksi Kerja</span>
+      <span class="level-pill lv4" id="lv4" onclick="setLevelFilter('4')"><i class="fas fa-file-alt" style="font-size:10px"></i> Level 4 — Formulir & Rekaman</span>
+    </div>
+    <div class="dept-tabs" id="deptTabs"></div>
+    <div class="stats-grid" id="statsGrid"></div>
+    <div class="toolbar-card">
       <div class="search-wrap">
         <i class="fas fa-search s-icon"></i>
-        <input class="search-input" type="text" id="searchInput" placeholder="Cari nama, nomor, deskripsi..." oninput="applyFilter()">
+        <input class="search-input" type="text" id="searchInput" placeholder="Cari nama, nomor, atau deskripsi..." oninput="applyFilter()">
       </div>
-      <select class="filter-sel" id="filterKat" onchange="applyFilter()">
+      <select class="filter-select" id="filterKategori" onchange="applyFilter()">
         <option value="">Semua Kategori</option>
         <option value="SOP">SOP / Prosedur</option>
-        <option value="Form">Form &amp; Formulir</option>
+        <option value="Form">Form & Formulir</option>
         <option value="Regulasi">Regulasi</option>
         <option value="Laporan K3">Laporan K3</option>
-        <option value="Sertifikat">Sertifikat &amp; Izin</option>
+        <option value="Sertifikat">Sertifikat & Izin</option>
       </select>
-      <select class="filter-sel" id="filterTipe" onchange="applyFilter()">
+      <select class="filter-select" id="filterTipe" onchange="applyFilter()">
         <option value="">Semua Tipe</option>
         <option value="PDF">PDF</option>
         <option value="DOCX">Word (DOCX)</option>
         <option value="XLSX">Excel (XLSX)</option>
         <option value="PPTX">PowerPoint</option>
       </select>
-      <select class="filter-sel" id="filterSort" onchange="applyFilter()">
+      <select class="filter-select" id="filterSort" onchange="applyFilter()">
         <option value="terbaru">Terbaru</option>
         <option value="terlama">Terlama</option>
         <option value="az">A → Z</option>
@@ -343,7 +298,6 @@ textarea.fc{resize:vertical;min-height:70px;}
         <button class="view-btn" id="btnList" onclick="setView('list')" title="List"><i class="fas fa-list"></i></button>
       </div>
     </div>
-
     <div id="docsArea"></div>
   </div>
 </div>
@@ -352,58 +306,49 @@ textarea.fc{resize:vertical;min-height:70px;}
 <div class="modal-overlay" id="uploadModal">
   <div class="modal-box">
     <div class="modal-head">
-      <div class="modal-head-title">
-        <div class="modal-head-icon" style="background:rgba(14,165,233,.12);color:#0ea5e9"><i class="fas fa-cloud-upload-alt"></i></div>
-        Upload Dokumen Baru
-      </div>
-      <button class="btn-close-m" onclick="closeUploadModal()"><i class="fas fa-times"></i></button>
+      <div class="modal-head-title"><div class="modal-head-icon"><i class="fas fa-cloud-upload-alt"></i></div>Upload Dokumen Baru</div>
+      <button class="btn-close-modal" onclick="closeUploadModal()"><i class="fas fa-times"></i></button>
     </div>
-    <div class="modal-body" style="max-height:70vh;overflow-y:auto;">
-      <div class="upload-zone" id="uploadZone" ondragover="dzOver(event)" ondragleave="dzLeave()" ondrop="dzDrop(event)">
-        <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.png,.jpg" onchange="fileSelect(this)">
-        <div class="uz-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-        <div style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:3px">Drag &amp; Drop file di sini</div>
-        <div style="font-size:11px;color:var(--muted)">atau klik untuk memilih · PDF, DOCX, XLSX, PPTX · Maks 20 MB</div>
+    <div class="modal-body">
+      <div class="upload-zone" id="uploadZone" ondragover="handleDragOver(event)" ondragleave="handleDragLeave()" ondrop="handleDrop(event)">
+        <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.png,.jpg,.jpeg" onchange="handleFileSelect(this)">
+        <div class="upload-zone-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+        <div class="upload-zone-title">Drag & Drop file di sini</div>
+        <div class="upload-zone-sub">atau klik untuk memilih · PDF, DOCX, XLSX, PPTX · Maks. 20 MB</div>
       </div>
-      <div id="selFile" class="sel-file" style="display:none">
+      <div id="selectedFile" style="display:none;" class="selected-file">
         <i class="fas fa-file-alt" style="color:var(--accent);font-size:18px;flex-shrink:0"></i>
-        <span id="selFileName" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
-        <span id="selFileSize" style="color:var(--muted);font-size:12px;flex-shrink:0"></span>
+        <span id="selectedFileName" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></span>
+        <span id="selectedFileSize" style="color:var(--muted);font-size:12px;flex-shrink:0;"></span>
       </div>
       <div class="row g-3">
-        <div class="col-12">
-          <label class="fl">Nama Dokumen *</label>
-          <input class="fc" type="text" id="uNama" placeholder="Contoh: SOP-K3-001 Prosedur Kerja Aman">
-        </div>
+        <div class="col-12"><label class="field-label">Nama Dokumen *</label><input class="form-ctrl" type="text" id="docNama" placeholder="Contoh: SOP-K3-001 Prosedur Kerja Aman"></div>
+        <div class="col-md-6"><label class="field-label">Nomor Dokumen</label><input class="form-ctrl" type="text" id="docNomor" placeholder="Contoh: SOP-K3-001"></div>
         <div class="col-md-6">
-          <label class="fl">Nomor Dokumen</label>
-          <input class="fc" type="text" id="uNomor" placeholder="Contoh: SOP-K3-001">
-        </div>
-        <div class="col-md-6">
-          <label class="fl">Level Dokumen *</label>
-          <select class="fs" id="uLevel" onchange="onLevelChange()">
-            <option value="">— Pilih level —</option>
+          <label class="field-label">Level Dokumen *</label>
+          <select class="form-sel" id="docLevel">
+            <option value="">Pilih level...</option>
             <option value="1">Level 1 — Kebijakan (Policy)</option>
             <option value="2">Level 2 — Prosedur (SOP)</option>
             <option value="3">Level 3 — Instruksi Kerja (IK)</option>
-            <option value="4">Level 4 — Formulir &amp; Rekaman</option>
+            <option value="4">Level 4 — Formulir & Rekaman</option>
           </select>
         </div>
         <div class="col-md-6">
-          <label class="fl">Kategori *</label>
-          <select class="fs" id="uKategori">
-            <option value="">— Pilih kategori —</option>
+          <label class="field-label">Kategori *</label>
+          <select class="form-sel" id="docKategori">
+            <option value="">Pilih kategori...</option>
             <option value="SOP">SOP / Prosedur Kerja</option>
-            <option value="Form">Form &amp; Formulir</option>
+            <option value="Form">Form & Formulir</option>
             <option value="Regulasi">Regulasi / Peraturan</option>
             <option value="Laporan K3">Laporan K3</option>
-            <option value="Sertifikat">Sertifikat &amp; Izin</option>
+            <option value="Sertifikat">Sertifikat & Izin</option>
           </select>
         </div>
         <div class="col-md-6">
-          <label class="fl">Departemen *</label>
-          <select class="fs" id="uDept">
-            <option value="">— Pilih departemen —</option>
+          <label class="field-label">Departemen *</label>
+          <select class="form-sel" id="docDept">
+            <option value="">Pilih departemen...</option>
             <option value="Umum">Umum (Semua Dept)</option>
             <option value="SHE">SHE</option>
             <option value="Produksi">Produksi</option>
@@ -413,74 +358,54 @@ textarea.fc{resize:vertical;min-height:70px;}
             <option value="HRGA">HRGA</option>
           </select>
         </div>
-        <div class="col-12" id="levelPreviewWrap" style="display:none">
-          <div id="levelPreview" style="padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;"></div>
-        </div>
-        <div class="col-md-6">
-          <label class="fl">Tanggal Terbit</label>
-          <input class="fc" type="date" id="uTanggal">
-        </div>
-        <div class="col-md-6">
-          <label class="fl">Dibuat Oleh</label>
-          <input class="fc" type="text" id="uPembuat" placeholder="Nama / Departemen">
-        </div>
-        <div class="col-12">
-          <label class="fl">Deskripsi</label>
-          <textarea class="fc" id="uDeskripsi" placeholder="Deskripsi singkat isi dokumen..."></textarea>
-        </div>
+        <div class="col-md-6"><label class="field-label">Tanggal Terbit</label><input class="form-ctrl" type="date" id="docTanggal"></div>
+        <div class="col-md-6"><label class="field-label">Dibuat Oleh</label><input class="form-ctrl" type="text" id="docPembuat" placeholder="Nama pembuat / departemen"></div>
+        <div class="col-12"><label class="field-label">Deskripsi</label><textarea class="form-ctrl" id="docDeskripsi" placeholder="Tuliskan deskripsi singkat isi dokumen..."></textarea></div>
       </div>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel-m" onclick="closeUploadModal()"><i class="fas fa-times"></i> Batal</button>
-      <button class="btn-save-m" onclick="saveDoc()"><i class="fas fa-save"></i> Simpan Dokumen</button>
+      <button class="btn-save-m" onclick="saveDocument()"><i class="fas fa-save"></i> Simpan Dokumen</button>
     </div>
   </div>
 </div>
 
 <!-- RESTRICTED MODAL -->
 <div class="modal-overlay" id="restrictedModal">
-  <div class="restr-box">
-    <div class="restr-icon"><i class="fas fa-lock"></i></div>
-    <div class="restr-title">Akses Terbatas</div>
-    <div class="restr-sub">Fitur upload &amp; hapus dokumen hanya dapat diakses oleh pengguna dengan role:</div>
-    <div class="restr-roles">
+  <div class="restricted-modal-box">
+    <div class="restricted-icon"><i class="fas fa-lock"></i></div>
+    <div class="restricted-title">Akses Terbatas</div>
+    <div class="restricted-sub">Fitur upload & hapus dokumen hanya dapat diakses oleh pengguna dengan role:</div>
+    <div class="restricted-roles">
       <span class="role-badge she" style="font-size:13px;padding:7px 18px"><i class="fas fa-shield-alt"></i> Safety Officer</span>
       <span class="role-badge dok" style="font-size:13px;padding:7px 18px"><i class="fas fa-folder-open"></i> Dok Kontrol</span>
     </div>
-    <button class="btn-ok" onclick="document.getElementById('restrictedModal').classList.remove('show')">Saya Mengerti</button>
+    <button class="btn-ok" onclick="closeRestrictedModal()">Saya Mengerti</button>
   </div>
 </div>
 
 <!-- PREVIEW MODAL -->
 <div class="modal-overlay" id="previewModal">
-  <div class="prev-box">
+  <div class="preview-modal-box">
     <div class="modal-head">
-      <div class="modal-head-title">
-        <div class="modal-head-icon" style="background:rgba(34,224,161,.12);color:var(--accent4)"><i class="fas fa-eye"></i></div>
-        Detail Dokumen
-      </div>
-      <button class="btn-close-m" onclick="closePrev()"><i class="fas fa-times"></i></button>
+      <div class="modal-head-title"><div class="modal-head-icon" style="background:rgba(34,224,161,.12);color:var(--accent4);"><i class="fas fa-eye"></i></div>Detail Dokumen</div>
+      <button class="btn-close-modal" onclick="closePreviewModal()"><i class="fas fa-times"></i></button>
     </div>
-    <div class="prev-body"><div id="prevContent"></div></div>
+    <div class="preview-body"><div id="previewContent"></div></div>
   </div>
 </div>
 
 <!-- DELETE MODAL -->
 <div class="modal-overlay" id="deleteModal">
-  <div class="modal-box" style="max-width:420px">
+  <div class="modal-box" style="max-width:420px;">
     <div class="modal-head">
-      <div class="modal-head-title">
-        <div class="modal-head-icon" style="background:rgba(255,78,106,.10);color:var(--accent2)"><i class="fas fa-trash-alt"></i></div>
-        Konfirmasi Hapus
-      </div>
-      <button class="btn-close-m" onclick="closeDel()"><i class="fas fa-times"></i></button>
+      <div class="modal-head-title"><div class="modal-head-icon" style="background:rgba(255,78,106,.10);color:var(--accent2);"><i class="fas fa-trash-alt"></i></div>Konfirmasi Hapus</div>
+      <button class="btn-close-modal" onclick="closeDeleteModal()"><i class="fas fa-times"></i></button>
     </div>
-    <div class="modal-body">
-      <p style="font-size:14px;color:var(--muted);line-height:1.6">Yakin hapus <strong id="delName" style="color:var(--navy)"></strong>? Tindakan ini tidak dapat dibatalkan.</p>
-    </div>
+    <div class="modal-body"><p style="font-size:14px;color:var(--muted);line-height:1.6;">Apakah Anda yakin ingin menghapus <strong id="deleteDocName" style="color:var(--navy)"></strong>? Tindakan ini tidak dapat dibatalkan.</p></div>
     <div class="modal-footer">
-      <button class="btn-cancel-m" onclick="closeDel()"><i class="fas fa-times"></i> Batal</button>
-      <button onclick="confirmDel()" style="padding:10px 22px;border-radius:10px;background:var(--accent2);color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;"><i class="fas fa-trash-alt"></i> Hapus</button>
+      <button class="btn-cancel-m" onclick="closeDeleteModal()"><i class="fas fa-times"></i> Batal</button>
+      <button style="padding:10px 22px;border-radius:10px;background:var(--accent2);color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;" onclick="confirmDelete()"><i class="fas fa-trash-alt"></i> Hapus</button>
     </div>
   </div>
 </div>
@@ -488,405 +413,242 @@ textarea.fc{resize:vertical;min-height:70px;}
 <div class="toast-box" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════════════════
-// CONFIG
-// ═══════════════════════════════════════════════════════
-const UPLOAD_ROLES = ['Safety Officer','Dok Kontrol','Admin'];
+const UPLOAD_ROLES=['Safety Officer','Dok Kontrol','Admin'];
+const DEPARTMENTS=['Umum','SHE','Produksi','Plant','Engineering','Logistik','HRGA'];
+const LEVEL_CONFIG={'1':{label:'Level 1',sub:'Kebijakan',icon:'fa-crown',cls:'lb-1'},'2':{label:'Level 2',sub:'Prosedur',icon:'fa-book-open',cls:'lb-2'},'3':{label:'Level 3',sub:'Instruksi Kerja',icon:'fa-tools',cls:'lb-3'},'4':{label:'Level 4',sub:'Formulir & Rekaman',icon:'fa-file-alt',cls:'lb-4'}};
+const KATEGORI_CONFIG={'SOP':{color:'#3b82f6',bg:'rgba(59,130,246,.10)',icon:'fa-book-open',label:'SOP / Prosedur'},'Form':{color:'#8b5cf6',bg:'rgba(139,92,246,.10)',icon:'fa-file-alt',label:'Form & Formulir'},'Regulasi':{color:'#d97706',bg:'rgba(245,158,11,.12)',icon:'fa-gavel',label:'Regulasi'},'Laporan K3':{color:'#ff4e6a',bg:'rgba(255,78,106,.10)',icon:'fa-chart-line',label:'Laporan K3'},'Sertifikat':{color:'#22e0a1',bg:'rgba(34,224,161,.10)',icon:'fa-certificate',label:'Sertifikat & Izin'}};
+const TIPE_CONFIG={'PDF':{icon:'fa-file-pdf',color:'#ef4444',bg:'rgba(239,68,68,.10)'},'DOCX':{icon:'fa-file-word',color:'#3b82f6',bg:'rgba(59,130,246,.10)'},'DOC':{icon:'fa-file-word',color:'#3b82f6',bg:'rgba(59,130,246,.10)'},'XLSX':{icon:'fa-file-excel',color:'#22c55e',bg:'rgba(34,197,94,.10)'},'XLS':{icon:'fa-file-excel',color:'#22c55e',bg:'rgba(34,197,94,.10)'},'PPTX':{icon:'fa-file-powerpoint',color:'#f97316',bg:'rgba(249,115,22,.10)'},'PPT':{icon:'fa-file-powerpoint',color:'#f97316',bg:'rgba(249,115,22,.10)'},'PNG':{icon:'fa-file-image',color:'#8b5cf6',bg:'rgba(139,92,246,.10)'},'JPG':{icon:'fa-file-image',color:'#8b5cf6',bg:'rgba(139,92,246,.10)'}};
 
-const DEPARTMENTS = [
-  { id:'', label:'Semua', icon:'fa-globe', color:'#0b1829' },
-  { id:'SHE', label:'SHE', icon:'fa-shield-alt', color:'#22e0a1' },
-  { id:'Produksi', label:'Produksi', icon:'fa-industry', color:'#ff4e6a' },
-  { id:'Plant', label:'Plant', icon:'fa-cogs', color:'#f59e0b' },
-  { id:'Engineering', label:'Engineering', icon:'fa-wrench', color:'#8b5cf6' },
-  { id:'Logistik', label:'Logistik', icon:'fa-truck', color:'#0ea5e9' },
-  { id:'HRGA', label:'HRGA', icon:'fa-users', color:'#ec4899' },
-  { id:'Umum', label:'Umum', icon:'fa-building', color:'#7a8aaa' }
+let documents=[
+{id:1,nama:'Kebijakan K3 Perusahaan 2025',nomor:'KBJ-K3-2025',level:'1',kategori:'Regulasi',dept:'Umum',tipe:'PDF',tanggal:'2025-01-05',pembuat:'Manajemen',deskripsi:'Kebijakan K3 resmi perusahaan yang ditetapkan oleh pimpinan sebagai komitmen K3 yang berlaku untuk seluruh unit kerja.',ukuran:'1.2 MB'},
+{id:2,nama:'Kebijakan Lingkungan & Energi PT. ABS',nomor:'KBJ-LH-2025',level:'1',kategori:'Regulasi',dept:'SHE',tipe:'PDF',tanggal:'2025-01-10',pembuat:'Dept. SHE',deskripsi:'Komitmen manajemen terhadap pengelolaan lingkungan, efisiensi energi, dan pembangunan berkelanjutan.',ukuran:'0.9 MB'},
+{id:3,nama:'PP No. 50 Tahun 2012 SMK3',nomor:'REG-PP50-2012',level:'1',kategori:'Regulasi',dept:'Umum',tipe:'PDF',tanggal:'2024-11-10',pembuat:'Pemerintah RI',deskripsi:'Peraturan Pemerintah tentang penerapan Sistem Manajemen Keselamatan dan Kesehatan Kerja.',ukuran:'4.2 MB'},
+{id:4,nama:'UU No. 1 Tahun 1970 Keselamatan Kerja',nomor:'REG-UU01-1970',level:'1',kategori:'Regulasi',dept:'Umum',tipe:'PDF',tanggal:'2024-11-10',pembuat:'Pemerintah RI',deskripsi:'Undang-Undang dasar keselamatan kerja di Indonesia yang menjadi acuan implementasi K3.',ukuran:'1.5 MB'},
+{id:5,nama:'Kepmen 555K Keselamatan Tambang',nomor:'REG-KPM555',level:'1',kategori:'Regulasi',dept:'Produksi',tipe:'PDF',tanggal:'2024-12-01',pembuat:'Kementerian ESDM',deskripsi:'Keputusan Menteri ESDM tentang keselamatan dan kesehatan kerja pertambangan umum.',ukuran:'3.8 MB'},
+{id:6,nama:'Sertifikat SMK3 Perusahaan 2025',nomor:'SERT-SMK3-2025',level:'1',kategori:'Sertifikat',dept:'Umum',tipe:'PDF',tanggal:'2025-03-15',pembuat:'Kemnaker RI',deskripsi:'Sertifikat penerapan Sistem Manajemen K3 oleh Kementerian Ketenagakerjaan.',ukuran:'0.9 MB'},
+{id:7,nama:'SOP-K3-001 Prosedur Kerja Aman di Tambang',nomor:'SOP-K3-001',level:'2',kategori:'SOP',dept:'Produksi',tipe:'PDF',tanggal:'2025-02-15',pembuat:'Dept. SHE',deskripsi:'Prosedur standar keselamatan kerja di area tambang meliputi penggunaan APD, komunikasi, dan evakuasi darurat.',ukuran:'2.4 MB'},
+{id:8,nama:'SOP-K3-002 Prosedur Pengoperasian Alat Berat',nomor:'SOP-K3-002',level:'2',kategori:'SOP',dept:'Plant',tipe:'PDF',tanggal:'2025-02-20',pembuat:'Dept. Plant',deskripsi:'Panduan pengoperasian dump truck, excavator, dan alat berat lainnya sesuai standar keselamatan.',ukuran:'3.1 MB'},
+{id:9,nama:'SOP-K3-003 Prosedur Penanganan Bahan B3',nomor:'SOP-K3-003',level:'2',kategori:'SOP',dept:'Produksi',tipe:'DOCX',tanggal:'2025-03-05',pembuat:'Dept. SHE',deskripsi:'Tata cara penanganan, penyimpanan, dan pembuangan bahan berbahaya dan beracun (B3).',ukuran:'1.8 MB'},
+{id:10,nama:'SOP-K3-004 Prosedur LOTO (Lock Out Tag Out)',nomor:'SOP-K3-004',level:'2',kategori:'SOP',dept:'Plant',tipe:'PDF',tanggal:'2025-03-15',pembuat:'Dept. Plant',deskripsi:'Prosedur pemasangan kunci pengaman saat melakukan perbaikan dan perawatan peralatan.',ukuran:'1.2 MB'},
+{id:11,nama:'SOP-HSE-001 Prosedur Inspeksi Keselamatan',nomor:'SOP-HSE-001',level:'2',kategori:'SOP',dept:'SHE',tipe:'PDF',tanggal:'2025-04-01',pembuat:'Dept. SHE',deskripsi:'Prosedur pelaksanaan inspeksi keselamatan terencana dan tidak terencana di seluruh area kerja.',ukuran:'1.5 MB'},
+{id:12,nama:'SOP-LOG-001 Prosedur Pengelolaan Gudang',nomor:'SOP-LOG-001',level:'2',kategori:'SOP',dept:'Logistik',tipe:'PDF',tanggal:'2025-04-10',pembuat:'Dept. Logistik',deskripsi:'Tata cara penerimaan, penyimpanan, dan pengeluaran barang di area gudang secara aman.',ukuran:'1.4 MB'},
+{id:13,nama:'SOP-ENG-001 Prosedur Pemeliharaan Unit Alat',nomor:'SOP-ENG-001',level:'2',kategori:'SOP',dept:'Engineering',tipe:'DOCX',tanggal:'2025-04-20',pembuat:'Dept. Engineering',deskripsi:'Prosedur preventive maintenance dan corrective maintenance untuk unit alat berat.',ukuran:'2.0 MB'},
+{id:14,nama:'SOP-HRGA-001 Prosedur Induksi Karyawan Baru',nomor:'SOP-HRGA-001',level:'2',kategori:'SOP',dept:'HRGA',tipe:'PDF',tanggal:'2025-05-01',pembuat:'Dept. HRGA',deskripsi:'Prosedur penerimaan dan orientasi karyawan baru termasuk induksi K3LH.',ukuran:'1.6 MB'},
+{id:15,nama:'IK-OPR-001 Instruksi Kerja Operasi Dump Truck',nomor:'IK-OPR-001',level:'3',kategori:'SOP',dept:'Produksi',tipe:'PDF',tanggal:'2025-05-10',pembuat:'Dept. Produksi',deskripsi:'Instruksi kerja langkah demi langkah untuk operator dump truck dalam kondisi normal dan darurat.',ukuran:'0.8 MB'},
+{id:16,nama:'IK-OPR-002 Instruksi Kerja Operasi Excavator',nomor:'IK-OPR-002',level:'3',kategori:'SOP',dept:'Produksi',tipe:'PDF',tanggal:'2025-05-12',pembuat:'Dept. Produksi',deskripsi:'Instruksi kerja operasional excavator mulai dari pre-start check hingga shutdown procedure.',ukuran:'0.7 MB'},
+{id:17,nama:'IK-MNT-001 Instruksi Kerja Ganti Oli Unit',nomor:'IK-MNT-001',level:'3',kategori:'SOP',dept:'Plant',tipe:'DOCX',tanggal:'2025-05-20',pembuat:'Dept. Plant',deskripsi:'Langkah kerja penggantian oli mesin, transmisi, dan pelumas pada unit alat berat.',ukuran:'0.6 MB'},
+{id:18,nama:'IK-SHE-001 Instruksi Penggunaan APAR',nomor:'IK-SHE-001',level:'3',kategori:'SOP',dept:'SHE',tipe:'PDF',tanggal:'2025-05-25',pembuat:'Dept. SHE',deskripsi:'Instruksi teknis penggunaan Alat Pemadam Api Ringan (APAR) untuk berbagai jenis kebakaran.',ukuran:'0.5 MB'},
+{id:19,nama:'IK-LOG-001 Instruksi Penerimaan Material B3',nomor:'IK-LOG-001',level:'3',kategori:'SOP',dept:'Logistik',tipe:'PDF',tanggal:'2025-06-01',pembuat:'Dept. Logistik',deskripsi:'Instruksi teknis penerimaan dan penyimpanan material berbahaya dan beracun di gudang.',ukuran:'0.6 MB'},
+{id:20,nama:'Form-SAP-001 Formulir Safety Activity Program',nomor:'FORM-SAP-001',level:'4',kategori:'Form',dept:'SHE',tipe:'XLSX',tanggal:'2025-01-20',pembuat:'Dept. SHE',deskripsi:'Formulir pencatatan dan pelaporan aktivitas keselamatan kerja harian pengawas.',ukuran:'0.5 MB'},
+{id:21,nama:'Form-HAZ-001 Formulir Hazard Report',nomor:'FORM-HAZ-001',level:'4',kategori:'Form',dept:'SHE',tipe:'DOCX',tanggal:'2025-02-14',pembuat:'Dept. SHE',deskripsi:'Formulir pelaporan temuan bahaya dan tindakan pengendalian yang telah dilakukan.',ukuran:'0.3 MB'},
+{id:22,nama:'Form-IND-001 Formulir Laporan Induksi K3LH',nomor:'FORM-IND-001',level:'4',kategori:'Form',dept:'SHE',tipe:'XLSX',tanggal:'2025-03-01',pembuat:'Dept. SHE',deskripsi:'Formulir pendataan peserta dan nilai hasil induksi K3LH karyawan baru dan pengawas.',ukuran:'0.8 MB'},
+{id:23,nama:'Form-INS-001 Checklist Inspeksi Harian Alat',nomor:'FORM-INS-001',level:'4',kategori:'Form',dept:'Produksi',tipe:'XLSX',tanggal:'2025-03-15',pembuat:'Dept. SHE',deskripsi:'Checklist inspeksi harian kondisi alat berat sebelum operasi (pre-start check).',ukuran:'0.4 MB'},
+{id:24,nama:'Form-MNT-001 Work Order Pemeliharaan',nomor:'FORM-MNT-001',level:'4',kategori:'Form',dept:'Plant',tipe:'XLSX',tanggal:'2025-04-01',pembuat:'Dept. Plant',deskripsi:'Formulir permintaan dan pelaporan pekerjaan pemeliharaan preventif dan korektif unit.',ukuran:'0.3 MB'},
+{id:25,nama:'Laporan K3 Triwulan I 2025',nomor:'LPR-K3-Q1-2025',level:'4',kategori:'Laporan K3',dept:'SHE',tipe:'PPTX',tanggal:'2025-04-05',pembuat:'Dept. SHE',deskripsi:'Laporan rekapitulasi kegiatan dan statistik keselamatan kerja Triwulan I Tahun 2025.',ukuran:'5.6 MB'},
+{id:26,nama:'Sertifikat Kompetensi Pengawas K3 Tambang',nomor:'SERT-KOMP-2025',level:'4',kategori:'Sertifikat',dept:'SHE',tipe:'PDF',tanggal:'2025-02-28',pembuat:'BNSP',deskripsi:'Sertifikat kompetensi pengawas operasional pertama (POP) dan madya (POM).',ukuran:'0.7 MB'}
 ];
 
-const LEVELS = [
-  { id:'1', label:'Level 1', sub:'Kebijakan (Policy)', icon:'fa-crown', cls:'lb-1', stripe:'lv1-stripe', header:'lv1-header', body:'lv1-body', icon2:'lv1-icon', cnt:'lv1-cnt', card:'lv1-card', sc:'sc-lv1', color:'#4f46e5', title:'lv1-title' },
-  { id:'2', label:'Level 2', sub:'Prosedur / SOP', icon:'fa-book-open', cls:'lb-2', stripe:'lv2-stripe', header:'lv2-header', body:'lv2-body', icon2:'lv2-icon', cnt:'lv2-cnt', card:'lv2-card', sc:'sc-lv2', color:'#0284c7', title:'lv2-title' },
-  { id:'3', label:'Level 3', sub:'Instruksi Kerja', icon:'fa-tools', cls:'lb-3', stripe:'lv3-stripe', header:'lv3-header', body:'lv3-body', icon2:'lv3-icon', cnt:'lv3-cnt', card:'lv3-card', sc:'sc-lv3', color:'#d97706', title:'lv3-title' },
-  { id:'4', label:'Level 4', sub:'Formulir & Rekaman', icon:'fa-file-alt', cls:'lb-4', stripe:'lv4-stripe', header:'lv4-header', body:'lv4-body', icon2:'lv4-icon', cnt:'lv4-cnt', card:'lv4-card', sc:'sc-lv4', color:'#127754', title:'lv4-title' }
-];
+let filtered=[...documents],currentView='grid',activeKategori='',activeDept='',activeLevel='',deleteDocId=null,selectedFileData=null,currentUserRole='';
 
-const KAT = { 'SOP':{color:'#3b82f6',bg:'rgba(59,130,246,.10)',icon:'fa-book-open',label:'SOP'}, 'Form':{color:'#8b5cf6',bg:'rgba(139,92,246,.10)',icon:'fa-file-alt',label:'Form'}, 'Regulasi':{color:'#d97706',bg:'rgba(245,158,11,.12)',icon:'fa-gavel',label:'Regulasi'}, 'Laporan K3':{color:'#ff4e6a',bg:'rgba(255,78,106,.10)',icon:'fa-chart-line',label:'Laporan K3'}, 'Sertifikat':{color:'#22e0a1',bg:'rgba(34,224,161,.10)',icon:'fa-certificate',label:'Sertifikat'} };
-const TIPE = { 'PDF':{icon:'fa-file-pdf',color:'#ef4444',bg:'rgba(239,68,68,.10)'}, 'DOCX':{icon:'fa-file-word',color:'#3b82f6',bg:'rgba(59,130,246,.10)'}, 'DOC':{icon:'fa-file-word',color:'#3b82f6',bg:'rgba(59,130,246,.10)'}, 'XLSX':{icon:'fa-file-excel',color:'#22c55e',bg:'rgba(34,197,94,.10)'}, 'XLS':{icon:'fa-file-excel',color:'#22c55e',bg:'rgba(34,197,94,.10)'}, 'PPTX':{icon:'fa-file-powerpoint',color:'#f97316',bg:'rgba(249,115,22,.10)'}, 'PPT':{icon:'fa-file-powerpoint',color:'#f97316',bg:'rgba(249,115,22,.10)'}, 'PNG':{icon:'fa-file-image',color:'#8b5cf6',bg:'rgba(139,92,246,.10)'}, 'JPG':{icon:'fa-file-image',color:'#8b5cf6',bg:'rgba(139,92,246,.10)'} };
-
-// ═══════════════════════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════════════════════
-let documents = [
-  {id:1,nama:'Kebijakan K3 Perusahaan 2025',nomor:'KBJ-K3-2025',level:'1',kategori:'Regulasi',dept:'Umum',tipe:'PDF',tanggal:'2025-01-05',pembuat:'Manajemen',deskripsi:'Kebijakan K3 resmi perusahaan sebagai komitmen K3 yang berlaku untuk seluruh unit kerja.',ukuran:'1.2 MB'},
-  {id:2,nama:'Kebijakan Lingkungan & Energi PT. ABS',nomor:'KBJ-LH-2025',level:'1',kategori:'Regulasi',dept:'SHE',tipe:'PDF',tanggal:'2025-01-10',pembuat:'Dept. SHE',deskripsi:'Komitmen manajemen terhadap pengelolaan lingkungan dan efisiensi energi.',ukuran:'0.9 MB'},
-  {id:3,nama:'PP No. 50 Tahun 2012 SMK3',nomor:'REG-PP50-2012',level:'1',kategori:'Regulasi',dept:'Umum',tipe:'PDF',tanggal:'2024-11-10',pembuat:'Pemerintah RI',deskripsi:'Peraturan Pemerintah tentang penerapan Sistem Manajemen K3.',ukuran:'4.2 MB'},
-  {id:4,nama:'UU No. 1 Tahun 1970 Keselamatan Kerja',nomor:'REG-UU01-1970',level:'1',kategori:'Regulasi',dept:'Umum',tipe:'PDF',tanggal:'2024-11-10',pembuat:'Pemerintah RI',deskripsi:'Undang-Undang dasar keselamatan kerja di Indonesia.',ukuran:'1.5 MB'},
-  {id:5,nama:'Kepmen 555K Keselamatan Tambang',nomor:'REG-KPM555',level:'1',kategori:'Regulasi',dept:'Produksi',tipe:'PDF',tanggal:'2024-12-01',pembuat:'Kementerian ESDM',deskripsi:'Keputusan Menteri ESDM tentang keselamatan kerja pertambangan.',ukuran:'3.8 MB'},
-  {id:6,nama:'Sertifikat SMK3 Perusahaan 2025',nomor:'SERT-SMK3-2025',level:'1',kategori:'Sertifikat',dept:'Umum',tipe:'PDF',tanggal:'2025-03-15',pembuat:'Kemnaker RI',deskripsi:'Sertifikat penerapan Sistem Manajemen K3.',ukuran:'0.9 MB'},
-  {id:7,nama:'SOP-K3-001 Prosedur Kerja Aman di Tambang',nomor:'SOP-K3-001',level:'2',kategori:'SOP',dept:'Produksi',tipe:'PDF',tanggal:'2025-02-15',pembuat:'Dept. SHE',deskripsi:'Prosedur standar keselamatan kerja di area tambang.',ukuran:'2.4 MB'},
-  {id:8,nama:'SOP-K3-002 Prosedur Pengoperasian Alat Berat',nomor:'SOP-K3-002',level:'2',kategori:'SOP',dept:'Plant',tipe:'PDF',tanggal:'2025-02-20',pembuat:'Dept. Plant',deskripsi:'Panduan pengoperasian alat berat sesuai standar keselamatan.',ukuran:'3.1 MB'},
-  {id:9,nama:'SOP-K3-003 Prosedur Penanganan Bahan B3',nomor:'SOP-K3-003',level:'2',kategori:'SOP',dept:'Produksi',tipe:'DOCX',tanggal:'2025-03-05',pembuat:'Dept. SHE',deskripsi:'Tata cara penanganan dan pembuangan bahan berbahaya dan beracun.',ukuran:'1.8 MB'},
-  {id:10,nama:'SOP-K3-004 Prosedur LOTO',nomor:'SOP-K3-004',level:'2',kategori:'SOP',dept:'Plant',tipe:'PDF',tanggal:'2025-03-15',pembuat:'Dept. Plant',deskripsi:'Prosedur pemasangan kunci pengaman saat perbaikan peralatan.',ukuran:'1.2 MB'},
-  {id:11,nama:'SOP-HSE-001 Prosedur Inspeksi Keselamatan',nomor:'SOP-HSE-001',level:'2',kategori:'SOP',dept:'SHE',tipe:'PDF',tanggal:'2025-04-01',pembuat:'Dept. SHE',deskripsi:'Prosedur inspeksi keselamatan terencana di seluruh area kerja.',ukuran:'1.5 MB'},
-  {id:12,nama:'SOP-LOG-001 Prosedur Pengelolaan Gudang',nomor:'SOP-LOG-001',level:'2',kategori:'SOP',dept:'Logistik',tipe:'PDF',tanggal:'2025-04-10',pembuat:'Dept. Logistik',deskripsi:'Tata cara penerimaan dan pengeluaran barang di area gudang.',ukuran:'1.4 MB'},
-  {id:13,nama:'SOP-ENG-001 Prosedur Pemeliharaan Unit Alat',nomor:'SOP-ENG-001',level:'2',kategori:'SOP',dept:'Engineering',tipe:'DOCX',tanggal:'2025-04-20',pembuat:'Dept. Engineering',deskripsi:'Prosedur preventive dan corrective maintenance unit alat berat.',ukuran:'2.0 MB'},
-  {id:14,nama:'SOP-HRGA-001 Prosedur Induksi Karyawan Baru',nomor:'SOP-HRGA-001',level:'2',kategori:'SOP',dept:'HRGA',tipe:'PDF',tanggal:'2025-05-01',pembuat:'Dept. HRGA',deskripsi:'Prosedur orientasi karyawan baru termasuk induksi K3LH.',ukuran:'1.6 MB'},
-  {id:15,nama:'IK-OPR-001 Instruksi Kerja Operasi Dump Truck',nomor:'IK-OPR-001',level:'3',kategori:'SOP',dept:'Produksi',tipe:'PDF',tanggal:'2025-05-10',pembuat:'Dept. Produksi',deskripsi:'Instruksi kerja untuk operator dump truck dalam kondisi normal dan darurat.',ukuran:'0.8 MB'},
-  {id:16,nama:'IK-SHE-001 Instruksi Penggunaan APAR',nomor:'IK-SHE-001',level:'3',kategori:'SOP',dept:'SHE',tipe:'PDF',tanggal:'2025-05-25',pembuat:'Dept. SHE',deskripsi:'Instruksi teknis penggunaan APAR untuk berbagai jenis kebakaran.',ukuran:'0.5 MB'},
-  {id:17,nama:'Form-SAP-001 Formulir Safety Activity Program',nomor:'FORM-SAP-001',level:'4',kategori:'Form',dept:'SHE',tipe:'XLSX',tanggal:'2025-01-20',pembuat:'Dept. SHE',deskripsi:'Formulir pencatatan aktivitas keselamatan kerja harian pengawas.',ukuran:'0.5 MB'},
-  {id:18,nama:'Form-HAZ-001 Formulir Hazard Report',nomor:'FORM-HAZ-001',level:'4',kategori:'Form',dept:'SHE',tipe:'DOCX',tanggal:'2025-02-14',pembuat:'Dept. SHE',deskripsi:'Formulir pelaporan temuan bahaya dan tindakan pengendalian.',ukuran:'0.3 MB'},
-  {id:19,nama:'Form-IND-001 Formulir Laporan Induksi K3LH',nomor:'FORM-IND-001',level:'4',kategori:'Form',dept:'SHE',tipe:'XLSX',tanggal:'2025-03-01',pembuat:'Dept. SHE',deskripsi:'Formulir pendataan peserta dan nilai induksi K3LH.',ukuran:'0.8 MB'},
-  {id:20,nama:'Laporan K3 Triwulan I 2025',nomor:'LPR-K3-Q1-2025',level:'4',kategori:'Laporan K3',dept:'SHE',tipe:'PPTX',tanggal:'2025-04-05',pembuat:'Dept. SHE',deskripsi:'Laporan statistik keselamatan kerja Triwulan I 2025.',ukuran:'5.6 MB'},
-];
-
-let activeDept='', filteredDocs=[...documents], currentView='grid', deleteDocId=null, selFileData=null, currentUserRole='';
-const collapsedLevels={};
-
-// ═══════════════════════════════════════════════════════
-// INIT USER & AUTH CHECK
-// ═══════════════════════════════════════════════════════
 (function initUser(){
-  // ✅ CEK LOGIN — redirect ke index.html jika belum login
-  if (localStorage.getItem('isLoggedIn') !== 'true') {
-    window.location.href = 'index.html';
-    return;
-  }
-
-  const name = localStorage.getItem('userName')||'User';
-  const role = localStorage.getItem('userRole')||'Supervisor';
-  currentUserRole = role;
+  const name=localStorage.getItem('userName')||'User';
+  const role=localStorage.getItem('userRole')||'Supervisor';
+  currentUserRole=role;
   ['userNameDisplay','sidebarUserName'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=name;});
   const av=document.getElementById('sidebarAvatarLetter');if(av)av.textContent=name.charAt(0).toUpperCase();
   const roleEl=document.getElementById('sidebarUserRole');if(roleEl)roleEl.textContent=role;
   const badge=document.getElementById('roleBadge');
   if(badge){badge.textContent=role;badge.className=role==='Safety Officer'?'role-badge she':role==='Dok Kontrol'?'role-badge dok':'role-badge other';}
-
-  const canUpload = UPLOAD_ROLES.includes(role);
-  if(!canUpload){
-    const btn=document.getElementById('btnUpload');
-    if(btn){btn.classList.add('locked');document.getElementById('btnUploadText').innerHTML='<i class="fas fa-lock" style="margin-right:4px"></i>Upload Terkunci';}
-    const notice=document.getElementById('uploadLockNotice');if(notice)notice.style.display='flex';
-  }
+  const canUpload=UPLOAD_ROLES.includes(role);
+  if(!canUpload){const n=document.getElementById('uploadLockNotice');if(n)n.style.display='flex';}
 })();
 
-function handleUploadClick(){
-  if(!UPLOAD_ROLES.includes(currentUserRole)){
-    document.getElementById('restrictedModal').classList.add('show'); return;
-  }
-  openUpload();
-}
+function handleUploadClick(){if(!UPLOAD_ROLES.includes(currentUserRole)){document.getElementById('restrictedModal').classList.add('show');}else{openUploadModal();}}
+function closeRestrictedModal(){document.getElementById('restrictedModal').classList.remove('show');}
 
-// ═══════════════════════════════════════════════════════
-// DEPARTMENT NAV
-// ═══════════════════════════════════════════════════════
-function buildDeptNav(){
-  const nav = document.getElementById('deptNav');
-  nav.innerHTML = DEPARTMENTS.map((d,i)=>{
-    const count = d.id===''
-      ? documents.length
-      : documents.filter(x=>x.dept===d.id||x.dept==='Umum').length;
-    const isActive = activeDept===d.id;
-    return (i===1?'<div class="dept-divider"></div>':'')
-      +'<button class="dept-nav-btn '+(isActive?'active':'')+'" onclick="setDept(\''+d.id+'\')">'
-      +'<div class="dept-nav-icon"><i class="fas '+d.icon+'" style="'+(isActive?'color:#fff':'color:'+d.color)+'"></i></div>'
-      +'<span>'+d.label+'</span>'
-      +'<span class="dept-count">'+count+'</span>'
-      +'</button>';
+function buildDeptTabs(){
+  const tabs=document.getElementById('deptTabs');
+  const all=[''].concat(DEPARTMENTS);
+  tabs.innerHTML=all.map(d=>{
+    const label=d===''?'<i class="fas fa-globe" style="font-size:10px;margin-right:4px"></i>Semua Dept':d;
+    return '<span class="dept-tab '+(activeDept===d?'active':'')+'" onclick="setDeptFilter(''+d+'')">'+label+'</span>';
   }).join('');
 }
 
-function setDept(id){
-  activeDept=id;
-  buildDeptNav();
+function setDeptFilter(dept){activeDept=dept;buildDeptTabs();applyFilter();}
+
+function setLevelFilter(lv){
+  activeLevel=lv;
+  ['','1','2','3','4'].forEach(l=>{
+    const id=l===''?'lvAll':'lv'+l;const el=document.getElementById(id);if(!el)return;
+    const baseCls=l===''?'lv-all':'lv'+l;
+    el.className='level-pill '+baseCls+(activeLevel===l?' active':'');
+  });
   applyFilter();
 }
 
-// ═══════════════════════════════════════════════════════
-// STAT CARDS
-// ═══════════════════════════════════════════════════════
 function buildStats(){
-  const base = filteredDocs;
-  document.getElementById('statsRow').innerHTML = LEVELS.map((lv,i)=>{
-    const cnt = base.filter(d=>d.level===lv.id).length;
-    return '<div class="stat-card '+lv.sc+'" style="animation-delay:'+(i*.07)+'s" onclick="scrollToLevel(\''+lv.id+'\')">'
-      +'<div class="stat-icon"><i class="fas '+lv.icon+'"></i></div>'
-      +'<div class="stat-lbl">'+lv.label+' — '+lv.sub+'</div>'
-      +'<div class="stat-val">'+cnt+'</div>'
-      +'<div class="stat-sub">dokumen</div>'
-      +'</div>';
+  const base=activeLevel?documents.filter(d=>d.level===activeLevel):documents;
+  const dept=activeDept?base.filter(d=>d.dept===activeDept||d.dept==='Umum'):base;
+  const cats=['all','SOP','Form','Regulasi','Laporan K3','Sertifikat'];
+  const icons={all:'fa-layer-group',SOP:'fa-book-open',Form:'fa-file-alt',Regulasi:'fa-gavel','Laporan K3':'fa-chart-line',Sertifikat:'fa-certificate'};
+  const colors={all:'cs-all',SOP:'cs-sop',Form:'cs-form',Regulasi:'cs-reg','Laporan K3':'cs-k3',Sertifikat:'cs-sert'};
+  document.getElementById('statsGrid').innerHTML=cats.map((c,i)=>{
+    const count=c==='all'?dept.length:dept.filter(d=>d.kategori===c).length;
+    const label=c==='all'?'Semua Dok':(KATEGORI_CONFIG[c]?.label||c);
+    const isActive=(c==='all'&&!activeKategori)||c===activeKategori;
+    return '<div class="stat-card '+colors[c]+' '+(isActive?'active-filter':'')+'" style="animation-delay:'+(i*.05)+'s" onclick="filterByKategori(''+(c==='all'?'':c)+'')">'
+      +'<div class="stat-icon"><i class="fas '+icons[c]+'"></i></div>'
+      +'<div class="stat-label">'+label+'</div>'
+      +'<div class="stat-value">'+count+'</div></div>';
   }).join('');
 }
 
-function scrollToLevel(lvId){
-  const el=document.getElementById('lvsec-'+lvId);
-  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
-}
+function filterByKategori(kat){activeKategori=kat;document.getElementById('filterKategori').value=kat;buildStats();applyFilter();}
 
-// ═══════════════════════════════════════════════════════
-// FILTER
-// ═══════════════════════════════════════════════════════
 function applyFilter(){
-  const q=(document.getElementById('searchInput').value||'').toLowerCase();
-  const kat=document.getElementById('filterKat').value;
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  const kat=document.getElementById('filterKategori').value;
   const tipe=document.getElementById('filterTipe').value;
   const sort=document.getElementById('filterSort').value;
-
-  filteredDocs = documents.filter(d=>{
+  activeKategori=kat;buildStats();
+  filtered=documents.filter(d=>{
     const mQ=!q||d.nama.toLowerCase().includes(q)||(d.nomor||'').toLowerCase().includes(q)||(d.deskripsi||'').toLowerCase().includes(q);
-    const mK=!kat||d.kategori===kat;
-    const mT=!tipe||d.tipe===tipe;
+    const mK=!kat||d.kategori===kat;const mT=!tipe||d.tipe===tipe;
+    const mL=!activeLevel||d.level===activeLevel;
     const mD=!activeDept||d.dept===activeDept||d.dept==='Umum';
-    return mQ&&mK&&mT&&mD;
+    return mQ&&mK&&mT&&mL&&mD;
   });
-
-  filteredDocs.sort((a,b)=>{
+  filtered.sort((a,b)=>{
     if(sort==='terbaru')return new Date(b.tanggal)-new Date(a.tanggal);
     if(sort==='terlama')return new Date(a.tanggal)-new Date(b.tanggal);
     if(sort==='az')return a.nama.localeCompare(b.nama);
     if(sort==='za')return b.nama.localeCompare(a.nama);
     return 0;
   });
-
-  buildStats();
-  renderAll();
+  renderDocs();
 }
 
-// ═══════════════════════════════════════════════════════
-// RENDER LEVEL SECTIONS
-// ═══════════════════════════════════════════════════════
-function renderAll(){
+function setView(v){currentView=v;document.getElementById('btnGrid').classList.toggle('active',v==='grid');document.getElementById('btnList').classList.toggle('active',v==='list');renderDocs();}
+
+function renderDocs(){
   const area=document.getElementById('docsArea');
-  if(!filteredDocs.length){
-    area.innerHTML='<div class="empty-full"><div class="empty-full-icon"><i class="fas fa-folder-open"></i></div><div style="font-weight:700;color:var(--navy);font-size:15px;margin-bottom:6px">Tidak ada dokumen</div><div>Coba ubah filter atau departemen</div></div>';
-    return;
-  }
-
-  area.innerHTML = LEVELS.map(lv=>{
-    const lvDocs = filteredDocs.filter(d=>d.level===lv.id);
-    if(!lvDocs.length) return '';
-    const isOpen = collapsedLevels[lv.id]!==true;
-    return '<div class="level-section" id="lvsec-'+lv.id+'">'
-      +'<div class="level-section-header '+lv.header+'" onclick="toggleLevel(\''+lv.id+'\')">'
-      +'<div class="level-icon-big '+lv.icon2+'"><i class="fas '+lv.icon+'"></i></div>'
-      +'<div style="flex:1"><div class="level-title '+lv.title+'">'+lv.label+' <span style="opacity:.5;font-weight:500">—</span> '+lv.sub+'</div>'
-      +'<div class="level-subtitle">'+lvDocs.length+' dokumen</div></div>'
-      +'<span class="level-count-badge '+lv.cnt+'">'+lvDocs.length+'</span>'
-      +'<i class="fas fa-chevron-down level-toggle-icon '+(isOpen?'open':'')+'" id="lv-toggle-'+lv.id+'"></i>'
-      +'</div>'
-      +(isOpen
-        ? '<div class="level-section-body '+lv.body+'" id="lv-body-'+lv.id+'">'+(currentView==='grid'?renderLvGrid(lvDocs,lv):renderLvList(lvDocs,lv))+'</div>'
-        : '<div id="lv-body-'+lv.id+'" style="display:none"><div class="level-section-body '+lv.body+'">'+(currentView==='grid'?renderLvGrid(lvDocs,lv):renderLvList(lvDocs,lv))+'</div></div>')
-      +'</div>';
-  }).join('');
+  if(!filtered.length){area.innerHTML='<div class="empty-state"><div class="empty-icon"><i class="fas fa-folder-open"></i></div><div style="font-weight:600;color:var(--navy);margin-bottom:4px;font-size:16px">Tidak ada dokumen</div><div>Coba ubah filter level, departemen, atau kategori</div></div>';return;}
+  currentView==='grid'?renderGrid():renderList();
 }
 
-function toggleLevel(lvId){
-  collapsedLevels[lvId]=!collapsedLevels[lvId];
-  const body=document.getElementById('lv-body-'+lvId);
-  const icon=document.getElementById('lv-toggle-'+lvId);
-  if(collapsedLevels[lvId]){body.style.display='none';if(icon)icon.classList.remove('open');}
-  else{body.style.display='';if(icon)icon.classList.add('open');}
-}
+function getTipeConf(t){return TIPE_CONFIG[(t||'').toUpperCase()]||{icon:'fa-file',color:'#7a8aaa',bg:'rgba(122,138,170,.10)'};}
+function getKatConf(k){return KATEGORI_CONFIG[k]||{color:'#7a8aaa',bg:'rgba(122,138,170,.10)',label:k};}
+function getLvConf(l){return LEVEL_CONFIG[l]||{label:'—',sub:'—',icon:'fa-file',cls:'lb-4'};}
 
-function renderLvGrid(docs,lv){
+function renderGrid(){
   const canDel=UPLOAD_ROLES.includes(currentUserRole);
-  return '<div class="docs-grid">'+docs.map(d=>{
-    const tc=getTipe(d.tipe),kc=getKat(d.kategori);
-    return '<div class="doc-card '+lv.card+'" onclick="openPrev('+d.id+')">'
-      +'<div class="doc-level-stripe '+lv.stripe+'"></div>'
+  document.getElementById('docsArea').innerHTML='<div class="docs-grid">'+filtered.map(d=>{
+    const tc=getTipeConf(d.tipe),kc=getKatConf(d.kategori),lc=getLvConf(d.level);
+    return '<div class="doc-card" onclick="openPreview('+d.id+')">'
+      +'<div class="doc-type-bar" style="background:'+kc.color+'"></div>'
       +'<div class="doc-card-top">'
-      +'<div class="doc-type-icon" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div>'
+      +'<div class="doc-icon" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div>'
       +'<div class="doc-name">'+d.nama+'</div>'
-      +'<div class="doc-meta">'+(d.nomor?d.nomor+' · ':'')+fmtTgl(d.tanggal)+'</div>'
-      +'<div class="doc-badges">'
-      +'<span class="lb '+lv.cls+'"><i class="fas '+lv.icon+'" style="font-size:8px"></i> '+lv.label+'</span>'
-      +'<span class="dept-tag">'+d.dept+'</span>'
-      +'</div></div>'
+      +'<div class="doc-meta">'+(d.nomor?d.nomor+' · ':'')+formatTgl(d.tanggal)+'</div>'
+      +'<div class="doc-level-dept"><span class="level-badge '+lc.cls+'"><i class="fas '+lc.icon+'" style="font-size:8px"></i> '+lc.label+'</span><span class="dept-badge">'+d.dept+'</span></div>'
+      +'</div>'
       +'<div class="doc-card-bottom" onclick="event.stopPropagation()">'
-      +'<span class="badge-sm" style="background:'+kc.bg+';color:'+kc.color+'"><i class="fas '+kc.icon+'" style="font-size:8px"></i> '+kc.label+'</span>'
+      +'<span class="doc-badge" style="background:'+kc.bg+';color:'+kc.color+'"><i class="fas '+kc.icon+'" style="font-size:8px"></i> '+kc.label+'</span>'
       +'<div class="doc-actions">'
-      +'<button class="act-btn act-view" onclick="openPrev('+d.id+')" title="Detail"><i class="fas fa-eye"></i></button>'
-      +'<button class="act-btn act-dl" onclick="downloadDoc('+d.id+')" title="Download"><i class="fas fa-download"></i></button>'
-      +'<button class="act-btn act-del" onclick="openDel('+d.id+')" title="Hapus"'+(canDel?'':' disabled')+'><i class="fas fa-trash-alt"></i></button>'
+      +'<button class="doc-action-btn btn-preview" onclick="openPreview('+d.id+')" title="Detail"><i class="fas fa-eye"></i></button>'
+      +'<button class="doc-action-btn btn-download" onclick="downloadDoc('+d.id+')" title="Download"><i class="fas fa-download"></i></button>'
+      +'<button class="doc-action-btn btn-delete" onclick="openDeleteModal('+d.id+')" title="Hapus"'+(canDel?'':' disabled')+'><i class="fas fa-trash-alt"></i></button>'
       +'</div></div></div>';
   }).join('')+'</div>';
 }
 
-function renderLvList(docs,lv){
+function renderList(){
   const canDel=UPLOAD_ROLES.includes(currentUserRole);
-  return '<div class="docs-list"><table><thead><tr><th>No</th><th>Dokumen</th><th>Kategori</th><th>Departemen</th><th>Tipe</th><th>Tanggal</th><th>Ukuran</th><th>Aksi</th></tr></thead><tbody>'
-    +docs.map((d,i)=>{
-      const tc=getTipe(d.tipe),kc=getKat(d.kategori);
-      return '<tr onclick="openPrev('+d.id+')">'
-        +'<td style="color:var(--muted);font-size:11px;font-family:\'Space Mono\',monospace">'+(i+1)+'</td>'
-        +'<td><div style="display:flex;align-items:center;gap:10px">'
-        +'<div class="file-icon-sm" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div>'
-        +'<div><div style="font-weight:600;color:var(--navy);font-size:13px">'+d.nama+'</div>'
-        +'<div style="font-size:10px;color:var(--muted);margin-top:1px">'+(d.nomor||'—')+'</div></div></div></td>'
-        +'<td><span class="badge-sm" style="background:'+kc.bg+';color:'+kc.color+'"><i class="fas '+kc.icon+'" style="font-size:8px"></i> '+kc.label+'</span></td>'
-        +'<td><span class="dept-tag">'+d.dept+'</span></td>'
-        +'<td><span style="font-family:\'Space Mono\',monospace;font-size:11px;font-weight:700;color:'+tc.color+'">'+d.tipe+'</span></td>'
-        +'<td style="font-size:12px;color:var(--muted)">'+fmtTgl(d.tanggal)+'</td>'
+  document.getElementById('docsArea').innerHTML='<div class="docs-list"><table><thead><tr><th>No</th><th>Dokumen</th><th>Level</th><th>Dept</th><th>Kategori</th><th>Tipe</th><th>Tanggal</th><th>Ukuran</th><th>Aksi</th></tr></thead><tbody>'
+    +filtered.map((d,i)=>{
+      const tc=getTipeConf(d.tipe),kc=getKatConf(d.kategori),lc=getLvConf(d.level);
+      return '<tr onclick="openPreview('+d.id+')">'
+        +'<td style="color:var(--muted);font-family:'Space Mono',monospace;font-size:11px">'+(i+1)+'</td>'
+        +'<td><div style="display:flex;align-items:center;gap:10px"><div class="file-icon-sm" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div><div><div style="font-weight:600;color:var(--navy);font-size:13px">'+d.nama+'</div><div style="font-size:10px;color:var(--muted);margin-top:2px">'+(d.nomor||'—')+' · '+(d.pembuat||'—')+'</div></div></div></td>'
+        +'<td><span class="level-badge '+lc.cls+'"><i class="fas '+lc.icon+'" style="font-size:8px"></i> '+lc.label+' <span style="opacity:.7;font-weight:400">'+lc.sub+'</span></span></td>'
+        +'<td><span class="dept-badge">'+d.dept+'</span></td>'
+        +'<td><span class="doc-badge" style="background:'+kc.bg+';color:'+kc.color+';font-size:10px"><i class="fas '+kc.icon+'" style="font-size:8px"></i> '+kc.label+'</span></td>'
+        +'<td><span style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:'+tc.color+'">'+d.tipe+'</span></td>'
+        +'<td style="font-size:12px;color:var(--muted)">'+formatTgl(d.tanggal)+'</td>'
         +'<td style="font-size:12px;color:var(--muted)">'+d.ukuran+'</td>'
         +'<td onclick="event.stopPropagation()" style="white-space:nowrap">'
-        +'<button class="act-btn act-view" onclick="openPrev('+d.id+')"><i class="fas fa-eye"></i></button> '
-        +'<button class="act-btn act-dl" onclick="downloadDoc('+d.id+')"><i class="fas fa-download"></i></button> '
-        +'<button class="act-btn act-del" onclick="openDel('+d.id+')"'+(canDel?'':' disabled')+'><i class="fas fa-trash-alt"></i></button>'
+        +'<button class="doc-action-btn btn-preview" onclick="openPreview('+d.id+')"><i class="fas fa-eye"></i></button> '
+        +'<button class="doc-action-btn btn-download" onclick="downloadDoc('+d.id+')"><i class="fas fa-download"></i></button> '
+        +'<button class="doc-action-btn btn-delete" onclick="openDeleteModal('+d.id+')"'+(canDel?'':' disabled')+'><i class="fas fa-trash-alt"></i></button>'
         +'</td></tr>';
     }).join('')+'</tbody></table></div>';
 }
 
-function setView(v){
-  currentView=v;
-  document.getElementById('btnGrid').classList.toggle('active',v==='grid');
-  document.getElementById('btnList').classList.toggle('active',v==='list');
-  renderAll();
-}
+function formatTgl(t){if(!t)return'—';const[y,m,d]=t.split('-');const mo=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];return parseInt(d)+' '+mo[parseInt(m)-1]+' '+y;}
 
-// ═══════════════════════════════════════════════════════
-// PREVIEW
-// ═══════════════════════════════════════════════════════
-function openPrev(id){
-  const d=documents.find(x=>x.id===id);if(!d)return;
-  const tc=getTipe(d.tipe),kc=getKat(d.kategori);
-  const lv=LEVELS.find(l=>l.id===d.level)||LEVELS[3];
-  document.getElementById('prevContent').innerHTML=
-    '<div style="text-align:center">'
-    +'<div class="prev-doc-icon" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div>'
-    +'<div class="prev-doc-name">'+d.nama+'</div>'
-    +'<div style="display:flex;justify-content:center;gap:8px;margin:8px 0 4px">'
-    +'<span class="lb '+lv.cls+'"><i class="fas '+lv.icon+'" style="font-size:8px"></i> '+lv.label+' — '+lv.sub+'</span>'
-    +'<span class="dept-tag">'+d.dept+'</span></div>'
-    +'<div class="prev-level-stripe '+lv.stripe+'"></div>'
-    +'<div class="prev-doc-desc" style="margin-top:12px">'+(d.deskripsi||'Tidak ada deskripsi.')+'</div>'
-    +'</div>'
-    +'<div class="prev-grid">'
-    +'<div class="prev-field"><div class="prev-label">Nomor</div><div class="prev-val">'+(d.nomor||'—')+'</div></div>'
-    +'<div class="prev-field"><div class="prev-label">Kategori</div><div class="prev-val"><span class="badge-sm" style="background:'+kc.bg+';color:'+kc.color+'"><i class="fas '+kc.icon+'" style="font-size:9px"></i> '+kc.label+'</span></div></div>'
-    +'<div class="prev-field"><div class="prev-label">Level</div><div class="prev-val">'+lv.label+' — '+lv.sub+'</div></div>'
-    +'<div class="prev-field"><div class="prev-label">Departemen</div><div class="prev-val">'+d.dept+'</div></div>'
-    +'<div class="prev-field"><div class="prev-label">Tipe File</div><div class="prev-val" style="color:'+tc.color+'">'+d.tipe+'</div></div>'
-    +'<div class="prev-field"><div class="prev-label">Ukuran</div><div class="prev-val">'+d.ukuran+'</div></div>'
-    +'<div class="prev-field"><div class="prev-label">Tanggal Terbit</div><div class="prev-val">'+fmtTgl(d.tanggal)+'</div></div>'
-    +'<div class="prev-field"><div class="prev-label">Dibuat Oleh</div><div class="prev-val">'+(d.pembuat||'—')+'</div></div>'
-    +'</div>'
-    +'<button class="btn-dl-full" onclick="downloadDoc('+d.id+')"><i class="fas fa-download"></i> Download Dokumen</button>';
-  document.getElementById('previewModal').classList.add('show');
-}
-function closePrev(){document.getElementById('previewModal').classList.remove('show');}
-
-// ═══════════════════════════════════════════════════════
-// DELETE
-// ═══════════════════════════════════════════════════════
-function openDel(id){
-  if(!UPLOAD_ROLES.includes(currentUserRole)){document.getElementById('restrictedModal').classList.add('show');return;}
-  deleteDocId=id;
-  document.getElementById('delName').textContent=documents.find(x=>x.id===id)?.nama||'';
-  document.getElementById('deleteModal').classList.add('show');
-}
-function closeDel(){document.getElementById('deleteModal').classList.remove('show');deleteDocId=null;}
-function confirmDel(){
-  if(!deleteDocId)return;
-  documents=documents.filter(d=>d.id!==deleteDocId);
-  closeDel();closePrev();applyFilter();
-  showToast('<i class="fas fa-trash-alt"></i> Dokumen berhasil dihapus!');
-}
-function downloadDoc(id){
-  const d=documents.find(x=>x.id===id);
-  showToast('<i class="fas fa-download"></i> Mengunduh '+(d?d.nama:'')+'...');
-}
-
-// ═══════════════════════════════════════════════════════
-// UPLOAD
-// ═══════════════════════════════════════════════════════
-function openUpload(){
-  document.getElementById('uploadModal').classList.add('show');
-  document.getElementById('uTanggal').value=new Date().toISOString().split('T')[0];
-  document.getElementById('uPembuat').value=localStorage.getItem('userName')||'';
-  if(activeDept)document.getElementById('uDept').value=activeDept;
-}
+function openUploadModal(){document.getElementById('uploadModal').classList.add('show');document.getElementById('docTanggal').value=new Date().toISOString().split('T')[0];document.getElementById('docPembuat').value=localStorage.getItem('userName')||'';}
 function closeUploadModal(){
   document.getElementById('uploadModal').classList.remove('show');
-  ['uNama','uNomor','uDeskripsi','uPembuat'].forEach(id=>document.getElementById(id).value='');
-  ['uKategori','uLevel','uDept'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('selFile').style.display='none';selFileData=null;
-  document.getElementById('levelPreviewWrap').style.display='none';
+  ['docNama','docNomor','docDeskripsi','docPembuat'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('docKategori').value='';document.getElementById('docLevel').value='';document.getElementById('docDept').value='';
+  document.getElementById('selectedFile').style.display='none';selectedFileData=null;
 }
-function fileSelect(input){if(input.files&&input.files[0])procFile(input.files[0]);}
-function dzOver(e){e.preventDefault();document.getElementById('uploadZone').classList.add('dragover');}
-function dzLeave(){document.getElementById('uploadZone').classList.remove('dragover');}
-function dzDrop(e){e.preventDefault();dzLeave();if(e.dataTransfer.files[0])procFile(e.dataTransfer.files[0]);}
-function procFile(file){
-  const ext=file.name.split('.').pop().toUpperCase();
-  selFileData={tipe:ext,ukuran:(file.size/1024/1024).toFixed(1)+' MB'};
-  document.getElementById('selFileName').textContent=file.name;
-  document.getElementById('selFileSize').textContent=selFileData.ukuran;
-  document.getElementById('selFile').style.display='flex';
-  if(!document.getElementById('uNama').value)document.getElementById('uNama').value=file.name.replace(/\.[^/.]+$/,'');
-  if(!document.getElementById('uKategori').value){
-    if(ext==='XLSX'||ext==='XLS')document.getElementById('uKategori').value='Form';
-    else if(ext==='PPTX'||ext==='PPT')document.getElementById('uKategori').value='Laporan K3';
-    else if(ext==='PDF'||ext==='DOCX'||ext==='DOC')document.getElementById('uKategori').value='SOP';
-  }
-}
-function onLevelChange(){
-  const lv=document.getElementById('uLevel').value;
-  const wrap=document.getElementById('levelPreviewWrap');
-  const prev=document.getElementById('levelPreview');
-  if(!lv){wrap.style.display='none';return;}
-  const cfg=LEVELS.find(l=>l.id===lv);
-  wrap.style.display='';
-  prev.style.background='rgba(0,0,0,.04)';
-  prev.innerHTML='<i class="fas '+cfg.icon+'" style="color:'+cfg.color+'"></i>'
-    +'<span style="color:'+cfg.color+';font-weight:700">'+cfg.label+' — '+cfg.sub+'</span>'
-    +'<div class="prev-level-stripe '+cfg.stripe+'" style="margin:0;flex:1;height:4px;border-radius:4px"></div>';
-}
-function saveDoc(){
-  const nama=document.getElementById('uNama').value.trim();
-  const level=document.getElementById('uLevel').value;
-  const kat=document.getElementById('uKategori').value;
-  const dept=document.getElementById('uDept').value;
-  if(!nama){showToast('<i class="fas fa-exclamation-triangle"></i> Nama dokumen wajib!',true);return;}
+function handleFileSelect(input){if(input.files&&input.files[0])processFile(input.files[0]);}
+function handleDragOver(e){e.preventDefault();document.getElementById('uploadZone').classList.add('dragover');}
+function handleDragLeave(){document.getElementById('uploadZone').classList.remove('dragover');}
+function handleDrop(e){e.preventDefault();handleDragLeave();if(e.dataTransfer.files[0])processFile(e.dataTransfer.files[0]);}
+function processFile(file){const ext=file.name.split('.').pop().toUpperCase();const sz=(file.size/1024/1024).toFixed(1)+' MB';selectedFileData={tipe:ext,ukuran:sz};document.getElementById('selectedFileName').textContent=file.name;document.getElementById('selectedFileSize').textContent=sz;document.getElementById('selectedFile').style.display='flex';if(!document.getElementById('docNama').value)document.getElementById('docNama').value=file.name.replace(/\.[^/.]+$/,'');}
+function saveDocument(){
+  const nama=document.getElementById('docNama').value.trim();
+  const level=document.getElementById('docLevel').value;
+  const kategori=document.getElementById('docKategori').value;
+  const dept=document.getElementById('docDept').value;
+  if(!nama){showToast('<i class="fas fa-exclamation-triangle"></i> Nama dokumen wajib diisi!',true);return;}
   if(!level){showToast('<i class="fas fa-exclamation-triangle"></i> Pilih level dokumen!',true);return;}
-  if(!kat){showToast('<i class="fas fa-exclamation-triangle"></i> Pilih kategori!',true);return;}
+  if(!kategori){showToast('<i class="fas fa-exclamation-triangle"></i> Pilih kategori!',true);return;}
   if(!dept){showToast('<i class="fas fa-exclamation-triangle"></i> Pilih departemen!',true);return;}
-  documents.unshift({
-    id:Date.now(),nama,
-    nomor:document.getElementById('uNomor').value.trim(),
-    level,kategori:kat,dept,
-    tipe:selFileData?.tipe||'PDF',
-    tanggal:document.getElementById('uTanggal').value||new Date().toISOString().split('T')[0],
-    pembuat:document.getElementById('uPembuat').value.trim()||currentUserRole,
-    deskripsi:document.getElementById('uDeskripsi').value.trim(),
-    ukuran:selFileData?.ukuran||'—'
-  });
-  closeUploadModal();buildDeptNav();applyFilter();
-  showToast('<i class="fas fa-check-circle"></i> Dokumen berhasil disimpan!');
+  documents.unshift({id:Date.now(),nama,nomor:document.getElementById('docNomor').value.trim(),level,kategori,dept,tipe:selectedFileData?.tipe||'PDF',tanggal:document.getElementById('docTanggal').value||new Date().toISOString().split('T')[0],pembuat:document.getElementById('docPembuat').value.trim()||currentUserRole,deskripsi:document.getElementById('docDeskripsi').value.trim(),ukuran:selectedFileData?.ukuran||'—'});
+  closeUploadModal();buildStats();applyFilter();showToast('<i class="fas fa-check-circle"></i> Dokumen berhasil disimpan!');
 }
 
-// ═══════════════════════════════════════════════════════
-// HELPERS
-// ═══════════════════════════════════════════════════════
-function getTipe(t){return TIPE[(t||'').toUpperCase()]||{icon:'fa-file',color:'#7a8aaa',bg:'rgba(122,138,170,.10)'};}
-function getKat(k){return KAT[k]||{color:'#7a8aaa',bg:'rgba(122,138,170,.10)',icon:'fa-file',label:k||'—'};}
-function fmtTgl(t){if(!t)return'—';const[y,m,d]=t.split('-');const mo=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];return parseInt(d)+' '+mo[parseInt(m)-1]+' '+y;}
-function showToast(msg,err){const t=document.getElementById('toast');t.innerHTML=msg;t.style.background=err?'var(--accent2)':'var(--navy)';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+function openPreview(id){
+  const d=documents.find(x=>x.id===id);if(!d)return;
+  const tc=getTipeConf(d.tipe),kc=getKatConf(d.kategori),lc=getLvConf(d.level);
+  document.getElementById('previewContent').innerHTML=
+    '<div style="text-align:center">'
+    +'<div class="preview-doc-icon" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div>'
+    +'<div class="preview-doc-name">'+d.nama+'</div>'
+    +'<div style="display:flex;justify-content:center;gap:8px;margin:8px 0 5px"><span class="level-badge '+lc.cls+'"><i class="fas '+lc.icon+'" style="font-size:8px"></i> '+lc.label+' — '+lc.sub+'</span><span class="dept-badge">'+d.dept+'</span></div>'
+    +'<div class="preview-doc-desc">'+(d.deskripsi||'Tidak ada deskripsi.')+'</div></div>'
+    +'<div class="preview-info-grid">'
+    +'<div class="preview-field"><div class="preview-field-label">Nomor Dokumen</div><div class="preview-field-val">'+(d.nomor||'—')+'</div></div>'
+    +'<div class="preview-field"><div class="preview-field-label">Kategori</div><div class="preview-field-val"><span class="doc-badge" style="background:'+kc.bg+';color:'+kc.color+';font-size:11px;padding:4px 10px"><i class="fas '+kc.icon+'" style="font-size:9px"></i> '+kc.label+'</span></div></div>'
+    +'<div class="preview-field"><div class="preview-field-label">Level Dokumen</div><div class="preview-field-val">'+lc.label+' — '+lc.sub+'</div></div>'
+    +'<div class="preview-field"><div class="preview-field-label">Departemen</div><div class="preview-field-val">'+d.dept+'</div></div>'
+    +'<div class="preview-field"><div class="preview-field-label">Tipe File</div><div class="preview-field-val" style="color:'+tc.color+'">'+d.tipe+'</div></div>'
+    +'<div class="preview-field"><div class="preview-field-label">Ukuran File</div><div class="preview-field-val">'+d.ukuran+'</div></div>'
+    +'<div class="preview-field"><div class="preview-field-label">Tanggal Terbit</div><div class="preview-field-val">'+formatTgl(d.tanggal)+'</div></div>'
+    +'<div class="preview-field"><div class="preview-field-label">Dibuat Oleh</div><div class="preview-field-val">'+(d.pembuat||'—')+'</div></div>'
+    +'</div>'
+    +'<button class="btn-download-full" onclick="downloadDoc('+d.id+')"><i class="fas fa-download"></i> Download Dokumen</button>';
+  document.getElementById('previewModal').classList.add('show');
+}
+function closePreviewModal(){document.getElementById('previewModal').classList.remove('show');}
+
+function openDeleteModal(id){
+  if(!UPLOAD_ROLES.includes(currentUserRole)){document.getElementById('restrictedModal').classList.add('show');return;}
+  deleteDocId=id;document.getElementById('deleteDocName').textContent=documents.find(x=>x.id===id)?.nama||'';document.getElementById('deleteModal').classList.add('show');
+}
+function closeDeleteModal(){document.getElementById('deleteModal').classList.remove('show');deleteDocId=null;}
+function confirmDelete(){if(!deleteDocId)return;documents=documents.filter(d=>d.id!==deleteDocId);closeDeleteModal();closePreviewModal();buildStats();applyFilter();showToast('<i class="fas fa-trash-alt"></i> Dokumen berhasil dihapus!');}
+function downloadDoc(id){const d=documents.find(x=>x.id===id);showToast('<i class="fas fa-download"></i> Mengunduh '+(d?d.nama:'')+'...');}
+
+function showToast(msg,isErr){const t=document.getElementById('toast');t.innerHTML=msg;t.style.background=isErr?'var(--accent2)':'var(--navy)';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open');}
+function logout(){if(confirm('Yakin ingin logout?')){localStorage.clear();window.location.href='index.html';}}
 
-// ✅ LOGOUT — redirect ke index.html (bukan login.html)
-function logout(){
-  if(confirm('Yakin ingin logout?')){
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userRole');
-    window.location.href='index.html';
-  }
-}
-
-// ═══ INIT ═══
-buildDeptNav();
-applyFilter();
+buildDeptTabs();buildStats();applyFilter();
 </script>
 </body>
 </html>
