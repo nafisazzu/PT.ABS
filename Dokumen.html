@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dokumen – SIGAP</title>
+<title>Dokumen – AIMS</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -12,7 +12,6 @@
   --lv1:#6366f1;--lv2:#0ea5e9;--lv3:#f59e0b;--lv4:#22e0a1;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;font-size:14px;}
-
 /* ─── SIDEBAR ─────────────────────────────── */
 .sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
 .sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
@@ -37,7 +36,6 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .user-avatar{width:36px;height:36px;background:linear-gradient(135deg,var(--accent3),#ff8c00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:700;}
 .user-info .user-name{font-size:13px;font-weight:600;color:#fff;}
 .user-info .user-role{font-size:11px;color:var(--muted);}
-
 /* ─── MAIN ──────────────────────────────── */
 .main{margin-left:var(--sidebar-w);padding:0;min-height:100vh;}
 .topbar{background:var(--card-bg);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.05);}
@@ -55,20 +53,17 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .role-badge.dok{background:rgba(0,212,255,.10);color:#007fa3;border:1px solid rgba(0,212,255,.25);}
 .role-badge.other{background:rgba(122,138,170,.12);color:var(--muted);border:1px solid var(--border);}
 .content{padding:28px 32px 48px;}
-
 /* ─── PAGE HEADER ─────────────────────────── */
 .page-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;flex-wrap:wrap;gap:16px;}
 .page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;}
 .title-icon{width:44px;height:44px;background:linear-gradient(135deg,#0ea5e9,#0284c7);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(14,165,233,.35);}
 .page-sub{font-size:13px;color:var(--muted);margin-top:6px;}
-
 /* ─── UPLOAD BUTTON & LOCK ─────────────────── */
 .btn-upload{display:flex;align-items:center;gap:8px;padding:11px 22px;border-radius:10px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:all var(--transition);font-family:'DM Sans',sans-serif;box-shadow:0 4px 14px rgba(11,24,41,.22);}
 .btn-upload:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(11,24,41,.28);}
 .btn-upload.locked{background:linear-gradient(135deg,#7a8aaa,#94a3b8);cursor:not-allowed;}
 .btn-upload.locked:hover{transform:none;box-shadow:0 4px 14px rgba(11,24,41,.22);}
 .upload-lock-notice{display:flex;align-items:center;gap:8px;padding:9px 14px;background:rgba(255,200,67,.08);border:1px solid rgba(255,200,67,.3);border-radius:10px;font-size:12px;color:#b37d00;font-weight:500;}
-
 /* ─── DEPARTMENT NAV ─────────────────────── */
 .dept-nav{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);padding:6px 8px;margin-bottom:20px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;overflow-x:auto;animation:fadeUp .3s ease both;}
 .dept-nav-btn{display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;border:none;background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--muted);transition:all var(--transition);white-space:nowrap;position:relative;}
@@ -80,7 +75,6 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .dept-nav-btn.active .dept-nav-icon{background:rgba(255,255,255,.2);}
 .dept-nav-btn:not(.active) .dept-nav-icon{background:rgba(11,24,41,.07);color:var(--navy);}
 .dept-divider{width:1px;height:28px;background:var(--border);margin:0 2px;flex-shrink:0;}
-
 /* ─── LEVEL SECTIONS ─────────────────────── */
 .level-section{margin-bottom:28px;animation:fadeUp .4s ease both;}
 .level-section-header{display:flex;align-items:center;gap:14px;padding:16px 22px;border-radius:var(--radius) var(--radius) 0 0;cursor:pointer;user-select:none;transition:all var(--transition);}
@@ -109,7 +103,6 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .lv2-body{border-color:rgba(14,165,233,.25);}
 .lv3-body{border-color:rgba(245,158,11,.25);}
 .lv4-body{border-color:rgba(34,224,161,.25);}
-
 /* ─── TOOLBAR ─────────────────────────────── */
 .toolbar-bar{background:var(--card-bg);border-radius:var(--radius);padding:12px 16px;box-shadow:var(--shadow);margin-bottom:20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;animation:fadeUp .35s ease both;}
 .search-wrap{position:relative;flex:1;min-width:180px;}
@@ -122,7 +115,6 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .view-btn{width:36px;height:36px;border-radius:8px;border:1.5px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all var(--transition);}
 .view-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
 .view-btn:hover:not(.active){background:#e2e8f5;}
-
 /* ─── STAT CARDS ─────────────────────────── */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
 .stat-card{background:var(--card-bg);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform var(--transition);animation:fadeUp .4s ease both;cursor:pointer;}
@@ -141,7 +133,6 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .stat-lbl{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.3px;}
 .stat-val{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;line-height:1;margin-top:2px;}
 .stat-sub{font-size:10px;color:var(--muted);margin-top:3px;}
-
 /* ─── DOC GRID ───────────────────────────── */
 .docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
 .doc-card{background:var(--card-bg);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;transition:transform var(--transition),box-shadow var(--transition);cursor:pointer;border:1.5px solid transparent;}
@@ -168,7 +159,6 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .act-dl{background:rgba(34,224,161,.10);color:#127754;}.act-dl:hover{background:rgba(34,224,161,.20);}
 .act-del{background:rgba(255,78,106,.10);color:#b91c1c;}.act-del:hover{background:rgba(255,78,106,.20);}
 .act-del:disabled{opacity:.3;cursor:not-allowed;}
-
 /* ─── DOC LIST ───────────────────────────── */
 .docs-list{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
 .docs-list table{width:100%;border-collapse:collapse;}
@@ -178,8 +168,6 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .docs-list tbody tr:hover{background:#f5f8ff;}
 .docs-list td{padding:9px 13px;font-size:13px;vertical-align:middle;}
 .file-icon-sm{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
-.lv-stripe-sm{width:3px;height:100%;border-radius:2px;flex-shrink:0;}
-
 /* ─── LEVEL BADGES ───────────────────────── */
 .lb{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.3px;}
 .lb-1{background:rgba(99,102,241,.12);color:#4f46e5;}
@@ -187,13 +175,10 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .lb-3{background:rgba(245,158,11,.12);color:#d97706;}
 .lb-4{background:rgba(34,224,161,.12);color:#127754;}
 .dept-tag{padding:2px 9px;border-radius:20px;font-size:10px;font-weight:600;background:rgba(11,24,41,.07);color:var(--navy);}
-
 /* ─── EMPTY ───────────────────────────────── */
 .empty-section{text-align:center;padding:36px 20px;color:var(--muted);background:rgba(11,24,41,.02);border-radius:10px;}
-.empty-section-icon{font-size:28px;margin-bottom:10px;opacity:.4;}
 .empty-full{text-align:center;padding:56px 20px;color:var(--muted);}
 .empty-full-icon{width:70px;height:70px;border-radius:18px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 13px;}
-
 /* ─── MODALS ─────────────────────────────── */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(11,24,41,.55);z-index:2000;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.show{display:flex;}
@@ -218,7 +203,6 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .fc,.fs{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;transition:all var(--transition);}
 .fc:focus,.fs:focus{border-color:var(--accent);}
 textarea.fc{resize:vertical;min-height:70px;}
-
 /* RESTRICTED MODAL */
 .restr-box{background:#fff;border-radius:var(--radius);width:90%;max-width:400px;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;text-align:center;padding:36px 28px;}
 .restr-icon{width:72px;height:72px;background:rgba(255,78,106,.10);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--accent2);margin:0 auto 16px;}
@@ -226,7 +210,6 @@ textarea.fc{resize:vertical;min-height:70px;}
 .restr-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
 .restr-roles{display:flex;justify-content:center;gap:10px;margin-bottom:22px;flex-wrap:wrap;}
 .btn-ok{padding:11px 28px;border-radius:10px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
-
 /* PREVIEW MODAL */
 .prev-box{background:#fff;border-radius:var(--radius);width:100%;max-width:620px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;}
 .prev-body{padding:22px 24px;}
@@ -237,21 +220,16 @@ textarea.fc{resize:vertical;min-height:70px;}
 .prev-doc-icon{width:72px;height:72px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 12px;}
 .prev-doc-name{font-size:17px;font-weight:700;color:var(--navy);text-align:center;margin-bottom:5px;}
 .prev-doc-desc{font-size:13px;color:var(--muted);text-align:center;line-height:1.6;}
-/* Level stripe in preview */
 .prev-level-stripe{height:6px;border-radius:4px;margin:12px auto 0;max-width:80px;}
 .btn-dl-full{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:10px;background:linear-gradient(135deg,var(--accent4),#19a37a);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;width:100%;margin-top:16px;font-family:'DM Sans',sans-serif;}
 .btn-dl-full:hover{opacity:.9;}
-
 /* TOAST */
 .toast-box{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transform:translateY(12px);transition:all .3s;z-index:3000;pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(11,24,41,.25);}
 .toast-box.show{opacity:1;transform:translateY(0);}
-
 /* MOBILE */
 .menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;}
-
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-
 @media(max-width:1100px){.stats-row{grid-template-columns:repeat(2,1fr);}.docs-grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));}}
 @media(max-width:768px){
   .menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}
@@ -276,11 +254,11 @@ textarea.fc{resize:vertical;min-height:70px;}
     <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
     <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
     <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
-    <div class="nav-label">Data & Dokumen</div>
+    <div class="nav-label">Data &amp; Dokumen</div>
     <a href="dokumen.html" class="active"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
     <a href="laporan.html"><span class="nav-icon"><i class="fas fa-list"></i></span>Laporan</a>
-    <div class="nav-label">Akun</div>
-     <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener noreferrer" style="color:rgba(0,212,255,0.85);">
+    <div class="nav-label">Eksternal</div>
+    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener noreferrer" style="color:rgba(0,212,255,0.85);">
       <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent);"><i class="fas fa-external-link-alt"></i></span>
       SIGAP IBP
       <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.55;"></i>
@@ -314,11 +292,10 @@ textarea.fc{resize:vertical;min-height:70px;}
   </div>
 
   <div class="content">
-    <!-- PAGE HEADER -->
     <div class="page-header">
       <div>
         <div class="page-title"><div class="title-icon"><i class="fas fa-folder-open"></i></div>Manajemen Dokumen</div>
-        <div class="page-sub">Dokumen K3 terstruktur berdasarkan Level & Departemen</div>
+        <div class="page-sub">Dokumen K3 terstruktur berdasarkan Level &amp; Departemen</div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
         <button class="btn-upload" id="btnUpload" onclick="handleUploadClick()">
@@ -332,13 +309,9 @@ textarea.fc{resize:vertical;min-height:70px;}
       </div>
     </div>
 
-    <!-- ① DEPARTEMEN NAV — Filter Utama -->
     <div class="dept-nav" id="deptNav"></div>
-
-    <!-- ② STAT CARDS per Level -->
     <div class="stats-row" id="statsRow"></div>
 
-    <!-- ③ TOOLBAR -->
     <div class="toolbar-bar">
       <div class="search-wrap">
         <i class="fas fa-search s-icon"></i>
@@ -347,10 +320,10 @@ textarea.fc{resize:vertical;min-height:70px;}
       <select class="filter-sel" id="filterKat" onchange="applyFilter()">
         <option value="">Semua Kategori</option>
         <option value="SOP">SOP / Prosedur</option>
-        <option value="Form">Form & Formulir</option>
+        <option value="Form">Form &amp; Formulir</option>
         <option value="Regulasi">Regulasi</option>
         <option value="Laporan K3">Laporan K3</option>
-        <option value="Sertifikat">Sertifikat & Izin</option>
+        <option value="Sertifikat">Sertifikat &amp; Izin</option>
       </select>
       <select class="filter-sel" id="filterTipe" onchange="applyFilter()">
         <option value="">Semua Tipe</option>
@@ -371,12 +344,11 @@ textarea.fc{resize:vertical;min-height:70px;}
       </div>
     </div>
 
-    <!-- ④ DOKUMEN AREA — dikelompokkan per level -->
     <div id="docsArea"></div>
   </div>
 </div>
 
-<!-- ═══ UPLOAD MODAL ═══ -->
+<!-- UPLOAD MODAL -->
 <div class="modal-overlay" id="uploadModal">
   <div class="modal-box">
     <div class="modal-head">
@@ -390,7 +362,7 @@ textarea.fc{resize:vertical;min-height:70px;}
       <div class="upload-zone" id="uploadZone" ondragover="dzOver(event)" ondragleave="dzLeave()" ondrop="dzDrop(event)">
         <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.png,.jpg" onchange="fileSelect(this)">
         <div class="uz-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-        <div style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:3px">Drag & Drop file di sini</div>
+        <div style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:3px">Drag &amp; Drop file di sini</div>
         <div style="font-size:11px;color:var(--muted)">atau klik untuk memilih · PDF, DOCX, XLSX, PPTX · Maks 20 MB</div>
       </div>
       <div id="selFile" class="sel-file" style="display:none">
@@ -414,7 +386,7 @@ textarea.fc{resize:vertical;min-height:70px;}
             <option value="1">Level 1 — Kebijakan (Policy)</option>
             <option value="2">Level 2 — Prosedur (SOP)</option>
             <option value="3">Level 3 — Instruksi Kerja (IK)</option>
-            <option value="4">Level 4 — Formulir & Rekaman</option>
+            <option value="4">Level 4 — Formulir &amp; Rekaman</option>
           </select>
         </div>
         <div class="col-md-6">
@@ -422,10 +394,10 @@ textarea.fc{resize:vertical;min-height:70px;}
           <select class="fs" id="uKategori">
             <option value="">— Pilih kategori —</option>
             <option value="SOP">SOP / Prosedur Kerja</option>
-            <option value="Form">Form & Formulir</option>
+            <option value="Form">Form &amp; Formulir</option>
             <option value="Regulasi">Regulasi / Peraturan</option>
             <option value="Laporan K3">Laporan K3</option>
-            <option value="Sertifikat">Sertifikat & Izin</option>
+            <option value="Sertifikat">Sertifikat &amp; Izin</option>
           </select>
         </div>
         <div class="col-md-6">
@@ -441,7 +413,6 @@ textarea.fc{resize:vertical;min-height:70px;}
             <option value="HRGA">HRGA</option>
           </select>
         </div>
-        <!-- Preview level indicator in form -->
         <div class="col-12" id="levelPreviewWrap" style="display:none">
           <div id="levelPreview" style="padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;"></div>
         </div>
@@ -466,12 +437,12 @@ textarea.fc{resize:vertical;min-height:70px;}
   </div>
 </div>
 
-<!-- ═══ RESTRICTED MODAL ═══ -->
+<!-- RESTRICTED MODAL -->
 <div class="modal-overlay" id="restrictedModal">
   <div class="restr-box">
     <div class="restr-icon"><i class="fas fa-lock"></i></div>
     <div class="restr-title">Akses Terbatas</div>
-    <div class="restr-sub">Fitur upload & hapus dokumen hanya dapat diakses oleh pengguna dengan role:</div>
+    <div class="restr-sub">Fitur upload &amp; hapus dokumen hanya dapat diakses oleh pengguna dengan role:</div>
     <div class="restr-roles">
       <span class="role-badge she" style="font-size:13px;padding:7px 18px"><i class="fas fa-shield-alt"></i> Safety Officer</span>
       <span class="role-badge dok" style="font-size:13px;padding:7px 18px"><i class="fas fa-folder-open"></i> Dok Kontrol</span>
@@ -480,7 +451,7 @@ textarea.fc{resize:vertical;min-height:70px;}
   </div>
 </div>
 
-<!-- ═══ PREVIEW MODAL ═══ -->
+<!-- PREVIEW MODAL -->
 <div class="modal-overlay" id="previewModal">
   <div class="prev-box">
     <div class="modal-head">
@@ -494,7 +465,7 @@ textarea.fc{resize:vertical;min-height:70px;}
   </div>
 </div>
 
-<!-- ═══ DELETE MODAL ═══ -->
+<!-- DELETE MODAL -->
 <div class="modal-overlay" id="deleteModal">
   <div class="modal-box" style="max-width:420px">
     <div class="modal-head">
@@ -562,26 +533,26 @@ let documents = [
   {id:13,nama:'SOP-ENG-001 Prosedur Pemeliharaan Unit Alat',nomor:'SOP-ENG-001',level:'2',kategori:'SOP',dept:'Engineering',tipe:'DOCX',tanggal:'2025-04-20',pembuat:'Dept. Engineering',deskripsi:'Prosedur preventive dan corrective maintenance unit alat berat.',ukuran:'2.0 MB'},
   {id:14,nama:'SOP-HRGA-001 Prosedur Induksi Karyawan Baru',nomor:'SOP-HRGA-001',level:'2',kategori:'SOP',dept:'HRGA',tipe:'PDF',tanggal:'2025-05-01',pembuat:'Dept. HRGA',deskripsi:'Prosedur orientasi karyawan baru termasuk induksi K3LH.',ukuran:'1.6 MB'},
   {id:15,nama:'IK-OPR-001 Instruksi Kerja Operasi Dump Truck',nomor:'IK-OPR-001',level:'3',kategori:'SOP',dept:'Produksi',tipe:'PDF',tanggal:'2025-05-10',pembuat:'Dept. Produksi',deskripsi:'Instruksi kerja untuk operator dump truck dalam kondisi normal dan darurat.',ukuran:'0.8 MB'},
-  {id:16,nama:'IK-OPR-002 Instruksi Kerja Operasi Excavator',nomor:'IK-OPR-002',level:'3',kategori:'SOP',dept:'Produksi',tipe:'PDF',tanggal:'2025-05-12',pembuat:'Dept. Produksi',deskripsi:'Instruksi kerja operasional excavator mulai dari pre-start hingga shutdown.',ukuran:'0.7 MB'},
-  {id:17,nama:'IK-MNT-001 Instruksi Kerja Ganti Oli Unit',nomor:'IK-MNT-001',level:'3',kategori:'SOP',dept:'Plant',tipe:'DOCX',tanggal:'2025-05-20',pembuat:'Dept. Plant',deskripsi:'Langkah kerja penggantian oli mesin dan transmisi alat berat.',ukuran:'0.6 MB'},
-  {id:18,nama:'IK-SHE-001 Instruksi Penggunaan APAR',nomor:'IK-SHE-001',level:'3',kategori:'SOP',dept:'SHE',tipe:'PDF',tanggal:'2025-05-25',pembuat:'Dept. SHE',deskripsi:'Instruksi teknis penggunaan APAR untuk berbagai jenis kebakaran.',ukuran:'0.5 MB'},
-  {id:19,nama:'IK-LOG-001 Instruksi Penerimaan Material B3',nomor:'IK-LOG-001',level:'3',kategori:'SOP',dept:'Logistik',tipe:'PDF',tanggal:'2025-06-01',pembuat:'Dept. Logistik',deskripsi:'Instruksi teknis penerimaan dan penyimpanan material berbahaya di gudang.',ukuran:'0.6 MB'},
-  {id:20,nama:'Form-SAP-001 Formulir Safety Activity Program',nomor:'FORM-SAP-001',level:'4',kategori:'Form',dept:'SHE',tipe:'XLSX',tanggal:'2025-01-20',pembuat:'Dept. SHE',deskripsi:'Formulir pencatatan aktivitas keselamatan kerja harian pengawas.',ukuran:'0.5 MB'},
-  {id:21,nama:'Form-HAZ-001 Formulir Hazard Report',nomor:'FORM-HAZ-001',level:'4',kategori:'Form',dept:'SHE',tipe:'DOCX',tanggal:'2025-02-14',pembuat:'Dept. SHE',deskripsi:'Formulir pelaporan temuan bahaya dan tindakan pengendalian.',ukuran:'0.3 MB'},
-  {id:22,nama:'Form-IND-001 Formulir Laporan Induksi K3LH',nomor:'FORM-IND-001',level:'4',kategori:'Form',dept:'SHE',tipe:'XLSX',tanggal:'2025-03-01',pembuat:'Dept. SHE',deskripsi:'Formulir pendataan peserta dan nilai induksi K3LH.',ukuran:'0.8 MB'},
-  {id:23,nama:'Form-INS-001 Checklist Inspeksi Harian Alat',nomor:'FORM-INS-001',level:'4',kategori:'Form',dept:'Produksi',tipe:'XLSX',tanggal:'2025-03-15',pembuat:'Dept. SHE',deskripsi:'Checklist inspeksi harian alat berat sebelum operasi.',ukuran:'0.4 MB'},
-  {id:24,nama:'Form-MNT-001 Work Order Pemeliharaan',nomor:'FORM-MNT-001',level:'4',kategori:'Form',dept:'Plant',tipe:'XLSX',tanggal:'2025-04-01',pembuat:'Dept. Plant',deskripsi:'Formulir permintaan dan pelaporan pekerjaan pemeliharaan.',ukuran:'0.3 MB'},
-  {id:25,nama:'Laporan K3 Triwulan I 2025',nomor:'LPR-K3-Q1-2025',level:'4',kategori:'Laporan K3',dept:'SHE',tipe:'PPTX',tanggal:'2025-04-05',pembuat:'Dept. SHE',deskripsi:'Laporan statistik keselamatan kerja Triwulan I 2025.',ukuran:'5.6 MB'},
-  {id:26,nama:'Sertifikat Kompetensi Pengawas K3 Tambang',nomor:'SERT-KOMP-2025',level:'4',kategori:'Sertifikat',dept:'SHE',tipe:'PDF',tanggal:'2025-02-28',pembuat:'BNSP',deskripsi:'Sertifikat kompetensi pengawas operasional pertama dan madya.',ukuran:'0.7 MB'}
+  {id:16,nama:'IK-SHE-001 Instruksi Penggunaan APAR',nomor:'IK-SHE-001',level:'3',kategori:'SOP',dept:'SHE',tipe:'PDF',tanggal:'2025-05-25',pembuat:'Dept. SHE',deskripsi:'Instruksi teknis penggunaan APAR untuk berbagai jenis kebakaran.',ukuran:'0.5 MB'},
+  {id:17,nama:'Form-SAP-001 Formulir Safety Activity Program',nomor:'FORM-SAP-001',level:'4',kategori:'Form',dept:'SHE',tipe:'XLSX',tanggal:'2025-01-20',pembuat:'Dept. SHE',deskripsi:'Formulir pencatatan aktivitas keselamatan kerja harian pengawas.',ukuran:'0.5 MB'},
+  {id:18,nama:'Form-HAZ-001 Formulir Hazard Report',nomor:'FORM-HAZ-001',level:'4',kategori:'Form',dept:'SHE',tipe:'DOCX',tanggal:'2025-02-14',pembuat:'Dept. SHE',deskripsi:'Formulir pelaporan temuan bahaya dan tindakan pengendalian.',ukuran:'0.3 MB'},
+  {id:19,nama:'Form-IND-001 Formulir Laporan Induksi K3LH',nomor:'FORM-IND-001',level:'4',kategori:'Form',dept:'SHE',tipe:'XLSX',tanggal:'2025-03-01',pembuat:'Dept. SHE',deskripsi:'Formulir pendataan peserta dan nilai induksi K3LH.',ukuran:'0.8 MB'},
+  {id:20,nama:'Laporan K3 Triwulan I 2025',nomor:'LPR-K3-Q1-2025',level:'4',kategori:'Laporan K3',dept:'SHE',tipe:'PPTX',tanggal:'2025-04-05',pembuat:'Dept. SHE',deskripsi:'Laporan statistik keselamatan kerja Triwulan I 2025.',ukuran:'5.6 MB'},
 ];
 
 let activeDept='', filteredDocs=[...documents], currentView='grid', deleteDocId=null, selFileData=null, currentUserRole='';
 const collapsedLevels={};
 
 // ═══════════════════════════════════════════════════════
-// INIT USER & ROLE CHECK
+// INIT USER & AUTH CHECK
 // ═══════════════════════════════════════════════════════
 (function initUser(){
+  // ✅ CEK LOGIN — redirect ke index.html jika belum login
+  if (localStorage.getItem('isLoggedIn') !== 'true') {
+    window.location.href = 'index.html';
+    return;
+  }
+
   const name = localStorage.getItem('userName')||'User';
   const role = localStorage.getItem('userRole')||'Supervisor';
   currentUserRole = role;
@@ -617,7 +588,7 @@ function buildDeptNav(){
       : documents.filter(x=>x.dept===d.id||x.dept==='Umum').length;
     const isActive = activeDept===d.id;
     return (i===1?'<div class="dept-divider"></div>':'')
-      +'<button class="dept-nav-btn '+(isActive?'active':'')+'" onclick="setDept(\''+d.id+'\')" style="--dcolor:'+d.color+'">'
+      +'<button class="dept-nav-btn '+(isActive?'active':'')+'" onclick="setDept(\''+d.id+'\')">'
       +'<div class="dept-nav-icon"><i class="fas '+d.icon+'" style="'+(isActive?'color:#fff':'color:'+d.color)+'"></i></div>'
       +'<span>'+d.label+'</span>'
       +'<span class="dept-count">'+count+'</span>'
@@ -682,7 +653,7 @@ function applyFilter(){
 }
 
 // ═══════════════════════════════════════════════════════
-// RENDER — LEVEL SECTIONS
+// RENDER LEVEL SECTIONS
 // ═══════════════════════════════════════════════════════
 function renderAll(){
   const area=document.getElementById('docsArea');
@@ -693,7 +664,7 @@ function renderAll(){
 
   area.innerHTML = LEVELS.map(lv=>{
     const lvDocs = filteredDocs.filter(d=>d.level===lv.id);
-    if(!lvDocs.length) return ''; // skip empty levels
+    if(!lvDocs.length) return '';
     const isOpen = collapsedLevels[lv.id]!==true;
     return '<div class="level-section" id="lvsec-'+lv.id+'">'
       +'<div class="level-section-header '+lv.header+'" onclick="toggleLevel(\''+lv.id+'\')">'
@@ -705,7 +676,7 @@ function renderAll(){
       +'</div>'
       +(isOpen
         ? '<div class="level-section-body '+lv.body+'" id="lv-body-'+lv.id+'">'+(currentView==='grid'?renderLvGrid(lvDocs,lv):renderLvList(lvDocs,lv))+'</div>'
-        : '<div id="lv-body-'+lv.id+'" style="display:none"><div class="level-section-body '+lv.body+'">'+( currentView==='grid'?renderLvGrid(lvDocs,lv):renderLvList(lvDocs,lv))+'</div></div>')
+        : '<div id="lv-body-'+lv.id+'" style="display:none"><div class="level-section-body '+lv.body+'">'+(currentView==='grid'?renderLvGrid(lvDocs,lv):renderLvList(lvDocs,lv))+'</div></div>')
       +'</div>';
   }).join('');
 }
@@ -714,13 +685,8 @@ function toggleLevel(lvId){
   collapsedLevels[lvId]=!collapsedLevels[lvId];
   const body=document.getElementById('lv-body-'+lvId);
   const icon=document.getElementById('lv-toggle-'+lvId);
-  if(collapsedLevels[lvId]){
-    body.style.display='none';
-    if(icon)icon.classList.remove('open');
-  }else{
-    body.style.display='';
-    if(icon)icon.classList.add('open');
-  }
+  if(collapsedLevels[lvId]){body.style.display='none';if(icon)icon.classList.remove('open');}
+  else{body.style.display='';if(icon)icon.classList.add('open');}
 }
 
 function renderLvGrid(docs,lv){
@@ -736,8 +702,7 @@ function renderLvGrid(docs,lv){
       +'<div class="doc-badges">'
       +'<span class="lb '+lv.cls+'"><i class="fas '+lv.icon+'" style="font-size:8px"></i> '+lv.label+'</span>'
       +'<span class="dept-tag">'+d.dept+'</span>'
-      +'</div>'
-      +'</div>'
+      +'</div></div>'
       +'<div class="doc-card-bottom" onclick="event.stopPropagation()">'
       +'<span class="badge-sm" style="background:'+kc.bg+';color:'+kc.color+'"><i class="fas '+kc.icon+'" style="font-size:8px"></i> '+kc.label+'</span>'
       +'<div class="doc-actions">'
@@ -839,7 +804,6 @@ function openUpload(){
   document.getElementById('uploadModal').classList.add('show');
   document.getElementById('uTanggal').value=new Date().toISOString().split('T')[0];
   document.getElementById('uPembuat').value=localStorage.getItem('userName')||'';
-  // Pre-fill dept jika filter aktif
   if(activeDept)document.getElementById('uDept').value=activeDept;
 }
 function closeUploadModal(){
@@ -860,7 +824,6 @@ function procFile(file){
   document.getElementById('selFileSize').textContent=selFileData.ukuran;
   document.getElementById('selFile').style.display='flex';
   if(!document.getElementById('uNama').value)document.getElementById('uNama').value=file.name.replace(/\.[^/.]+$/,'');
-  // Auto-suggest kategori
   if(!document.getElementById('uKategori').value){
     if(ext==='XLSX'||ext==='XLS')document.getElementById('uKategori').value='Form';
     else if(ext==='PPTX'||ext==='PPT')document.getElementById('uKategori').value='Laporan K3';
@@ -910,7 +873,16 @@ function getKat(k){return KAT[k]||{color:'#7a8aaa',bg:'rgba(122,138,170,.10)',ic
 function fmtTgl(t){if(!t)return'—';const[y,m,d]=t.split('-');const mo=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];return parseInt(d)+' '+mo[parseInt(m)-1]+' '+y;}
 function showToast(msg,err){const t=document.getElementById('toast');t.innerHTML=msg;t.style.background=err?'var(--accent2)':'var(--navy)';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open');}
-function logout(){if(confirm('Yakin ingin logout?')){localStorage.clear();window.location.href='index.html';}}
+
+// ✅ LOGOUT — redirect ke index.html (bukan login.html)
+function logout(){
+  if(confirm('Yakin ingin logout?')){
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userRole');
+    window.location.href='index.html';
+  }
+}
 
 // ═══ INIT ═══
 buildDeptNav();
