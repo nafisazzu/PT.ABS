@@ -31,10 +31,6 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .sidebar-nav a.logout-btn{color:rgba(255,78,106,0.75);}
 .sidebar-nav a.logout-btn:hover{color:var(--accent2);background:rgba(255,78,106,0.08);}
 .sidebar-nav a.logout-btn .nav-icon{background:rgba(255,78,106,0.1);}
-/* SIGAP IBP external link */
-.sidebar-nav a.ext-link .nav-icon{background:rgba(34,224,161,0.10);color:var(--accent4);}
-.sidebar-nav a.ext-link:hover .nav-icon{background:rgba(34,224,161,0.22);color:var(--accent4);}
-.ext-badge{font-size:9px;font-weight:700;background:rgba(34,224,161,0.18);color:var(--accent4);padding:2px 7px;border-radius:20px;letter-spacing:.3px;margin-left:auto;flex-shrink:0;}
 .sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,0.07);}
 .sidebar-user{display:flex;align-items:center;gap:10px;}
 .user-avatar{width:36px;height:36px;background:linear-gradient(135deg,var(--accent3),#ff8c00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:700;}
@@ -54,7 +50,6 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;margin-bottom:6px;}
 .title-icon{width:44px;height:44px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(245,158,11,0.3);}
 .page-sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
-/* STATS */
 .stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:24px;}
 .stat-card{background:var(--card-bg);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform var(--transition);animation:fadeUp 0.4s ease both;}
 .stat-card:hover{transform:translateY(-3px);}
@@ -72,13 +67,11 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .stat-value{font-family:'Space Mono',monospace;font-size:24px;font-weight:700;line-height:1;margin-top:2px;}
 .sc-total .stat-value{color:#2e9fd4;}.sc-open .stat-value{color:#c08a00;}.sc-prog .stat-value{color:var(--accent);}
 .sc-closed .stat-value{color:#059669;}.sc-crit .stat-value{color:var(--accent2);}.sc-high .stat-value{color:#d35400;}
-/* CHART */
 .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;}
 .chart-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;animation:fadeUp 0.5s ease both;}
 .chart-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
 .chart-dot{width:8px;height:8px;border-radius:50%;}
 canvas{max-height:220px;}
-/* DATA CARD */
 .data-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px;animation:fadeUp 0.5s ease both;}
 .card-head{padding:16px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;background:linear-gradient(90deg,#f7faff,var(--card-bg));}
 .card-head-left{display:flex;align-items:center;gap:10px;}
@@ -86,7 +79,6 @@ canvas{max-height:220px;}
 .card-head-title{font-size:15px;font-weight:700;color:var(--navy);}
 .card-head-sub{font-size:11px;color:var(--muted);margin-top:1px;}
 .card-body{padding:22px;}
-/* TOOLBAR */
 .toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .search-wrap{position:relative;}
 .search-wrap .s-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none;}
@@ -104,7 +96,6 @@ canvas{max-height:220px;}
 .btn-export-xl:hover{background:rgba(34,197,94,0.22);}
 .btn-import{background:rgba(139,92,246,0.12);color:#5b21b6;}
 .btn-import:hover{background:rgba(139,92,246,0.22);}
-/* TABLE */
 .table-wrap{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;}
 thead tr{background:linear-gradient(90deg,var(--navy-mid),var(--navy-light));color:#fff;}
@@ -115,7 +106,6 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
 .no-col{color:var(--muted);font-size:12px;font-family:'Space Mono',monospace;}
 .id-col{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);}
 .date-col{font-size:12px;color:var(--muted);}
-/* BADGES */
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
 .b-critical{background:rgba(231,76,60,0.12);color:#c0392b;}
 .b-high{background:rgba(230,126,34,0.12);color:#d35400;}
@@ -129,12 +119,10 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
 .b-nm{background:rgba(139,92,246,0.10);color:#5b21b6;}
 .b-obs{background:rgba(34,224,161,0.12);color:#127754;}
 .b-lain{background:rgba(0,212,255,0.10);color:#007fa3;}
-/* ACTION BTNS */
 .btn-view{padding:4px 10px;border-radius:7px;background:rgba(0,212,255,0.10);color:#007fa3;border:none;font-size:12px;cursor:pointer;transition:all var(--transition);margin-right:4px;font-family:'DM Sans',sans-serif;font-weight:600;}
 .btn-view:hover{background:rgba(0,212,255,0.20);}
 .btn-del{padding:4px 10px;border-radius:7px;background:rgba(255,78,106,0.10);color:#b91c1c;border:none;font-size:12px;cursor:pointer;transition:all var(--transition);font-family:'DM Sans',sans-serif;font-weight:600;}
 .btn-del:hover{background:rgba(255,78,106,0.20);}
-/* STATUS TIMELINE */
 .status-timeline{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px;}
 .tl-step{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:70px;}
 .tl-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid transparent;transition:all var(--transition);}
@@ -154,7 +142,6 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
 .btn-to-closed:hover{background:rgba(34,224,161,0.22);}
 .btn-to-open{background:rgba(255,200,67,0.12);color:#c08a00;}
 .btn-to-open:hover{background:rgba(255,200,67,0.22);}
-/* PAGINATION */
 .pagination-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:16px;}
 .page-info{font-size:12px;color:var(--muted);}
 .page-btns{display:flex;gap:4px;}
@@ -162,13 +149,11 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
 .page-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
 .page-btn.active{background:var(--accent);color:var(--navy);border-color:var(--accent);font-weight:700;}
 .page-btn:disabled{opacity:0.35;cursor:default;}
-/* EMPTY */
 .empty-state{text-align:center;padding:56px 20px;color:var(--muted);}
 .empty-icon{width:72px;height:72px;border-radius:18px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px;}
-/* MODALS */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(11,24,41,0.6);z-index:2000;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.show{display:flex;}
-.modal-box{background:#fff;border-radius:var(--radius);width:100%;max-width:640px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(11,24,41,0.28);animation:fadeUp 0.22s ease;}
+.modal-box{background:#fff;border-radius:var(--radius);width:100%;max-width:660px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(11,24,41,0.28);animation:fadeUp 0.22s ease;}
 .modal-head{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#fff;z-index:1;}
 .modal-head-title{font-size:16px;font-weight:700;color:var(--navy);}
 .modal-close{width:32px;height:32px;border-radius:8px;background:var(--bg);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);transition:all var(--transition);}
@@ -188,10 +173,8 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
 .del-modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:22px;}
 .btn-mc{padding:9px 20px;border-radius:9px;background:var(--bg);border:1.5px solid var(--border);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .btn-md{padding:9px 20px;border-radius:9px;background:var(--accent2);color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 12px rgba(255,78,106,0.3);}
-/* TOAST */
 .toast-box{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transform:translateY(12px);transition:all 0.3s;z-index:3000;pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(11,24,41,0.25);}
 .toast-box.show{opacity:1;transform:translateY(0);}
-/* MOBILE */
 .menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
@@ -209,7 +192,6 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
 <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
 <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-<!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
   <div class="sidebar-brand">
     <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
@@ -221,11 +203,11 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
     <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
     <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
     <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
-    <div class="nav-label">Data & Dokumen</div>
+    <div class="nav-label">Data &amp; Dokumen</div>
     <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
     <a href="laporan.html" class="active"><span class="nav-icon"><i class="fas fa-list"></i></span>Laporan</a>
     <div class="nav-label">Tautan Kerja</div>
-       <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener noreferrer" style="color:rgba(0,212,255,0.85);">
+    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener noreferrer" style="color:rgba(0,212,255,0.85);">
       <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent);"><i class="fas fa-external-link-alt"></i></span>
       SIGAP IBP
       <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.55;"></i>
@@ -244,7 +226,6 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
   <div class="topbar">
     <div class="topbar-left">
@@ -265,10 +246,8 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
     <div class="page-title"><div class="title-icon"><i class="fas fa-list-alt"></i></div>Rekap Laporan K3</div>
     <div class="page-sub">Semua laporan keselamatan kerja — data masuk otomatis dari halaman Buat Laporan</div>
 
-    <!-- STATS (no Incident card) -->
     <div class="stats-grid" id="statsGrid"></div>
 
-    <!-- CHARTS (no Incident color in donut) -->
     <div class="chart-grid">
       <div class="chart-card" style="animation-delay:.05s">
         <div class="chart-title"><div class="chart-dot" style="background:var(--accent2)"></div>Laporan per Jenis</div>
@@ -307,7 +286,6 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
             <option value="Progress">Progress</option>
             <option value="Closed">Closed</option>
           </select>
-          <!-- ① Incident DIHAPUS dari dropdown jenis -->
           <select class="filter-sel" id="filterJenis" onchange="applyFilter()">
             <option value="">Semua Jenis</option>
             <option value="Unsafe Act">Unsafe Act</option>
@@ -375,16 +353,19 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
 <div class="toast-box" id="toast"></div>
 
 <script>
+// ════════════════════════════════════════════════
+// KEY HARUS SAMA persis dengan buat_laporan.html
+// ════════════════════════════════════════════════
 const REPORTS_KEY = 'sigap_reports_v1';
 let allData=[], filtered=[], currentPage=1, deleteIdx=-1;
 const PAGE_SIZE=15;
 let chartJ=null, chartB=null;
 
 function loadData(){
-  try{ allData=JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]'); }catch(e){ allData=[]; }
+  try{ allData=JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]'); }
+  catch(e){ allData=[]; }
 }
 
-// ─── Badge helpers ────────────────────────────────────────────────────────
 function rBadge(r){
   const m={'Critical':'b-critical','High':'b-high','Medium':'b-medium','Low':'b-low'};
   return `<span class="badge ${m[r]||'b-medium'}">${r||'—'}</span>`;
@@ -393,19 +374,11 @@ function sBadge(s){
   const m={'Open':'b-open','Progress':'b-progress','Closed':'b-closed'};
   return `<span class="badge ${m[s]||'b-open'}">${s}</span>`;
 }
-// ② Incident DIHAPUS dari jBadge mapping dan dibiarkan fallback ke b-lain
 function jBadge(j){
-  const m={
-    'Unsafe Act':'b-ua',
-    'Unsafe Condition':'b-uc',
-    'Near Miss':'b-nm',
-    'Observasi':'b-obs',
-    'Lainnya':'b-lain'
-  };
+  const m={'Unsafe Act':'b-ua','Unsafe Condition':'b-uc','Near Miss':'b-nm','Observasi':'b-obs','Lainnya':'b-lain'};
   return `<span class="badge ${m[j]||'b-lain'}">${j||'—'}</span>`;
 }
 
-// ─── Stats (no Incident card) ─────────────────────────────────────────────
 function buildStats(){
   const total  = allData.length;
   const open   = allData.filter(d=>d.status==='Open').length;
@@ -413,7 +386,6 @@ function buildStats(){
   const closed = allData.filter(d=>d.status==='Closed').length;
   const crit   = allData.filter(d=>d.risiko==='Critical').length;
   const high   = allData.filter(d=>d.risiko==='High').length;
-  // ② Kartu Incident dihapus — diganti kartu High Risk
   document.getElementById('statsGrid').innerHTML=`
     <div class="stat-card sc-total" style="animation-delay:.05s"><div class="stat-icon"><i class="fas fa-clipboard-list"></i></div><div class="stat-label">Total Laporan</div><div class="stat-value">${total}</div></div>
     <div class="stat-card sc-open"  style="animation-delay:.08s"><div class="stat-icon"><i class="fas fa-folder-open"></i></div><div class="stat-label">Open</div><div class="stat-value">${open}</div></div>
@@ -423,65 +395,25 @@ function buildStats(){
     <div class="stat-card sc-high"  style="animation-delay:.20s"><div class="stat-icon"><i class="fas fa-fire"></i></div><div class="stat-label">High Risk</div><div class="stat-value">${high}</div></div>`;
 }
 
-// ─── Charts (no Incident color) ───────────────────────────────────────────
 function buildCharts(){
-  // ② jColors: Incident DIHAPUS — warna merah #ef4444 tidak dipakai
-  const jColors={
-    'Unsafe Act':     'rgba(255,78,106,0.85)',
-    'Unsafe Condition':'rgba(255,200,67,0.85)',
-    'Near Miss':      'rgba(139,92,246,0.85)',
-    'Observasi':      'rgba(34,224,161,0.85)',
-    'Lainnya':        'rgba(0,212,255,0.85)'
-  };
-
-  // Hitung hanya jenis yang ada di jColors (Incident akan masuk Lainnya)
+  const jColors={'Unsafe Act':'rgba(255,78,106,0.85)','Unsafe Condition':'rgba(255,200,67,0.85)','Near Miss':'rgba(139,92,246,0.85)','Observasi':'rgba(34,224,161,0.85)','Lainnya':'rgba(0,212,255,0.85)'};
   const jenisMap={};
-  allData.forEach(d=>{
-    const key = jColors[d.jenis] ? d.jenis : 'Lainnya';
-    jenisMap[key]=(jenisMap[key]||0)+1;
-  });
-
+  allData.forEach(d=>{const key=jColors[d.jenis]?d.jenis:'Lainnya';jenisMap[key]=(jenisMap[key]||0)+1;});
   if(chartJ)chartJ.destroy();
-  chartJ=new Chart(document.getElementById('chartJenis'),{
-    type:'doughnut',
-    data:{
-      labels: Object.keys(jenisMap),
-      datasets:[{
-        data: Object.values(jenisMap),
-        backgroundColor: Object.keys(jenisMap).map(k=>jColors[k]||'rgba(0,212,255,0.85)'),
-        borderWidth:2,
-        borderColor:'#fff'
-      }]
-    },
-    options:{
-      responsive:true,
-      plugins:{legend:{position:'right',labels:{font:{family:'DM Sans',size:12},boxWidth:12}}},
-      cutout:'65%'
-    }
-  });
-
-  // Bar bulan
+  chartJ=new Chart(document.getElementById('chartJenis'),{type:'doughnut',data:{labels:Object.keys(jenisMap),datasets:[{data:Object.values(jenisMap),backgroundColor:Object.keys(jenisMap).map(k=>jColors[k]||'rgba(0,212,255,0.85)'),borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,plugins:{legend:{position:'right',labels:{font:{family:'DM Sans',size:12},boxWidth:12}}},cutout:'65%'}});
   const bulanMap={};
   allData.forEach(d=>{if(!d.tanggal)return;const b=d.tanggal.slice(0,7);bulanMap[b]=(bulanMap[b]||0)+1;});
   const sortedB=Object.keys(bulanMap).sort().slice(-8);
   if(chartB)chartB.destroy();
-  chartB=new Chart(document.getElementById('chartBulan'),{
-    type:'bar',
-    data:{
-      labels:sortedB.map(b=>{const[y,m]=b.split('-');return['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'][parseInt(m)-1]+' '+y.slice(2);}),
-      datasets:[{label:'Laporan',data:sortedB.map(b=>bulanMap[b]),backgroundColor:'rgba(139,92,246,0.75)',borderRadius:8,borderSkipped:false}]
-    },
-    options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.05)'},ticks:{font:{family:'DM Sans',size:11}}},x:{grid:{display:false},ticks:{font:{family:'DM Sans',size:11}}}}}
-  });
+  chartB=new Chart(document.getElementById('chartBulan'),{type:'bar',data:{labels:sortedB.map(b=>{const[y,m]=b.split('-');return['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'][parseInt(m)-1]+' '+y.slice(2);}),datasets:[{label:'Laporan',data:sortedB.map(b=>bulanMap[b]),backgroundColor:'rgba(139,92,246,0.75)',borderRadius:8,borderSkipped:false}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.05)'},ticks:{font:{family:'DM Sans',size:11}}},x:{grid:{display:false},ticks:{font:{family:'DM Sans',size:11}}}}}});
 }
 
-// ─── Filter ───────────────────────────────────────────────────────────────
 function applyFilter(){
-  const q      = document.getElementById('searchInput').value.toLowerCase();
-  const risiko = document.getElementById('filterRisiko').value;
-  const status = document.getElementById('filterStatus').value;
-  const jenis  = document.getElementById('filterJenis').value;
-  const bulan  = document.getElementById('filterBulan').value;
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  const risiko=document.getElementById('filterRisiko').value;
+  const status=document.getElementById('filterStatus').value;
+  const jenis=document.getElementById('filterJenis').value;
+  const bulan=document.getElementById('filterBulan').value;
   filtered=allData.filter(d=>{
     const mQ=!q||d.pelapor?.toLowerCase().includes(q)||d.area?.toLowerCase().includes(q)||d.id?.toLowerCase().includes(q)||d.deskripsi?.toLowerCase().includes(q);
     const mR=!risiko||d.risiko===risiko;
@@ -493,15 +425,13 @@ function applyFilter(){
   currentPage=1;renderTable();
 }
 
-// ─── Table ────────────────────────────────────────────────────────────────
 function renderTable(){
   const tbody=document.getElementById('laporanTable');
   const start=(currentPage-1)*PAGE_SIZE;
   const pageData=filtered.slice(start,start+PAGE_SIZE);
   document.getElementById('tableSubTitle').textContent=`${filtered.length} dari ${allData.length} laporan ditampilkan`;
   if(!filtered.length){
-    tbody.innerHTML='';
-    document.getElementById('emptyState').style.display='';
+    tbody.innerHTML='';document.getElementById('emptyState').style.display='';
   }else{
     document.getElementById('emptyState').style.display='none';
     tbody.innerHTML=pageData.map((d,i)=>{
@@ -529,48 +459,67 @@ function renderPagination(){
   const total=filtered.length,pages=Math.ceil(total/PAGE_SIZE);
   const start=(currentPage-1)*PAGE_SIZE+1,end=Math.min(currentPage*PAGE_SIZE,total);
   document.getElementById('pageInfo').textContent=total?`Menampilkan ${start}–${end} dari ${total} laporan`:'Tidak ada data';
-  const btns=document.getElementById('pageBtns');
   let html=`<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹ Prev</button>`;
-  for(let p=Math.max(1,currentPage-2);p<=Math.min(pages,currentPage+2);p++){
-    html+=`<button class="page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
-  }
+  for(let p=Math.max(1,currentPage-2);p<=Math.min(pages,currentPage+2);p++)html+=`<button class="page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
   html+=`<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===pages||!pages?'disabled':''}>Next ›</button>`;
-  btns.innerHTML=html;
+  document.getElementById('pageBtns').innerHTML=html;
 }
 function goPage(p){const pages=Math.ceil(filtered.length/PAGE_SIZE);if(p<1||p>pages)return;currentPage=p;renderTable();}
 
-// ─── Status Timeline helper ───────────────────────────────────────────────
-function statusTimeline(current, idx){
-  const steps=['Open','Progress','Closed'];
-  const icons=['fa-folder-open','fa-spinner','fa-check-circle'];
-  const curIdx=steps.indexOf(current);
+function statusTimeline(current,idx){
+  const steps=['Open','Progress','Closed'],icons=['fa-folder-open','fa-spinner','fa-check-circle'],curIdx=steps.indexOf(current);
   let tl=`<div class="status-timeline">`;
   steps.forEach((s,i)=>{
     const cls=i<curIdx?'done':i===curIdx?'active':'pending';
     tl+=`<div class="tl-step"><div class="tl-dot ${cls}"><i class="fas ${icons[i]}" style="font-size:10px"></i></div><div class="tl-label ${cls==='active'?'active':''}">${s}</div></div>`;
-    if(i<steps.length-1) tl+=`<div class="tl-line ${i<curIdx?'done':'pending'}"></div>`;
+    if(i<steps.length-1)tl+=`<div class="tl-line ${i<curIdx?'done':'pending'}"></div>`;
   });
   tl+=`</div><div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;">`;
   if(current==='Open')    tl+=`<button class="btn-status btn-to-progress" onclick="updateStatus(${idx},'Progress')"><i class="fas fa-play"></i> Tandai Progress</button>`;
-  if(current==='Progress')tl+=`<button class="btn-status btn-to-closed"   onclick="updateStatus(${idx},'Closed')"><i class="fas fa-check"></i> Tandai Closed</button><button class="btn-status btn-to-open" onclick="updateStatus(${idx},'Open')"><i class="fas fa-undo"></i> Kembalikan Open</button>`;
-  if(current==='Closed')  tl+=`<button class="btn-status btn-to-open"     onclick="updateStatus(${idx},'Open')"><i class="fas fa-undo"></i> Buka Kembali</button>`;
-  tl+=`</div>`;
-  return tl;
+  if(current==='Progress')tl+=`<button class="btn-status btn-to-closed" onclick="updateStatus(${idx},'Closed')"><i class="fas fa-check"></i> Tandai Closed</button><button class="btn-status btn-to-open" onclick="updateStatus(${idx},'Open')"><i class="fas fa-undo"></i> Kembalikan Open</button>`;
+  if(current==='Closed')  tl+=`<button class="btn-status btn-to-open" onclick="updateStatus(${idx},'Open')"><i class="fas fa-undo"></i> Buka Kembali</button>`;
+  tl+=`</div>`;return tl;
 }
 
-function updateStatus(idx, newStatus){
+function updateStatus(idx,newStatus){
   allData[idx].status=newStatus;
   localStorage.setItem(REPORTS_KEY,JSON.stringify(allData));
-  buildStats();buildCharts();applyFilter();
-  viewDetail(idx);
+  buildStats();buildCharts();applyFilter();viewDetail(idx);
   showToast(`<i class="fas fa-check-circle"></i> Status diperbarui ke <strong>${newStatus}</strong>`);
 }
 
-// ─── Detail Modal ─────────────────────────────────────────────────────────
+// ─── Detail Modal — termasuk Before & After ───────────
 function viewDetail(idx){
   const d=allData[idx];
   document.getElementById('modalTitle').innerHTML=`<i class="fas fa-clipboard" style="color:var(--accent);margin-right:8px"></i>${d.id}`;
-  const foto=d.foto&&d.foto.length?`<div class="detail-full detail-item"><div class="detail-label">Foto Dokumentasi</div><div class="foto-grid">${d.foto.map(f=>`<img class="foto-thumb" src="${f}" onclick="window.open('${f}','_blank')">`).join('')}</div></div>`:'';
+
+  // Foto umum
+  const foto=d.foto&&d.foto.length
+    ?`<div class="detail-full detail-item"><div class="detail-label"><i class="fas fa-images" style="margin-right:4px"></i>Foto Dokumentasi</div><div class="foto-grid">${d.foto.map(f=>`<img class="foto-thumb" src="${f}" onclick="window.open('${f}','_blank')">`).join('')}</div></div>`
+    :'';
+
+  // Before & After (dari buat_laporan.html yang menyimpan fotoBefore & fotoAfter)
+  const hasBefore=d.fotoBefore&&d.fotoBefore.length;
+  const hasAfter =d.fotoAfter &&d.fotoAfter.length;
+  const baSection=(hasBefore||hasAfter)?`
+    <div class="detail-full detail-item">
+      <div class="detail-label" style="margin-bottom:10px;"><i class="fas fa-exchange-alt" style="margin-right:4px"></i>Dokumentasi Before &amp; After</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#c0202e;background:rgba(255,78,106,0.08);padding:4px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;">
+            <i class="fas fa-exclamation-triangle" style="font-size:9px"></i> BEFORE
+          </div>
+          ${hasBefore?`<div class="foto-grid">${d.fotoBefore.map(f=>`<img class="foto-thumb" src="${f}" onclick="window.open('${f}','_blank')">`).join('')}</div>`:`<div style="font-size:12px;color:var(--muted);font-style:italic;padding:8px 0;">Tidak ada foto</div>`}
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#127754;background:rgba(34,224,161,0.08);padding:4px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;">
+            <i class="fas fa-check-circle" style="font-size:9px"></i> AFTER
+          </div>
+          ${hasAfter?`<div class="foto-grid">${d.fotoAfter.map(f=>`<img class="foto-thumb" src="${f}" onclick="window.open('${f}','_blank')">`).join('')}</div>`:`<div style="font-size:12px;color:var(--muted);font-style:italic;padding:8px 0;">Tidak ada foto</div>`}
+        </div>
+      </div>
+    </div>`:'';
+
   document.getElementById('modalBody').innerHTML=`
     <div class="detail-grid">
       <div class="detail-item"><div class="detail-label">Tanggal</div><div class="detail-value">${d.tanggal}</div></div>
@@ -580,25 +529,18 @@ function viewDetail(idx){
       <div class="detail-item"><div class="detail-label">Aktivitas</div><div class="detail-value">${d.aktivitas}</div></div>
       <div class="detail-item"><div class="detail-label">Jenis Laporan</div><div class="detail-value">${jBadge(d.jenis)}</div></div>
       <div class="detail-item"><div class="detail-label">Kategori Risiko</div><div class="detail-value">${rBadge(d.risiko)}</div></div>
-      <div class="detail-full detail-item">
-        <div class="detail-label">Status & Tindak Lanjut</div>
-        ${statusTimeline(d.status, idx)}
-      </div>
+      <div class="detail-full detail-item"><div class="detail-label">Status &amp; Tindak Lanjut</div>${statusTimeline(d.status,idx)}</div>
       <div class="detail-full detail-item"><div class="detail-label">Deskripsi Kejadian</div><div class="detail-value" style="font-weight:400;line-height:1.6;white-space:pre-wrap;">${d.deskripsi}</div></div>
       <div class="detail-full detail-item"><div class="detail-label">Tindakan Perbaikan</div><div class="detail-value" style="font-weight:400;line-height:1.6;">${d.tindakan||'-'}</div></div>
       <div class="detail-item"><div class="detail-label">Dibuat Oleh</div><div class="detail-value">${d.createdBy||'-'}</div></div>
       <div class="detail-item"><div class="detail-label">Waktu Input</div><div class="detail-value">${new Date(d.createdAt).toLocaleString('id-ID')}</div></div>
       ${foto}
+      ${baSection}
     </div>`;
   document.getElementById('detailModal').classList.add('show');
 }
 
-// ─── Delete ───────────────────────────────────────────────────────────────
-function deleteRow(idx){
-  deleteIdx=idx;
-  document.getElementById('delLabel').textContent=allData[idx].id;
-  document.getElementById('deleteModal').classList.add('show');
-}
+function deleteRow(idx){deleteIdx=idx;document.getElementById('delLabel').textContent=allData[idx].id;document.getElementById('deleteModal').classList.add('show');}
 function confirmDelete(){
   if(deleteIdx<0)return;
   allData.splice(deleteIdx,1);deleteIdx=-1;
@@ -608,14 +550,12 @@ function confirmDelete(){
 }
 function closeModal(id){document.getElementById(id).classList.remove('show');}
 
-// ─── Export / Import ──────────────────────────────────────────────────────
 function exportJSON(){
   const blob=new Blob([JSON.stringify({meta:{exportedAt:new Date().toISOString(),total:allData.length},data:allData},null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob),a=document.createElement('a');
   a.href=url;a.download=`backup-laporan-${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(url);
   showToast('<i class="fas fa-file-code"></i> JSON berhasil didownload!');
 }
-
 function exportExcel(){
   if(!allData.length){showToast('<i class="fas fa-exclamation-triangle"></i> Tidak ada data!',true);return;}
   const wb=XLSX.utils.book_new();
@@ -626,17 +566,12 @@ function exportExcel(){
   XLSX.utils.book_append_sheet(wb,ws,'Laporan K3');
   const total=allData.length,open=allData.filter(d=>d.status==='Open').length,prog=allData.filter(d=>d.status==='Progress').length,closed=allData.filter(d=>d.status==='Closed').length;
   const crit=allData.filter(d=>d.risiko==='Critical').length,high=allData.filter(d=>d.risiko==='High').length,med=allData.filter(d=>d.risiko==='Medium').length,low=allData.filter(d=>d.risiko==='Low').length;
-  const wsR=XLSX.utils.aoa_to_sheet([
-    ['REKAP LAPORAN K3 — PT. INSANI BARAPERKASA — SIGAP'],['Export: '+new Date().toLocaleDateString('id-ID',{dateStyle:'full'})],[],
-    ['STATUS','Jumlah'],['Open',open],['In Progress',prog],['Closed',closed],['Total',total],[],
-    ['RISK LEVEL','Jumlah'],['Critical',crit],['High',high],['Medium',med],['Low',low]
-  ]);
+  const wsR=XLSX.utils.aoa_to_sheet([['REKAP LAPORAN K3 — PT. INSANI BARAPERKASA'],['Export: '+new Date().toLocaleDateString('id-ID',{dateStyle:'full'})],[],['STATUS','Jumlah'],['Open',open],['In Progress',prog],['Closed',closed],['Total',total],[],['RISK LEVEL','Jumlah'],['Critical',crit],['High',high],['Medium',med],['Low',low]]);
   wsR['!cols']=[{wch:20},{wch:10}];
   XLSX.utils.book_append_sheet(wb,wsR,'Rekap');
   XLSX.writeFile(wb,`Laporan-K3-SIGAP-${new Date().toISOString().slice(0,10)}.xlsx`);
   showToast('<i class="fas fa-file-excel"></i> Excel berhasil didownload!');
 }
-
 function importJSON(event){
   const file=event.target.files[0];if(!file)return;
   const reader=new FileReader();
@@ -654,14 +589,12 @@ function importJSON(event){
   reader.readAsText(file);
 }
 
-// ─── Toast ────────────────────────────────────────────────────────────────
 function showToast(msg,isError){
   const t=document.getElementById('toast');t.innerHTML=msg;
   t.style.background=isError?'var(--accent2)':'var(--navy)';
   t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-// ─── Sidebar / Auth ───────────────────────────────────────────────────────
 (function(){
   const name=localStorage.getItem('userName')||'User';
   ['userNameDisplay','sidebarUserName'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=name;});
@@ -670,7 +603,6 @@ function showToast(msg,isError){
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open');}
 function logout(){if(confirm('Yakin ingin logout?')){localStorage.removeItem('userName');window.location.href='index.html';}}
 
-// ─── INIT ─────────────────────────────────────────────────────────────────
 loadData();buildStats();buildCharts();applyFilter();
 </script>
 </body>
