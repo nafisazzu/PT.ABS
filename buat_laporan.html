@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Buat Laporan – AIMS</title>
+<title>Buat Laporan AIMS</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -130,17 +130,13 @@ textarea.form-control{resize:vertical;min-height:130px;line-height:1.6;}
     <div class="nav-label">Menu Utama</div>
     <a href="dashboard.html"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
     <a href="buat_laporan.html" class="active"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
+     <div class="nav-label">Data </div>
     <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
     <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
-    <div class="nav-label">Data & Dokumen</div>
+    <div class="nav-label">Dokumen </div>
     <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
-    <a href="laporan.html"><span class="nav-icon"><i class="fas fa-list"></i></span>Laporan</a>
-    <div class="nav-label">Tautan Kerja</div>
-    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener noreferrer" style="color:rgba(0,212,255,0.85);">
-      <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent);"><i class="fas fa-external-link-alt"></i></span>
-      SIGAP IBP
-      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.55;"></i>
-    </a>
+    
+   
     <div class="nav-label">Akun</div>
     <a href="#" onclick="logout()" class="logout-btn"><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
   </nav>
@@ -194,14 +190,40 @@ textarea.form-control{resize:vertical;min-height:130px;line-height:1.6;}
               <div class="field-error" id="err-pelapor">Nama pelapor wajib diisi.</div>
             </div>
             <div class="col-lg-4 col-md-6">
+              <label class="field-label"><i class="fas fa-id-card lbl-icon"></i> NIK <span style="color:var(--accent2)">*</span></label>
+              <input type="text" class="form-control" id="nik" placeholder="Nomor Induk Karyawan" required maxlength="20" style="font-family:'Space Mono',monospace;letter-spacing:1px;">
+              <div class="field-error" id="err-nik">NIK wajib diisi.</div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label class="field-label"><i class="fas fa-user-tie lbl-icon"></i> Jabatan <span style="color:var(--accent2)">*</span></label>
+              <select class="form-select" id="jabatan" required>
+                <option value="" disabled selected>— Pilih Jabatan —</option>
+                <option value="Superintendent">Superintendent</option>
+                <option value="Supervisor">Supervisor</option>
+                <option value="Foreman">Foreman</option>
+              </select>
+              <div class="field-error" id="err-jabatan">Jabatan wajib dipilih.</div>
+            </div>
+            <div class="col-lg-4 col-md-6">
               <label class="field-label"><i class="fas fa-building lbl-icon"></i> Departemen</label>
               <input type="text" class="form-control" id="departemen" placeholder="Departemen..." list="deptList">
-              <datalist id="deptList"><option value="PRODUKSI"><option value="PLANT"><option value="LOGISTIK"><option value="HRGA"><option value="SHE"><option value="ENGGINERING"></datalist>
+              <datalist id="deptList"><option value="PRODUKSI"><option value="PLANT"><option value="LOGISTIK"><option value="HRGA"><option value="SHE"><option value="ENGINEERING"></datalist>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <label class="field-label"><i class="fas fa-clipboard-check lbl-icon"></i> SAP yang Dilakukan</label>
+              <select class="form-select" id="sapDilakukan">
+                <option value="">— Pilih Jenis SAP —</option>
+                <option value="Safety Talk/P5M">Safety Talk / P5M</option>
+                <option value="Hazard Report">Hazard Report</option>
+                <option value="Inspeksi">Inspeksi</option>
+                <option value="Personal Contact">Personal Contact</option>
+                <option value="Arsip Hasil Inspeksi">Arsip Hasil Inspeksi</option>
+              </select>
             </div>
             <div class="col-lg-4 col-md-6">
               <label class="field-label"><i class="fas fa-map-marker-alt lbl-icon"></i> Area Kerja <span style="color:var(--accent2)">*</span></label>
               <input type="text" class="form-control" id="area" placeholder="Contoh: Workshop A1, Pit Tambang" list="areaSugg" required>
-              <datalist id="areaSugg"><option value="Workshop A1"><option value="Workshop A2"><option value="Gudang B1"><option value="Gudang B2"><option value="Kantor HSE"><option value="Pit Tambang"><option value="Area Parkir"></datalist>
+              <datalist id="areaSugg"><option value="Workshop A1"><option value="Workshop A2"><option value="Gudang B1"><option value="Gudang B2"><option value="Kantor HSE"><option value="Pit Tambang"><option value="Area Parkir"><option value="Pit"><option value="Disposal"><option value="Front"><option value="Jalan Hauling"><option value="Area Warehouse"><option value="Area Workshop"></datalist>
               <div class="field-error" id="err-area">Area kerja wajib diisi.</div>
             </div>
             <div class="col-lg-4 col-md-6">
@@ -455,12 +477,18 @@ function showAlert(msg,type){
 function validateForm(){
   let valid=true;
   [['tanggal','err-tanggal','Tanggal wajib diisi.'],['pelapor','err-pelapor','Nama pelapor wajib diisi.'],
+   ['nik','err-nik','NIK wajib diisi.'],
    ['area','err-area','Area kerja wajib diisi.'],['aktivitas','err-aktivitas','Aktivitas wajib diisi.'],
    ['deskripsi','err-deskripsi','Deskripsi wajib diisi.']].forEach(([id,errId,msg])=>{
     const el=document.getElementById(id),err=document.getElementById(errId);
     if(!el.value.trim()){el.classList.add('is-invalid');if(err){err.textContent=msg;err.classList.add('show');}valid=false;}
     else{el.classList.remove('is-invalid');el.classList.add('is-valid');if(err)err.classList.remove('show');}
   });
+  // Validasi Jabatan (select)
+  const jabatanEl=document.getElementById('jabatan');
+  const errJab=document.getElementById('err-jabatan');
+  if(!jabatanEl.value){jabatanEl.classList.add('is-invalid');if(errJab)errJab.classList.add('show');valid=false;}
+  else{jabatanEl.classList.remove('is-invalid');jabatanEl.classList.add('is-valid');if(errJab)errJab.classList.remove('show');}
   const risiko=document.querySelector('input[name="kategoriRisiko"]:checked');
   const errR=document.getElementById('err-risiko');
   if(!risiko){if(errR)errR.classList.add('show');valid=false;}else{if(errR)errR.classList.remove('show');}
@@ -483,7 +511,10 @@ document.getElementById('reportForm').addEventListener('submit',function(e){
       id:'RPT-'+Date.now(),
       tanggal:document.getElementById('tanggal').value,
       pelapor:document.getElementById('pelapor').value.trim(),
+      nik:document.getElementById('nik').value.trim(),
+      jabatan:document.getElementById('jabatan').value,
       departemen:document.getElementById('departemen').value.trim().toUpperCase()||'-',
+      sapDilakukan:document.getElementById('sapDilakukan').value||'-',
       area:document.getElementById('area').value.trim(),
       aktivitas:document.getElementById('aktivitas').value.trim(),
       jenis:document.getElementById('jenisLaporan').value,
@@ -522,6 +553,9 @@ function resetForm(){
   const op=document.querySelector('.status-pill.s-open');if(op){op.classList.add('selected');document.querySelector('input[value="Open"]').checked=true;}
   uploadedFiles=[];filesBA={before:[],after:[]};
   ['previewGrid','previewGridBefore','previewGridAfter'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='';});
+  // Reset select fields
+  const jabEl=document.getElementById('jabatan');if(jabEl)jabEl.value='';
+  const sapEl=document.getElementById('sapDilakukan');if(sapEl)sapEl.value='';
   document.getElementById('alertBox').style.display='none';
   ['charDeskripsi','charTindakan'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='0 / '+(id.includes('Deskripsi')?1000:500);});
   updateSteps();
