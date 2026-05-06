@@ -200,7 +200,6 @@ td{padding:9px 13px;font-size:13px;vertical-align:middle;}
 
 <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
 <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
-
 <div class="sidebar" id="sidebar">
   <div class="sidebar-brand">
     <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
@@ -208,15 +207,24 @@ td{padding:9px 13px;font-size:13px;vertical-align:middle;}
   </div>
   <nav class="sidebar-nav">
     <div class="nav-label">Menu Utama</div>
-    <a href="dashboard.html"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
+    <a href="dashboard.html" class="active"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
     <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
     <div class="nav-label">Data </div>
     <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
     <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
-     <div class="nav-label">Dokumen</div>
+   <div class="nav-label">Dokumen</div>
     <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
-    
-
+   <div class="nav-label">Tautan Kerja</div>
+    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener" style="color:rgba(0,212,255,0.85)">
+      <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent)"><i class="fas fa-external-link-alt"></i></span>
+      SIGAP IBP
+      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
+    </a>
+     <a href="https://account.accurate.id/manage" target="_blank" rel="noopener" style="color:rgba(255,200,67,0.85)">
+      <span class="nav-icon" style="background:rgba(255,200,67,0.15);color:var(--accent3)"><i class="fas fa-external-link-alt"></i></span>
+      Accurate
+      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
+    </a>
     <div class="nav-label">Akun</div>
     <a href="#" onclick="logout()" class="logout-btn"><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
   </nav>
@@ -272,7 +280,32 @@ td{padding:9px 13px;font-size:13px;vertical-align:middle;}
 
     <!-- STATS -->
     <div class="stats-grid" id="statsGrid"></div>
+<!-- TOP 5 PELAPOR -->
+<div class="data-card" style="margin-bottom:16px;">
+  <div class="card-head">
+    <div class="card-head-left">
+      <div class="card-head-icon"><i class="fas fa-trophy"></i></div>
+      <div>
+        <div class="card-head-title">Top 5 Pelapor Terbanyak</div>
+        <div class="card-head-sub">Karyawan paling aktif melaporkan</div>
+      </div>
+    </div>
+  </div>
 
+  <div class="card-body">
+    <table>
+      <thead>
+        <tr>
+          <th>Ranking</th>
+          <th>Nama</th>
+          <th>NIK</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="topPelapor"></tbody>
+    </table>
+  </div>
+</div>
     <!-- TABLE CARD -->
     <div class="data-card">
       <div class="card-head">
@@ -441,7 +474,59 @@ function statCard(cls, icon, label, val, delay) {
     '<div class="stat-value">' + val + '</div>' +
     '</div>';
 }
+function renderTopPelapor() {
+  let map = {};
 
+  // hitung jumlah laporan per orang
+  rawData.forEach(item => {
+    let key = item.nama.trim().toUpperCase() + "|" + item.nik;
+
+    if (!map[key]) {
+      map[key] = {
+        nama: item.nama.trim(),
+        nik: item.nik,
+        total: 0
+      };
+    }
+
+    map[key].total++;
+  });
+
+  // ubah ke array
+  let arr = Object.values(map);
+
+  // urutkan terbesar
+  arr.sort((a, b) => b.total - a.total);
+
+  // ambil 5 besar
+  let top5 = arr.slice(0, 5);
+
+  // tampilkan
+  let html = "";
+  top5.forEach((item, i) => {
+    let badge = "";
+
+    if (i === 0) badge = "🥇";
+    else if (i === 1) badge = "🥈";
+    else if (i === 2) badge = "🥉";
+
+    html += `
+      <tr>
+        <td>${badge} ${i + 1}</td>
+        <td>${item.nama}</td>
+        <td>${item.nik}</td>
+        <td><b>${item.total}</b></td>
+      </tr>
+    `;
+  });
+
+  document.getElementById("topPelapor").innerHTML = html;
+}
+
+// panggil saat halaman load
+document.addEventListener("DOMContentLoaded", function () {
+  renderTopPelapor();
+});
 // ─── FILTER ──────────────────────────────────────
 function applyFilter() {
   const q      = document.getElementById('searchInput').value.toLowerCase();
