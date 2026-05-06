@@ -1,1 +1,688 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ubah Soal Induksi – AIMS</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;
+  --accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;
+  --purple:#8b5cf6;--purple-dark:#6d28d9;
+  --bg:#f0f4fa;--card-bg:#ffffff;--text:#1a2540;--muted:#7a8aaa;
+  --border:#e0e7ef;--sidebar-w:260px;--radius:16px;
+  --shadow:0 4px 24px rgba(11,24,41,.10);--transition:.28s cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;font-size:14px;}
 
+/* SIDEBAR */
+.sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
+.sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
+.sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,.07);}
+.brand-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(0,212,255,.35);flex-shrink:0;}
+.brand-text{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:#fff;letter-spacing:2px;}
+.brand-sub{font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
+.sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;}
+.nav-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3);padding:14px 12px 6px;font-weight:600;}
+.sidebar-nav a{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.65);text-decoration:none;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;transition:all var(--transition);margin-bottom:2px;position:relative;}
+.sidebar-nav a .nav-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(255,255,255,.06);flex-shrink:0;transition:all var(--transition);}
+.sidebar-nav a:hover{color:#fff;background:rgba(255,255,255,.07);}
+.sidebar-nav a:hover .nav-icon{background:rgba(0,212,255,.18);color:var(--accent);}
+.sidebar-nav a.active{color:#fff;background:linear-gradient(90deg,rgba(139,92,246,.25),rgba(139,92,246,.05));}
+.sidebar-nav a.active .nav-icon{background:linear-gradient(135deg,var(--purple),var(--purple-dark));color:#fff;box-shadow:0 3px 10px rgba(139,92,246,.4);}
+.sidebar-nav a.active::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--purple);border-radius:3px 0 0 3px;}
+.sidebar-nav a.logout-btn{color:rgba(255,78,106,.75);}
+.sidebar-nav a.logout-btn:hover{color:var(--accent2);background:rgba(255,78,106,.08);}
+.sidebar-nav a.logout-btn .nav-icon{background:rgba(255,78,106,.1);}
+.sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.07);}
+.sidebar-user{display:flex;align-items:center;gap:10px;}
+.user-avatar{width:36px;height:36px;background:linear-gradient(135deg,var(--accent3),#ff8c00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:700;}
+.user-info .user-name{font-size:13px;font-weight:600;color:#fff;}
+.user-info .user-role{font-size:11px;color:var(--muted);}
+
+/* MAIN */
+.main{margin-left:var(--sidebar-w);min-height:100vh;}
+.topbar{background:var(--card-bg);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+.topbar-left h5{font-size:15px;font-weight:700;color:var(--navy);margin:0;}
+.topbar-left span{font-size:12px;color:var(--muted);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.topbar-btn{width:38px;height:38px;border-radius:10px;background:var(--bg);border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
+.topbar-btn:hover{background:#e2e8f5;color:var(--navy);}
+.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:var(--bg);cursor:pointer;}
+.topbar-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
+.topbar-uname{font-size:13px;font-weight:600;color:var(--text);}
+
+/* CONTENT */
+.content{padding:28px 32px 48px;}
+.page-header{margin-bottom:24px;}
+.page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;}
+.title-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--purple),var(--purple-dark));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(109,40,217,.3);}
+.page-sub{font-size:13px;color:var(--muted);margin-top:6px;}
+.back-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:10px;background:var(--card-bg);border:1.5px solid var(--border);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:all var(--transition);text-decoration:none;margin-bottom:20px;}
+.back-btn:hover{border-color:var(--purple);color:var(--purple);background:#fdf9ff;}
+
+/* CARD */
+.data-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px;animation:fadeUp .4s ease both;}
+.card-head{padding:16px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;background:linear-gradient(90deg,#f7faff,var(--card-bg));}
+.card-head-left{display:flex;align-items:center;gap:10px;}
+.card-head-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.chi-purple{background:rgba(139,92,246,.10);color:var(--purple);}
+.chi-blue{background:rgba(0,212,255,.10);color:var(--accent);}
+.chi-gold{background:rgba(255,200,67,.12);color:#c08a00;}
+.chi-green{background:rgba(34,224,161,.10);color:var(--accent4);}
+.card-head-title{font-size:15px;font-weight:700;color:var(--navy);}
+.card-head-sub{font-size:11px;color:var(--muted);margin-top:1px;}
+.card-body{padding:22px;}
+
+/* TABS */
+.soal-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.soal-tab{padding:9px 20px;border-radius:10px;border:1.5px solid var(--border);background:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;transition:all var(--transition);display:inline-flex;align-items:center;gap:7px;}
+.soal-tab:hover:not(.active){border-color:var(--purple);color:var(--purple);}
+.soal-tab.active{color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(11,24,41,.20);}
+.soal-tab.t-nh.active{background:linear-gradient(135deg,#8b5cf6,#6d28d9);}
+.soal-tab.t-pw.active{background:linear-gradient(135deg,#f59e0b,#d97706);}
+.soal-tab.t-ri.active{background:linear-gradient(135deg,#00d4ff,#0099cc);}
+.soal-tab.t-vs.active{background:linear-gradient(135deg,#22e0a1,#16a085);}
+.tab-count{font-family:'Space Mono',monospace;font-size:10px;background:rgba(255,255,255,.25);padding:1px 7px;border-radius:10px;}
+.soal-panel{display:none;}.soal-panel.active{display:block;}
+
+/* FORM TAMBAH SOAL */
+.soal-form{background:#f7faff;border:1.5px solid var(--border);border-radius:14px;padding:20px;margin-bottom:20px;}
+.soal-form-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.field-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;}
+.form-control,.form-select{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fff;transition:all var(--transition);outline:none;}
+.form-control:focus,.form-select:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(139,92,246,.12);}
+textarea.form-control{resize:vertical;min-height:64px;}
+.opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.opt-row{display:flex;align-items:center;gap:8px;}
+.opt-letter{width:28px;height:28px;border-radius:8px;background:var(--navy-mid);color:#fff;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.opt-row input[type="text"]{flex:1;padding:8px 12px;border:1.5px solid var(--border);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;transition:border-color var(--transition);}
+.opt-row input[type="text"]:focus{border-color:var(--purple);}
+.kunci-row{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap;}
+.kunci-label{font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap;}
+.kunci-select{padding:8px 14px;border:1.5px solid var(--border);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--text);background:#fff;outline:none;cursor:pointer;transition:border-color var(--transition);}
+.kunci-select:focus{border-color:var(--accent4);}
+.btn-tambah{padding:9px 20px;border-radius:10px;background:linear-gradient(135deg,var(--purple),var(--purple-dark));color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;transition:all var(--transition);display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;box-shadow:0 4px 12px rgba(109,40,217,.25);}
+.btn-tambah:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(109,40,217,.30);}
+.btn-batal-edit{padding:9px 16px;border-radius:10px;background:#fff;border:1.5px solid var(--border);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:all var(--transition);font-family:'DM Sans',sans-serif;}
+.btn-batal-edit:hover{border-color:var(--accent2);color:var(--accent2);}
+
+/* Visitor form */
+.vs-tipe-row{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap;}
+.vs-tipe-sel{padding:8px 14px;border:1.5px solid var(--border);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--text);background:#fff;outline:none;cursor:pointer;}
+
+/* DAFTAR SOAL */
+.soal-list-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.soal-count-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;background:rgba(139,92,246,.10);color:#5b21b6;font-size:12px;font-weight:700;}
+.btn-hapus-semua{padding:5px 12px;border-radius:8px;background:rgba(255,78,106,.10);color:#b91c1c;border:1px solid rgba(255,78,106,.2);font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all var(--transition);}
+.btn-hapus-semua:hover{background:rgba(255,78,106,.20);}
+.soal-empty{text-align:center;padding:40px 16px;color:var(--muted);}
+.soal-empty i{font-size:32px;opacity:.2;display:block;margin-bottom:10px;}
+.soal-card{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;transition:all var(--transition);position:relative;}
+.soal-card:hover{border-color:rgba(139,92,246,.3);box-shadow:0 4px 14px rgba(11,24,41,.08);}
+.soal-card.editing{border-color:var(--purple);background:#fdf9ff;}
+.soal-card-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.soal-num{min-width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.soal-num.c-pw{background:linear-gradient(135deg,#f59e0b,#d97706);}
+.soal-num.c-ri{background:linear-gradient(135deg,#00d4ff,#0099cc);color:var(--navy);}
+.soal-num.c-vs{background:linear-gradient(135deg,#22e0a1,#16a085);color:var(--navy);}
+.soal-card-text{font-size:13px;font-weight:600;color:var(--navy);line-height:1.5;flex:1;padding-right:80px;}
+.soal-card-opts{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px;}
+.soal-card-opt{font-size:11px;padding:3px 10px;border-radius:6px;background:#f0f4fa;color:var(--muted);border:1px solid var(--border);}
+.soal-card-opt.kunci{background:rgba(34,224,161,.12);color:#127754;border-color:rgba(34,224,161,.4);font-weight:700;}
+.soal-card-opt.kunci::before{content:'✓ ';}
+.soal-card-vs{font-size:11px;padding:3px 10px;border-radius:6px;background:rgba(34,224,161,.10);color:#127754;border:1px solid rgba(34,224,161,.3);font-weight:600;display:inline-flex;align-items:center;gap:4px;}
+.soal-card-actions{position:absolute;top:12px;right:12px;display:flex;gap:6px;}
+.btn-soal-edit{padding:4px 10px;border-radius:7px;background:rgba(0,212,255,.10);color:#007fa3;border:none;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;transition:all var(--transition);}
+.btn-soal-edit:hover{background:rgba(0,212,255,.20);}
+.btn-soal-del{padding:4px 10px;border-radius:7px;background:rgba(255,78,106,.10);color:#b91c1c;border:none;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;transition:all var(--transition);}
+.btn-soal-del:hover{background:rgba(255,78,106,.20);}
+
+/* TOAST */
+.toast-box{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transform:translateY(12px);transition:all .3s;z-index:3000;pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(11,24,41,.25);}
+.toast-box.show{opacity:1;transform:translateY(0);}
+
+/* MOBILE */
+.menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,.25);}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:768px){
+  .menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.sidebar-overlay.open{display:block;}
+  .main{margin-left:0;}.topbar{padding:14px 16px 14px 64px;}.content{padding:20px 14px 40px;}
+  .opts-grid{grid-template-columns:1fr;}.card-body{padding:16px;}
+}
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
+    <div><div class="brand-text">AIMS</div><div class="brand-sub">Safety System</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-label">Menu Utama</div>
+    <a href="dashboard.html"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
+    <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
+    <div class="nav-label">Data</div>
+    <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
+    <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
+    <div class="nav-label">Dokumen</div>
+    <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
+    <div class="nav-label">Tautan Kerja</div>
+    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener" style="color:rgba(0,212,255,0.85)">
+      <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent)"><i class="fas fa-external-link-alt"></i></span>
+      SIGAP IBP
+      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
+    </a>
+    <a href="https://account.accurate.id/manage" target="_blank" rel="noopener" style="color:rgba(255,200,67,0.85)">
+      <span class="nav-icon" style="background:rgba(255,200,67,0.15);color:var(--accent3)"><i class="fas fa-external-link-alt"></i></span>
+      Accurate
+      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
+    </a>
+    <div class="nav-label">Akun</div>
+    <a href="#" onclick="logout()" class="logout-btn"><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatarLetter">U</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">User</div>
+        <div class="user-role">Safety Officer</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h5>Arta Integrated Manajemen System</h5>
+      <span>Sistem Informasi Keselamatan Kerja</span>
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-btn"><i class="fas fa-bell"></i></button>
+      <div class="topbar-user">
+        <div class="topbar-avatar"><i class="fas fa-user"></i></div>
+        <span class="topbar-uname" id="userNameDisplay">User</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <a href="laporan_induksi.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Kembali ke Laporan Induksi
+    </a>
+
+    <div class="page-header">
+      <div class="page-title">
+        <div class="title-icon"><i class="fas fa-pen-to-square"></i></div>
+        Ubah Soal Induksi K3LH
+      </div>
+      <div class="page-sub">Kelola soal untuk setiap jenis induksi — perubahan otomatis tersimpan di browser</div>
+    </div>
+
+    <!-- CARD UTAMA -->
+    <div class="data-card">
+      <div class="card-head">
+        <div class="card-head-left">
+          <div class="card-head-icon chi-purple"><i class="fas fa-question-circle"></i></div>
+          <div>
+            <div class="card-head-title">Bank Soal Induksi</div>
+            <div class="card-head-sub">Pilih tab jenis induksi untuk mengelola soal</div>
+          </div>
+        </div>
+        <button onclick="resetAllSoal()" style="padding:7px 14px;border-radius:9px;background:rgba(255,78,106,.10);color:#b91c1c;border:1px solid rgba(255,78,106,.2);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:6px;">
+          <i class="fas fa-undo"></i> Reset ke Default
+        </button>
+      </div>
+      <div class="card-body">
+
+        <!-- 4 Tabs -->
+        <div class="soal-tabs">
+          <button class="soal-tab t-nh active" onclick="switchTab('nh')">
+            <i class="fas fa-user-plus"></i> New Hire / Pengawas NH
+            <span class="tab-count" id="tc-nh">0</span>
+          </button>
+          <button class="soal-tab t-pw" onclick="switchTab('pw')">
+            <i class="fas fa-hard-hat"></i> Induksi Pengawas
+            <span class="tab-count" id="tc-pw">0</span>
+          </button>
+          <button class="soal-tab t-ri" onclick="switchTab('ri')">
+            <i class="fas fa-redo"></i> Re-Induksi
+            <span class="tab-count" id="tc-ri">0</span>
+          </button>
+          <button class="soal-tab t-vs" onclick="switchTab('vs')">
+            <i class="fas fa-id-badge"></i> Visitor
+            <span class="tab-count" id="tc-vs">0</span>
+          </button>
+        </div>
+
+        <!-- Panel NH -->
+        <div class="soal-panel active" id="panel-nh">
+          <div class="soal-form">
+            <div class="soal-form-title"><i class="fas fa-pen" style="color:var(--purple)"></i><span id="ft-nh">Tambah Soal — Induksi New Hire</span></div>
+            <div class="mb-3"><label class="field-label">Pertanyaan *</label>
+              <textarea class="form-control" id="fq-nh" placeholder="Tulis pertanyaan..."></textarea></div>
+            <div class="mb-3"><label class="field-label">Pilihan Jawaban *</label>
+              <div class="opts-grid">
+                <div class="opt-row"><div class="opt-letter">A</div><input type="text" id="fA-nh" placeholder="Pilihan A..."></div>
+                <div class="opt-row"><div class="opt-letter">B</div><input type="text" id="fB-nh" placeholder="Pilihan B..."></div>
+                <div class="opt-row"><div class="opt-letter">C</div><input type="text" id="fC-nh" placeholder="Pilihan C..."></div>
+                <div class="opt-row"><div class="opt-letter">D</div><input type="text" id="fD-nh" placeholder="Pilihan D..."></div>
+              </div>
+            </div>
+            <div class="kunci-row">
+              <span class="kunci-label"><i class="fas fa-key" style="color:var(--accent3);margin-right:4px"></i>Kunci Jawaban:</span>
+              <select class="kunci-select" id="fk-nh">
+                <option value="">— Pilih —</option>
+                <option value="A">A</option><option value="B">B</option>
+                <option value="C">C</option><option value="D">D</option>
+              </select>
+              <button class="btn-tambah" onclick="addSoal('nh')">
+                <i class="fas fa-plus-circle" id="fi-nh"></i><span id="fb-nh">Tambah Soal</span>
+              </button>
+              <button class="btn-batal-edit" onclick="cancelEdit('nh')"><i class="fas fa-times" style="font-size:11px"></i> Batal</button>
+            </div>
+            <input type="hidden" id="fidx-nh" value="-1">
+          </div>
+          <div class="soal-list-header">
+            <div class="soal-count-pill" id="sc-nh"><i class="fas fa-list-ol"></i> 0 soal</div>
+            <button class="btn-hapus-semua" onclick="clearAll('nh')"><i class="fas fa-trash-alt"></i> Hapus Semua</button>
+          </div>
+          <div id="sl-nh"></div>
+        </div>
+
+        <!-- Panel PW -->
+        <div class="soal-panel" id="panel-pw">
+          <div class="soal-form">
+            <div class="soal-form-title"><i class="fas fa-pen" style="color:#d97706"></i><span id="ft-pw">Tambah Soal — Induksi Pengawas</span></div>
+            <div class="mb-3"><label class="field-label">Pertanyaan *</label>
+              <textarea class="form-control" id="fq-pw" placeholder="Tulis pertanyaan..."></textarea></div>
+            <div class="mb-3"><label class="field-label">Pilihan Jawaban *</label>
+              <div class="opts-grid">
+                <div class="opt-row"><div class="opt-letter">A</div><input type="text" id="fA-pw" placeholder="Pilihan A..."></div>
+                <div class="opt-row"><div class="opt-letter">B</div><input type="text" id="fB-pw" placeholder="Pilihan B..."></div>
+                <div class="opt-row"><div class="opt-letter">C</div><input type="text" id="fC-pw" placeholder="Pilihan C..."></div>
+                <div class="opt-row"><div class="opt-letter">D</div><input type="text" id="fD-pw" placeholder="Pilihan D..."></div>
+              </div>
+            </div>
+            <div class="kunci-row">
+              <span class="kunci-label"><i class="fas fa-key" style="color:var(--accent3);margin-right:4px"></i>Kunci Jawaban:</span>
+              <select class="kunci-select" id="fk-pw">
+                <option value="">— Pilih —</option>
+                <option value="A">A</option><option value="B">B</option>
+                <option value="C">C</option><option value="D">D</option>
+              </select>
+              <button class="btn-tambah" style="background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 4px 12px rgba(217,119,6,.25);" onclick="addSoal('pw')">
+                <i class="fas fa-plus-circle" id="fi-pw"></i><span id="fb-pw">Tambah Soal</span>
+              </button>
+              <button class="btn-batal-edit" onclick="cancelEdit('pw')"><i class="fas fa-times" style="font-size:11px"></i> Batal</button>
+            </div>
+            <input type="hidden" id="fidx-pw" value="-1">
+          </div>
+          <div class="soal-list-header">
+            <div class="soal-count-pill" id="sc-pw" style="background:rgba(245,158,11,.10);color:#92400e;"><i class="fas fa-list-ol"></i> 0 soal</div>
+            <button class="btn-hapus-semua" onclick="clearAll('pw')"><i class="fas fa-trash-alt"></i> Hapus Semua</button>
+          </div>
+          <div id="sl-pw"></div>
+        </div>
+
+        <!-- Panel RI -->
+        <div class="soal-panel" id="panel-ri">
+          <div class="soal-form">
+            <div class="soal-form-title"><i class="fas fa-pen" style="color:var(--accent)"></i><span id="ft-ri">Tambah Soal — Re-Induksi</span></div>
+            <div class="mb-3"><label class="field-label">Pertanyaan *</label>
+              <textarea class="form-control" id="fq-ri" placeholder="Tulis pertanyaan..."></textarea></div>
+            <div class="mb-3"><label class="field-label">Pilihan Jawaban *</label>
+              <div class="opts-grid">
+                <div class="opt-row"><div class="opt-letter">A</div><input type="text" id="fA-ri" placeholder="Pilihan A..."></div>
+                <div class="opt-row"><div class="opt-letter">B</div><input type="text" id="fB-ri" placeholder="Pilihan B..."></div>
+                <div class="opt-row"><div class="opt-letter">C</div><input type="text" id="fC-ri" placeholder="Pilihan C..."></div>
+                <div class="opt-row"><div class="opt-letter">D</div><input type="text" id="fD-ri" placeholder="Pilihan D..."></div>
+              </div>
+            </div>
+            <div class="kunci-row">
+              <span class="kunci-label"><i class="fas fa-key" style="color:var(--accent3);margin-right:4px"></i>Kunci Jawaban:</span>
+              <select class="kunci-select" id="fk-ri">
+                <option value="">— Pilih —</option>
+                <option value="A">A</option><option value="B">B</option>
+                <option value="C">C</option><option value="D">D</option>
+              </select>
+              <button class="btn-tambah" style="background:linear-gradient(135deg,#00d4ff,#0099cc);box-shadow:0 4px 12px rgba(0,153,204,.25);" onclick="addSoal('ri')">
+                <i class="fas fa-plus-circle" id="fi-ri"></i><span id="fb-ri">Tambah Soal</span>
+              </button>
+              <button class="btn-batal-edit" onclick="cancelEdit('ri')"><i class="fas fa-times" style="font-size:11px"></i> Batal</button>
+            </div>
+            <input type="hidden" id="fidx-ri" value="-1">
+          </div>
+          <div class="soal-list-header">
+            <div class="soal-count-pill" id="sc-ri" style="background:rgba(0,212,255,.10);color:#007fa3;"><i class="fas fa-list-ol"></i> 0 soal</div>
+            <button class="btn-hapus-semua" onclick="clearAll('ri')"><i class="fas fa-trash-alt"></i> Hapus Semua</button>
+          </div>
+          <div id="sl-ri"></div>
+        </div>
+
+        <!-- Panel VS -->
+        <div class="soal-panel" id="panel-vs">
+          <div class="soal-form">
+            <div class="soal-form-title"><i class="fas fa-pen" style="color:var(--accent4)"></i><span id="ft-vs">Tambah Pernyataan — Visitor</span></div>
+            <div class="mb-3"><label class="field-label">Teks Pernyataan *</label>
+              <textarea class="form-control" id="fq-vs" placeholder="Tulis pernyataan/aturan untuk visitor..."></textarea></div>
+            <div class="vs-tipe-row">
+              <span class="kunci-label"><i class="fas fa-check-circle" style="color:var(--accent4);margin-right:4px"></i>Tipe Jawaban:</span>
+              <select class="vs-tipe-sel" id="fk-vs">
+                <option value="paham">Paham / Tidak Paham</option>
+                <option value="setuju">Saya Setuju / Tidak Setuju</option>
+              </select>
+              <button class="btn-tambah" style="background:linear-gradient(135deg,#22e0a1,#16a085);box-shadow:0 4px 12px rgba(22,160,133,.25);" onclick="addSoal('vs')">
+                <i class="fas fa-plus-circle" id="fi-vs"></i><span id="fb-vs">Tambah Pernyataan</span>
+              </button>
+              <button class="btn-batal-edit" onclick="cancelEdit('vs')"><i class="fas fa-times" style="font-size:11px"></i> Batal</button>
+            </div>
+            <input type="hidden" id="fidx-vs" value="-1">
+          </div>
+          <div class="soal-list-header">
+            <div class="soal-count-pill" id="sc-vs" style="background:rgba(34,224,161,.10);color:#127754;"><i class="fas fa-list-ol"></i> 0 pernyataan</div>
+            <button class="btn-hapus-semua" onclick="clearAll('vs')"><i class="fas fa-trash-alt"></i> Hapus Semua</button>
+          </div>
+          <div id="sl-vs"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-box" id="toast"></div>
+
+<script>
+// ════════════════════════════════════════════════════════════
+// PERUBAHAN SOAL — CRUD lengkap
+// ════════════════════════════════════════════════════════════
+
+var SK = {
+  nh:'sigap_soal_nh_v3', pw:'sigap_soal_pw_v3',
+  ri:'sigap_soal_ri_v3', vs:'sigap_soal_vs_v3'
+};
+
+var LABELS = {
+  nh:'Induksi New Hire', pw:'Induksi Pengawas',
+  ri:'Re-Induksi', vs:'Visitor'
+};
+
+// Default soal — sama persis dengan laporan_induksi.html
+var DEF_NHP = [
+  {q:'Apa Tujuan dari dilakukannya induksi K3LH?',A:'Memberi gambaran tentang filosofi K3LH',B:'Memberikan penjelasan bahaya bahaya ditempat kerja, penilaian resiko dan pengendalianya',C:'Memberi informasi kepada karyawan tentang prosedur K3LH',D:'Semua jawaban benar'},
+  {q:'Siapa yang bertanggung jawab untuk menciptakan lingkungan kerja yang aman?',A:'Project Manager / PJO',B:'Para petugas keselamatan / Safety Officer',C:'Petugas keamaman',D:'Seluruh karyawan'},
+  {q:'Dibawah ini merupakan definisi kecelakaan adalah:',A:'Suatu kejadian yang tidak diinginkan dan direncanakan, yang bisa terjadi kepada siapa saja kapan saja dan dimana saja',B:'Suatu kejadian yang direncanakan dan terjadi pada orang-orang tertentu saja',C:'Suatu kejadian akibat dari perbuatan atau kondisi yang tidak aman',D:'Suatu kejadian yang dapat menyebabkan kerusakan peralatan, cidera atau cacat bahkan kematian'},
+  {q:'Faktor penyebab terjadinya kecelakaan meliputi?',A:'Kondisi tidak aman 11% dan Tindakan tidak aman 89%',B:'Tindakan tidak aman 88%, Kondisi tidak aman 10% dan Nasib 2%',C:'Posisi reaksi 13%, tindakan tidak aman 50% dan APD 37%',D:'Tidak ada jawaban yang benar'},
+  {q:'Bila akan mengendarai kendaraan ringan/berat di lokasi tambang maka seorang pengemudi harus memiliki?',A:'SIM polisi yang berlaku',B:'SIMPER yang sesuai dengan jenis kendaraan yang dioperasikan dan disahkan oleh KTT',C:'KTP yang berlaku',D:'Ijin dari security'},
+  {q:'Tujuan investigasi insiden adalah?',A:'Mencari kesalahan karyawan',B:'Mencari penyebab dasar atau utama suatu insiden agar insiden tidak terulang',C:'Meminta pertanggung jawaban pengawas',D:'Meminta pertanggung jawaban karyawan'},
+  {q:'Di bawah ini yang termasuk bahaya kimia adalah:',A:'Debu silika, fiber asbes, asap/gas/uap',B:'Kebisingan, getaran, pencahayaan, radiasi',C:'Virus, jamur, bakteri',D:'Titik operasi, titik mesin, titik jepit'},
+  {q:'Kebisingan, getaran, dan pencahayaan termasuk tipe bahaya:',A:'Bahaya Kimia',B:'Bahaya Biologi',C:'Bahaya Kelistrikan',D:'Bahaya Fisik'},
+  {q:'Berikut keadaan darurat di tambang adalah, Kecuali?',A:'Kecelakaan antar unit',B:'Kebakaran',C:'Longsor',D:'Hujan'},
+  {q:'Api akan bisa timbul jika ada ketiga unsur dibawah ini:',A:'Panas, batubara dan oksigen',B:'Air, sumber panas dan nitrogen',C:'Oksigen, sumber panas dan bahan bakar',D:'Semua jawaban diatas salah'},
+  {q:'Sebutkan efek dari kelelahan/Fatigue, Kecuali?',A:'Kurang siaga',B:'Respon / Reflek lambat',C:'Semangat & energik',D:'Semua Benar'},
+  {q:'Siapa yang harus memadamkan api menggunakan botol pemadam api (APAR)?',A:'Hanya petugas keselamatan kerja',B:'Hanya petugas pemadam kebakaran setempat',C:'Siapa saja yang menemukan terjadinya awal api dan dilokasi terdapat APAR',D:'Hanya seorang pengawas yang sedang bertugas'},
+  {q:'Pemeliharaan lingkungan atau house keeping harus dilakukan oleh:',A:'Para pengawas dilapangan',B:'Semua karyawan dibagian masing-masing',C:'Para pengawas dibagian masing-masing',D:'Semua jawaban diatas salah'},
+  {q:'Dibawah ini manakah yang merupakan kepanjangan dari APAR?',A:'Alat Penanganan Kebakaran',B:'Alat Pemadam Api Ringan',C:'Antisipasi penanganan kebakaran',D:'Semua salah'},
+  {q:'Arti pada rambu yang warna dasarnya hijau, logo/tulisannya putih adalah:',A:'Rambu Perintah',B:'Rambu Informasi',C:'Rambu peringatan',D:'Rambu larangan'},
+  {q:'Berikut ini yang termasuk penggolongan cidera adalah sbb:',A:'Cidera luka, Cidera Patah, Kematian',B:'Cidera Ringan, Cidera Berat, Mati',C:'Luka kecil, luka besar, mati / fatality',D:'Semua salah'},
+  {q:'Dibawah ini manakah susunan yang benar pada hirarki pengendalian risiko?',A:'Rekayasa Engineering, APD, Eliminasi, Substitusi',B:'Substitusi, Eliminasi, APD, Administrasi',C:'Rekayasa Teknik, Administrasi, Praktik kerja dan APD',D:'APD, Substitusi, Eliminasi, Rekayasa Engineering'},
+  {q:'Dibawah ini manakah APD yang selalu diwajibkan untuk digunakan karyawan selama berada di area kerja?',A:'Sepatu Safety, Kacamata, Uniform/Rompi',B:'Sepatu Safety, Uniform/Rompi, Helm',C:'Sepatu Safety, Helm, Masker',D:'Semua Benar'},
+  {q:'Dibawah ini manakah yang termasuk dalam tindakan tidak aman / TTA, Kecuali?',A:'Tidak Menggunakan Alat Pelindung Diri (APD)',B:'Berkendara sambil bermain handphone',C:'Jalan Berdebu Tebal',D:'Semua Benar'},
+  {q:'Dibawah ini manakah yang termasuk dalam Kondisi Tidak Aman / KTA, Kecuali?',A:'Jalan licin',B:'Penerangan Tidak Memadai',C:'Tidak Menggunakan Alat Pelindung Diri (APD)',D:'Semua benar'},
+  {q:'Sebutkan Siapa Nama Penanggung Jawab Operasional (PJO) PT. ABS?',A:'Adi Kurniawan',B:'Panji Purnomo',C:'Panji Irawan',D:'Adi Pratama'}
+];
+
+var DEF_RI = [
+  {q:'Dibawah ini manakah yang benar dari kepanjangan K3?',A:'Keselamatan kesejahteraan kerja',B:'Kesehatan Kecelakaan Keselamatan',C:'Keselamatan kesehatan kerja',D:'Kegiatan keselamatan pekerja'},
+  {q:'Dibawah ini, manakah rambu yang biasa dipasang pada area penyempitan dengan tujuan memberikan prioritas pada unit lain yang akan melintas dari lawan arahnya?',A:'Rambu kuning belah ketupat (peringatan jalan bergelombang)',B:'Rambu larangan melintas 2 arah (lingkaran merah-hitam)',C:'Rambu lingkaran merah-putih 2 arah (prioritas lalu lintas)',D:'Semua Salah'},
+  {q:'Urutkanlah kendaraan prioritas dari TERTINGGI ke terendah: LV, Trailer, Truck Muatan, Truck Kosong, Kendaraan Emergency',A:'Emergency - Truck Muatan - Truck Kosong - Trailer - LV',B:'Emergency - Trailer - Truck Muatan - Truck Kosong - LV',C:'LV - Trailer - Truck Muatan - Truck Kosong - Emergency',D:'Emergency - LV - Trailer - Truck Muatan - Truck Kosong'},
+  {q:'Sebutkan Fungsi APD (Body Harness)?',A:'Digunakan saat bekerja didekat air',B:'Bekerja di jalan licin',C:'Digunakan saat Bekerja di ketinggian kurang lebih 1,8m',D:'Pekerjaan pengelasan'},
+  {q:'Dibawah ini manakah kepanjangan dari LOTO?',A:'Location Tool',B:'Label or Tool',C:'Lock Out Tag Out',D:'Semua Salah'},
+  {q:'Dalam melakukan pengangkatan secara manual / manual handling, hal yang perlu diperhatikan adalah?',A:'Berat beban maksimal yang bisa diangkat/orang adalah tidak lebih dari 20 kg',B:'Mencari posisi yang aman / ergonomis',C:'Pertama dekati beban, lipat/tekuk lutut, kemudian angkat dan usahakan punggung tetap lurus',D:'Semua benar'},
+  {q:'Lokasi Berkumpul pada saat keadaan darurat?',A:'Meaning Point',B:'View point',C:'Muster point',D:'Semua benar'},
+  {q:'Hal-hal yang wajib dilaporkan ke petugas Safety adalah?',A:'KTA/TTA di area kerja',B:'Kecelakaan di area kerja',C:'Jawaban A dan B benar',D:'Semua salah'},
+  {q:'Manakah yang benar untuk menjelaskan arti rambu batas kecepatan (angka dalam lingkaran merah)?',A:'Dilarang kecepatan 40 km',B:'Batas akhir kecepatan 40 km',C:'Kecepatan wajib 40 km',D:'Semua salah'},
+  {q:'Apabila mendapati rambu segitiga terbalik (yield/beri jalan) saat melintas, apa yang harus dilakukan?',A:'Menandakan akan ada pertigaan jalan',B:'Rambu wajib stop total',C:'Kendaraan yang menghadap rambu wajib memberikan kesempatan kendaraan dari sisi kiri/kanan untuk melintas duluan',D:'Semua salah'},
+  {q:'Berikut adalah beberapa tanggungjawab Pekerja Tambang:',A:'Mematuhi K3, Bekerja sesuai prosedur aman, Menjaga keselamatan dirinya dan orang lain',B:'Melaporkan kepada atasan jika terdapat kondisi membahayakan, menggunakan dan merawat APD',C:'Jawaban A dan B benar',D:'Semua salah'},
+  {q:'Alasan utama pekerja tambang harus melakukan P2H sebelum mengoperasikan kendaraan/unit adalah:',A:'Karena untuk memenuhi kewajiban sebagaimana dalam checklist',B:'Mengetahui apakah kendaraan/unit aman untuk digunakan',C:'Agar lebih mematuhi aturan perusahaan',D:'Semua benar'},
+  {q:'Akibat penanganan Manual Handling yang buruk adalah:',A:'Terkilir/salah urat, Nyeri tulang belakang, Gangguan syaraf tulang belakang',B:'Bisa menyebabkan kelumpuhan',C:'Jawaban A dan B benar',D:'Semua salah'},
+  {q:'Saat mengangkat benda, maka beban bertumpu pada:',A:'Paha / kaki',B:'Tangan / lengan',C:'Punggung / bokong',D:'Semua Benar'},
+  {q:'Pengertian Manual Handling adalah:',A:'Manual = Panduan, Handling = Penanganan. Manual Handling = Panduan Penanganan',B:'Menangani bahan-bahan berbahaya dan beracun',C:'Kegiatan mengangkat, menarik, mendorong, menurunkan, memegang, membawa',D:'Semua salah'},
+  {q:'Sebutkan kategori Perilaku karyawan dibawah ini:',A:'Tindakan baik memaksimalkan jam istirahat',B:'Tindakan tidak aman',C:'Kondisi Tidak aman',D:'Semua benar'},
+  {q:'Apa tindakan yang akan dilakukan apabila melihat rekan kerja melakukan tindakan tidak aman?',A:'Membantu agar pekerjaan rekan cepat selesai',B:'Tidak menghiraukan sebab memiliki pekerjaan masing-masing',C:'Menegur karena merupakan tindakan tidak aman',D:'Semua salah'},
+  {q:'Apa yang dimaksud dari rambu bahaya tegangan tinggi (petir/kilat)?',A:'Area rawan Petir / kilat',B:'Bahaya tegangan tinggi / High Voltage',C:'Rambu selalu berhati-hati',D:'Semua salah'},
+  {q:'Berikut adalah jenis-jenis pekerjaan di industri tambang yang wajib menggunakan APD:',A:'Peledakan, Pekerjaan Kelistrikan, Survey',B:'Pemotongan Rumput, Service Alat Berat, Land Clearing',C:'Jawaban A dan B benar',D:'Semua salah'},
+  {q:'Berikut adalah lokasi kerja yang wajib menggunakan APD:',A:'Pit, Jalan raya hauling, Pelabuhan, Stockpile, Laboratorium, Kapal dan Tongkang',B:'Dalam mobil, Menumpang Kendaraan, Di atas/dekat perairan, Di ketinggian',C:'Semua salah',D:'Jawaban A dan B benar'},
+  {q:'Apa kepanjangan dari PKP2B?',A:'Perjanjian Karya Pengusahaan Pertambangan Batubara',B:'Perjanjian Kerja Pengusaha Pertambangan Batu Bara',C:'Pembentukan Komitmen Pengusaha Pertambangan Batu Bara',D:'Semua Salah'},
+  {q:'Sebutkan apa kepanjangan dari SMKP?',A:'Standart Manajemen Keselamatan Pertambangan',B:'Sistem Manajemen Kulture Pertambangan',C:'Sistem Manajemen Keselamatan Pertambangan',D:'Semua Salah'}
+];
+
+var DEF_VS = [
+  {q:'Selama berada di area kerja PT. ABS wajib menggunakan Id Visitor yang telah diberikan oleh tim HSE PT. ABS',tipe:'paham'},
+  {q:'Selama berada di area Kerja PT. ABS Visitor tidak boleh mengoperasikan unit / alat',tipe:'paham'},
+  {q:'Selama berada di area kerja Wajib menggunakan APD yang dipersyaratkan (Safety Shoes, Helmet dan S-Vest / Uniform)',tipe:'paham'},
+  {q:'Selama berkunjung wajib menjaga kebersihan lingkungan (tidak membuang sampah sembarangan)',tipe:'paham'},
+  {q:'Selama Berkunjung wajib di dampingi oleh HSE / pihak departemen PT. ABS yang terkait',tipe:'paham'},
+  {q:'Aktivitas Visitor hanya sebatas Observasi (tidak boleh Bekerja), Terkecuali ditentukan lain karena kebutuhan dilapangan sesuai instruksi pengawas ABS',tipe:'paham'},
+  {q:'Visitor terkait maintenance unit akan dilengkapi pad Lock khusus Visitor',tipe:'paham'},
+  {q:'Dilarang Membawa Senjata tajam, Mengkonsumsi minuman keras dan narkotika',tipe:'paham'},
+  {q:'Apabila terjadi keadaan darurat / emergency segera menuju titik berkumpul / muster point yang telah ditentukan',tipe:'paham'},
+  {q:'Saya Bersedia Mengikuti dan Mematuhi Setiap Peraturan yang Berlaku di Area Kerja PT. ABS, dan Apabila dikemudian hari Saya melakukan Tindakan diluar Persyaratan yang telah ditentukan Saya Bersedia untuk Dipulangkan dari area Kerja PT. ABS',tipe:'setuju'}
+];
+
+var soalDB = {nh:[], pw:[], ri:[], vs:[]};
+
+// ── LOAD ──────────────────────────────────────────────────────────────
+function loadAll() {
+  var defs = {nh:DEF_NHP, pw:DEF_NHP, ri:DEF_RI, vs:DEF_VS};
+  ['nh','pw','ri','vs'].forEach(function(t) {
+    try {
+      var s = localStorage.getItem(SK[t]);
+      soalDB[t] = s ? JSON.parse(s) : JSON.parse(JSON.stringify(defs[t]));
+      if (!s) localStorage.setItem(SK[t], JSON.stringify(soalDB[t]));
+    } catch(e) { soalDB[t] = JSON.parse(JSON.stringify(defs[t])); }
+  });
+  ['nh','pw','ri','vs'].forEach(renderList);
+}
+
+function save(t) {
+  localStorage.setItem(SK[t], JSON.stringify(soalDB[t]));
+}
+
+// ── TABS ──────────────────────────────────────────────────────────────
+function switchTab(t) {
+  document.querySelectorAll('.soal-tab').forEach(function(el){ el.classList.remove('active'); });
+  document.querySelectorAll('.soal-panel').forEach(function(el){ el.classList.remove('active'); });
+  document.querySelector('.soal-tab.t-' + t).classList.add('active');
+  document.getElementById('panel-' + t).classList.add('active');
+}
+
+// ── ADD / UPDATE ──────────────────────────────────────────────────────
+function addSoal(t) {
+  var q = (document.getElementById('fq-' + t).value || '').trim();
+  if (!q) { showToast('Pertanyaan wajib diisi!', true); return; }
+
+  var entry;
+  if (t === 'vs') {
+    entry = { q: q, tipe: document.getElementById('fk-' + t).value || 'paham' };
+  } else {
+    var A = (document.getElementById('fA-' + t).value || '').trim();
+    var B = (document.getElementById('fB-' + t).value || '').trim();
+    var C = (document.getElementById('fC-' + t).value || '').trim();
+    var D = (document.getElementById('fD-' + t).value || '').trim();
+    var k = document.getElementById('fk-' + t).value;
+    if (!A || !B) { showToast('Minimal isi pilihan A dan B!', true); return; }
+    if (!k) { showToast('Pilih kunci jawaban!', true); return; }
+    entry = { q:q, A:A, B:B, C:C, D:D };
+  }
+
+  var idx = parseInt(document.getElementById('fidx-' + t).value);
+  if (idx >= 0) {
+    soalDB[t][idx] = entry;
+    showToast('<i class="fas fa-check-circle"></i> Soal berhasil diperbarui!');
+  } else {
+    soalDB[t].push(entry);
+    showToast('<i class="fas fa-check-circle"></i> Soal berhasil ditambahkan!');
+  }
+  save(t);
+  resetForm(t);
+  renderList(t);
+}
+
+// ── EDIT ──────────────────────────────────────────────────────────────
+function editSoal(t, idx) {
+  var s = soalDB[t][idx];
+  if (!s) return;
+  document.getElementById('fq-' + t).value = s.q;
+  if (t === 'vs') {
+    document.getElementById('fk-' + t).value = s.tipe || 'paham';
+  } else {
+    document.getElementById('fA-' + t).value = s.A || '';
+    document.getElementById('fB-' + t).value = s.B || '';
+    document.getElementById('fC-' + t).value = s.C || '';
+    document.getElementById('fD-' + t).value = s.D || '';
+    document.getElementById('fk-' + t).value = s.k || '';
+  }
+  document.getElementById('fidx-' + t).value = idx;
+  document.getElementById('fb-' + t).textContent = 'Update';
+  document.getElementById('fi-' + t).className  = 'fas fa-save';
+  document.getElementById('ft-' + t).textContent = 'Edit No.' + (idx+1) + ' — ' + LABELS[t];
+  document.querySelectorAll('#sl-' + t + ' .soal-card').forEach(function(c,i){ c.classList.toggle('editing', i===idx); });
+  document.querySelector('#panel-' + t + ' .soal-form').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ── DELETE ────────────────────────────────────────────────────────────
+function deleteSoal(t, idx) {
+  if (!confirm('Hapus soal No.' + (idx+1) + '?')) return;
+  soalDB[t].splice(idx, 1);
+  save(t);
+  renderList(t);
+  showToast('<i class="fas fa-trash-alt"></i> Soal dihapus!');
+}
+
+function clearAll(t) {
+  if (!soalDB[t].length) { showToast('Belum ada soal.', true); return; }
+  if (!confirm('Hapus semua ' + soalDB[t].length + ' soal ' + LABELS[t] + '?')) return;
+  soalDB[t] = [];
+  save(t);
+  renderList(t);
+  showToast('<i class="fas fa-trash-alt"></i> Semua soal dihapus!');
+}
+
+function cancelEdit(t) { resetForm(t); }
+
+function resetForm(t) {
+  document.getElementById('fq-' + t).value = '';
+  if (t !== 'vs') {
+    ['A','B','C','D'].forEach(function(l){ var el = document.getElementById('f' + l + '-' + t); if(el) el.value=''; });
+    document.getElementById('fk-' + t).value = '';
+  } else {
+    document.getElementById('fk-' + t).value = 'paham';
+  }
+  document.getElementById('fidx-' + t).value = '-1';
+  document.getElementById('fb-' + t).textContent = t==='vs' ? 'Tambah Pernyataan' : 'Tambah Soal';
+  document.getElementById('fi-' + t).className  = 'fas fa-plus-circle';
+  document.getElementById('ft-' + t).textContent = 'Tambah ' + (t==='vs'?'Pernyataan':'Soal') + ' — ' + LABELS[t];
+  document.querySelectorAll('#sl-' + t + ' .soal-card').forEach(function(c){ c.classList.remove('editing'); });
+}
+
+// ── RESET ALL ke default ──────────────────────────────────────────────
+function resetAllSoal() {
+  if (!confirm('Reset semua soal ke data default?\nPerubahan yang sudah dibuat akan hilang.')) return;
+  var defs = {nh:DEF_NHP, pw:DEF_NHP, ri:DEF_RI, vs:DEF_VS};
+  ['nh','pw','ri','vs'].forEach(function(t) {
+    soalDB[t] = JSON.parse(JSON.stringify(defs[t]));
+    localStorage.setItem(SK[t], JSON.stringify(soalDB[t]));
+    renderList(t);
+  });
+  showToast('<i class="fas fa-undo"></i> Semua soal direset ke default!');
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────
+function renderList(t) {
+  var list = soalDB[t];
+  var container = document.getElementById('sl-' + t);
+  var countEl   = document.getElementById('sc-' + t);
+  var tabCount  = document.getElementById('tc-' + t);
+  if (!container) return;
+
+  var unit = t === 'vs' ? 'pernyataan' : 'soal';
+  countEl.innerHTML  = '<i class="fas fa-list-ol"></i> ' + list.length + ' ' + unit;
+  if (tabCount) tabCount.textContent = list.length || '';
+
+  if (!list.length) {
+    container.innerHTML = '<div class="soal-empty"><i class="fas fa-inbox"></i>Belum ada ' + unit + '. Tambahkan menggunakan form di atas.</div>';
+    return;
+  }
+
+  if (t === 'vs') {
+    container.innerHTML = list.map(function(s, i) {
+      var tipeLabel = s.tipe === 'setuju'
+        ? '<span class="soal-card-vs"><i class="fas fa-handshake" style="font-size:9px"></i> Saya Setuju / Tidak Setuju</span>'
+        : '<span class="soal-card-vs"><i class="fas fa-check-circle" style="font-size:9px"></i> Paham / Tidak Paham</span>';
+      return '<div class="soal-card">' +
+        '<div class="soal-card-actions">' +
+          '<button class="btn-soal-edit" onclick="editSoal(\'vs\',' + i + ')"><i class="fas fa-pen"></i> Edit</button>' +
+          '<button class="btn-soal-del"  onclick="deleteSoal(\'vs\',' + i + ')"><i class="fas fa-trash-alt"></i></button>' +
+        '</div>' +
+        '<div class="soal-card-header"><div class="soal-num c-vs">' + (i+1) + '</div><div class="soal-card-text">' + s.q + '</div></div>' +
+        '<div class="soal-card-opts">' + tipeLabel + '</div>' +
+      '</div>';
+    }).join('');
+  } else {
+    var numCls = t==='pw' ? ' c-pw' : t==='ri' ? ' c-ri' : '';
+    container.innerHTML = list.map(function(s, i) {
+      var opts = ['A','B','C','D'].map(function(l) {
+        if (!s[l]) return '';
+        var isK = s.k === l;
+        return '<span class="soal-card-opt' + (isK?' kunci':'') + '">' + l + '. ' + s[l] + '</span>';
+      }).join('');
+      return '<div class="soal-card">' +
+        '<div class="soal-card-actions">' +
+          '<button class="btn-soal-edit" onclick="editSoal(\'' + t + '\',' + i + ')"><i class="fas fa-pen"></i> Edit</button>' +
+          '<button class="btn-soal-del"  onclick="deleteSoal(\'' + t + '\',' + i + ')"><i class="fas fa-trash-alt"></i></button>' +
+        '</div>' +
+        '<div class="soal-card-header"><div class="soal-num' + numCls + '">' + (i+1) + '</div><div class="soal-card-text">' + s.q + '</div></div>' +
+        '<div class="soal-card-opts">' + opts + '</div>' +
+      '</div>';
+    }).join('');
+  }
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────
+function showToast(msg, isError) {
+  var t = document.getElementById('toast');
+  t.innerHTML = msg;
+  t.style.background = isError ? 'var(--accent2)' : 'var(--navy)';
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 3000);
+}
+
+// ── SIDEBAR ───────────────────────────────────────────────────────────
+(function() {
+  var name = localStorage.getItem('userName') || 'User';
+  ['userNameDisplay','sidebarUserName'].forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent=name; });
+  var av = document.getElementById('sidebarAvatarLetter'); if(av) av.textContent = name.charAt(0).toUpperCase();
+})();
+function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('open'); }
+function logout(){ if(confirm('Yakin ingin logout?')){ localStorage.removeItem('userName'); window.location.href='index.html'; } }
+
+// ── INIT ──────────────────────────────────────────────────────────────
+loadAll();
+</script>
+</body>
+</html>
