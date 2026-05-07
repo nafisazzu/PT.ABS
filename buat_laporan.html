@@ -128,20 +128,20 @@ textarea.form-control{resize:vertical;min-height:130px;line-height:1.6;}
   </div>
   <nav class="sidebar-nav">
     <div class="nav-label">Menu Utama</div>
-    <a href="dashboard.html" class="active"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
-    <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
-    <div class="nav-label">Data </div>
+    <a href="dashboard.html"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
+    <a href="buat_laporan.html" class=""><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
+     <div class="nav-label">Data</div>
     <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
     <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
-   <div class="nav-label">Dokumen</div>
+     <div class="nav-label"> Dokumen</div>
     <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
-   <div class="nav-label">Tautan Kerja</div>
-    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener" style="color:rgba(0,212,255,0.85)">
-      <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent)"><i class="fas fa-external-link-alt"></i></span>
+    <div class="nav-label">Tautan Kerja</div>
+    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener noreferrer" style="color:rgba(0,212,255,0.85);">
+      <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent);"><i class="fas fa-external-link-alt"></i></span>
       SIGAP IBP
-      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
+      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.55;"></i>
     </a>
-     <a href="https://account.accurate.id/manage" target="_blank" rel="noopener" style="color:rgba(255,200,67,0.85)">
+        <a href="https://account.accurate.id/manage" target="_blank" rel="noopener" style="color:rgba(255,200,67,0.85)">
       <span class="nav-icon" style="background:rgba(255,200,67,0.15);color:var(--accent3)"><i class="fas fa-external-link-alt"></i></span>
       Accurate
       <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
@@ -569,6 +569,20 @@ function resetForm(){
   ['charDeskripsi','charTindakan'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='0 / '+(id.includes('Deskripsi')?1000:500);});
   updateSteps();
 }
+
+// ── Auto-set sidebar active berdasarkan URL ──────────────────────────
+(function() {
+  var page = window.location.pathname.split('/').pop() || 'dashboard.html';
+  document.querySelectorAll('.sidebar-nav a[href]').forEach(function(a) {
+    a.classList.remove('active');
+    var href = a.getAttribute('href');
+    if (href && href !== '#' && !href.startsWith('http')) {
+      if (href === page || (page === '' && href === 'dashboard.html')) {
+        a.classList.add('active');
+      }
+    }
+  });
+})();
 </script>
 </body>
 </html>
