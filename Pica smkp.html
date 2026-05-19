@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PICA SMKP – AIMS</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;--bg:#f0f4fa;--card-bg:#fff;--text:#1a2540;--muted:#7a8aaa;--border:#e0e7ef;--sidebar-w:260px;--radius:16px;--shadow:0 4px 24px rgba(11,24,41,.10);--transition:.28s cubic-bezier(.4,0,.2,1);--page-color:#8b5cf6;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;font-size:14px;}
+.sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
+.sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
+.sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,.07);}
+.brand-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(0,212,255,.35);flex-shrink:0;}
+.brand-text{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:#fff;letter-spacing:2px;}
+.brand-sub{font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
+.sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;}
+.nav-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3);padding:14px 12px 6px;font-weight:600;}
+.sidebar-nav a{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.65);text-decoration:none;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;transition:all var(--transition);margin-bottom:2px;position:relative;}
+.sidebar-nav a .nav-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(255,255,255,.06);flex-shrink:0;transition:all var(--transition);}
+.sidebar-nav a:hover{color:#fff;background:rgba(255,255,255,.07);}
+.sidebar-nav a:hover .nav-icon{background:rgba(0,212,255,.18);color:var(--accent);}
+.sidebar-nav a.active{color:#fff;background:linear-gradient(90deg,rgba(0,212,255,.18),rgba(0,212,255,.05));}
+.sidebar-nav a.active .nav-icon{background:linear-gradient(135deg,var(--accent),#0099cc);color:#fff;box-shadow:0 3px 10px rgba(0,212,255,.4);}
+.sidebar-nav a.active::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--accent);border-radius:3px 0 0 3px;}
+.sidebar-nav a.logout-btn{color:rgba(255,78,106,.75);}
+.sidebar-nav a.logout-btn:hover{color:var(--accent2);background:rgba(255,78,106,.08);}
+.sidebar-nav a.logout-btn .nav-icon{background:rgba(255,78,106,.1);}
+.sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.07);}
+.sidebar-user{display:flex;align-items:center;gap:10px;}
+.user-avatar{width:36px;height:36px;background:linear-gradient(135deg,var(--accent3),#ff8c00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:700;}
+.user-info .user-name{font-size:13px;font-weight:600;color:#fff;}
+.user-info .user-role{font-size:11px;color:var(--muted);}
+.main{margin-left:var(--sidebar-w);min-height:100vh;}
+.topbar{background:var(--card-bg);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+.topbar-left h5{font-size:15px;font-weight:700;color:var(--navy);margin:0;}
+.topbar-left span{font-size:12px;color:var(--muted);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.topbar-btn{width:38px;height:38px;border-radius:10px;background:var(--bg);border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
+.topbar-btn:hover{background:#e2e8f5;color:var(--navy);}
+.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:var(--bg);cursor:pointer;}
+.topbar-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
+.topbar-uname{font-size:13px;font-weight:600;color:var(--text);}
+.content{padding:28px 32px 48px;}
+/* PAGE HEADER */
+.page-header{margin-bottom:24px;}
+.page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;}
+.title-icon{width:44px;height:44px;background:var(--page-color);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.2);}
+.page-sub{font-size:13px;color:var(--muted);margin-top:6px;}
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;}
+.stat-c{background:var(--card-bg);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);border-left:4px solid var(--page-color);}
+.stat-c .val{font-family:'Space Mono',monospace;font-size:28px;font-weight:700;color:var(--page-color);}
+.stat-c .lbl{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
+/* UPLOAD CARD */
+.upload-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px;}
+.card-head{padding:16px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#f7faff,var(--card-bg));}
+.card-head-title{font-size:15px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;}
+.card-body{padding:22px;}
+/* UPLOAD ZONE */
+.upload-zone{border:2px dashed var(--border);border-radius:14px;padding:32px 20px;text-align:center;cursor:pointer;transition:all var(--transition);background:#fafcff;position:relative;}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--page-color);background:rgba(0,0,0,.02);}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.uz-icon{width:56px;height:56px;border-radius:14px;background:rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--page-color);margin:0 auto 12px;}
+.uz-title{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:4px;}
+.uz-sub{font-size:12px;color:var(--muted);}
+/* TOOLBAR */
+.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.search-wrap{position:relative;flex:1;min-width:200px;}
+.search-wrap .s-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none;}
+.search-input{width:100%;padding:9px 14px 9px 34px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;transition:all var(--transition);}
+.search-input:focus{border-color:var(--page-color);}
+.filter-sel{padding:9px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;cursor:pointer;}
+/* FILE GRID */
+.files-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;}
+.file-card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:14px;padding:16px;transition:all var(--transition);position:relative;cursor:pointer;}
+.file-card:hover{border-color:var(--page-color);box-shadow:0 4px 16px rgba(0,0,0,.08);transform:translateY(-2px);}
+.file-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:10px;}
+.file-name{font-size:13px;font-weight:600;color:var(--navy);line-height:1.4;margin-bottom:4px;word-break:break-word;}
+.file-meta{font-size:11px;color:var(--muted);}
+.file-actions{display:flex;gap:6px;margin-top:10px;}
+.btn-dl{flex:1;padding:6px;border-radius:8px;border:none;background:rgba(0,0,0,.05);color:var(--text);font-size:12px;font-weight:600;cursor:pointer;transition:all var(--transition);font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:5px;}
+.btn-dl:hover{background:var(--page-color);color:#fff;}
+.btn-del-f{width:32px;height:32px;border-radius:8px;border:none;background:rgba(255,78,106,.10);color:var(--accent2);cursor:pointer;transition:all var(--transition);display:flex;align-items:center;justify-content:center;font-size:12px;}
+.btn-del-f:hover{background:var(--accent2);color:#fff;}
+/* FILE TYPE COLORS */
+.ft-pdf{background:rgba(239,68,68,.12);color:#ef4444;}
+.ft-doc,.ft-docx{background:rgba(59,130,246,.12);color:#3b82f6;}
+.ft-xls,.ft-xlsx{background:rgba(34,197,94,.12);color:#22c55e;}
+.ft-ppt,.ft-pptx{background:rgba(249,115,22,.12);color:#f97316;}
+.ft-mp4,.ft-video{background:rgba(139,92,246,.12);color:#8b5cf6;}
+.ft-img{background:rgba(236,72,153,.12);color:#ec4899;}
+.ft-other{background:rgba(122,138,170,.12);color:var(--muted);}
+/* EMPTY */
+.empty-state{text-align:center;padding:48px 20px;color:var(--muted);}
+.empty-icon{font-size:48px;opacity:.2;display:block;margin-bottom:12px;}
+/* TOAST */
+.toast-box{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transform:translateY(12px);transition:all .3s;z-index:3000;pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(11,24,41,.25);}
+.toast-box.show{opacity:1;transform:translateY(0);}
+/* MOBILE */
+.menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:768px){
+  .menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}
+  .sidebar-overlay.open{display:block;}.main{margin-left:0;}.topbar{padding:14px 16px 14px 64px;}
+  .content{padding:20px 14px 40px;}.stats-row{grid-template-columns:repeat(2,1fr);}.files-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}
+}
+</style>
+</head>
+<body>
+<button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
+    <div><div class="brand-text">AIMS</div><div class="brand-sub">Safety System</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-label">Menu Utama</div>
+    <a href="dashboard.html"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
+    <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
+    <div class="nav-label">Data</div>
+    <a href="Bisnis Proses.html"><span class="nav-icon"><i class="fas fa-briefcase"></i></span>Bisnis Proses</a>
+   <a href="Emergency drill.html"><span class="nav-icon"><i class="fas fa-fire-extinguisher"></i></span>Emergency drill</a>
+   <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
+    
+   <a href="Ibpr.html"><span class="nav-icon"><i class="fas fa-search"></i></span>IBPR</a>
+   <a href="Awards.html"><span class="nav-icon"><i class="fas fa-trophy"></i></span>Awards</a>
+   <a href="Smkp minerba.html"><span class="nav-icon"><i class="fas fa-hard-hat"></i></span>SMKP Minerba</a>
+   <a href="Pica smkp.html"><span class="nav-icon"><i class="fas fa-check"></i></span>PICA SMKP</a>
+   <a href="Sml.html"><span class="nav-icon"><i class="fas fa-leaf"></i></span>SML</a>
+   <a href="Evaluasi kebijakan.html"><span class="nav-icon"><i class="fas fa-book"></i></span>Evaluasi Kebijakan</a>
+   <a href="Kompetensi.html"><span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>Kompetensi</a>
+   <a href="Breaking news.html"><span class="nav-icon"><i class="fas fa-newspaper"></i></span>Breaking News</a>
+   <a href="Job desk.html"><span class="nav-icon"><i class="fas fa-user-tie"></i></span>Job Desk</a>
+   <a href="Campaign.html"><span class="nav-icon"><i class="fas fa-bullhorn"></i></span>Campaign</a>
+   <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
+   
+   <div class="nav-label">Dokumen</div>
+    <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
+    <div class="nav-label">Tautan Kerja</div>
+    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener" style="color:rgba(0,212,255,0.85)">
+      <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent)"><i class="fas fa-external-link-alt"></i></span>
+      SIGAP IBP<i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
+    </a>
+    <a href="https://account.accurate.id/manage" target="_blank" rel="noopener" style="color:rgba(255,200,67,0.85)">
+      <span class="nav-icon" style="background:rgba(255,200,67,0.15);color:var(--accent3)"><i class="fas fa-external-link-alt"></i></span>
+      Accurate<i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
+    </a>
+    <div class="nav-label">Akun</div>
+    <a href="#" onclick="logout()" class="logout-btn"><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sidebarAvatarLetter">U</div>
+      <div class="user-info">
+        <div class="user-name" id="sidebarUserName">User</div>
+        <div class="user-role">Safety Officer</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <h5>Arta Integrated Manajemen System</h5>
+      <span>Sistem Informasi Keselamatan Kerja</span>
+    </div>
+    <div class="topbar-right">
+      <button class="topbar-btn"><i class="fas fa-bell"></i></button>
+      <div class="topbar-user">
+        <div class="topbar-avatar"><i class="fas fa-user"></i></div>
+        <span class="topbar-uname" id="userNameDisplay">User</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="page-header">
+      <div class="page-title">
+        <div class="title-icon"><i class="fas fa-tasks"></i></div>
+        PICA SMKP
+      </div>
+      <div class="page-sub">Kelola dan akses file dokumen, video, dan materi PICA SMKP</div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row" id="statsRow">
+      <div class="stat-c"><div class="val" id="statTotal">0</div><div class="lbl">Total File</div></div>
+      <div class="stat-c"><div class="val" id="statPDF">0</div><div class="lbl">PDF</div></div>
+      <div class="stat-c"><div class="val" id="statVideo">0</div><div class="lbl">Video</div></div>
+      <div class="stat-c"><div class="val" id="statLain">0</div><div class="lbl">Lainnya</div></div>
+    </div>
+
+    <!-- UPLOAD -->
+    <div class="upload-card" style="margin-bottom:20px;">
+      <div class="card-head">
+        <div class="card-head-title"><i class="fas fa-cloud-upload-alt" style="color:var(--page-color)"></i> Upload File</div>
+      </div>
+      <div class="card-body">
+        <div class="upload-zone" id="uploadZone" ondragover="dzOver(event)" ondragleave="dzLeave()" ondrop="dzDrop(event)">
+          <input type="file" id="fileInput" multiple accept="*/*" onchange="handleFiles(this.files)">
+          <div class="uz-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+          <div class="uz-title">Drag & Drop file di sini</div>
+          <div class="uz-sub">atau klik untuk pilih · PDF, DOCX, XLSX, PPTX, MP4, gambar, dll · Maks 10 MB/file</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FILE LIST -->
+    <div class="upload-card">
+      <div class="card-head">
+        <div class="card-head-title"><i class="fas fa-folder-open" style="color:var(--page-color)"></i> Daftar File</div>
+        <span id="fileCount" style="font-size:12px;color:var(--muted)">0 file</span>
+      </div>
+      <div class="card-body">
+        <div class="toolbar">
+          <div class="search-wrap">
+            <i class="fas fa-search s-icon"></i>
+            <input class="search-input" type="text" id="searchInput" placeholder="Cari nama file..." oninput="renderFiles()">
+          </div>
+          <select class="filter-sel" id="filterType" onchange="renderFiles()">
+            <option value="">Semua Tipe</option>
+            <option value="pdf">PDF</option>
+            <option value="doc">Word</option>
+            <option value="xls">Excel</option>
+            <option value="ppt">PowerPoint</option>
+            <option value="video">Video</option>
+            <option value="img">Gambar</option>
+            <option value="other">Lainnya</option>
+          </select>
+        </div>
+        <div class="files-grid" id="filesGrid"></div>
+        <div class="empty-state" id="emptyState" style="display:none;">
+          <span class="empty-icon"><i class="fas fa-folder-open"></i></span>
+          <div style="font-weight:600;color:var(--navy);margin-bottom:4px">Belum ada file</div>
+          <div>Upload file menggunakan area di atas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-box" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'aims_files_pica_smkp';
+let files = [];
+
+// ── Load dari localStorage ────────────────────────
+function loadFiles() {
+  try { files = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch(e) { files = []; }
+  renderFiles();
+  updateStats();
+}
+
+function saveFiles() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(files)); }
+  catch(e) { showToast('<i class="fas fa-exclamation-triangle"></i> Storage penuh!', true); }
+}
+
+// ── Upload ────────────────────────────────────────
+function handleFiles(fileList) {
+  Array.from(fileList).forEach(file => {
+    if (file.size > 10 * 1024 * 1024) { showToast('File ' + file.name + ' terlalu besar (maks 10MB)!', true); return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      const entry = {
+        id: Date.now() + Math.random(),
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        ext: file.name.split('.').pop().toLowerCase(),
+        data: e.target.result,
+        uploadedAt: new Date().toLocaleDateString('id-ID', {dateStyle:'medium'}),
+        uploadedBy: localStorage.getItem('userName') || 'User'
+      };
+      files.unshift(entry);
+      saveFiles();
+      renderFiles();
+      updateStats();
+      showToast('<i class="fas fa-check-circle"></i> ' + file.name + ' berhasil diupload!');
+    };
+    reader.readAsDataURL(file);
+  });
+  document.getElementById('fileInput').value = '';
+}
+
+function dzOver(e) { e.preventDefault(); document.getElementById('uploadZone').classList.add('drag'); }
+function dzLeave() { document.getElementById('uploadZone').classList.remove('drag'); }
+function dzDrop(e) { e.preventDefault(); dzLeave(); handleFiles(e.dataTransfer.files); }
+
+// ── Delete ────────────────────────────────────────
+function deleteFile(id) {
+  if (!confirm('Hapus file ini?')) return;
+  files = files.filter(f => f.id !== id);
+  saveFiles();
+  renderFiles();
+  updateStats();
+  showToast('<i class="fas fa-trash-alt"></i> File dihapus!');
+}
+
+// ── Download ──────────────────────────────────────
+function downloadFile(id) {
+  const f = files.find(x => x.id === id);
+  if (!f) return;
+  const a = document.createElement('a');
+  a.href = f.data;
+  a.download = f.name;
+  a.click();
+  showToast('<i class="fas fa-download"></i> Mengunduh ' + f.name + '...');
+}
+
+// ── Preview ───────────────────────────────────────
+function previewFile(id) {
+  const f = files.find(x => x.id === id);
+  if (!f) return;
+  if (f.type.startsWith('image/')) {
+    const w = window.open('');
+    w.document.write('<img src="' + f.data + '" style="max-width:100%;max-height:100vh;">');
+  } else if (f.type === 'application/pdf') {
+    const w = window.open('');
+    w.document.write('<iframe src="' + f.data + '" style="width:100%;height:100vh;border:none;"></iframe>');
+  } else if (f.type.startsWith('video/')) {
+    const w = window.open('');
+    w.document.write('<video src="' + f.data + '" controls style="max-width:100%;max-height:100vh;"></video>');
+  } else {
+    downloadFile(id);
+  }
+}
+
+// ── Get file type group ───────────────────────────
+function getTypeGroup(ext) {
+  if (['pdf'].includes(ext)) return 'pdf';
+  if (['doc','docx'].includes(ext)) return 'doc';
+  if (['xls','xlsx','csv'].includes(ext)) return 'xls';
+  if (['ppt','pptx'].includes(ext)) return 'ppt';
+  if (['mp4','avi','mov','mkv','webm'].includes(ext)) return 'video';
+  if (['jpg','jpeg','png','gif','webp','svg'].includes(ext)) return 'img';
+  return 'other';
+}
+
+function getTypeIcon(ext) {
+  const g = getTypeGroup(ext);
+  const map = {pdf:'fa-file-pdf',doc:'fa-file-word',xls:'fa-file-excel',ppt:'fa-file-powerpoint',video:'fa-file-video',img:'fa-file-image',other:'fa-file'};
+  return map[g] || 'fa-file';
+}
+
+function getTypeClass(ext) {
+  return 'ft-' + getTypeGroup(ext);
+}
+
+function fmtSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
+  return (bytes/1024/1024).toFixed(1) + ' MB';
+}
+
+// ── Render ────────────────────────────────────────
+function renderFiles() {
+  const q = (document.getElementById('searchInput').value || '').toLowerCase();
+  const ft = document.getElementById('filterType').value;
+  let list = files.filter(f => {
+    const mQ = !q || f.name.toLowerCase().includes(q);
+    const mT = !ft || getTypeGroup(f.ext) === ft;
+    return mQ && mT;
+  });
+
+  document.getElementById('fileCount').textContent = files.length + ' file';
+
+  if (!list.length) {
+    document.getElementById('filesGrid').innerHTML = '';
+    document.getElementById('emptyState').style.display = '';
+    return;
+  }
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('filesGrid').innerHTML = list.map(f => `
+    <div class="file-card" onclick="previewFile(${f.id})">
+      <div class="file-icon ${getTypeClass(f.ext)}"><i class="fas ${getTypeIcon(f.ext)}"></i></div>
+      <div class="file-name">${f.name}</div>
+      <div class="file-meta">${fmtSize(f.size)} · ${f.ext.toUpperCase()} · ${f.uploadedAt}</div>
+      <div class="file-meta" style="margin-top:2px"><i class="fas fa-user" style="font-size:9px;margin-right:3px"></i>${f.uploadedBy}</div>
+      <div class="file-actions" onclick="event.stopPropagation()">
+        <button class="btn-dl" onclick="downloadFile(${f.id})"><i class="fas fa-download"></i> Download</button>
+        <button class="btn-del-f" onclick="deleteFile(${f.id})"><i class="fas fa-trash-alt"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── Stats ─────────────────────────────────────────
+function updateStats() {
+  document.getElementById('statTotal').textContent = files.length;
+  document.getElementById('statPDF').textContent   = files.filter(f => f.ext === 'pdf').length;
+  document.getElementById('statVideo').textContent = files.filter(f => getTypeGroup(f.ext) === 'video').length;
+  document.getElementById('statLain').textContent  = files.filter(f => !['pdf','video'].includes(getTypeGroup(f.ext))).length;
+}
+
+// ── Toast ─────────────────────────────────────────
+function showToast(msg, err) {
+  const t = document.getElementById('toast');
+  t.innerHTML = msg;
+  t.style.background = err ? 'var(--accent2)' : 'var(--navy)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── Sidebar ───────────────────────────────────────
+(function() {
+  const name = localStorage.getItem('userName') || 'User';
+  ['userNameDisplay','sidebarUserName'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = name; });
+  const av = document.getElementById('sidebarAvatarLetter'); if(av) av.textContent = name.charAt(0).toUpperCase();
+})();
+
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('open'); }
+function logout() { if(confirm('Yakin ingin logout?')) { localStorage.clear(); window.location.href = 'index.html'; } }
+
+// ── Auto-set sidebar active ───────────────────────
+(function() {
+  var page = window.location.pathname.split('/').pop() || 'dashboard.html';
+  document.querySelectorAll('.sidebar-nav a[href]').forEach(function(a) {
+    a.classList.remove('active');
+    var href = a.getAttribute('href');
+    if (href && href !== '#' && !href.startsWith('http')) {
+      if (href === page) a.classList.add('active');
+    }
+  });
+})();
+
+// ── Init ──────────────────────────────────────────
+loadFiles();
+</script>
+</body>
+</html>
