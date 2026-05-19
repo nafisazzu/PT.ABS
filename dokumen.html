@@ -275,9 +275,23 @@ textarea.fc{resize:vertical;min-height:70px;}
     <a href="dashboard.html"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
     <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
      <div class="nav-label">Data</div>
-    <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
-    <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
-    <div class="nav-label"> Dokumen</div>
+    <a href="Bisnis Proses.html"><span class="nav-icon"><i class="fas fa-briefcase"></i></span>Bisnis Proses</a>
+   <a href="Emergency drill.html"><span class="nav-icon"><i class="fas fa-fire-extinguisher"></i></span>Emergency drill</a>
+   <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
+    
+   <a href="Ibpr.html"><span class="nav-icon"><i class="fas fa-search"></i></span>IBPR</a>
+   <a href="Awards.html"><span class="nav-icon"><i class="fas fa-trophy"></i></span>Awards</a>
+   <a href="Smkp minerba.html"><span class="nav-icon"><i class="fas fa-hard-hat"></i></span>SMKP Minerba</a>
+   <a href="Pica smkp.html"><span class="nav-icon"><i class="fas fa-check"></i></span>PICA SMKP</a>
+   <a href="Sml.html"><span class="nav-icon"><i class="fas fa-leaf"></i></span>SML</a>
+   <a href="Evaluasi kebijakan.html"><span class="nav-icon"><i class="fas fa-book"></i></span>Evaluasi Kebijakan</a>
+   <a href="Kompetensi.html"><span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>Kompetensi</a>
+   <a href="Breaking news.html"><span class="nav-icon"><i class="fas fa-newspaper"></i></span>Breaking News</a>
+   <a href="Job desk.html"><span class="nav-icon"><i class="fas fa-user-tie"></i></span>Job Desk</a>
+   <a href="Campaign.html"><span class="nav-icon"><i class="fas fa-bullhorn"></i></span>Campaign</a>
+   <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
+   
+   <div class="nav-label"> Dokumen</div>
     <a href="dokumen.html" class=""><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
    <div class="nav-label">Tautan Kerja</div>
         <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener" style="color:rgba(0,212,255,0.85)">
@@ -551,34 +565,7 @@ const TIPE = { 'PDF':{icon:'fa-file-pdf',color:'#ef4444',bg:'rgba(239,68,68,.10)
 // ═══════════════════════════════════════════════════════
 // DATA
 // ═══════════════════════════════════════════════════════
-let documents = [
-  {id:1,nama:'Kebijakan K3 Perusahaan 2025',nomor:'KBJ-K3-2025',level:'1',kategori:'Regulasi',dept:'Umum',tipe:'PDF',tanggal:'2025-01-05',pembuat:'Manajemen',deskripsi:'Kebijakan K3 resmi perusahaan sebagai komitmen K3 yang berlaku untuk seluruh unit kerja.',ukuran:'1.2 MB'},
-  {id:2,nama:'Kebijakan Lingkungan & Energi PT. ABS',nomor:'KBJ-LH-2025',level:'1',kategori:'Regulasi',dept:'SHE',tipe:'PDF',tanggal:'2025-01-10',pembuat:'Dept. SHE',deskripsi:'Komitmen manajemen terhadap pengelolaan lingkungan dan efisiensi energi.',ukuran:'0.9 MB'},
-  {id:3,nama:'PP No. 50 Tahun 2012 SMK3',nomor:'REG-PP50-2012',level:'1',kategori:'Regulasi',dept:'Umum',tipe:'PDF',tanggal:'2024-11-10',pembuat:'Pemerintah RI',deskripsi:'Peraturan Pemerintah tentang penerapan Sistem Manajemen K3.',ukuran:'4.2 MB'},
-  {id:4,nama:'UU No. 1 Tahun 1970 Keselamatan Kerja',nomor:'REG-UU01-1970',level:'1',kategori:'Regulasi',dept:'Umum',tipe:'PDF',tanggal:'2024-11-10',pembuat:'Pemerintah RI',deskripsi:'Undang-Undang dasar keselamatan kerja di Indonesia.',ukuran:'1.5 MB'},
-  {id:5,nama:'Kepmen 555K Keselamatan Tambang',nomor:'REG-KPM555',level:'1',kategori:'Regulasi',dept:'Produksi',tipe:'PDF',tanggal:'2024-12-01',pembuat:'Kementerian ESDM',deskripsi:'Keputusan Menteri ESDM tentang keselamatan kerja pertambangan.',ukuran:'3.8 MB'},
-  {id:6,nama:'Sertifikat SMK3 Perusahaan 2025',nomor:'SERT-SMK3-2025',level:'1',kategori:'Sertifikat',dept:'Umum',tipe:'PDF',tanggal:'2025-03-15',pembuat:'Kemnaker RI',deskripsi:'Sertifikat penerapan Sistem Manajemen K3.',ukuran:'0.9 MB'},
-  {id:7,nama:'SOP-K3-001 Prosedur Kerja Aman di Tambang',nomor:'SOP-K3-001',level:'2',kategori:'SOP',dept:'Produksi',tipe:'PDF',tanggal:'2025-02-15',pembuat:'Dept. SHE',deskripsi:'Prosedur standar keselamatan kerja di area tambang.',ukuran:'2.4 MB'},
-  {id:8,nama:'SOP-K3-002 Prosedur Pengoperasian Alat Berat',nomor:'SOP-K3-002',level:'2',kategori:'SOP',dept:'Plant',tipe:'PDF',tanggal:'2025-02-20',pembuat:'Dept. Plant',deskripsi:'Panduan pengoperasian alat berat sesuai standar keselamatan.',ukuran:'3.1 MB'},
-  {id:9,nama:'SOP-K3-003 Prosedur Penanganan Bahan B3',nomor:'SOP-K3-003',level:'2',kategori:'SOP',dept:'Produksi',tipe:'DOCX',tanggal:'2025-03-05',pembuat:'Dept. SHE',deskripsi:'Tata cara penanganan dan pembuangan bahan berbahaya dan beracun.',ukuran:'1.8 MB'},
-  {id:10,nama:'SOP-K3-004 Prosedur LOTO',nomor:'SOP-K3-004',level:'2',kategori:'SOP',dept:'Plant',tipe:'PDF',tanggal:'2025-03-15',pembuat:'Dept. Plant',deskripsi:'Prosedur pemasangan kunci pengaman saat perbaikan peralatan.',ukuran:'1.2 MB'},
-  {id:11,nama:'SOP-HSE-001 Prosedur Inspeksi Keselamatan',nomor:'SOP-HSE-001',level:'2',kategori:'SOP',dept:'SHE',tipe:'PDF',tanggal:'2025-04-01',pembuat:'Dept. SHE',deskripsi:'Prosedur inspeksi keselamatan terencana di seluruh area kerja.',ukuran:'1.5 MB'},
-  {id:12,nama:'SOP-LOG-001 Prosedur Pengelolaan Gudang',nomor:'SOP-LOG-001',level:'2',kategori:'SOP',dept:'Logistik',tipe:'PDF',tanggal:'2025-04-10',pembuat:'Dept. Logistik',deskripsi:'Tata cara penerimaan dan pengeluaran barang di area gudang.',ukuran:'1.4 MB'},
-  {id:13,nama:'SOP-ENG-001 Prosedur Pemeliharaan Unit Alat',nomor:'SOP-ENG-001',level:'2',kategori:'SOP',dept:'Engineering',tipe:'DOCX',tanggal:'2025-04-20',pembuat:'Dept. Engineering',deskripsi:'Prosedur preventive dan corrective maintenance unit alat berat.',ukuran:'2.0 MB'},
-  {id:14,nama:'SOP-HRGA-001 Prosedur Induksi Karyawan Baru',nomor:'SOP-HRGA-001',level:'2',kategori:'SOP',dept:'HRGA',tipe:'PDF',tanggal:'2025-05-01',pembuat:'Dept. HRGA',deskripsi:'Prosedur orientasi karyawan baru termasuk induksi K3LH.',ukuran:'1.6 MB'},
-  {id:15,nama:'IK-OPR-001 Instruksi Kerja Operasi Dump Truck',nomor:'IK-OPR-001',level:'3',kategori:'SOP',dept:'Produksi',tipe:'PDF',tanggal:'2025-05-10',pembuat:'Dept. Produksi',deskripsi:'Instruksi kerja untuk operator dump truck dalam kondisi normal dan darurat.',ukuran:'0.8 MB'},
-  {id:16,nama:'IK-OPR-002 Instruksi Kerja Operasi Excavator',nomor:'IK-OPR-002',level:'3',kategori:'SOP',dept:'Produksi',tipe:'PDF',tanggal:'2025-05-12',pembuat:'Dept. Produksi',deskripsi:'Instruksi kerja operasional excavator mulai dari pre-start hingga shutdown.',ukuran:'0.7 MB'},
-  {id:17,nama:'IK-MNT-001 Instruksi Kerja Ganti Oli Unit',nomor:'IK-MNT-001',level:'3',kategori:'SOP',dept:'Plant',tipe:'DOCX',tanggal:'2025-05-20',pembuat:'Dept. Plant',deskripsi:'Langkah kerja penggantian oli mesin dan transmisi alat berat.',ukuran:'0.6 MB'},
-  {id:18,nama:'IK-SHE-001 Instruksi Penggunaan APAR',nomor:'IK-SHE-001',level:'3',kategori:'SOP',dept:'SHE',tipe:'PDF',tanggal:'2025-05-25',pembuat:'Dept. SHE',deskripsi:'Instruksi teknis penggunaan APAR untuk berbagai jenis kebakaran.',ukuran:'0.5 MB'},
-  {id:19,nama:'IK-LOG-001 Instruksi Penerimaan Material B3',nomor:'IK-LOG-001',level:'3',kategori:'SOP',dept:'Logistik',tipe:'PDF',tanggal:'2025-06-01',pembuat:'Dept. Logistik',deskripsi:'Instruksi teknis penerimaan dan penyimpanan material berbahaya di gudang.',ukuran:'0.6 MB'},
-  {id:20,nama:'Form-SAP-001 Formulir Safety Activity Program',nomor:'FORM-SAP-001',level:'4',kategori:'Form',dept:'SHE',tipe:'XLSX',tanggal:'2025-01-20',pembuat:'Dept. SHE',deskripsi:'Formulir pencatatan aktivitas keselamatan kerja harian pengawas.',ukuran:'0.5 MB'},
-  {id:21,nama:'Form-HAZ-001 Formulir Hazard Report',nomor:'FORM-HAZ-001',level:'4',kategori:'Form',dept:'SHE',tipe:'DOCX',tanggal:'2025-02-14',pembuat:'Dept. SHE',deskripsi:'Formulir pelaporan temuan bahaya dan tindakan pengendalian.',ukuran:'0.3 MB'},
-  {id:22,nama:'Form-IND-001 Formulir Laporan Induksi K3LH',nomor:'FORM-IND-001',level:'4',kategori:'Form',dept:'SHE',tipe:'XLSX',tanggal:'2025-03-01',pembuat:'Dept. SHE',deskripsi:'Formulir pendataan peserta dan nilai induksi K3LH.',ukuran:'0.8 MB'},
-  {id:23,nama:'Form-INS-001 Checklist Inspeksi Harian Alat',nomor:'FORM-INS-001',level:'4',kategori:'Form',dept:'Produksi',tipe:'XLSX',tanggal:'2025-03-15',pembuat:'Dept. SHE',deskripsi:'Checklist inspeksi harian alat berat sebelum operasi.',ukuran:'0.4 MB'},
-  {id:24,nama:'Form-MNT-001 Work Order Pemeliharaan',nomor:'FORM-MNT-001',level:'4',kategori:'Form',dept:'Plant',tipe:'XLSX',tanggal:'2025-04-01',pembuat:'Dept. Plant',deskripsi:'Formulir permintaan dan pelaporan pekerjaan pemeliharaan.',ukuran:'0.3 MB'},
-  {id:25,nama:'Laporan K3 Triwulan I 2025',nomor:'LPR-K3-Q1-2025',level:'4',kategori:'Laporan K3',dept:'SHE',tipe:'PPTX',tanggal:'2025-04-05',pembuat:'Dept. SHE',deskripsi:'Laporan statistik keselamatan kerja Triwulan I 2025.',ukuran:'5.6 MB'},
-  {id:26,nama:'Sertifikat Kompetensi Pengawas K3 Tambang',nomor:'SERT-KOMP-2025',level:'4',kategori:'Sertifikat',dept:'SHE',tipe:'PDF',tanggal:'2025-02-28',pembuat:'BNSP',deskripsi:'Sertifikat kompetensi pengawas operasional pertama dan madya.',ukuran:'0.7 MB'}
-];
+let documents = [];
 
 let activeDept='', filteredDocs=[...documents], currentView='grid', deleteDocId=null, selFileData=null, currentUserRole='';
 const collapsedLevels={};
