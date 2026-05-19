@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Laporan K3 AIMS</title>
+<title>Laporan K3 – AIMS</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -165,7 +165,7 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
 .detail-value{font-size:13px;font-weight:600;color:var(--navy);}
 .detail-full{grid-column:1/-1;}
 .foto-grid{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
-.foto-thumb{width:80px;height:80px;border-radius:10px;object-fit:cover;border:2px solid var(--border);cursor:pointer;transition:transform var(--transition);}
+.foto-thumb{width:80px;height:80px;border-radius:10px;object-fit:cover;border:2px solid var(--border);cursor:zoom-in;transition:transform var(--transition);}
 .foto-thumb:hover{transform:scale(1.05);}
 .del-modal-box{background:#fff;border-radius:var(--radius);padding:28px;width:90%;max-width:420px;box-shadow:0 24px 64px rgba(11,24,41,0.28);animation:fadeUp 0.2s ease;}
 .del-modal-title{font-size:17px;font-weight:700;color:var(--navy);margin-bottom:10px;}
@@ -198,10 +198,11 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
     <div><div class="brand-text">AIMS</div><div class="brand-sub">Safety System</div></div>
   </div>
   <nav class="sidebar-nav">
-    <div class="nav-label">Menu Utama</div>
-    <a href="dashboard.html" class="active"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
+    <div class="nav-label">MENU UTAMA</div>
+    <a href="dashboard.html"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
     <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
-    <div class="nav-label">Data </div>
+
+    <div class="nav-label">DATA </div>
     <a href="Bisnis Proses.html"><span class="nav-icon"><i class="fas fa-briefcase"></i></span>Bisnis Proses</a>
    <a href="Emergency drill.html"><span class="nav-icon"><i class="fas fa-fire-extinguisher"></i></span>Emergency drill</a>
    <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
@@ -218,15 +219,16 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
    <a href="Campaign.html"><span class="nav-icon"><i class="fas fa-bullhorn"></i></span>Campaign</a>
    <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
    
-   <div class="nav-label">Dokumen</div>
+   <div class="nav-label">DOKUMEN </div>
     <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
-   <div class="nav-label">Tautan Kerja</div>
+  
+    <div class="nav-label">Tautan Kerja</div>
     <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener" style="color:rgba(0,212,255,0.85)">
       <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent)"><i class="fas fa-external-link-alt"></i></span>
       SIGAP IBP
       <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
     </a>
-     <a href="https://account.accurate.id/manage" target="_blank" rel="noopener" style="color:rgba(255,200,67,0.85)">
+        <a href="https://account.accurate.id/manage" target="_blank" rel="noopener" style="color:rgba(255,200,67,0.85)">
       <span class="nav-icon" style="background:rgba(255,200,67,0.15);color:var(--accent3)"><i class="fas fa-external-link-alt"></i></span>
       Accurate
       <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
@@ -510,11 +512,15 @@ function updateStatus(idx,newStatus){
 // ─── Detail Modal — termasuk Before & After ───────────
 function viewDetail(idx){
   const d=allData[idx];
+  // Simpan foto ke variabel global untuk lightbox
+  window._currentFoto       = d.foto       || [];
+  window._currentFotoBefore = d.fotoBefore || [];
+  window._currentFotoAfter  = d.fotoAfter  || [];
   document.getElementById('modalTitle').innerHTML=`<i class="fas fa-clipboard" style="color:var(--accent);margin-right:8px"></i>${d.id}`;
 
   // Foto umum
   const foto=d.foto&&d.foto.length
-    ?`<div class="detail-full detail-item"><div class="detail-label"><i class="fas fa-images" style="margin-right:4px"></i>Foto Dokumentasi</div><div class="foto-grid">${d.foto.map(f=>`<img class="foto-thumb" src="${f}" onclick="window.open('${f}','_blank')">`).join('')}</div></div>`
+    ?`<div class="detail-full detail-item"><div class="detail-label"><i class="fas fa-images" style="margin-right:4px"></i>Foto Dokumentasi</div><div class="foto-grid">${d.foto.map((f,fi)=>`<img class="foto-thumb" src="${f}" data-idx="${fi}" data-type="foto" style="cursor:zoom-in">`).join('')}</div></div>`
     :'';
 
   // Before & After (dari buat_laporan.html yang menyimpan fotoBefore & fotoAfter)
@@ -528,13 +534,13 @@ function viewDetail(idx){
           <div style="font-size:11px;font-weight:700;color:#c0202e;background:rgba(255,78,106,0.08);padding:4px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;">
             <i class="fas fa-exclamation-triangle" style="font-size:9px"></i> BEFORE
           </div>
-          ${hasBefore?`<div class="foto-grid">${d.fotoBefore.map(f=>`<img class="foto-thumb" src="${f}" onclick="window.open('${f}','_blank')">`).join('')}</div>`:`<div style="font-size:12px;color:var(--muted);font-style:italic;padding:8px 0;">Tidak ada foto</div>`}
+          ${hasBefore?`<div class="foto-grid">${d.fotoBefore.map((f,fi)=>`<img class="foto-thumb" src="${f}" data-idx="${fi}" data-type="before" style="cursor:zoom-in">`).join('')}</div>`:`<div style="font-size:12px;color:var(--muted);font-style:italic;padding:8px 0;">Tidak ada foto</div>`}
         </div>
         <div>
           <div style="font-size:11px;font-weight:700;color:#127754;background:rgba(34,224,161,0.08);padding:4px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;">
             <i class="fas fa-check-circle" style="font-size:9px"></i> AFTER
           </div>
-          ${hasAfter?`<div class="foto-grid">${d.fotoAfter.map(f=>`<img class="foto-thumb" src="${f}" onclick="window.open('${f}','_blank')">`).join('')}</div>`:`<div style="font-size:12px;color:var(--muted);font-style:italic;padding:8px 0;">Tidak ada foto</div>`}
+          ${hasAfter?`<div class="foto-grid">${d.fotoAfter.map((f,fi)=>`<img class="foto-thumb" src="${f}" data-idx="${fi}" data-type="after" style="cursor:zoom-in">`).join('')}</div>`:`<div style="font-size:12px;color:var(--muted);font-style:italic;padding:8px 0;">Tidak ada foto</div>`}
         </div>
       </div>
     </div>`:'';
@@ -543,7 +549,10 @@ function viewDetail(idx){
     <div class="detail-grid">
       <div class="detail-item"><div class="detail-label">Tanggal</div><div class="detail-value">${d.tanggal}</div></div>
       <div class="detail-item"><div class="detail-label">Pelapor</div><div class="detail-value">${d.pelapor}</div></div>
+      <div class="detail-item"><div class="detail-label">NIK</div><div class="detail-value" style="font-family:'Space Mono',monospace;letter-spacing:1px;">${d.nik||'-'}</div></div>
+      <div class="detail-item"><div class="detail-label">Jabatan</div><div class="detail-value">${d.jabatan||'-'}</div></div>
       <div class="detail-item"><div class="detail-label">Departemen</div><div class="detail-value">${d.departemen||'-'}</div></div>
+      <div class="detail-item"><div class="detail-label">SAP Dilakukan</div><div class="detail-value">${d.sapDilakukan||'-'}</div></div>
       <div class="detail-item"><div class="detail-label">Area Kerja</div><div class="detail-value">${d.area}</div></div>
       <div class="detail-item"><div class="detail-label">Aktivitas</div><div class="detail-value">${d.aktivitas}</div></div>
       <div class="detail-item"><div class="detail-label">Jenis Laporan</div><div class="detail-value">${jBadge(d.jenis)}</div></div>
@@ -557,6 +566,20 @@ function viewDetail(idx){
       ${baSection}
     </div>`;
   document.getElementById('detailModal').classList.add('show');
+  // Pasang event listener foto via delegation
+  setTimeout(function() {
+    document.querySelectorAll('.foto-thumb').forEach(function(img) {
+      img.onclick = function(e) {
+        e.stopPropagation();
+        var type  = img.getAttribute('data-type');
+        var idx2  = parseInt(img.getAttribute('data-idx'));
+        var imgs  = type === 'before' ? window._currentFotoBefore
+                  : type === 'after'  ? window._currentFotoAfter
+                  : window._currentFoto;
+        openLightbox(imgs, idx2);
+      };
+    });
+  }, 100);
 }
 
 function deleteRow(idx){deleteIdx=idx;document.getElementById('delLabel').textContent=allData[idx].id;document.getElementById('deleteModal').classList.add('show');}
@@ -623,6 +646,75 @@ function toggleSidebar(){document.getElementById('sidebar').classList.toggle('op
 function logout(){if(confirm('Yakin ingin logout?')){localStorage.removeItem('userName');window.location.href='index.html';}}
 
 loadData();buildStats();buildCharts();applyFilter();
+
+// ── Auto-set sidebar active berdasarkan URL ──────────────────────────
+(function() {
+  var page = window.location.pathname.split('/').pop() || 'dashboard.html';
+  document.querySelectorAll('.sidebar-nav a[href]').forEach(function(a) {
+    a.classList.remove('active');
+    var href = a.getAttribute('href');
+    if (href && href !== '#' && !href.startsWith('http')) {
+      if (href === page || (page === '' && href === 'dashboard.html')) {
+        a.classList.add('active');
+      }
+    }
+  });
+})();
+
+// ── LIGHTBOX ──────────────────────────────────────
+let lbImages = [], lbIndex = 0;
+
+function openLightbox(images, index) {
+  lbImages = images;
+  lbIndex  = index;
+  const lb = document.getElementById('lightbox');
+  lb.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  showLbImage();
+}
+
+function showLbImage() {
+  document.getElementById('lightboxImg').src = lbImages[lbIndex];
+  document.getElementById('lbCounter').textContent = (lbIndex+1) + ' / ' + lbImages.length;
+  document.getElementById('lbPrev').style.display = lbImages.length > 1 ? 'flex' : 'none';
+  document.getElementById('lbNext').style.display = lbImages.length > 1 ? 'flex' : 'none';
+}
+
+function lbNav(dir) {
+  lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+  showLbImage();
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').style.display = 'none';
+  document.body.style.overflow = '';
+  document.getElementById('lightboxImg').src = '';
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+  const lb = document.getElementById('lightbox');
+  if (lb.style.display !== 'flex') return;
+  if (e.key === 'ArrowRight') lbNav(1);
+  if (e.key === 'ArrowLeft')  lbNav(-1);
+  if (e.key === 'Escape')     closeLightbox();
+});
+
 </script>
+
+<!-- LIGHTBOX FOTO -->
+<div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;padding:20px;" onclick="closeLightbox()">
+  <button onclick="closeLightbox()" style="position:absolute;top:20px;right:20px;background:rgba(255,255,255,.15);border:none;color:#fff;width:44px;height:44px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;">
+    <i class="fas fa-times"></i>
+  </button>
+  <button id="lbPrev" onclick="event.stopPropagation();lbNav(-1)" style="position:absolute;left:20px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:#fff;width:44px;height:44px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+    <i class="fas fa-chevron-left"></i>
+  </button>
+  <img id="lightboxImg" src="" style="max-width:90vw;max-height:85vh;border-radius:12px;object-fit:contain;box-shadow:0 24px 64px rgba(0,0,0,.5);" onclick="event.stopPropagation()">
+  <button id="lbNext" onclick="event.stopPropagation();lbNav(1)" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:#fff;width:44px;height:44px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+    <i class="fas fa-chevron-right"></i>
+  </button>
+  <div id="lbCounter" style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.7);font-size:13px;font-family:'Space Mono',monospace;"></div>
+</div>
 </body>
 </html>
