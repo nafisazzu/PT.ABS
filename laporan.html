@@ -16,7 +16,8 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
 .sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,0.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
 .sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,0.07);}
-.brand-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(0,212,255,0.35);flex-shrink:0;}
+.brand-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,162,39,0.35);box-shadow:0 0 14px rgba(201,162,39,0.15),0 4px 12px rgba(0,0,0,0.4);overflow:hidden;position:relative;}
+.brand-icon img{width:80%;height:80%;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(201,162,39,0.2));}
 .brand-text{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:#fff;letter-spacing:2px;}
 .brand-sub{font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
 .sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;}
@@ -186,47 +187,138 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
   .chart-grid{grid-template-columns:1fr;}.detail-grid{grid-template-columns:1fr;}
   .toolbar{gap:6px;}.search-input{width:140px;}
 }
+
+/* ── ACCESS GUARD OVERLAY ─────────────────────────── */
+#accessGuard{display:none;position:fixed;inset:0;z-index:99999;background:rgba(8,15,28,0.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;}
+#accessGuard.show{display:flex;}
+.guard-card{background:linear-gradient(135deg,#0f1e35,#0a1628);border:1px solid rgba(201,162,39,0.25);border-radius:24px;padding:48px 40px;text-align:center;max-width:400px;width:90%;animation:guardIn .4s cubic-bezier(.16,1,.3,1);}
+@keyframes guardIn{from{opacity:0;transform:scale(.9)translateY(20px);}to{opacity:1;transform:scale(1)translateY(0);}}
+.guard-icon{width:80px;height:80px;border-radius:50%;background:rgba(255,78,106,0.12);border:2px solid rgba(255,78,106,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:32px;color:#ff4e6a;}
+.guard-title{font-family:'Barlow',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:.5px;}
+.guard-sub{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:24px;}
+.guard-user{display:inline-flex;align-items:center;gap:8px;background:rgba(201,162,39,0.1);border:1px solid rgba(201,162,39,0.2);border-radius:20px;padding:6px 16px;font-size:12px;color:#c9a227;font-weight:600;margin-bottom:24px;}
+.guard-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:12px;background:linear-gradient(135deg,#c9a227,#a8841e);color:#fff;font-family:'Barlow',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;border:none;cursor:pointer;transition:all .2s;text-decoration:none;}
+.guard-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,162,39,0.3);}
+.guard-logout{display:block;margin-top:14px;font-size:12px;color:rgba(255,255,255,0.35);cursor:pointer;transition:color .2s;}
+.guard-logout:hover{color:rgba(255,78,106,0.7);}
+
+/* ── NOTIFICATION SYSTEM ─────────────────────────── */
+.notif-wrap{position:relative;}
+.notif-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:#ff4e6a;border-radius:50%;font-size:10px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #080f1c;animation:notifPop .3s cubic-bezier(.16,1,.3,1);z-index:10;}
+@keyframes notifPop{from{transform:scale(0);}to{transform:scale(1);}}
+.notif-badge.hidden{display:none;}
+
+.notif-dropdown{position:absolute;top:calc(100% + 10px);right:0;width:360px;background:#0f1e35;border:1px solid rgba(201,162,39,0.2);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.6);z-index:9999;overflow:hidden;display:none;animation:dropDown .25s cubic-bezier(.16,1,.3,1);}
+@keyframes dropDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+.notif-dropdown.open{display:block;}
+.notif-header{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
+.notif-header-title{font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;}
+.notif-header-title i{color:#c9a227;}
+.notif-mark-all{font-size:11px;color:#c9a227;cursor:pointer;font-weight:600;background:none;border:none;padding:0;transition:opacity .2s;}
+.notif-mark-all:hover{opacity:.7;}
+.notif-list{max-height:340px;overflow-y:auto;}
+.notif-item{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background .2s;display:flex;gap:12px;align-items:flex-start;}
+.notif-item:hover{background:rgba(201,162,39,0.06);}
+.notif-item.unread{background:rgba(201,162,39,0.04);}
+.notif-item:last-child{border-bottom:none;}
+.notif-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.notif-icon.new{background:rgba(201,162,39,0.15);color:#c9a227;}
+.notif-icon.read{background:rgba(255,255,255,0.05);color:#6b7fa0;}
+.notif-body{flex:1;min-width:0;}
+.notif-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.notif-item.read .notif-title{color:#6b7fa0;font-weight:400;}
+.notif-meta{font-size:11px;color:#6b7fa0;display:flex;gap:8px;flex-wrap:wrap;}
+.notif-dot{width:7px;height:7px;border-radius:50%;background:#c9a227;flex-shrink:0;margin-top:4px;}
+.notif-dot.read{background:transparent;}
+.notif-empty{padding:32px 18px;text-align:center;color:#6b7fa0;font-size:13px;}
+.notif-empty i{font-size:28px;display:block;margin-bottom:8px;opacity:.4;}
+.notif-footer{padding:12px 18px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;}
+.notif-footer a{font-size:12px;color:#c9a227;font-weight:600;text-decoration:none;}
+
+/* POPUP DETAIL LAPORAN */
+.laporan-popup{display:none;position:fixed;inset:0;z-index:99999;background:rgba(8,15,28,0.85);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;}
+.laporan-popup.open{display:flex;}
+.laporan-popup-card{background:#0f1e35;border:1px solid rgba(201,162,39,0.2);border-radius:20px;width:100%;max-width:520px;max-height:85vh;overflow-y:auto;animation:dropDown .3s cubic-bezier(.16,1,.3,1);}
+.lp-header{padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
+.lp-title{font-size:15px;font-weight:700;color:#fff;}
+.lp-close{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.05);border:none;color:#6b7fa0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.lp-close:hover{background:rgba(255,78,106,0.15);color:#ff4e6a;}
+.lp-body{padding:20px 24px;}
+.lp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.lp-field{background:rgba(255,255,255,0.03);border-radius:10px;padding:12px 14px;}
+.lp-field.full{grid-column:1/-1;}
+.lp-label{font-size:10px;color:#6b7fa0;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.lp-value{font-size:13px;color:#e8edf5;font-weight:500;line-height:1.5;}
+.lp-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+.lp-badge.high{background:rgba(255,78,106,0.15);color:#ff4e6a;}
+.lp-badge.med{background:rgba(201,162,39,0.15);color:#c9a227;}
+.lp-badge.low{background:rgba(34,224,161,0.15);color:#22e0a1;}
+.lp-footer{padding:14px 24px;border-top:1px solid rgba(255,255,255,0.06);display:flex;gap:10px;justify-content:flex-end;}
+.lp-btn{padding:9px 20px;border-radius:10px;font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all .2s;}
+.lp-btn-primary{background:linear-gradient(135deg,#c9a227,#a8841e);color:#fff;}
+.lp-btn-secondary{background:rgba(255,255,255,0.06);color:#e8edf5;border:1px solid rgba(255,255,255,0.1);}
+
 </style>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
+
+<!-- NOTIFICATION DROPDOWN -->
+<div class="laporan-popup" id="laporanPopup" onclick="if(event.target===this)closeLaporanPopup()">
+  <div class="laporan-popup-card">
+    <div class="lp-header">
+      <div class="lp-title"><i class="fas fa-file-alt" style="color:#c9a227;margin-right:8px"></i>Detail Laporan</div>
+      <button class="lp-close" onclick="closeLaporanPopup()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="lp-body" id="laporanPopupBody">
+      <div style="text-align:center;padding:20px;color:#6b7fa0">Memuat...</div>
+    </div>
+    <div class="lp-footer">
+      <button class="lp-btn lp-btn-secondary" onclick="closeLaporanPopup()">Tutup</button>
+      <button class="lp-btn lp-btn-primary" onclick="markAsRead(currentNotifId)"><i class="fas fa-check"></i> Tandai Dibaca</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ACCESS GUARD OVERLAY -->
+<div id="accessGuard">
+  <div class="guard-card">
+    <div class="guard-icon"><i class="fas fa-shield-alt"></i></div>
+    <div class="guard-title">Akses Terbatas</div>
+    <div class="guard-sub">Halaman ini hanya dapat diakses oleh <strong style="color:#c9a227">Admin</strong>. Akun Anda tidak memiliki izin untuk mengakses halaman ini.</div>
+    <div class="guard-user"><i class="fas fa-user-circle"></i> <span id="guardUserName">—</span> &bull; <span id="guardUserLevel">—</span></div>
+    <br>
+    <button class="guard-btn" onclick="window.location.href='buat_laporan.html'">
+      <i class="fas fa-file-alt"></i> Pergi ke Buat Laporan
+    </button>
+    <span class="guard-logout" onclick="guardLogout()"><i class="fas fa-sign-out-alt"></i> Logout dari akun ini</span>
+  </div>
+</div>
+
 <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
 <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
 
 <div class="sidebar" id="sidebar">
   <div class="sidebar-brand">
-    <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
+    <div class="brand-icon"><img src="LOGO.png" alt="AIMS Logo" onerror="this.style.display='none'"></div>
     <div><div class="brand-text">AIMS</div><div class="brand-sub">Safety System</div></div>
   </div>
   <nav class="sidebar-nav">
-    <div class="nav-label">MENU UTAMA</div>
+    <div class="nav-label">Menu Utama</div>
     <a href="dashboard.html"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
     <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
-
-    <div class="nav-label">DATA </div>
-    <a href="Bisnis Proses.html"><span class="nav-icon"><i class="fas fa-briefcase"></i></span>Bisnis Proses</a>
-   <a href="Emergency drill.html"><span class="nav-icon"><i class="fas fa-fire-extinguisher"></i></span>Emergency drill</a>
-   <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
-    
-   <a href="Ibpr.html"><span class="nav-icon"><i class="fas fa-search"></i></span>IBPR</a>
-   <a href="Awards.html"><span class="nav-icon"><i class="fas fa-trophy"></i></span>Awards</a>
-   <a href="Smkp minerba.html"><span class="nav-icon"><i class="fas fa-hard-hat"></i></span>SMKP Minerba</a>
-   <a href="Pica smkp.html"><span class="nav-icon"><i class="fas fa-check"></i></span>PICA SMKP</a>
-   <a href="Sml.html"><span class="nav-icon"><i class="fas fa-leaf"></i></span>SML</a>
-   <a href="Evaluasi kebijakan.html"><span class="nav-icon"><i class="fas fa-book"></i></span>Evaluasi Kebijakan</a>
-   <a href="Kompetensi.html"><span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>Kompetensi</a>
-   <a href="Breaking news.html"><span class="nav-icon"><i class="fas fa-newspaper"></i></span>Breaking News</a>
-   <a href="Job desk.html"><span class="nav-icon"><i class="fas fa-user-tie"></i></span>Job Desk</a>
-   <a href="Campaign.html"><span class="nav-icon"><i class="fas fa-bullhorn"></i></span>Campaign</a>
-   <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
-   
-   <div class="nav-label">DOKUMEN </div>
+    <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
+    <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
+    <div class="nav-label">Data &amp; Dokumen</div>
     <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
-  
+    <a href="laporan.html" class=""><span class="nav-icon"><i class="fas fa-list"></i></span>Laporan</a>
     <div class="nav-label">Tautan Kerja</div>
-    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener" style="color:rgba(0,212,255,0.85)">
-      <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent)"><i class="fas fa-external-link-alt"></i></span>
+    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener noreferrer" style="color:rgba(0,212,255,0.85);">
+      <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent);"><i class="fas fa-external-link-alt"></i></span>
       SIGAP IBP
-      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
+      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.55;"></i>
     </a>
         <a href="https://account.accurate.id/manage" target="_blank" rel="noopener" style="color:rgba(255,200,67,0.85)">
       <span class="nav-icon" style="background:rgba(255,200,67,0.15);color:var(--accent3)"><i class="fas fa-external-link-alt"></i></span>
@@ -377,23 +469,138 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
 // ════════════════════════════════════════════════
 // KEY HARUS SAMA persis dengan buat_laporan.html
 // ════════════════════════════════════════════════
-const REPORTS_KEY = 'sigap_reports_v1';
-let allData=[], filtered=[], currentPage=1, deleteIdx=-1;
+
+// ── FIREBASE ─────────────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyCzEKC8AzK_wx-sg8tDg32JkCa-C4KNqY8",
+  authDomain: "sigap-report-system.firebaseapp.com",
+  projectId: "sigap-report-system",
+  storageBucket: "sigap-report-system.firebasestorage.app",
+  messagingSenderId: "794553302905",
+  appId: "1:794553302905:web:673f1856a8c35cdc58f9a8"
+};
+if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const REPORTS_COL  = 'aims_laporan';
+const REPORTS_KEY  = 'sigap_reports_v1'; // localStorage backup
+
+let allData=[], filtered=[], currentPage=1, deleteIdx=-1, deleteDocId=null;
 const PAGE_SIZE=15;
 let chartJ=null, chartB=null;
+let isLoading = false;
 
-function loadData(){
-  try{ allData=JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]'); }
-  catch(e){ allData=[]; }
+// ── LOAD DATA — Firestore utama + localStorage fallback ──
+async function loadData(){
+  isLoading = true;
+  showLoadingState(true);
+  try {
+    const snap = await db.collection(REPORTS_COL)
+      .orderBy('createdAt','desc')
+      .get();
+
+    // Data dari Firestore
+    const firestoreData = [];
+    snap.forEach(doc => {
+      const d = doc.data();
+      firestoreData.push({
+        ...d,
+        _docId: doc.id,
+        // Konversi timestamp Firestore ke ISO string
+        createdAt: d.createdAt?.toDate ? d.createdAt.toDate().toISOString() : (d.createdAt || new Date().toISOString()),
+        tanggal:   d.tanggal || (d.createdAt?.toDate ? d.createdAt.toDate().toISOString().slice(0,10) : '—'),
+      });
+    });
+
+    // Gabungkan dengan data localStorage (yang ada foto)
+    const localData = [];
+    try { 
+      const raw = JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]');
+      raw.forEach(ld => {
+        // Cek apakah sudah ada di Firestore
+        const match = firestoreData.find(fd => fd.id === ld.id);
+        if(match){
+          // Merge — ambil foto dari localStorage, data lain dari Firestore
+          match.foto      = ld.foto      || match.foto      || [];
+          match.fotoBefore= ld.fotoBefore|| match.fotoBefore|| [];
+          match.fotoAfter = ld.fotoAfter || match.fotoAfter || [];
+        } else {
+          // Laporan lama (sebelum sistem Firestore) — tetap tampilkan
+          localData.push({...ld, _source:'local'});
+        }
+      });
+    } catch(e){}
+
+    // Gabungkan: Firestore dulu, lalu data lokal lama
+    allData = [...firestoreData, ...localData];
+
+    showLoadingState(false);
+    buildStats();
+    buildCharts();
+    applyFilter();
+
+    // Update indikator sumber data
+    const srcEl = document.getElementById('dataSourceInfo');
+    if(srcEl) srcEl.innerHTML = `<i class="fas fa-cloud" style="color:#22e0a1"></i> ${firestoreData.length} dari Firestore${localData.length?' + '+localData.length+' lokal':''}`;
+
+    // Real-time listener untuk update otomatis
+    db.collection(REPORTS_COL)
+      .orderBy('createdAt','desc')
+      .onSnapshot(snapshot => {
+        if(isLoading) return;
+        const newData = [];
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          const existing = allData.find(a => a._docId === doc.id);
+          newData.push({
+            ...d,
+            _docId: doc.id,
+            createdAt: d.createdAt?.toDate ? d.createdAt.toDate().toISOString() : (d.createdAt||''),
+            tanggal:   d.tanggal || (d.createdAt?.toDate ? d.createdAt.toDate().toISOString().slice(0,10) : '—'),
+            // Pertahankan foto dari data yang sudah ada
+            foto:       existing?.foto       || [],
+            fotoBefore: existing?.fotoBefore || [],
+            fotoAfter:  existing?.fotoAfter  || [],
+          });
+        });
+        // Gabungkan dengan data lokal lama
+        const oldLocal = allData.filter(a => a._source==='local');
+        allData = [...newData, ...oldLocal];
+        buildStats(); buildCharts(); applyFilter();
+        showToast('<i class="fas fa-sync"></i> Data diperbarui!');
+      });
+
+  } catch(err) {
+    console.warn('Firestore gagal, pakai localStorage:', err);
+    // Fallback ke localStorage
+    try { allData = JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]'); }
+    catch(e){ allData=[]; }
+    const srcEl = document.getElementById('dataSourceInfo');
+    if(srcEl) srcEl.innerHTML = `<i class="fas fa-hdd" style="color:#c9a227"></i> ${allData.length} dari localStorage (offline)`;
+    showLoadingState(false);
+    buildStats(); buildCharts(); applyFilter();
+  }
+  isLoading = false;
+}
+
+function showLoadingState(show){
+  const tbody = document.getElementById('laporanTable');
+  const empty = document.getElementById('emptyState');
+  if(!tbody) return;
+  if(show){
+    tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:40px;color:#6b7fa0">
+      <i class="fas fa-spinner fa-spin" style="font-size:24px;display:block;margin-bottom:12px;color:#c9a227"></i>
+      Memuat laporan dari server...</td></tr>`;
+    if(empty) empty.style.display='none';
+  }
 }
 
 function rBadge(r){
-  const m={'Critical':'b-critical','High':'b-high','Medium':'b-medium','Low':'b-low'};
+  const m={'Critical':'b-critical','Tinggi':'b-high','High':'b-high','Medium':'b-medium','Sedang':'b-medium','Low':'b-low','Rendah':'b-low'};
   return `<span class="badge ${m[r]||'b-medium'}">${r||'—'}</span>`;
 }
 function sBadge(s){
   const m={'Open':'b-open','Progress':'b-progress','Closed':'b-closed'};
-  return `<span class="badge ${m[s]||'b-open'}">${s}</span>`;
+  return `<span class="badge ${m[s]||'b-open'}">${s||'Open'}</span>`;
 }
 function jBadge(j){
   const m={'Unsafe Act':'b-ua','Unsafe Condition':'b-uc','Near Miss':'b-nm','Observasi':'b-obs','Lainnya':'b-lain'};
@@ -402,17 +609,17 @@ function jBadge(j){
 
 function buildStats(){
   const total  = allData.length;
-  const open   = allData.filter(d=>d.status==='Open').length;
+  const open   = allData.filter(d=>d.status==='Open'||!d.status).length;
   const prog   = allData.filter(d=>d.status==='Progress').length;
   const closed = allData.filter(d=>d.status==='Closed').length;
-  const crit   = allData.filter(d=>d.risiko==='Critical').length;
+  const crit   = allData.filter(d=>d.risiko==='Critical'||d.risiko==='Tinggi').length;
   const high   = allData.filter(d=>d.risiko==='High').length;
   document.getElementById('statsGrid').innerHTML=`
     <div class="stat-card sc-total" style="animation-delay:.05s"><div class="stat-icon"><i class="fas fa-clipboard-list"></i></div><div class="stat-label">Total Laporan</div><div class="stat-value">${total}</div></div>
     <div class="stat-card sc-open"  style="animation-delay:.08s"><div class="stat-icon"><i class="fas fa-folder-open"></i></div><div class="stat-label">Open</div><div class="stat-value">${open}</div></div>
     <div class="stat-card sc-prog"  style="animation-delay:.11s"><div class="stat-icon"><i class="fas fa-spinner"></i></div><div class="stat-label">In Progress</div><div class="stat-value">${prog}</div></div>
     <div class="stat-card sc-closed"style="animation-delay:.14s"><div class="stat-icon"><i class="fas fa-check-circle"></i></div><div class="stat-label">Closed</div><div class="stat-value">${closed}</div></div>
-    <div class="stat-card sc-crit"  style="animation-delay:.17s"><div class="stat-icon"><i class="fas fa-skull-crossbones"></i></div><div class="stat-label">Critical</div><div class="stat-value">${crit}</div></div>
+    <div class="stat-card sc-crit"  style="animation-delay:.17s"><div class="stat-icon"><i class="fas fa-skull-crossbones"></i></div><div class="stat-label">Risiko Tinggi</div><div class="stat-value">${crit}</div></div>
     <div class="stat-card sc-high"  style="animation-delay:.20s"><div class="stat-icon"><i class="fas fa-fire"></i></div><div class="stat-label">High Risk</div><div class="stat-value">${high}</div></div>`;
 }
 
@@ -436,9 +643,9 @@ function applyFilter(){
   const jenis=document.getElementById('filterJenis').value;
   const bulan=document.getElementById('filterBulan').value;
   filtered=allData.filter(d=>{
-    const mQ=!q||d.pelapor?.toLowerCase().includes(q)||d.area?.toLowerCase().includes(q)||d.id?.toLowerCase().includes(q)||d.deskripsi?.toLowerCase().includes(q);
-    const mR=!risiko||d.risiko===risiko;
-    const mS=!status||d.status===status;
+    const mQ=!q||d.pelapor?.toLowerCase().includes(q)||d.area?.toLowerCase().includes(q)||d.id?.toLowerCase().includes(q)||d.deskripsi?.toLowerCase().includes(q)||d.nik?.includes(q);
+    const mR=!risiko||(d.risiko===risiko)||(risiko==='Tinggi'&&(d.risiko==='Tinggi'||d.risiko==='Critical'));
+    const mS=!status||d.status===status||(!d.status&&status==='Open');
     const mJ=!jenis||d.jenis===jenis;
     const mB=!bulan||(d.tanggal&&d.tanggal.startsWith(bulan));
     return mQ&&mR&&mS&&mJ&&mB;
@@ -457,12 +664,13 @@ function renderTable(){
     document.getElementById('emptyState').style.display='none';
     tbody.innerHTML=pageData.map((d,i)=>{
       const idx=allData.indexOf(d);
-      return `<tr onclick="viewDetail(${idx})">
+      const unread = !d.isRead && d._docId ? 'style="font-weight:700;color:#c9a227"' : '';
+      return `<tr onclick="viewDetail(${idx})" ${!d.isRead&&d._docId?'style="background:rgba(201,162,39,0.03)"':''}>
         <td class="no-col">${start+i+1}</td>
-        <td class="id-col">${d.id}</td>
-        <td class="date-col">${d.tanggal}</td>
-        <td style="font-weight:600;color:var(--navy)">${d.pelapor}</td>
-        <td style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${d.area}">${d.area}</td>
+        <td class="id-col" ${unread}>${d.id}</td>
+        <td class="date-col">${d.tanggal||'—'}</td>
+        <td style="font-weight:600;color:var(--navy)">${d.pelapor||'—'}${!d.isRead&&d._docId?'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#ff4e6a;margin-left:6px;vertical-align:middle"></span>':''}</td>
+        <td style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${d.area}">${d.area||'—'}</td>
         <td>${jBadge(d.jenis)}</td>
         <td>${rBadge(d.risiko)}</td>
         <td>${sBadge(d.status)}</td>
@@ -488,7 +696,7 @@ function renderPagination(){
 function goPage(p){const pages=Math.ceil(filtered.length/PAGE_SIZE);if(p<1||p>pages)return;currentPage=p;renderTable();}
 
 function statusTimeline(current,idx){
-  const steps=['Open','Progress','Closed'],icons=['fa-folder-open','fa-spinner','fa-check-circle'],curIdx=steps.indexOf(current);
+  const steps=['Open','Progress','Closed'],icons=['fa-folder-open','fa-spinner','fa-check-circle'],curIdx=steps.indexOf(current)||0;
   let tl=`<div class="status-timeline">`;
   steps.forEach((s,i)=>{
     const cls=i<curIdx?'done':i===curIdx?'active':'pending';
@@ -502,28 +710,38 @@ function statusTimeline(current,idx){
   tl+=`</div>`;return tl;
 }
 
-function updateStatus(idx,newStatus){
+async function updateStatus(idx,newStatus){
   allData[idx].status=newStatus;
-  localStorage.setItem(REPORTS_KEY,JSON.stringify(allData));
+  // Update Firestore jika ada docId
+  if(allData[idx]._docId){
+    try {
+      await db.collection(REPORTS_COL).doc(allData[idx]._docId).update({status:newStatus});
+    } catch(e){ console.warn('Update status gagal:', e); }
+  }
+  // Update localStorage juga
+  try {
+    const local = JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]');
+    const li = local.findIndex(l=>l.id===allData[idx].id);
+    if(li>=0){ local[li].status=newStatus; localStorage.setItem(REPORTS_KEY,JSON.stringify(local)); }
+  } catch(e){}
   buildStats();buildCharts();applyFilter();viewDetail(idx);
   showToast(`<i class="fas fa-check-circle"></i> Status diperbarui ke <strong>${newStatus}</strong>`);
 }
 
-// ─── Detail Modal — termasuk Before & After ───────────
 function viewDetail(idx){
   const d=allData[idx];
-  // Simpan foto ke variabel global untuk lightbox
+  // Tandai dibaca di Firestore
+  if(d._docId && !d.isRead){
+    d.isRead = true;
+    db.collection(REPORTS_COL).doc(d._docId).update({isRead:true}).catch(()=>{});
+  }
   window._currentFoto       = d.foto       || [];
   window._currentFotoBefore = d.fotoBefore || [];
   window._currentFotoAfter  = d.fotoAfter  || [];
   document.getElementById('modalTitle').innerHTML=`<i class="fas fa-clipboard" style="color:var(--accent);margin-right:8px"></i>${d.id}`;
-
-  // Foto umum
   const foto=d.foto&&d.foto.length
     ?`<div class="detail-full detail-item"><div class="detail-label"><i class="fas fa-images" style="margin-right:4px"></i>Foto Dokumentasi</div><div class="foto-grid">${d.foto.map((f,fi)=>`<img class="foto-thumb" src="${f}" data-idx="${fi}" data-type="foto" style="cursor:zoom-in">`).join('')}</div></div>`
     :'';
-
-  // Before & After (dari buat_laporan.html yang menyimpan fotoBefore & fotoAfter)
   const hasBefore=d.fotoBefore&&d.fotoBefore.length;
   const hasAfter =d.fotoAfter &&d.fotoAfter.length;
   const baSection=(hasBefore||hasAfter)?`
@@ -531,62 +749,70 @@ function viewDetail(idx){
       <div class="detail-label" style="margin-bottom:10px;"><i class="fas fa-exchange-alt" style="margin-right:4px"></i>Dokumentasi Before &amp; After</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
         <div>
-          <div style="font-size:11px;font-weight:700;color:#c0202e;background:rgba(255,78,106,0.08);padding:4px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;">
-            <i class="fas fa-exclamation-triangle" style="font-size:9px"></i> BEFORE
-          </div>
+          <div style="font-size:11px;font-weight:700;color:#c0202e;background:rgba(255,78,106,0.08);padding:4px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;"><i class="fas fa-exclamation-triangle" style="font-size:9px"></i> BEFORE</div>
           ${hasBefore?`<div class="foto-grid">${d.fotoBefore.map((f,fi)=>`<img class="foto-thumb" src="${f}" data-idx="${fi}" data-type="before" style="cursor:zoom-in">`).join('')}</div>`:`<div style="font-size:12px;color:var(--muted);font-style:italic;padding:8px 0;">Tidak ada foto</div>`}
         </div>
         <div>
-          <div style="font-size:11px;font-weight:700;color:#127754;background:rgba(34,224,161,0.08);padding:4px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;">
-            <i class="fas fa-check-circle" style="font-size:9px"></i> AFTER
-          </div>
+          <div style="font-size:11px;font-weight:700;color:#127754;background:rgba(34,224,161,0.08);padding:4px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px;"><i class="fas fa-check-circle" style="font-size:9px"></i> AFTER</div>
           ${hasAfter?`<div class="foto-grid">${d.fotoAfter.map((f,fi)=>`<img class="foto-thumb" src="${f}" data-idx="${fi}" data-type="after" style="cursor:zoom-in">`).join('')}</div>`:`<div style="font-size:12px;color:var(--muted);font-style:italic;padding:8px 0;">Tidak ada foto</div>`}
         </div>
       </div>
-    </div>`:'';
-
+    </div>`:''
+  ;
+  const tgl = d.createdAt ? new Date(d.createdAt).toLocaleString('id-ID') : '—';
   document.getElementById('modalBody').innerHTML=`
     <div class="detail-grid">
-      <div class="detail-item"><div class="detail-label">Tanggal</div><div class="detail-value">${d.tanggal}</div></div>
-      <div class="detail-item"><div class="detail-label">Pelapor</div><div class="detail-value">${d.pelapor}</div></div>
+      <div class="detail-item"><div class="detail-label">Tanggal</div><div class="detail-value">${d.tanggal||'—'}</div></div>
+      <div class="detail-item"><div class="detail-label">Pelapor</div><div class="detail-value">${d.pelapor||'—'}</div></div>
       <div class="detail-item"><div class="detail-label">NIK</div><div class="detail-value" style="font-family:'Space Mono',monospace;letter-spacing:1px;">${d.nik||'-'}</div></div>
       <div class="detail-item"><div class="detail-label">Jabatan</div><div class="detail-value">${d.jabatan||'-'}</div></div>
       <div class="detail-item"><div class="detail-label">Departemen</div><div class="detail-value">${d.departemen||'-'}</div></div>
       <div class="detail-item"><div class="detail-label">SAP Dilakukan</div><div class="detail-value">${d.sapDilakukan||'-'}</div></div>
-      <div class="detail-item"><div class="detail-label">Area Kerja</div><div class="detail-value">${d.area}</div></div>
-      <div class="detail-item"><div class="detail-label">Aktivitas</div><div class="detail-value">${d.aktivitas}</div></div>
+      <div class="detail-item"><div class="detail-label">Area Kerja</div><div class="detail-value">${d.area||'—'}</div></div>
+      <div class="detail-item"><div class="detail-label">Aktivitas</div><div class="detail-value">${d.aktivitas||'—'}</div></div>
       <div class="detail-item"><div class="detail-label">Jenis Laporan</div><div class="detail-value">${jBadge(d.jenis)}</div></div>
       <div class="detail-item"><div class="detail-label">Kategori Risiko</div><div class="detail-value">${rBadge(d.risiko)}</div></div>
-      <div class="detail-full detail-item"><div class="detail-label">Status &amp; Tindak Lanjut</div>${statusTimeline(d.status,idx)}</div>
-      <div class="detail-full detail-item"><div class="detail-label">Deskripsi Kejadian</div><div class="detail-value" style="font-weight:400;line-height:1.6;white-space:pre-wrap;">${d.deskripsi}</div></div>
+      <div class="detail-full detail-item"><div class="detail-label">Status &amp; Tindak Lanjut</div>${statusTimeline(d.status||'Open',idx)}</div>
+      <div class="detail-full detail-item"><div class="detail-label">Deskripsi Kejadian</div><div class="detail-value" style="font-weight:400;line-height:1.6;white-space:pre-wrap;">${d.deskripsi||'—'}</div></div>
       <div class="detail-full detail-item"><div class="detail-label">Tindakan Perbaikan</div><div class="detail-value" style="font-weight:400;line-height:1.6;">${d.tindakan||'-'}</div></div>
       <div class="detail-item"><div class="detail-label">Dibuat Oleh</div><div class="detail-value">${d.createdBy||'-'}</div></div>
-      <div class="detail-item"><div class="detail-label">Waktu Input</div><div class="detail-value">${new Date(d.createdAt).toLocaleString('id-ID')}</div></div>
-      ${foto}
-      ${baSection}
+      <div class="detail-item"><div class="detail-label">Waktu Input</div><div class="detail-value">${tgl}</div></div>
+      ${d._source==='local'?'<div class="detail-full detail-item"><div class="detail-label" style="color:#c9a227"><i class="fas fa-hdd"></i> Sumber Data</div><div class="detail-value" style="color:#c9a227">Data lokal (sebelum sistem cloud)</div></div>':''}
+      ${foto}${baSection}
     </div>`;
   document.getElementById('detailModal').classList.add('show');
-  // Pasang event listener foto via delegation
-  setTimeout(function() {
-    document.querySelectorAll('.foto-thumb').forEach(function(img) {
-      img.onclick = function(e) {
+  setTimeout(function(){
+    document.querySelectorAll('.foto-thumb').forEach(function(img){
+      img.onclick=function(e){
         e.stopPropagation();
-        var type  = img.getAttribute('data-type');
-        var idx2  = parseInt(img.getAttribute('data-idx'));
-        var imgs  = type === 'before' ? window._currentFotoBefore
-                  : type === 'after'  ? window._currentFotoAfter
-                  : window._currentFoto;
-        openLightbox(imgs, idx2);
+        var type=img.getAttribute('data-type'),idx2=parseInt(img.getAttribute('data-idx'));
+        var imgs=type==='before'?window._currentFotoBefore:type==='after'?window._currentFotoAfter:window._currentFoto;
+        openLightbox(imgs,idx2);
       };
     });
-  }, 100);
+  },100);
 }
 
-function deleteRow(idx){deleteIdx=idx;document.getElementById('delLabel').textContent=allData[idx].id;document.getElementById('deleteModal').classList.add('show');}
-function confirmDelete(){
+async function deleteRow(idx){
+  deleteIdx=idx;
+  deleteDocId=allData[idx]._docId||null;
+  document.getElementById('delLabel').textContent=allData[idx].id;
+  document.getElementById('deleteModal').classList.add('show');
+}
+async function confirmDelete(){
   if(deleteIdx<0)return;
-  allData.splice(deleteIdx,1);deleteIdx=-1;
-  localStorage.setItem(REPORTS_KEY,JSON.stringify(allData));
+  // Hapus dari Firestore
+  if(deleteDocId){
+    try { await db.collection(REPORTS_COL).doc(deleteDocId).delete(); }
+    catch(e){ console.warn('Firestore delete gagal:', e); }
+  }
+  // Hapus dari localStorage
+  try {
+    const local=JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]');
+    const newLocal=local.filter(l=>l.id!==allData[deleteIdx].id);
+    localStorage.setItem(REPORTS_KEY,JSON.stringify(newLocal));
+  } catch(e){}
+  allData.splice(deleteIdx,1);deleteIdx=-1;deleteDocId=null;
   closeModal('deleteModal');buildStats();buildCharts();applyFilter();
   showToast('<i class="fas fa-trash-alt"></i> Laporan berhasil dihapus!');
 }
@@ -601,14 +827,14 @@ function exportJSON(){
 function exportExcel(){
   if(!allData.length){showToast('<i class="fas fa-exclamation-triangle"></i> Tidak ada data!',true);return;}
   const wb=XLSX.utils.book_new();
-  const header=['No','ID','Tanggal','Pelapor','Departemen','Area','Aktivitas','Jenis','Risiko','Status','Deskripsi','Tindakan','Dibuat Oleh'];
-  const rows=allData.map((d,i)=>[i+1,d.id,d.tanggal,d.pelapor,d.departemen||'-',d.area,d.aktivitas,d.jenis,d.risiko,d.status,d.deskripsi,d.tindakan||'-',d.createdBy||'-']);
+  const header=['No','ID','Tanggal','Pelapor','NIK','Departemen','Area','Aktivitas','Jenis','Risiko','Status','Deskripsi','Tindakan','Dibuat Oleh','Waktu Input'];
+  const rows=allData.map((d,i)=>[i+1,d.id,d.tanggal,d.pelapor,d.nik||'-',d.departemen||'-',d.area,d.aktivitas,d.jenis,d.risiko,d.status||'Open',d.deskripsi,d.tindakan||'-',d.createdBy||'-',d.createdAt?new Date(d.createdAt).toLocaleString('id-ID'):'—']);
   const ws=XLSX.utils.aoa_to_sheet([header,...rows]);
-  ws['!cols']=[{wch:4},{wch:16},{wch:12},{wch:22},{wch:14},{wch:18},{wch:22},{wch:16},{wch:10},{wch:10},{wch:40},{wch:30},{wch:14}];
+  ws['!cols']=[{wch:4},{wch:16},{wch:12},{wch:22},{wch:12},{wch:14},{wch:18},{wch:22},{wch:16},{wch:10},{wch:10},{wch:40},{wch:30},{wch:14},{wch:20}];
   XLSX.utils.book_append_sheet(wb,ws,'Laporan K3');
-  const total=allData.length,open=allData.filter(d=>d.status==='Open').length,prog=allData.filter(d=>d.status==='Progress').length,closed=allData.filter(d=>d.status==='Closed').length;
-  const crit=allData.filter(d=>d.risiko==='Critical').length,high=allData.filter(d=>d.risiko==='High').length,med=allData.filter(d=>d.risiko==='Medium').length,low=allData.filter(d=>d.risiko==='Low').length;
-  const wsR=XLSX.utils.aoa_to_sheet([['REKAP LAPORAN K3 — PT. INSANI BARAPERKASA'],['Export: '+new Date().toLocaleDateString('id-ID',{dateStyle:'full'})],[],['STATUS','Jumlah'],['Open',open],['In Progress',prog],['Closed',closed],['Total',total],[],['RISK LEVEL','Jumlah'],['Critical',crit],['High',high],['Medium',med],['Low',low]]);
+  const total=allData.length,open=allData.filter(d=>d.status==='Open'||!d.status).length,prog=allData.filter(d=>d.status==='Progress').length,closed=allData.filter(d=>d.status==='Closed').length;
+  const crit=allData.filter(d=>d.risiko==='Critical'||d.risiko==='Tinggi').length,high=allData.filter(d=>d.risiko==='High').length,med=allData.filter(d=>d.risiko==='Medium'||d.risiko==='Sedang').length,low=allData.filter(d=>d.risiko==='Low'||d.risiko==='Rendah').length;
+  const wsR=XLSX.utils.aoa_to_sheet([['REKAP LAPORAN K3 — PT. INSANI BARA PERKASA'],['Export: '+new Date().toLocaleDateString('id-ID',{dateStyle:'full'})],[],['STATUS','Jumlah'],['Open',open],['In Progress',prog],['Closed',closed],['Total',total],[],['RISK LEVEL','Jumlah'],['Critical/Tinggi',crit],['High',high],['Medium/Sedang',med],['Low/Rendah',low]]);
   wsR['!cols']=[{wch:20},{wch:10}];
   XLSX.utils.book_append_sheet(wb,wsR,'Rekap');
   XLSX.writeFile(wb,`Laporan-K3-SIGAP-${new Date().toISOString().slice(0,10)}.xlsx`);
@@ -645,7 +871,9 @@ function showToast(msg,isError){
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open');}
 function logout(){if(confirm('Yakin ingin logout?')){localStorage.removeItem('userName');window.location.href='index.html';}}
 
-loadData();buildStats();buildCharts();applyFilter();
+// Mulai load data
+loadData();
+
 
 // ── Auto-set sidebar active berdasarkan URL ──────────────────────────
 (function() {
@@ -716,5 +944,189 @@ document.addEventListener('keydown', function(e) {
   </button>
   <div id="lbCounter" style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.7);font-size:13px;font-family:'Space Mono',monospace;"></div>
 </div>
+<script>
+// ── ACCESS GUARD ─────────────────────────────────────
+(function checkAccess() {
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  const level      = localStorage.getItem('userLevel') || '';
+  const name       = localStorage.getItem('userName')  || 'User';
+
+  // Belum login → redirect ke login
+  if (!isLoggedIn) {
+    window.location.href = 'index.html';
+    return;
+  }
+
+  // Admin → boleh akses semua, tidak perlu guard
+  if (level === 'Admin') return;
+
+  // Bukan admin → tampilkan overlay
+  document.getElementById('accessGuard').classList.add('show');
+  document.getElementById('guardUserName').textContent  = name;
+  document.getElementById('guardUserLevel').textContent = level || 'Karyawan';
+
+  // Disable scroll body
+  document.body.style.overflow = 'hidden';
+})();
+
+function guardLogout() {
+  localStorage.clear();
+  window.location.href = 'index.html';
+}
+</script>
+<script>
+// ── NOTIFICATION SYSTEM ──────────────────────────────
+(function initNotif(){
+  const level = localStorage.getItem('userLevel') || '';
+  if(level !== 'Admin') return; // Hanya admin
+
+  // Firebase init (jika belum)
+  if(!window._notifFirebase){
+    try{
+      const cfg={apiKey:"AIzaSyCzEKC8AzK_wx-sg8tDg32JkCa-C4KNqY8",authDomain:"sigap-report-system.firebaseapp.com",projectId:"sigap-report-system",storageBucket:"sigap-report-system.firebasestorage.app",messagingSenderId:"794553302905",appId:"1:794553302905:web:673f1856a8c35cdc58f9a8"};
+      if(!firebase.apps.length) firebase.initializeApp(cfg);
+      window._notifDB = firebase.firestore();
+      window._notifFirebase = true;
+    }catch(e){ return; }
+  }
+
+  const db = window._notifDB;
+
+  // Update topbar bell button — tambahkan wrapper & badge
+  const bellBtn = document.querySelector('.topbar-btn');
+  if(bellBtn && !bellBtn.parentElement.classList.contains('notif-wrap')){
+    const wrap = document.createElement('div');
+    wrap.className = 'notif-wrap';
+    wrap.style.position = 'relative';
+    bellBtn.parentNode.insertBefore(wrap, bellBtn);
+    wrap.appendChild(bellBtn);
+    // Badge
+    const badge = document.createElement('span');
+    badge.className = 'notif-badge hidden';
+    badge.id = 'notifBadge';
+    wrap.appendChild(badge);
+    // Dropdown
+    const dd = document.createElement('div');
+    dd.className = 'notif-dropdown';
+    dd.id = 'notifDropdown';
+    dd.innerHTML = `
+      <div class="notif-header">
+        <div class="notif-header-title"><i class="fas fa-bell"></i> Notifikasi Laporan</div>
+        <button class="notif-mark-all" onclick="markAllRead()">Tandai semua dibaca</button>
+      </div>
+      <div class="notif-list" id="notifList"><div class="notif-empty"><i class="fas fa-bell-slash"></i>Belum ada laporan masuk</div></div>
+      <div class="notif-footer"><a href="laporan.html">Lihat Semua Laporan →</a></div>`;
+    wrap.appendChild(dd);
+
+    // Toggle dropdown
+    bellBtn.onclick = function(e){
+      e.stopPropagation();
+      dd.classList.toggle('open');
+    };
+    document.addEventListener('click', ()=> dd.classList.remove('open'));
+  }
+
+  // Real-time listener — 10 laporan terbaru
+  db.collection('aims_laporan')
+    .orderBy('createdAt','desc')
+    .limit(10)
+    .onSnapshot(snapshot => {
+      window._notifData = [];
+      snapshot.forEach(doc => window._notifData.push({id:doc.id,...doc.data()}));
+      renderNotif(window._notifData);
+    }, err => console.warn('Notif error:', err));
+})();
+
+function renderNotif(items){
+  const list  = document.getElementById('notifList');
+  const badge = document.getElementById('notifBadge');
+  if(!list) return;
+
+  const unread = items.filter(i => !i.isRead).length;
+  if(badge){
+    if(unread > 0){ badge.textContent = unread > 9 ? '9+' : unread; badge.classList.remove('hidden'); }
+    else           { badge.classList.add('hidden'); }
+  }
+
+  if(items.length === 0){
+    list.innerHTML = '<div class="notif-empty"><i class="fas fa-bell-slash"></i>Belum ada laporan masuk</div>';
+    return;
+  }
+
+  list.innerHTML = items.map(item => {
+    const isRead = item.isRead;
+    const tgl = item.createdAt?.toDate ? item.createdAt.toDate().toLocaleString('id-ID',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : (item.tanggal||'—');
+    const risikoColor = item.risiko==='Tinggi'?'#ff4e6a': item.risiko==='Sedang'?'#c9a227':'#22e0a1';
+    return `<div class="notif-item ${isRead?'read':'unread'}" onclick="openLaporanPopup('${item.id}')">
+      <div class="notif-dot ${isRead?'read':''}"></div>
+      <div class="notif-icon ${isRead?'read':'new'}"><i class="fas fa-file-alt"></i></div>
+      <div class="notif-body">
+        <div class="notif-title">${item.pelapor||'—'} — ${item.area||'—'}</div>
+        <div class="notif-meta">
+          <span>${item.jenis||'—'}</span>
+          <span style="color:${risikoColor}">● ${item.risiko||'—'}</span>
+          <span>${tgl}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// Buka popup detail
+let currentNotifId = null;
+function openLaporanPopup(id){
+  currentNotifId = id;
+  document.getElementById('notifDropdown')?.classList.remove('open');
+  const popup = document.getElementById('laporanPopup');
+  const body  = document.getElementById('laporanPopupBody');
+  if(!popup||!body) return;
+  popup.classList.add('open');
+
+  const item = (window._notifData||[]).find(i=>i.id===id);
+  if(!item){ body.innerHTML='<div style="text-align:center;padding:20px;color:#6b7fa0">Data tidak ditemukan</div>'; return; }
+
+  const tgl = item.createdAt?.toDate ? item.createdAt.toDate().toLocaleString('id-ID') : (item.tanggal||'—');
+  const badgeClass = item.risiko==='Tinggi'?'high': item.risiko==='Sedang'?'med':'low';
+
+  body.innerHTML = `
+    <div class="lp-row">
+      <div class="lp-field"><div class="lp-label">ID Laporan</div><div class="lp-value" style="font-family:monospace;font-size:12px;color:#c9a227">${item.id}</div></div>
+      <div class="lp-field"><div class="lp-label">Tanggal</div><div class="lp-value">${tgl}</div></div>
+      <div class="lp-field"><div class="lp-label">Nama Pelapor</div><div class="lp-value">${item.pelapor||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">NIK</div><div class="lp-value">${item.nik||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Jabatan</div><div class="lp-value">${item.jabatan||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Departemen</div><div class="lp-value">${item.departemen||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Area</div><div class="lp-value">${item.area||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Jenis Laporan</div><div class="lp-value">${item.jenis||'—'}</div></div>
+      <div class="lp-field full"><div class="lp-label">Aktivitas</div><div class="lp-value">${item.aktivitas||'—'}</div></div>
+      <div class="lp-field full"><div class="lp-label">Deskripsi</div><div class="lp-value">${item.deskripsi||'—'}</div></div>
+      <div class="lp-field full"><div class="lp-label">Tindakan</div><div class="lp-value">${item.tindakan||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Kategori Risiko</div><div class="lp-value"><span class="lp-badge ${badgeClass}">${item.risiko||'—'}</span></div></div>
+      <div class="lp-field"><div class="lp-label">Status</div><div class="lp-value">${item.status||'—'}</div></div>
+      ${item.hasFoto?'<div class="lp-field full"><div class="lp-label">Foto</div><div class="lp-value" style="color:#c9a227"><i class="fas fa-image"></i> Ada foto (lihat di halaman laporan)</div></div>':''}
+    </div>`;
+
+  // Auto tandai dibaca
+  markAsRead(id);
+}
+
+function closeLaporanPopup(){
+  document.getElementById('laporanPopup')?.classList.remove('open');
+  currentNotifId = null;
+}
+
+function markAsRead(id){
+  if(!id||!window._notifDB) return;
+  window._notifDB.collection('aims_laporan').doc(id).update({isRead:true}).catch(()=>{});
+}
+
+function markAllRead(){
+  if(!window._notifData||!window._notifDB) return;
+  window._notifData.filter(i=>!i.isRead).forEach(i=>{
+    window._notifDB.collection('aims_laporan').doc(i.id).update({isRead:true}).catch(()=>{});
+  });
+  document.getElementById('notifDropdown')?.classList.remove('open');
+}
+</script>
 </body>
 </html>
