@@ -3,124 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login AIMS</title>
+<title>Login – AIMS</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <style>
 :root{
-  --navy:#0a1628;--navy2:#0d2040;--gold:#f5a623;--gold2:#e8921a;
+  --navy:#0a1628;--navy2:#0d2040;--gold:#c9a227;--gold2:#a8841e;
   --cyan:#00c8e8;--green:#22e0a1;--red:#ff4e6a;
   --text:#1a2540;--muted:#6b7a99;--border:#dde4f0;--white:#ffffff;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;font-family:"Barlow",sans-serif;}
 .page-wrap{min-height:100vh;display:flex;position:relative;overflow:hidden;}
-.bg-scene{
-  position:fixed;inset:0;z-index:0;
-  background-image:url("foto.jpeg");
-  background-size:cover;background-position:center 30%;background-repeat:no-repeat;
-}
-.bg-scene::before{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(10,22,40,0.88) 0%,rgba(10,22,40,0.65) 40%,rgba(10,22,40,0.45) 65%,rgba(10,22,40,0.75) 100%);
-}
-.bg-scene::after{
-  content:"";position:absolute;inset:0;
-  background:radial-gradient(ellipse at 15% 50%,rgba(0,200,232,0.08) 0%,transparent 50%),
-             radial-gradient(ellipse at 85% 20%,rgba(245,166,35,0.06) 0%,transparent 40%);
-}
-.grain{position:fixed;inset:0;z-index:1;opacity:0.04;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-size:200px;}
+.bg-scene{position:fixed;inset:0;z-index:0;background-image:url("foto.jpeg");background-size:cover;background-position:center 30%;}
+.bg-scene::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,22,40,0.92) 0%,rgba(10,22,40,0.70) 40%,rgba(10,22,40,0.55) 65%,rgba(10,22,40,0.80) 100%);}
+.grain{position:fixed;inset:0;z-index:1;opacity:0.04;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-size:200px;}
 .layout{position:relative;z-index:2;width:100%;min-height:100vh;display:flex;}
+
+/* LEFT SIDE */
 .left-side{flex:1;display:flex;flex-direction:column;justify-content:space-between;padding:48px 56px 40px;}
-.brand{display:flex;align-items:center;gap:16px;}
+.brand{display:flex;align-items:center;gap:16px;animation:riseUp .5s .1s both;}
 .brand-logo{width:52px;height:52px;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,0.5);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
 .brand-logo img{width:100%;height:100%;object-fit:cover;}
 .brand-name{font-family:"Barlow Condensed",sans-serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:2.5px;text-transform:uppercase;}
 .brand-sub{font-size:11px;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
-.hero{flex:1;display:flex;flex-direction:column;justify-content:flex-start;padding-top:40px;padding-bottom:20px;}
+.hero{flex:1;display:flex;flex-direction:column;justify-content:flex-start;padding-top:40px;animation:riseUp .5s .25s both;}
 .hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
 .hero-eyebrow::before{content:"";width:32px;height:2px;background:var(--gold);}
 .hero-title{font-family:"Barlow Condensed",sans-serif;font-size:68px;font-weight:800;line-height:0.92;color:#fff;text-transform:uppercase;margin-bottom:22px;text-shadow:0 4px 30px rgba(0,0,0,0.6);}
 .hero-title .accent{color:var(--gold);}
 .hero-title .line2{-webkit-text-stroke:1.5px rgba(255,255,255,0.6);color:transparent;}
-.hero-desc{font-size:15px;color:rgba(255,255,255,0.6);line-height:1.7;max-width:380px;margin-bottom:0;}
-.stats{display:flex;gap:0;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;backdrop-filter:blur(12px);max-width:480px;}
-.stat-item{flex:1;padding:20px 22px;border-right:1px solid rgba(255,255,255,0.08);transition:background .25s;}
-.stat-item:last-child{border-right:none;}
-.stat-item:hover{background:rgba(255,255,255,0.06);}
-.stat-num{font-family:"Barlow Condensed",sans-serif;font-size:28px;font-weight:800;color:var(--gold);line-height:1;}
-.stat-lbl{font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px;line-height:1.4;}
-.features-row{display:flex;gap:12px;margin-top:auto;padding-top:40px;max-width:520px;}
-.feat{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:18px 16px;backdrop-filter:blur(10px);transition:all .3s;}
-.feat:hover{background:rgba(255,255,255,0.1);transform:translateY(-3px);}
-.feat-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;margin-bottom:12px;}
-.fi-a{background:rgba(245,166,35,0.2);color:var(--gold);}.fi-b{background:rgba(0,200,232,0.2);color:var(--cyan);}.fi-c{background:rgba(34,224,161,0.2);color:var(--green);}
-.feat-title{font-size:12px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:4px;}
-.feat-desc{font-size:11px;color:rgba(255,255,255,0.45);line-height:1.5;}
-.right-side{width:440px;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:40px 36px;position:relative;}
-.glass-card{width:100%;max-width:368px;background:rgba(255,255,255,0.97);border-radius:24px;box-shadow:0 0 0 1px rgba(255,255,255,0.2),0 30px 80px rgba(0,0,0,0.5),0 0 100px rgba(0,0,0,0.2);overflow:hidden;animation:riseUp .6s cubic-bezier(.16,1,.3,1) both;}
+.hero-desc{font-size:15px;color:rgba(255,255,255,0.6);line-height:1.7;max-width:380px;}
+
+/* RIGHT SIDE */
+.right-side{width:460px;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:20px 32px;position:relative;}
+.glass-card{width:100%;max-width:396px;background:rgba(255,255,255,0.97);border-radius:24px;box-shadow:0 0 0 1px rgba(255,255,255,0.2),0 30px 80px rgba(0,0,0,0.5);animation:riseUp .6s cubic-bezier(.16,1,.3,1) both;overflow:hidden;max-height:95vh;overflow-y:auto;}
 .card-topbar{height:4px;background:linear-gradient(90deg,var(--navy),var(--navy2) 30%,var(--gold) 60%,var(--gold2));}
-.card-body{padding:32px 32px 28px;}
-.card-head{text-align:center;margin-bottom:28px;}
-.card-logo-wrap{width:60px;height:60px;border-radius:16px;overflow:hidden;background:#f0f4fa;margin:0 auto 14px;box-shadow:0 4px 16px rgba(0,0,0,0.12);border:2px solid #e8eef6;}
+.card-body{padding:28px 28px 22px;}
+.card-head{text-align:center;margin-bottom:20px;}
+.card-logo-wrap{width:52px;height:52px;border-radius:14px;overflow:hidden;background:#f0f4fa;margin:0 auto 12px;box-shadow:0 4px 16px rgba(0,0,0,0.12);border:2px solid #e8eef6;}
 .card-logo-wrap img{width:100%;height:100%;object-fit:cover;}
-.card-title{font-family:"Barlow Condensed",sans-serif;font-size:18px;font-weight:800;color:var(--navy);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;}
-.card-subtitle{font-size:12.5px;color:var(--muted);line-height:1.5;}
-.fgroup{margin-bottom:16px;}
-.flabel{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text);margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+.card-title{font-family:"Barlow Condensed",sans-serif;font-size:17px;font-weight:800;color:var(--navy);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;}
+.card-subtitle{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* TABS */
+.tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:20px;}
+.tab-btn{flex:1;padding:10px 0;font-family:"Barlow Condensed",sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;color:var(--muted);background:none;border:none;cursor:pointer;position:relative;transition:color .2s;}
+.tab-btn.active{color:var(--navy);}
+.tab-btn.active::after{content:"";position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--gold);border-radius:2px;}
+
+/* FORM ELEMENTS */
+.fgroup{margin-bottom:13px;}
+.flabel{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
 .flabel i{color:var(--gold);font-size:10px;}
 .finput-wrap{position:relative;}
-.finput-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#bcc5d8;font-size:13px;pointer-events:none;transition:color .2s;}
-.finput{width:100%;padding:13px 14px 13px 42px;border:1.5px solid var(--border);border-radius:12px;font-family:"Barlow",sans-serif;font-size:14px;color:var(--text);background:#fafbfd;outline:none;transition:all .25s;}
-.finput:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(245,166,35,0.12);}
-.finput:focus ~ .finput-ico,.finput-wrap:focus-within .finput-ico{color:var(--gold);}
-.pw-eye{position:absolute;right:13px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#bcc5d8;font-size:13px;padding:0;transition:color .2s;}
+.finput-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#bcc5d8;font-size:12px;pointer-events:none;transition:color .2s;}
+.finput{width:100%;padding:11px 13px 11px 38px;border:1.5px solid var(--border);border-radius:10px;font-family:"Barlow",sans-serif;font-size:13px;color:var(--text);background:#fafbfd;outline:none;transition:all .25s;}
+.finput:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(201,162,39,0.12);}
+.finput-wrap:focus-within .finput-ico{color:var(--gold);}
+.fselect{width:100%;padding:11px 13px 11px 38px;border:1.5px solid var(--border);border-radius:10px;font-family:"Barlow",sans-serif;font-size:13px;color:var(--text);background:#fafbfd;outline:none;cursor:pointer;appearance:none;transition:all .25s;}
+.fselect:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,39,0.12);}
+.sel-wrap{position:relative;}
+.sel-wrap .finput-ico{pointer-events:none;}
+.sel-wrap::after{content:"▾";position:absolute;right:12px;top:50%;transform:translateY(-50%);color:#bcc5d8;font-size:12px;pointer-events:none;}
+.pw-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#bcc5d8;font-size:12px;padding:0;transition:color .2s;}
 .pw-eye:hover{color:var(--navy);}
-.row-mid{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
-.check-wrap{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;}
-.check-wrap input[type="checkbox"]{display:none;}
-.custom-cb{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
-.check-wrap input:checked ~ .custom-cb{background:var(--gold);border-color:var(--gold);}
-.check-wrap input:checked ~ .custom-cb::after{content:"";width:4px;height:7px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg);margin-top:-1px;}
-.check-txt{font-size:12.5px;color:var(--muted);}
-.forgot-a{font-size:12px;color:var(--gold);font-weight:600;text-decoration:none;}
-.forgot-a:hover{opacity:.75;}
-.alert{display:none;border-radius:10px;padding:12px 14px;font-size:13px;font-weight:500;margin-bottom:14px;display:flex;align-items:flex-start;gap:8px;border:1px solid;animation:riseUp .3s ease;}
-.alert.err{background:rgba(255,78,106,.07);border-color:rgba(255,78,106,.2);color:#b91c1c;}
-.alert.ok{background:rgba(34,224,161,.07);border-color:rgba(34,224,161,.2);color:#127754;}
-.alert.hidden{display:none!important;}
-.btn-main{width:100%;padding:14px;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border:none;border-radius:12px;font-family:"Barlow Condensed",sans-serif;font-size:16px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .28s;display:flex;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;box-shadow:0 6px 24px rgba(10,22,40,0.3);}
-.btn-main::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,166,35,0.25),transparent);opacity:0;transition:opacity .3s;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+/* NIK SEARCH */
+.nik-wrap{display:flex;gap:8px;}
+.nik-wrap .finput-wrap{flex:1;}
+.btn-cek{padding:11px 16px;border-radius:10px;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border:none;font-family:"Barlow Condensed",sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;cursor:pointer;white-space:nowrap;transition:all .2s;}
+.btn-cek:hover{opacity:.9;}
+.btn-cek:disabled{opacity:.5;cursor:not-allowed;}
+.nik-result{border:1px solid transparent;}
+.nik-result{background:#f0faf6;border:1px solid rgba(34,224,161,.3);border-radius:10px;padding:10px 13px;font-size:12px;color:#127754;margin-top:6px;display:none;}
+
+/* STEP INDICATOR */
+.steps{display:flex;align-items:center;justify-content:center;margin-bottom:20px;gap:0;}
+.step{display:flex;align-items:center;gap:6px;}
+.step-num{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);color:var(--muted);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all .3s;flex-shrink:0;}
+.step.done .step-num{background:var(--green);border-color:var(--green);color:#fff;}
+.step.active .step-num{background:var(--navy);border-color:var(--gold);color:#fff;box-shadow:0 0 0 3px rgba(201,162,39,0.2);}
+.step-label{font-size:10px;font-weight:700;letter-spacing:.5px;color:var(--muted);text-transform:uppercase;}
+.step.active .step-label{color:var(--navy);}
+.step.done .step-label{color:var(--green);}
+.step-line{flex:1;height:2px;background:var(--border);margin:0 8px;min-width:20px;transition:background .3s;}
+.step-line.done{background:var(--green);}
+
+/* PROFILE PHOTO */
+.photo-upload{border:2px dashed var(--border);border-radius:12px;padding:16px;text-align:center;cursor:pointer;position:relative;transition:all .2s;}
+.photo-upload:hover{border-color:var(--gold);}
+.photo-upload input{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.photo-preview{width:64px;height:64px;border-radius:50%;background:#f0f4fa;margin:0 auto 8px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:24px;color:#bcc5d8;}
+.photo-preview img{width:100%;height:100%;object-fit:cover;}
+
+/* CONFIRM CARD */
+.confirm-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.confirm-item{background:#f8faff;border-radius:8px;padding:10px 12px;}
+.confirm-lbl{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
+.confirm-val{font-size:13px;font-weight:600;color:var(--navy);word-break:break-word;}
+.confirm-photo{text-align:center;margin-bottom:16px;}
+.confirm-avatar{width:72px;height:72px;border-radius:50%;background:#f0f4fa;margin:0 auto 8px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--gold);border:3px solid var(--gold);}
+.confirm-avatar img{width:100%;height:100%;object-fit:cover;}
+.confirm-name{font-size:15px;font-weight:700;color:var(--navy);}
+.confirm-role{font-size:12px;color:var(--muted);}
+
+/* BUTTONS */
+.btn-main{width:100%;padding:13px;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border:none;border-radius:12px;font-family:"Barlow Condensed",sans-serif;font-size:16px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .28s;display:flex;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;box-shadow:0 6px 24px rgba(10,22,40,0.3);margin-bottom:10px;}
 .btn-main:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(10,22,40,0.4);}
-.btn-main:hover::before{opacity:1;}
 .btn-main.loading{pointer-events:none;opacity:.8;}
+.btn-main.gold{background:linear-gradient(135deg,var(--gold),var(--gold2));}
+.btn-outline{width:100%;padding:11px;background:transparent;color:var(--navy);border:1.5px solid var(--border);border-radius:12px;font-family:"Barlow Condensed",sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all .2s;margin-bottom:8px;}
+.btn-outline:hover{border-color:var(--navy);background:#f8faff;}
 .spin{width:18px;height:18px;border:2.5px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:rotating .65s linear infinite;display:none;}
 .btn-main.loading .spin{display:block;}
 .btn-main.loading .btn-label{display:none;}
-.divider{text-align:center;position:relative;font-size:11.5px;color:#bcc5d8;margin:18px 0;}
-.divider::before,.divider::after{content:"";position:absolute;top:50%;width:calc(50% - 28px);height:1px;background:var(--border);}
+
+/* ALERT */
+.alert{border-radius:10px;padding:11px 13px;font-size:12.5px;font-weight:500;margin-bottom:12px;display:flex;align-items:flex-start;gap:8px;border:1px solid;animation:riseUp .3s ease;}
+.alert.err{background:rgba(255,78,106,.07);border-color:rgba(255,78,106,.2);color:#b91c1c;}
+.alert.ok{background:rgba(34,224,161,.07);border-color:rgba(34,224,161,.2);color:#127754;}
+.alert.hidden{display:none!important;}
+
+/* DIVIDER */
+.divider{text-align:center;position:relative;font-size:11px;color:#bcc5d8;margin:14px 0;}
+.divider::before,.divider::after{content:"";position:absolute;top:50%;width:calc(50% - 24px);height:1px;background:var(--border);}
 .divider::before{left:0;}.divider::after{right:0;}
-.hint{background:linear-gradient(135deg,#fef9f0,#fff8ec);border:1px solid rgba(245,166,35,0.25);border-radius:12px;padding:14px;font-size:12px;color:var(--muted);}
-.hint-head{font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
-.hint-head i{color:var(--gold);}
-.hint-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:6px;}
-.hint-row:last-child{margin-bottom:0;}
-.hint-val{font-family:"DM Mono",monospace;font-size:12px;color:var(--navy);background:rgba(245,166,35,0.1);padding:2px 8px;border-radius:5px;}
-.hint-fill{font-size:11px;color:var(--gold);font-weight:700;cursor:pointer;text-decoration:none;background:rgba(245,166,35,0.12);padding:3px 10px;border-radius:6px;transition:background .2s;}
-.hint-fill:hover{background:rgba(245,166,35,0.25);}
-.card-foot{background:#f8faff;border-top:1px solid var(--border);padding:14px 32px;text-align:center;font-size:11px;color:var(--muted);line-height:1.6;}
-.card-foot strong{color:var(--navy);font-weight:700;}
-@keyframes riseUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+
+/* PANELS */
+.panel{display:none;animation:riseUp .3s ease;}
+.panel.active{display:block;}
+
+/* CARD FOOT */
+.card-foot{background:#f8faff;border-top:1px solid var(--border);padding:12px 28px;text-align:center;font-size:11px;color:var(--muted);}
+.card-foot strong{color:var(--navy);}
+.link-switch{color:var(--gold);font-weight:700;cursor:pointer;text-decoration:none;}
+.link-switch:hover{opacity:.8;}
+
+/* PASSWORD STRENGTH */
+.pw-strength{height:4px;border-radius:4px;background:#eee;margin-top:6px;overflow:hidden;}
+.pw-strength-bar{height:100%;border-radius:4px;transition:all .3s;width:0;}
+.pw-hint{font-size:11px;margin-top:4px;}
+
+/* ROW MID */
+.row-mid{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.check-wrap{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;}
+.check-wrap input[type="checkbox"]{display:none;}
+.custom-cb{width:15px;height:15px;border-radius:4px;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
+.check-wrap input:checked ~ .custom-cb{background:var(--gold);border-color:var(--gold);}
+.check-wrap input:checked ~ .custom-cb::after{content:"";width:4px;height:7px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg);margin-top:-1px;}
+.check-txt{font-size:12px;color:var(--muted);}
+.forgot-a{font-size:12px;color:var(--gold);font-weight:600;text-decoration:none;}
+
+@keyframes riseUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 @keyframes rotating{to{transform:rotate(360deg);}}
-@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
-.brand{animation:riseUp .5s .1s cubic-bezier(.16,1,.3,1) both;}
-.hero{animation:riseUp .5s .25s cubic-bezier(.16,1,.3,1) both;}
-.stats{animation:riseUp .5s .35s cubic-bezier(.16,1,.3,1) both;}
-.features-row{animation:riseUp .5s .45s cubic-bezier(.16,1,.3,1) both;}
-@media(max-width:960px){.left-side{display:none;}.right-side{width:100%;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);}}
-@media(max-width:480px){.right-side{padding:20px 16px;}.card-body{padding:24px 20px 20px;}.card-foot{padding:12px 20px;}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+
+@media(max-width:960px){.left-side{display:none;}.right-side{width:100%;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);padding:20px 16px;}}
+@media(max-width:480px){.card-body{padding:20px 16px 16px;}.card-foot{padding:10px 16px;}.frow{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -128,118 +172,642 @@ html,body{height:100%;font-family:"Barlow",sans-serif;}
   <div class="bg-scene"></div>
   <div class="grain"></div>
   <div class="layout">
+    <!-- LEFT -->
     <div class="left-side">
       <div class="brand">
-        <div class="brand-logo">
-          <img src="LOGO.png" alt="ABS Logo" onerror="this.style.display='none'">
-        </div>
-        <div class="brand-text">
-          <div class="brand-name">PT. Arta Bumi Sakti</div>
-          <div class="brand-sub">Safety &amp; Management System</div>
-        </div>
+        <div class="brand-logo"><img src="LOGO.png" alt="ABS" onerror="this.style.display='none'"></div>
+        <div><div class="brand-name">PT. Arta Bumi Sakti</div><div class="brand-sub">Safety & Management System</div></div>
       </div>
       <div class="hero">
         <div class="hero-eyebrow">Safety First, Always</div>
         <div class="hero-title">ARTA<br><span class="accent">INTEGRATED</span><br><span class="line2">SYSTEM</span></div>
         <div class="hero-desc">Platform terpadu untuk manajemen keselamatan, kesehatan, dan lingkungan kerja tambang. Data real-time, laporan akurat, operasional aman.</div>
-
       </div>
-
     </div>
+
+    <!-- RIGHT -->
     <div class="right-side">
       <div class="glass-card">
         <div class="card-topbar"></div>
         <div class="card-body">
           <div class="card-head">
-            <div class="card-logo-wrap">
-              <img src="LOGO.png" alt="Logo" onerror="this.style.display='none'">
-            </div>
-            <div class="card-title">Integrated Manajemen System</div>
-            <div class="card-subtitle">Selamat datang kembali.<br>Masuk untuk melanjutkan.</div>
+            <div class="card-logo-wrap"><img src="LOGO.png" alt="Logo" onerror="this.style.display='none'"></div>
+            <div class="card-title">AIMS</div>
+            <div class="card-subtitle" id="cardSubtitle">Selamat datang kembali. Masuk untuk melanjutkan.</div>
           </div>
+
+          <!-- TABS -->
+          <div class="tabs" id="mainTabs">
+            <button class="tab-btn active" onclick="switchTab('login')">Masuk</button>
+            <button class="tab-btn" onclick="switchTab('register')">Daftar Akun</button>
+          </div>
+
           <div id="alertBox" class="alert hidden"></div>
-          <form id="loginForm" autocomplete="off" novalidate>
+
+          <!-- ═══ LOGIN PANEL ═══ -->
+          <div id="panelLogin" class="panel active">
             <div class="fgroup">
-              <label class="flabel"><i class="fas fa-user"></i> Username</label>
+              <label class="flabel"><i class="fas fa-envelope"></i> Email</label>
               <div class="finput-wrap">
-                <input class="finput" type="text" id="username" placeholder="Masukkan username" autocomplete="username" required>
-                <i class="fas fa-user finput-ico"></i>
+                <input class="finput" type="text" id="loginEmail" placeholder="Email yang didaftarkan" autocomplete="email">
+                <i class="fas fa-envelope finput-ico"></i>
               </div>
             </div>
             <div class="fgroup">
               <label class="flabel"><i class="fas fa-lock"></i> Password</label>
               <div class="finput-wrap">
-                <input class="finput" type="password" id="password" placeholder="Masukkan password" autocomplete="current-password" required>
+                <input class="finput" type="password" id="loginPassword" placeholder="Password Anda" autocomplete="current-password">
                 <i class="fas fa-lock finput-ico"></i>
-                <button type="button" class="pw-eye" onclick="togglePw()"><i class="fas fa-eye" id="pwIcon"></i></button>
+                <button type="button" class="pw-eye" onclick="togglePw('loginPassword','pwIcon1')"><i class="fas fa-eye" id="pwIcon1"></i></button>
               </div>
             </div>
             <div class="row-mid">
-              <label class="check-wrap">
-                <input type="checkbox" id="rememberMe">
-                <span class="custom-cb"></span>
-                <span class="check-txt">Ingat Saya</span>
-              </label>
+              <label class="check-wrap"><input type="checkbox" id="rememberMe"><span class="custom-cb"></span><span class="check-txt">Ingat Saya</span></label>
               <a href="#" class="forgot-a">Lupa Password?</a>
             </div>
-            <button type="submit" class="btn-main" id="loginBtn">
-              <div class="spin"></div>
+            <button class="btn-main" onclick="doLogin()">
+              <div class="spin" id="loginSpin"></div>
               <span class="btn-label"><i class="fas fa-sign-in-alt"></i>&ensp;MASUK</span>
             </button>
-          </form>
-          <div class="divider">Akun Default Demo</div>
-          <div class="hint">
-            <div class="hint-head"><i class="fas fa-key"></i> Kredensial Akses</div>
-            <div class="hint-row">
-              <span>Username: <span class="hint-val">admin</span></span>
-              <span>Password: <span class="hint-val">admin123</span></span>
-              <a class="hint-fill" onclick="fillDefault()" href="#">Isi Otomatis</a>
-            </div>
-            <div style="font-size:11px;color:#aab;margin-top:8px;line-height:1.5">Ganti password setelah login pertama untuk keamanan sistem.</div>
+
           </div>
-        </div>
-        <div class="card-foot">&copy; 2026 <strong>PT. Insani Baraperkasa</strong><br>Sistem Informasi K3LH &bull; All rights reserved</div>
+
+          <!-- ═══ REGISTER: STEP 1 — Data Diri ═══ -->
+          <div id="panelReg1" class="panel">
+            <div class="steps">
+              <div class="step active" id="step1">
+                <div class="step-num">1</div>
+                <div class="step-label">Data Diri</div>
+              </div>
+              <div class="step-line" id="line12"></div>
+              <div class="step" id="step2">
+                <div class="step-num">2</div>
+                <div class="step-label">Konfirmasi</div>
+              </div>
+              <div class="step-line" id="line23"></div>
+              <div class="step" id="step3">
+                <div class="step-num">3</div>
+                <div class="step-label">Akun</div>
+              </div>
+            </div>
+
+            <!-- NIK -->
+            <div class="fgroup">
+              <label class="flabel"><i class="fas fa-id-card"></i> NIK / Nama Karyawan</label>
+              <div class="nik-wrap">
+                <div class="finput-wrap">
+                  <input class="finput" type="text" id="regNIK" placeholder="Ketik NIK atau Nama...">
+                  <i class="fas fa-id-card finput-ico"></i>
+                </div>
+                <button class="btn-cek" onclick="cekNIK()"><i class="fas fa-search"></i> Cek</button>
+              </div>
+              <div class="nik-result" id="nikResult"></div>
+            </div>
+
+            <!-- Nama + Email -->
+            <div class="frow">
+              <div class="fgroup">
+                <label class="flabel"><i class="fas fa-user"></i> Nama Lengkap</label>
+                <div class="finput-wrap">
+                  <input class="finput" type="text" id="regNama" placeholder="Nama lengkap">
+                  <i class="fas fa-user finput-ico"></i>
+                </div>
+              </div>
+              <div class="fgroup">
+                <label class="flabel"><i class="fas fa-envelope"></i> Email</label>
+                <div class="finput-wrap">
+                  <input class="finput" type="email" id="regEmail" placeholder="email@domain.com">
+                  <i class="fas fa-envelope finput-ico"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- WA -->
+            <div class="fgroup">
+              <label class="flabel"><i class="fab fa-whatsapp"></i> Nomor WhatsApp</label>
+              <div class="finput-wrap">
+                <input class="finput" type="text" id="regWA" placeholder="08xxxxxxxxxx">
+                <i class="fab fa-whatsapp finput-ico"></i>
+              </div>
+            </div>
+
+            <!-- Level + Dept -->
+            <div class="frow">
+              <div class="fgroup">
+                <label class="flabel"><i class="fas fa-layer-group"></i> Level Jabatan</label>
+                <div class="sel-wrap">
+                  <i class="fas fa-layer-group finput-ico"></i>
+                  <select class="fselect" id="regLevel">
+                    <option value="">-- Pilih Level --</option>
+                    <option value="Non Staff">Non Staff</option>
+                    <option value="Officer">Officer</option>
+                    <option value="Foreman">Foreman</option>
+                    <option value="Supervisor">Supervisor</option>
+                    <option value="Superintendent">Superintendent</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Senior Manager">Senior Manager</option>
+                    <option value="General Manager">General Manager</option>
+                    <option value="Direktur">Direktur</option>
+                  </select>
+                </div>
+              </div>
+              <div class="fgroup">
+                <label class="flabel"><i class="fas fa-sitemap"></i> Departemen</label>
+                <div class="sel-wrap">
+                  <i class="fas fa-sitemap finput-ico"></i>
+                  <select class="fselect" id="regDept">
+                    <option value="">-- Pilih Dept --</option>
+                    <option>Engineering & Technical Support</option>
+                    <option>External & CSR</option>
+                    <option>Finance & Acc</option>
+                    <option>Geology & Exploration</option>
+                    <option>Hauling</option>
+                    <option>HRGA</option>
+                    <option>HSE</option>
+                    <option>Information Technology</option>
+                    <option>Internal Audit</option>
+                    <option>Land Acquisition</option>
+                    <option>Legal</option>
+                    <option>Logistic</option>
+                    <option>Management</option>
+                    <option>Mining Operation South (Selatan)</option>
+                    <option>PJO</option>
+                    <option>Plant</option>
+                    <option>Port, Shipping & Coal Quality</option>
+                    <option>Procurement</option>
+                    <option>Produksi</option>
+                    <option>Project & Asset Management</option>
+                    <option>SATPAM</option>
+                    <option>SCM - CI</option>
+                    <option>Security Service & Litigation</option>
+                    <option>SHE</option>
+                    <option>Survey</option>
+                    <option>Tech Service Mining Operation South</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Perusahaan + Lokasi -->
+            <div class="frow">
+              <div class="fgroup">
+                <label class="flabel"><i class="fas fa-building"></i> Perusahaan</label>
+                <div class="sel-wrap">
+                  <i class="fas fa-building finput-ico"></i>
+                  <select class="fselect" id="regPerusahaan">
+                    <option value="">-- Pilih --</option>
+                    <option value="PT. IBP">PT. IBP</option>
+                    <option value="PT. BUMA">PT. BUMA</option>
+                    <option value="PT. ABS">PT. ABS</option>
+                    <option value="PT. MAJU">PT. MAJU</option>
+                    <option value="PT. BMS">PT. BMS</option>
+                    <option value="PT. MOP">PT. MOP</option>
+                    <option value="PT. AIP">PT. AIP</option>
+                    <option value="PT. SSJ">PT. SSJ</option>
+                    <option value="PT. TAKA">PT. TAKA</option>
+                  </select>
+                </div>
+              </div>
+              <div class="fgroup">
+                <label class="flabel"><i class="fas fa-map-marker-alt"></i> Lokasi Kerja</label>
+                <div class="sel-wrap">
+                  <i class="fas fa-map-marker-alt finput-ico"></i>
+                  <select class="fselect" id="regLokasi">
+                    <option value="">-- Pilih --</option>
+                    <option value="HO Jakarta">HO Jakarta</option>
+                    <option value="Kantor Sempaja">Kantor Sempaja</option>
+                    <option value="Site Loa Haur">Site Loa Haur</option>
+                    <option value="Site Loa Janan">Site Loa Janan</option>
+                    <option value="Site Separi">Site Separi</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Foto Profil -->
+            <div class="fgroup">
+              <label class="flabel"><i class="fas fa-camera"></i> Foto Profil <span style="color:#bcc5d8;font-weight:400">(opsional)</span></label>
+              <div class="photo-upload" id="photoUpload">
+                <input type="file" id="regFoto" accept="image/*" onchange="previewPhoto(this)">
+                <div class="photo-preview" id="photoPreview"><i class="fas fa-user"></i></div>
+                <div style="font-size:12px;color:var(--muted)">Klik untuk pilih foto</div>
+              </div>
+            </div>
+
+            <button class="btn-main gold" onclick="goStep2()">
+              <span class="btn-label">Lanjut <i class="fas fa-arrow-right"></i></span>
+            </button>
+          </div>
+
+          <!-- ═══ REGISTER: STEP 2 — Konfirmasi ═══ -->
+          <div id="panelReg2" class="panel">
+            <div class="steps">
+              <div class="step done" id="s1"><div class="step-num"><i class="fas fa-check" style="font-size:10px"></i></div><div class="step-label">Data Diri</div></div>
+              <div class="step-line done"></div>
+              <div class="step active" id="s2"><div class="step-num">2</div><div class="step-label">Konfirmasi</div></div>
+              <div class="step-line" id="line23b"></div>
+              <div class="step" id="s3"><div class="step-num">3</div><div class="step-label">Akun</div></div>
+            </div>
+            <div class="confirm-photo">
+              <div class="confirm-avatar" id="confirmAvatar"><i class="fas fa-user"></i></div>
+              <div class="confirm-name" id="confirmNama">—</div>
+              <div class="confirm-role" id="confirmRole">—</div>
+            </div>
+            <div class="confirm-grid" id="confirmGrid"></div>
+            <p style="font-size:12px;color:var(--muted);text-align:center;margin-bottom:14px;">Pastikan data di atas sudah benar sebelum melanjutkan.</p>
+            <button class="btn-main gold" onclick="goStep3()">
+              <span class="btn-label"><i class="fas fa-check-circle"></i>&ensp;Data Sudah Benar, Lanjut</span>
+            </button>
+            <button class="btn-outline" onclick="backStep1()"><i class="fas fa-arrow-left"></i>&ensp;Kembali & Edit</button>
+          </div>
+
+          <!-- ═══ REGISTER: STEP 3 — Buat Password ═══ -->
+          <div id="panelReg3" class="panel">
+            <div class="steps">
+              <div class="step done"><div class="step-num"><i class="fas fa-check" style="font-size:10px"></i></div><div class="step-label">Data Diri</div></div>
+              <div class="step-line done"></div>
+              <div class="step done"><div class="step-num"><i class="fas fa-check" style="font-size:10px"></i></div><div class="step-label">Konfirmasi</div></div>
+              <div class="step-line done"></div>
+              <div class="step active"><div class="step-num">3</div><div class="step-label">Akun</div></div>
+            </div>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:16px;text-align:center;">Buat password untuk akun <strong id="step3Email" style="color:var(--navy)"></strong></p>
+            <div class="fgroup">
+              <label class="flabel"><i class="fas fa-lock"></i> Password</label>
+              <div class="finput-wrap">
+                <input class="finput" type="password" id="regPassword" placeholder="Minimal 8 karakter" oninput="checkPwStrength()">
+                <i class="fas fa-lock finput-ico"></i>
+                <button type="button" class="pw-eye" onclick="togglePw('regPassword','pwIcon2')"><i class="fas fa-eye" id="pwIcon2"></i></button>
+              </div>
+              <div class="pw-strength"><div class="pw-strength-bar" id="pwBar"></div></div>
+              <div class="pw-hint" id="pwHint"></div>
+            </div>
+            <div class="fgroup">
+              <label class="flabel"><i class="fas fa-lock"></i> Konfirmasi Password</label>
+              <div class="finput-wrap">
+                <input class="finput" type="password" id="regPasswordConf" placeholder="Ulangi password">
+                <i class="fas fa-lock finput-ico"></i>
+                <button type="button" class="pw-eye" onclick="togglePw('regPasswordConf','pwIcon3')"><i class="fas fa-eye" id="pwIcon3"></i></button>
+              </div>
+            </div>
+            <button class="btn-main" onclick="doRegister()">
+              <div class="spin" id="regSpin"></div>
+              <span class="btn-label"><i class="fas fa-user-plus"></i>&ensp;DAFTAR SEKARANG</span>
+            </button>
+            <button class="btn-outline" onclick="backStep2()"><i class="fas fa-arrow-left"></i>&ensp;Kembali</button>
+          </div>
+
+          <!-- ═══ SUCCESS ═══ -->
+          <div id="panelSuccess" class="panel">
+            <div style="text-align:center;padding:16px 0 20px;">
+              <div style="width:72px;height:72px;border-radius:50%;background:rgba(34,224,161,0.12);border:3px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:28px;color:var(--green);">
+                <i class="fas fa-check"></i>
+              </div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:var(--navy);margin-bottom:8px;">Pendaftaran Berhasil!</div>
+              <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px;">Akun Anda telah dibuat. Silakan login menggunakan email dan password yang sudah dibuat.</div>
+              <button class="btn-main" onclick="switchTab('login')">
+                <span class="btn-label"><i class="fas fa-sign-in-alt"></i>&ensp;LOGIN SEKARANG</span>
+              </button>
+            </div>
+          </div>
+
+        </div><!-- end card-body -->
+        <div class="card-foot">&copy; 2026 <strong>PT. Arta Bumi Sakti</strong><br>Sistem Informasi K3LH &bull; All rights reserved</div>
       </div>
     </div>
   </div>
 </div>
+
 <script>
-const ACCOUNTS=[
-  {username:"admin",password:"admin123",name:"Administrator",role:"Admin"},
-  {username:"she",password:"she2026",name:"Petugas SHE",role:"SHE Officer"},
-  {username:"supervisor",password:"spv2026",name:"Supervisor",role:"Supervisor"},
+// ── FIREBASE CONFIG ──────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyCzEKC8AzK_wx-sg8tDg32JkCa-C4KNqY8",
+  authDomain: "sigap-report-system.firebaseapp.com",
+  projectId: "sigap-report-system",
+  storageBucket: "sigap-report-system.firebasestorage.app",
+  messagingSenderId: "794553302905",
+  appId: "1:794553302905:web:673f1856a8c35cdc58f9a8"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const USERS_COL = 'aims_users';
+
+// ── AKUN ADMIN LOKAL ─────────────────────────────────
+const ADMIN_ACCOUNTS = [
+  {email:'admin',       password:'admin123',  name:'Administrator', level:'Admin',  dept:'Management', perusahaan:'PT. ABS', lokasi:'Kantor Sempaja'},
+  {email:'admin@aims.com', password:'aims2025', name:'Admin AIMS',  level:'Admin',  dept:'Management', perusahaan:'PT. ABS', lokasi:'Kantor Sempaja'},
 ];
-(function(){
-  const saved=localStorage.getItem("rememberedUser");
-  if(saved){document.getElementById("username").value=saved;document.getElementById("rememberMe").checked=true;}
-})();
-function fillDefault(){document.getElementById("username").value="admin";document.getElementById("password").value="admin123";}
-function togglePw(){const pw=document.getElementById("password"),icon=document.getElementById("pwIcon");pw.type=pw.type==="password"?"text":"password";icon.className=pw.type==="password"?"fas fa-eye":"fas fa-eye-slash";}
-function showAlert(msg,type){const box=document.getElementById("alertBox");const ico=type==="err"?"fa-exclamation-circle":"fa-check-circle";box.innerHTML=`<i class="fas ${ico}" style="flex-shrink:0;margin-top:1px"></i><span>${msg}</span>`;box.className=`alert ${type}`;}
-document.getElementById("loginForm").addEventListener("submit",function(e){
-  e.preventDefault();
-  const uname=document.getElementById("username").value.trim();
-  const pw=document.getElementById("password").value;
-  const remember=document.getElementById("rememberMe").checked;
-  const btn=document.getElementById("loginBtn");
-  if(!uname||!pw){showAlert("Username dan password tidak boleh kosong.","err");btn.style.animation="shake .4s ease";setTimeout(()=>btn.style.animation="",500);return;}
-  btn.classList.add("loading");document.getElementById("alertBox").className="alert hidden";
-  setTimeout(()=>{
-    const acc=ACCOUNTS.find(a=>a.username===uname&&a.password===pw);
-    if(acc){
-      localStorage.setItem("isLoggedIn","true");localStorage.setItem("userName",acc.name);
-      localStorage.setItem("userRole",acc.role);localStorage.setItem("userUsername",acc.username);
-      if(remember)localStorage.setItem("rememberedUser",uname);else localStorage.removeItem("rememberedUser");
-      showAlert("<strong>Login berhasil!</strong> Mengalihkan ke dashboard...","ok");
-      setTimeout(()=>{window.location.href="dashboard.html";},900);
-    }else{
-      btn.classList.remove("loading");showAlert("Username atau password salah. Silakan coba lagi.","err");
-      document.getElementById("password").value="";document.getElementById("password").focus();
-      btn.style.animation="shake .4s ease";setTimeout(()=>btn.style.animation="",500);
+
+// ── LEVEL ACCESS MAP ─────────────────────────────────
+// Semakin tinggi level, semakin banyak akses
+const LEVEL_ORDER = ['Non Staff','Officer','Foreman','Supervisor','Superintendent','Manager','Senior Manager','General Manager','Direktur','Admin'];
+
+// ── FORM DATA ─────────────────────────────────────────
+let formData = {};
+let photoBase64 = '';
+
+// ── TAB SWITCH ────────────────────────────────────────
+function switchTab(tab) {
+  const tabs = document.querySelectorAll('.tab-btn');
+  tabs[0].classList.toggle('active', tab === 'login');
+  tabs[1].classList.toggle('active', tab === 'register');
+  hideAllPanels();
+  clearAlert();
+  if (tab === 'login') {
+    document.getElementById('panelLogin').classList.add('active');
+    document.getElementById('cardSubtitle').textContent = 'Selamat datang kembali. Masuk untuk melanjutkan.';
+  } else {
+    document.getElementById('panelReg1').classList.add('active');
+    document.getElementById('cardSubtitle').textContent = 'Daftarkan akun baru Anda.';
+  }
+}
+
+function hideAllPanels() {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+}
+
+// ── LOGIN ─────────────────────────────────────────────
+async function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pw    = document.getElementById('loginPassword').value;
+  const remember = document.getElementById('rememberMe').checked;
+  if (!email || !pw) { showAlert('Email dan password tidak boleh kosong.','err'); return; }
+
+  const btn = document.getElementById('loginSpin').parentElement;
+  btn.classList.add('loading');
+  clearAlert();
+
+  // Cek admin lokal dulu
+  const admin = ADMIN_ACCOUNTS.find(a => (a.email === email) && a.password === pw);
+  if (admin) {
+    saveSession(admin, remember, email);
+    showAlert('<strong>Login berhasil!</strong> Mengalihkan...','ok');
+    setTimeout(() => window.location.href = 'dashboard.html', 900);
+    return;
+  }
+
+  // Cek di Firestore
+  try {
+    const snap = await db.collection(USERS_COL)
+      .where('email', '==', email.toLowerCase())
+      .limit(1).get();
+
+    if (snap.empty) {
+      btn.classList.remove('loading');
+      showAlert('Email tidak ditemukan. Silakan daftar terlebih dahulu.','err');
+      return;
     }
-  },850);
-});
-document.getElementById("username").addEventListener("keydown",function(e){if(e.key==="Enter")document.getElementById("password").focus();});
+    const user = snap.docs[0].data();
+    if (user.password !== pw) {
+      btn.classList.remove('loading');
+      showAlert('Password salah. Silakan coba lagi.','err');
+      return;
+    }
+    saveSession(user, remember, email);
+    showAlert('<strong>Login berhasil!</strong> Mengalihkan...','ok');
+    // Karyawan → buat_laporan, Admin → dashboard
+    const dest = (user.level === 'Admin') ? 'dashboard.html' : 'buat_laporan.html';
+    setTimeout(() => window.location.href = dest, 900);
+  } catch(e) {
+    btn.classList.remove('loading');
+    showAlert('Gagal terhubung ke server. Periksa koneksi internet.','err');
+  }
+}
+
+function saveSession(user, remember, email) {
+  localStorage.setItem('isLoggedIn',   'true');
+  localStorage.setItem('userName',     user.name);
+  localStorage.setItem('userLevel',    user.level || '');
+  localStorage.setItem('userDept',     user.dept  || '');
+  localStorage.setItem('userEmail',    user.email || email);
+  localStorage.setItem('userWA',       user.wa    || '');
+  localStorage.setItem('userNIK',      user.nik   || '');
+  localStorage.setItem('userPerusahaan', user.perusahaan || '');
+  localStorage.setItem('userLokasi',   user.lokasi || '');
+  localStorage.setItem('userPhoto',    user.photo  || '');
+  // Role untuk kompatibilitas dengan halaman lain
+  localStorage.setItem('userRole',     user.level  || 'Officer');
+  if (remember) localStorage.setItem('rememberedEmail', email);
+  else          localStorage.removeItem('rememberedEmail');
+}
+
+
+// ── CEK NIK ke Firestore ─────────────────────────────
+async function cekNIK() {
+  const val = document.getElementById('regNIK').value.trim();
+  if (!val) { showAlert('Masukkan NIK atau Nama terlebih dahulu.','err'); return; }
+
+  const res = document.getElementById('nikResult');
+  const btn = document.querySelector('.btn-cek');
+  res.style.display = 'block';
+  res.style.background = '#f0f4fa';
+  res.style.borderColor = '#dde4f0';
+  res.style.color = '#6b7a99';
+  res.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memeriksa data...';
+  btn.disabled = true;
+
+  try {
+    // Cek berdasarkan NIK
+    let snap = await db.collection(USERS_COL)
+      .where('nik', '==', val).limit(1).get();
+
+    // Kalau tidak ketemu by NIK, cek by nama (case insensitive dengan lowercase)
+    if (snap.empty) {
+      snap = await db.collection(USERS_COL)
+        .where('nameLower', '==', val.toLowerCase()).limit(1).get();
+    }
+
+    if (!snap.empty) {
+      // Sudah terdaftar
+      res.style.background = 'rgba(255,78,106,0.07)';
+      res.style.borderColor = 'rgba(255,78,106,0.3)';
+      res.style.color = '#b91c1c';
+      res.innerHTML = `<i class="fas fa-exclamation-circle"></i> NIK/Nama "<strong>${val}</strong>" sudah terdaftar di sistem. <a href="#" onclick="switchTab('login');return false;" style="color:var(--gold);font-weight:700">Silakan Login →</a>`;
+    } else {
+      // Belum terdaftar — boleh lanjut
+      res.style.background = 'rgba(34,224,161,0.07)';
+      res.style.borderColor = 'rgba(34,224,161,0.3)';
+      res.style.color = '#127754';
+      res.innerHTML = `<i class="fas fa-check-circle"></i> NIK/Nama "<strong>${val}</strong>" belum terdaftar. Silakan lengkapi data di bawah.`;
+    }
+  } catch(e) {
+    res.style.background = 'rgba(255,78,106,0.07)';
+    res.style.borderColor = 'rgba(255,78,106,0.3)';
+    res.style.color = '#b91c1c';
+    res.innerHTML = '<i class="fas fa-wifi"></i> Gagal terhubung ke server. Periksa koneksi internet.';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+// ── STEP 1 → 2 ────────────────────────────────────────
+function goStep2() {
+  const nama       = document.getElementById('regNama').value.trim();
+  const email      = document.getElementById('regEmail').value.trim();
+  const wa         = document.getElementById('regWA').value.trim();
+  const level      = document.getElementById('regLevel').value;
+  const dept       = document.getElementById('regDept').value;
+  const perusahaan = document.getElementById('regPerusahaan').value;
+  const lokasi     = document.getElementById('regLokasi').value;
+  const nik        = document.getElementById('regNIK').value.trim();
+
+  if (!nama)       { showAlert('Nama lengkap wajib diisi.','err'); return; }
+  if (!email || !email.includes('@')) { showAlert('Email tidak valid.','err'); return; }
+  if (!wa)         { showAlert('Nomor WhatsApp wajib diisi.','err'); return; }
+  if (!level)      { showAlert('Pilih level jabatan.','err'); return; }
+  if (!dept)       { showAlert('Pilih departemen.','err'); return; }
+  if (!perusahaan) { showAlert('Pilih perusahaan.','err'); return; }
+  if (!lokasi)     { showAlert('Pilih lokasi kerja.','err'); return; }
+
+  formData = { nik, nama, email: email.toLowerCase(), wa, level, dept, perusahaan, lokasi };
+
+  // Render konfirmasi
+  document.getElementById('confirmNama').textContent  = nama;
+  document.getElementById('confirmRole').textContent  = `${level} — ${dept}`;
+  const av = document.getElementById('confirmAvatar');
+  if (photoBase64) {
+    av.innerHTML = `<img src="${photoBase64}" style="width:100%;height:100%;object-fit:cover;">`;
+  } else {
+    av.innerHTML = `<i class="fas fa-user"></i>`;
+  }
+
+  const fields = [
+    ['NIK', nik || '—'], ['Email', email], ['WhatsApp', wa],
+    ['Level', level], ['Departemen', dept],
+    ['Perusahaan', perusahaan], ['Lokasi', lokasi]
+  ];
+  document.getElementById('confirmGrid').innerHTML = fields.map(([l,v]) =>
+    `<div class="confirm-item"><div class="confirm-lbl">${l}</div><div class="confirm-val">${v}</div></div>`
+  ).join('');
+
+  clearAlert();
+  hideAllPanels();
+  document.getElementById('panelReg2').classList.add('active');
+}
+
+function backStep1() { hideAllPanels(); document.getElementById('panelReg1').classList.add('active'); }
+
+// ── STEP 2 → 3 ────────────────────────────────────────
+function goStep3() {
+  document.getElementById('step3Email').textContent = formData.email;
+  clearAlert();
+  hideAllPanels();
+  document.getElementById('panelReg3').classList.add('active');
+}
+function backStep2() { hideAllPanels(); document.getElementById('panelReg2').classList.add('active'); }
+
+// ── PASSWORD STRENGTH ─────────────────────────────────
+function checkPwStrength() {
+  const pw = document.getElementById('regPassword').value;
+  const bar = document.getElementById('pwBar');
+  const hint = document.getElementById('pwHint');
+  let score = 0;
+  if (pw.length >= 8) score++;
+  if (/[A-Z]/.test(pw)) score++;
+  if (/[0-9]/.test(pw)) score++;
+  if (/[^a-zA-Z0-9]/.test(pw)) score++;
+  const colors = ['#ff4e6a','#f97316','#fbbf24','#22e0a1'];
+  const labels = ['Lemah','Cukup','Kuat','Sangat Kuat'];
+  const textColors = ['#b91c1c','#c2410c','#92400e','#127754'];
+  if (pw.length === 0) { bar.style.width='0'; hint.textContent=''; return; }
+  score = Math.max(score, 1);
+  bar.style.width = (score * 25) + '%';
+  bar.style.background = colors[score-1];
+  hint.style.color = textColors[score-1];
+  hint.textContent = labels[score-1];
+}
+
+// ── DAFTAR (STEP 3) ───────────────────────────────────
+async function doRegister() {
+  const pw   = document.getElementById('regPassword').value;
+  const pwc  = document.getElementById('regPasswordConf').value;
+  if (!pw || pw.length < 8) { showAlert('Password minimal 8 karakter.','err'); return; }
+  if (pw !== pwc)           { showAlert('Konfirmasi password tidak cocok.','err'); return; }
+
+  const btn = document.getElementById('regSpin').parentElement;
+  btn.classList.add('loading');
+  clearAlert();
+
+  try {
+    // Cek email sudah ada
+    const existing = await db.collection(USERS_COL)
+      .where('email','==', formData.email).limit(1).get();
+    if (!existing.empty) {
+      btn.classList.remove('loading');
+      showAlert('Email sudah terdaftar. Silakan login.','err');
+      return;
+    }
+
+    // Simpan ke Firestore
+    await db.collection(USERS_COL).add({
+      nik:        formData.nik,
+      name:       formData.nama,
+      nameLower:  formData.nama.toLowerCase(),
+      email:      formData.email,
+      wa:         formData.wa,
+      level:      formData.level,
+      dept:       formData.dept,
+      perusahaan: formData.perusahaan,
+      lokasi:     formData.lokasi,
+      password:   pw,
+      photo:      photoBase64,
+      createdAt:  firebase.firestore.FieldValue.serverTimestamp(),
+      status:     'active'
+    });
+
+    btn.classList.remove('loading');
+    hideAllPanels();
+    document.getElementById('mainTabs').style.display = 'none';
+    document.getElementById('panelSuccess').classList.add('active');
+  } catch(e) {
+    btn.classList.remove('loading');
+    showAlert('Gagal mendaftar: ' + e.message,'err');
+  }
+}
+
+// ── FOTO PREVIEW ──────────────────────────────────────
+function previewPhoto(input) {
+  if (!input.files || !input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    photoBase64 = e.target.result;
+    const preview = document.getElementById('photoPreview');
+    preview.innerHTML = `<img src="${photoBase64}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+// ── HELPERS ───────────────────────────────────────────
+function togglePw(inputId, iconId) {
+  const pw = document.getElementById(inputId);
+  const icon = document.getElementById(iconId);
+  pw.type = pw.type === 'password' ? 'text' : 'password';
+  icon.className = pw.type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+}
+function showAlert(msg, type) {
+  const box = document.getElementById('alertBox');
+  const ico = type === 'err' ? 'fa-exclamation-circle' : 'fa-check-circle';
+  box.innerHTML = `<i class="fas ${ico}" style="flex-shrink:0;margin-top:1px"></i><span>${msg}</span>`;
+  box.className = `alert ${type}`;
+}
+function clearAlert() {
+  document.getElementById('alertBox').className = 'alert hidden';
+}
+
+// ── INIT ──────────────────────────────────────────────
+(function init() {
+  const saved = localStorage.getItem('rememberedEmail');
+  if (saved) {
+    document.getElementById('loginEmail').value = saved;
+    document.getElementById('rememberMe').checked = true;
+  }
+  // Enter key login
+  document.getElementById('loginPassword').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+  document.getElementById('loginEmail').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('loginPassword').focus();
+  });
+})();
 </script>
 </body>
 </html>
