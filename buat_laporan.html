@@ -6,81 +6,86 @@
 <title>Buat Laporan – SIGAP</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;--bg:#f0f4fa;--card-bg:#ffffff;--text:#1a2540;--muted:#7a8aaa;--border:#e0e7ef;--sidebar-w:260px;--radius:16px;--shadow:0 4px 24px rgba(11,24,41,0.10);--transition:0.28s cubic-bezier(.4,0,.2,1);}
+:root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--gold:#c9a227;--gold-dim:rgba(201,162,39,0.15);--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;--bg:#080f1c;--card-bg:#0f1e35;--card-border:rgba(201,162,39,0.12);--text:#e8edf5;--muted:#6b7fa0;--border:rgba(255,255,255,0.10);--sidebar-w:260px;--radius:16px;--shadow:0 4px 24px rgba(0,0,0,0.4);--transition:0.28s cubic-bezier(.4,0,.2,1);}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;}
-.sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
-.sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,0.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
-.sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,0.07);}
-.brand-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(0,212,255,0.35);flex-shrink:0;}
+.sidebar{width:var(--sidebar-w);height:100vh;background:linear-gradient(180deg,#0a1628 0%,#060e1a 100%);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;border-right:1px solid rgba(201,162,39,0.1);}
+.sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(201,162,39,0.07) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
+.sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(201,162,39,0.1);}
+.brand-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,162,39,0.35);box-shadow:0 0 18px rgba(201,162,39,0.2),0 4px 16px rgba(0,0,0,0.4);overflow:hidden;position:relative;transition:all 0.3s;}
+.brand-icon::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(201,162,39,0.12),transparent 70%);pointer-events:none;}
+.brand-icon:hover{box-shadow:0 0 28px rgba(201,162,39,0.4),0 4px 20px rgba(0,0,0,0.5);border-color:rgba(201,162,39,0.6);}
+.brand-icon img{width:80%;height:80%;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 2px 6px rgba(201,162,39,0.3));}
 .brand-text{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:#fff;letter-spacing:2px;}
-.brand-sub{font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
+.brand-sub{font-size:10px;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
 .sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;}
-.nav-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:14px 12px 6px;font-weight:600;}
+.nav-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(201,162,39,0.4);padding:14px 12px 6px;font-weight:600;}
 .sidebar-nav a{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.65);text-decoration:none;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;transition:all var(--transition);margin-bottom:2px;position:relative;}
 .sidebar-nav a .nav-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(255,255,255,0.06);flex-shrink:0;transition:all var(--transition);}
 .sidebar-nav a:hover{color:#fff;background:rgba(255,255,255,0.07);}
-.sidebar-nav a:hover .nav-icon{background:rgba(0,212,255,0.18);color:var(--accent);}
-.sidebar-nav a.active{color:#fff;background:linear-gradient(90deg,rgba(0,212,255,0.18),rgba(0,212,255,0.05));}
-.sidebar-nav a.active .nav-icon{background:linear-gradient(135deg,var(--accent),#0099cc);color:#fff;box-shadow:0 3px 10px rgba(0,212,255,0.4);}
-.sidebar-nav a.active::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--accent);border-radius:3px 0 0 3px;}
+.sidebar-nav a:hover .nav-icon{background:rgba(201,162,39,0.15);color:var(--gold);}
+.sidebar-nav a.active{color:#fff;background:linear-gradient(90deg,rgba(201,162,39,0.15),rgba(201,162,39,0.03));}
+.sidebar-nav a.active .nav-icon{background:linear-gradient(135deg,var(--gold),#8a6a10);color:#fff;box-shadow:0 3px 10px rgba(201,162,39,0.3);}
+.sidebar-nav a.active::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--gold);border-radius:3px 0 0 3px;}
 .sidebar-nav a.logout-btn{color:rgba(255,78,106,0.75);}
 .sidebar-nav a.logout-btn:hover{color:var(--accent2);background:rgba(255,78,106,0.08);}
 .sidebar-nav a.logout-btn .nav-icon{background:rgba(255,78,106,0.1);}
-.sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,0.07);}
+.sidebar-footer{padding:16px 20px;border-top:1px solid rgba(201,162,39,0.08);}
 .sidebar-user{display:flex;align-items:center;gap:10px;}
-.user-avatar{width:36px;height:36px;background:linear-gradient(135deg,var(--accent3),#ff8c00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:700;}
+.user-avatar{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),#8a6a10);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:700;}
 .user-info .user-name{font-size:13px;font-weight:600;color:#fff;}
-.user-info .user-role{font-size:11px;color:var(--muted);}
+.user-info .user-role{font-size:11px;color:var(--gold);}
 .main{margin-left:var(--sidebar-w);min-height:100vh;}
-.topbar{background:var(--card-bg);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,0.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.05);}
-.topbar-left h5{font-size:15px;font-weight:700;color:var(--navy);margin:0;}
-.topbar-left span{font-size:12px;color:var(--muted);}
+.topbar{background:rgba(8,15,28,0.97);backdrop-filter:blur(20px);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(201,162,39,0.1);position:sticky;top:0;z-index:100;}
+.topbar-left h5{font-size:15px;font-weight:700;color:#fff;margin:0;}
+.topbar-left span{font-size:12px;color:rgba(255,255,255,0.4);}
 .topbar-right{display:flex;align-items:center;gap:12px;}
-.topbar-btn{width:38px;height:38px;border-radius:10px;background:var(--bg);border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
-.topbar-btn:hover{background:#e2e8f5;color:var(--navy);}
-.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:var(--bg);cursor:pointer;}
-.topbar-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
-.topbar-uname{font-size:13px;font-weight:600;color:var(--text);}
+.topbar-btn{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
+.topbar-btn:hover{background:rgba(201,162,39,0.1);border-color:rgba(201,162,39,0.3);color:var(--gold);}
+.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);cursor:pointer;}
+.topbar-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--gold),#8a6a10);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
+.topbar-uname{font-size:13px;font-weight:600;color:#fff;}
 .content{padding:28px 32px 48px;}
-.page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;margin-bottom:6px;}
-.title-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(0,212,255,0.3);}
-.page-sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
-.steps-bar{display:flex;align-items:center;background:var(--card-bg);border-radius:var(--radius);padding:16px 24px;box-shadow:var(--shadow);margin-bottom:24px;}
+.page-title{font-size:26px;font-weight:700;color:#fff;display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+.title-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--gold),#8a6a10);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(201,162,39,0.3);}
+.page-sub{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:24px;}
+.steps-bar{display:flex;align-items:center;background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:16px 24px;box-shadow:var(--shadow);margin-bottom:24px;}
 .step{display:flex;align-items:center;gap:10px;flex:1;position:relative;}
-.step:not(:last-child)::after{content:'';position:absolute;left:120px;right:0;top:50%;transform:translateY(-50%);height:2px;background:var(--border);}
+.step:not(:last-child)::after{content:'';position:absolute;left:120px;right:0;top:50%;transform:translateY(-50%);height:2px;background:rgba(255,255,255,0.08);}
 .step.done:not(:last-child)::after{background:var(--accent4);}
-.step-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;border:2px solid var(--border);color:var(--muted);transition:all var(--transition);}
-.step.active .step-num{background:linear-gradient(135deg,var(--accent),#0099cc);border-color:var(--accent);color:#fff;box-shadow:0 4px 12px rgba(0,212,255,0.35);}
+.step-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;border:2px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.4);transition:all var(--transition);}
+.step.active .step-num{background:linear-gradient(135deg,var(--gold),#8a6a10);border-color:var(--gold);color:#fff;box-shadow:0 4px 12px rgba(201,162,39,0.35);}
 .step.done .step-num{background:var(--accent4);border-color:var(--accent4);color:#fff;}
-.step-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;}
-.step-name{font-size:13px;font-weight:600;color:var(--text);}
-.step.active .step-name{color:var(--navy);}
-.form-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px;animation:fadeUp 0.4s ease both;}
-.form-section-header{padding:20px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,#f7faff,var(--card-bg));}
+.step-label{font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;}
+.step-name{font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);}
+.step.active .step-name{color:#fff;}
+.form-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px;animation:fadeUp 0.4s ease both;}
+.form-section-header{padding:20px 28px;border-bottom:1px solid rgba(201,162,39,0.08);display:flex;align-items:center;gap:12px;background:rgba(0,0,0,0.15);}
 .section-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;}
-.section-icon.blue{background:rgba(0,212,255,0.10);color:var(--accent);}
+.section-icon.blue{background:rgba(201,162,39,0.12);color:var(--gold);}
 .section-icon.yellow{background:rgba(255,200,67,0.12);color:#d4960a;}
 .section-icon.green{background:rgba(34,224,161,0.10);color:var(--accent4);}
 .section-icon.red{background:rgba(255,78,106,0.10);color:var(--accent2);}
-.section-title-text{font-size:15px;font-weight:700;color:var(--navy);}
-.section-sub-text{font-size:12px;color:var(--muted);margin-top:1px;}
+.section-title-text{font-size:15px;font-weight:700;color:#fff;}
+.section-sub-text{font-size:12px;color:rgba(255,255,255,0.45);margin-top:1px;}
 .form-body{padding:28px;}
-.field-label{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
-.lbl-icon{color:var(--muted);font-size:12px;}
-.form-control,.form-select{border:1.5px solid var(--border);border-radius:10px;padding:11px 16px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:#fff;transition:all var(--transition);width:100%;}
-.form-control:focus,.form-select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,0.12);}
+.field-label{font-size:13px;font-weight:600;color:rgba(255,255,255,0.85);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.lbl-icon{color:rgba(255,255,255,0.4);font-size:12px;}
+.form-control,.form-select{border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:11px 16px;font-size:14px;font-family:'DM Sans',sans-serif;color:#fff;background:rgba(15,30,53,0.95);transition:all var(--transition);width:100%;} .form-control::placeholder{color:rgba(255,255,255,0.3);} .form-select option{background:#0f1e35;color:#fff;}
+.form-control:focus,.form-select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,39,0.12);}
 .form-control.is-invalid{border-color:var(--accent2);box-shadow:0 0 0 3px rgba(255,78,106,0.10);}
 .form-control.is-valid{border-color:var(--accent4);}
 textarea.form-control{resize:vertical;min-height:130px;line-height:1.6;}
-.char-count{font-size:11px;color:var(--muted);text-align:right;margin-top:4px;}
+.char-count{font-size:11px;color:rgba(255,255,255,0.4);text-align:right;margin-top:4px;}
 .char-count.warn{color:var(--accent3);}.char-count.danger{color:var(--accent2);}
 .field-error{font-size:11px;color:var(--accent2);margin-top:5px;display:none;}
 .field-error.show{display:block;}
 .risk-pills,.status-pills{display:flex;flex-wrap:wrap;gap:8px;}
-.risk-pill,.status-pill{display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;border:2px solid var(--border);cursor:pointer;font-size:13px;font-weight:600;transition:all var(--transition);background:#fff;user-select:none;}
+.risk-pill,.status-pill{display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;border:2px solid rgba(255,255,255,0.1);cursor:pointer;font-size:13px;font-weight:600;transition:all var(--transition);background:rgba(0,0,0,0.2);color:rgba(255,255,255,0.7);user-select:none;}
 .risk-pill input,.status-pill input{display:none;}
 .risk-pill.critical:hover,.risk-pill.critical.selected{border-color:#e74c3c;background:rgba(231,76,60,0.07);color:#c0392b;}
 .risk-pill.high:hover,.risk-pill.high.selected{border-color:#e67e22;background:rgba(230,126,34,0.07);color:#d35400;}
@@ -91,27 +96,27 @@ textarea.form-control{resize:vertical;min-height:130px;line-height:1.6;}
 .status-pill.s-open:hover,.status-pill.s-open.selected{border-color:#e6a800;background:rgba(255,200,67,0.08);color:#b37d00;}
 .status-pill.s-prog:hover,.status-pill.s-prog.selected{border-color:var(--accent);background:rgba(0,212,255,0.08);color:#0099cc;}
 .status-pill.s-closed:hover,.status-pill.s-closed.selected{border-color:var(--accent4);background:rgba(34,224,161,0.08);color:#19866b;}
-.form-divider{height:1px;background:var(--border);margin:24px 0;}
-.upload-zone{border:2px dashed var(--border);border-radius:12px;padding:36px 24px;text-align:center;cursor:pointer;transition:all var(--transition);background:#fafcff;position:relative;}
-.upload-zone:hover,.upload-zone.dragover{border-color:var(--accent);background:rgba(0,212,255,0.04);}
+.form-divider{height:1px;background:rgba(255,255,255,0.07);margin:24px 0;}
+.upload-zone{border:2px dashed rgba(255,255,255,0.12);border-radius:12px;padding:36px 24px;text-align:center;cursor:pointer;transition:all var(--transition);background:rgba(0,0,0,0.2);position:relative;}
+.upload-zone:hover,.upload-zone.dragover{border-color:var(--gold);background:rgba(201,162,39,0.04);}
 .upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-.upload-icon{width:56px;height:56px;background:rgba(0,212,255,0.10);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--accent);margin:0 auto 12px;}
-.upload-title{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:4px;}
-.upload-sub{font-size:12px;color:var(--muted);}
+.upload-icon{width:56px;height:56px;background:rgba(201,162,39,0.12);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--gold);margin:0 auto 12px;}
+.upload-title{font-size:15px;font-weight:600;color:#fff;margin-bottom:4px;}
+.upload-sub{font-size:12px;color:rgba(255,255,255,0.4);}
 .preview-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
 .preview-item{width:90px;height:90px;border-radius:10px;overflow:hidden;position:relative;border:2px solid var(--border);}
 .preview-item img{width:100%;height:100%;object-fit:cover;}
 .remove-btn{position:absolute;top:4px;right:4px;width:22px;height:22px;background:var(--accent2);color:#fff;border-radius:50%;border:none;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity var(--transition);}
 .preview-item:hover .remove-btn{opacity:1;}
-.submit-row{padding:20px 28px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:#fafcff;flex-wrap:wrap;gap:12px;}
-.btn-reset-form{padding:11px 24px;border-radius:10px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;transition:all var(--transition);font-family:'DM Sans',sans-serif;}
-.btn-reset-form:hover{border-color:var(--accent2);color:var(--accent2);}
-.btn-submit{padding:11px 32px;border-radius:10px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:all var(--transition);display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;box-shadow:0 4px 14px rgba(11,24,41,0.25);}
+.submit-row{padding:20px 28px;border-top:1px solid rgba(201,162,39,0.08);display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,0.15);flex-wrap:wrap;gap:12px;}
+.btn-reset-form{padding:11px 24px;border-radius:10px;border:1.5px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.05);color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;transition:all var(--transition);font-family:'DM Sans',sans-serif;}
+.btn-reset-form:hover{border-color:var(--accent2);color:var(--accent2);}  .btn-reset-form{color:rgba(255,255,255,0.5);}
+.btn-submit{padding:11px 32px;border-radius:10px;background:linear-gradient(135deg,var(--gold),#8a6a10);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:all var(--transition);display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;box-shadow:0 4px 14px rgba(201,162,39,0.3);}
 .btn-submit:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(11,24,41,0.30);}
 .alert-box{border-radius:12px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;font-size:14px;font-weight:500;margin-bottom:20px;animation:fadeUp 0.3s ease;}
 .alert-box.success{background:rgba(34,224,161,0.10);border:1px solid rgba(34,224,161,0.3);color:#127754;}
 .alert-box.error{background:rgba(255,78,106,0.08);border:1px solid rgba(255,78,106,0.3);color:#c0202e;}
-.menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;}
+.menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy-mid);border:1px solid rgba(201,162,39,0.2);color:var(--gold);font-size:16px;align-items:center;justify-content:center;cursor:pointer;}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 @media(max-width:768px){.menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}.sidebar-overlay.open{display:block;}.main{margin-left:0;}.topbar{padding:14px 16px 14px 64px;}.content{padding:20px 16px 40px;}.form-body{padding:18px 16px;}.steps-bar{display:none;}}
@@ -123,32 +128,18 @@ textarea.form-control{resize:vertical;min-height:130px;line-height:1.6;}
 
 <div class="sidebar" id="sidebar">
   <div class="sidebar-brand">
-    <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
-    <div><div class="brand-text">AIMS</div><div class="brand-sub">Safety System</div></div>
+    <div class="brand-icon"><img src="LOGO.png" alt="AIMS Logo" onerror="this.style.display='none'"></div>
+    <div><div class="brand-text">SIGAP</div><div class="brand-sub">Safety System</div></div>
   </div>
   <nav class="sidebar-nav">
     <div class="nav-label">Menu Utama</div>
     <a href="dashboard.html"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
     <a href="buat_laporan.html" class=""><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
-     <div class="nav-label">Data</div>
-    <a href="Bisnis Proses.html"><span class="nav-icon"><i class="fas fa-briefcase"></i></span>Bisnis Proses</a>
-   <a href="Emergency drill.html"><span class="nav-icon"><i class="fas fa-fire-extinguisher"></i></span>Emergency drill</a>
-   <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
-    
-   <a href="Ibpr.html"><span class="nav-icon"><i class="fas fa-search"></i></span>IBPR</a>
-   <a href="Awards.html"><span class="nav-icon"><i class="fas fa-trophy"></i></span>Awards</a>
-   <a href="Smkp minerba.html"><span class="nav-icon"><i class="fas fa-hard-hat"></i></span>SMKP Minerba</a>
-   <a href="Pica smkp.html"><span class="nav-icon"><i class="fas fa-check"></i></span>PICA SMKP</a>
-   <a href="Sml.html"><span class="nav-icon"><i class="fas fa-leaf"></i></span>SML</a>
-   <a href="Evaluasi kebijakan.html"><span class="nav-icon"><i class="fas fa-book"></i></span>Evaluasi Kebijakan</a>
-   <a href="Kompetensi.html"><span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>Kompetensi</a>
-   <a href="Breaking news.html"><span class="nav-icon"><i class="fas fa-newspaper"></i></span>Breaking News</a>
-   <a href="Job desk.html"><span class="nav-icon"><i class="fas fa-user-tie"></i></span>Job Desk</a>
-   <a href="Campaign.html"><span class="nav-icon"><i class="fas fa-bullhorn"></i></span>Campaign</a>
-   <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
-   
-   <div class="nav-label"> Dokumen</div>
+    <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
+    <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
+    <div class="nav-label">Data & Dokumen</div>
     <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
+    <a href="laporan.html"><span class="nav-icon"><i class="fas fa-list"></i></span>Laporan</a>
     <div class="nav-label">Tautan Kerja</div>
     <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener noreferrer" style="color:rgba(0,212,255,0.85);">
       <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent);"><i class="fas fa-external-link-alt"></i></span>
@@ -173,7 +164,7 @@ textarea.form-control{resize:vertical;min-height:130px;line-height:1.6;}
 
 <div class="main">
   <div class="topbar">
-    <div class="topbar-left"><h5>Arta Integrated Manajemen System</h5><span>Sistem Informasi Keselamatan Kerja</span></div>
+    <div class="topbar-left"><h5>PT. Insani Baraperkasa</h5><span>Sistem Informasi Keselamatan Kerja</span></div>
     <div class="topbar-right">
       <button class="topbar-btn"><i class="fas fa-bell"></i></button>
       <button class="topbar-btn"><i class="fas fa-cog"></i></button>
@@ -331,7 +322,7 @@ textarea.form-control{resize:vertical;min-height:130px;line-height:1.6;}
         <div class="form-body">
 
           <!-- FOTO UMUM / BUKTI KEJADIAN -->
-          <label class="field-label" style="margin-bottom:10px;"><i class="fas fa-image lbl-icon"></i> Foto Bukti Kejadian <span style="font-weight:400;color:var(--muted);font-size:12px">(opsional, maks. 5 foto)</span></label>
+          <label class="field-label" style="margin-bottom:10px;"><i class="fas fa-image lbl-icon"></i> Foto Bukti Kejadian <span style="font-weight:400;color:rgba(255,255,255,0.4);font-size:12px">(opsional, maks. 5 foto)</span></label>
           <div class="upload-zone" id="uploadZone" ondragover="handleDragOver(event)" ondragleave="handleDragLeave()" ondrop="handleDrop(event)">
             <input type="file" id="fotoInput" accept="image/*" multiple onchange="handleFiles(this.files)">
             <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
@@ -342,7 +333,7 @@ textarea.form-control{resize:vertical;min-height:130px;line-height:1.6;}
 
           <!-- DIVIDER -->
           <div style="height:1px;background:var(--border);margin:28px 0;position:relative;">
-            <span style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--card-bg);padding:0 14px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Dokumentasi Before &amp; After</span>
+            <span style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#0f1e35;padding:0 14px;font-size:11px;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:1px;">Dokumentasi Before &amp; After</span>
           </div>
 
           <!-- BEFORE & AFTER SIDE BY SIDE -->
@@ -354,7 +345,7 @@ textarea.form-control{resize:vertical;min-height:130px;line-height:1.6;}
                 <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:rgba(255,78,106,0.10);color:#c0202e;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">
                   <i class="fas fa-exclamation-triangle" style="font-size:10px"></i> Before
                 </span>
-                <span style="font-weight:400;color:var(--muted);font-size:12px;margin-left:6px">Kondisi Sebelum Perbaikan</span>
+                <span style="font-weight:400;color:rgba(255,255,255,0.45);font-size:12px;margin-left:6px">Kondisi Sebelum Perbaikan</span>
               </label>
               <div class="upload-zone" id="uploadZoneBefore"
                    ondragover="handleDragOverBA(event,'before')"
@@ -363,7 +354,7 @@ textarea.form-control{resize:vertical;min-height:130px;line-height:1.6;}
                    style="padding:24px 16px;border-color:rgba(255,78,106,0.3);background:rgba(255,78,106,0.02);">
                 <input type="file" id="fotoInputBefore" accept="image/*" multiple onchange="handleFilesBA(this.files,'before')">
                 <div class="upload-icon" style="background:rgba(255,78,106,0.10);color:#e74c3c;width:44px;height:44px;font-size:18px;"><i class="fas fa-camera"></i></div>
-                <div class="upload-title" style="font-size:13px;color:#c0202e;">Upload Foto BEFORE</div>
+                <div class="upload-title" style="font-size:13px;color:#f87171;">Upload Foto BEFORE</div>
                 <div class="upload-sub">Kondisi sebelum tindakan · maks. 5 foto</div>
               </div>
               <div class="preview-grid" id="previewGridBefore"></div>
@@ -375,7 +366,7 @@ textarea.form-control{resize:vertical;min-height:130px;line-height:1.6;}
                 <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:rgba(34,224,161,0.10);color:#127754;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">
                   <i class="fas fa-check-circle" style="font-size:10px"></i> After
                 </span>
-                <span style="font-weight:400;color:var(--muted);font-size:12px;margin-left:6px">Kondisi Sesudah Perbaikan</span>
+                <span style="font-weight:400;color:rgba(255,255,255,0.45);font-size:12px;margin-left:6px">Kondisi Sesudah Perbaikan</span>
               </label>
               <div class="upload-zone" id="uploadZoneAfter"
                    ondragover="handleDragOverBA(event,'after')"
@@ -384,7 +375,7 @@ textarea.form-control{resize:vertical;min-height:130px;line-height:1.6;}
                    style="padding:24px 16px;border-color:rgba(34,224,161,0.3);background:rgba(34,224,161,0.02);">
                 <input type="file" id="fotoInputAfter" accept="image/*" multiple onchange="handleFilesBA(this.files,'after')">
                 <div class="upload-icon" style="background:rgba(34,224,161,0.10);color:var(--accent4);width:44px;height:44px;font-size:18px;"><i class="fas fa-camera"></i></div>
-                <div class="upload-title" style="font-size:13px;color:#127754;">Upload Foto AFTER</div>
+                <div class="upload-title" style="font-size:13px;color:#4ade80;">Upload Foto AFTER</div>
                 <div class="upload-sub">Kondisi sesudah tindakan · maks. 5 foto</div>
               </div>
               <div class="preview-grid" id="previewGridAfter"></div>
@@ -518,6 +509,20 @@ function validateForm(){
   return valid;
 }
 
+
+// ── FIREBASE ─────────────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyCzEKC8AzK_wx-sg8tDg32JkCa-C4KNqY8",
+  authDomain: "sigap-report-system.firebaseapp.com",
+  projectId: "sigap-report-system",
+  storageBucket: "sigap-report-system.firebasestorage.app",
+  messagingSenderId: "794553302905",
+  appId: "1:794553302905:web:673f1856a8c35cdc58f9a8"
+};
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const REPORTS_COL = 'aims_laporan';
+
 // ── SUBMIT ─────────────────────────────────────────
 document.getElementById('reportForm').addEventListener('submit',function(e){
   e.preventDefault();
@@ -551,17 +556,47 @@ document.getElementById('reportForm').addEventListener('submit',function(e){
       createdAt:new Date().toISOString(),
       createdBy:localStorage.getItem('userName')||'User'
     };
+    // Simpan ke localStorage (backup lokal)
     try{
       const existing=JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]');
       existing.unshift(data);
       localStorage.setItem(REPORTS_KEY,JSON.stringify(existing));
-    }catch(ex){
-      showAlert('Gagal menyimpan: storage penuh.','error');
-      btn.innerHTML='<i class="fas fa-paper-plane"></i> Kirim Laporan';btn.style.pointerEvents='';return;
-    }
-    btn.innerHTML='<i class="fas fa-paper-plane"></i> Kirim Laporan';btn.style.pointerEvents='';
-    showAlert('✅ Laporan berhasil disimpan! Mengalihkan ke halaman laporan...','success');
-    setTimeout(()=>{window.location.href='laporan.html';},2000);
+    }catch(ex){ console.warn('localStorage penuh'); }
+
+    // Simpan ke Firestore (untuk notifikasi admin real-time)
+    // Buat versi tanpa foto untuk Firestore (hemat storage)
+    const dataFirestore = {
+      id:          data.id,
+      tanggal:     data.tanggal,
+      pelapor:     data.pelapor,
+      nik:         data.nik,
+      jabatan:     data.jabatan,
+      departemen:  data.departemen,
+      area:        data.area,
+      aktivitas:   data.aktivitas,
+      jenis:       data.jenis,
+      deskripsi:   data.deskripsi,
+      tindakan:    data.tindakan,
+      risiko:      data.risiko,
+      status:      data.status,
+      createdAt:   firebase.firestore.FieldValue.serverTimestamp(),
+      createdBy:   data.createdBy,
+      isRead:      false,
+      hasFoto:     data.foto && data.foto.length > 0
+    };
+
+    db.collection(REPORTS_COL).doc(data.id).set(dataFirestore)
+      .then(()=>{
+        btn.innerHTML='<i class="fas fa-paper-plane"></i> Kirim Laporan';btn.style.pointerEvents='';
+        showAlert('✅ Laporan berhasil dikirim! Admin akan segera menerima notifikasi.','success');
+        setTimeout(()=>{window.location.href='laporan.html';},2000);
+      })
+      .catch((err)=>{
+        console.error('Firestore error:', err);
+        btn.innerHTML='<i class="fas fa-paper-plane"></i> Kirim Laporan';btn.style.pointerEvents='';
+        showAlert('✅ Laporan tersimpan lokal. (Notifikasi offline)','success');
+        setTimeout(()=>{window.location.href='laporan.html';},2000);
+      });
   });
 });
 
@@ -596,6 +631,15 @@ function resetForm(){
       }
     }
   });
+})();
+</script>
+
+<script>
+// Cek login — semua user (karyawan & admin) boleh akses
+(function(){
+  if (!localStorage.getItem('isLoggedIn')) {
+    window.location.href = 'index.html';
+  }
 })();
 </script>
 </body>
