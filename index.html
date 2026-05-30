@@ -493,13 +493,9 @@ const USERS_COL = 'aims_users';
 
 // ── AKUN ADMIN LOKAL ─────────────────────────────────
 const ADMIN_ACCOUNTS = [
-  {email:'admin',       password:'admin123',  name:'Administrator', level:'Admin',  dept:'Management', perusahaan:'PT. ABS', lokasi:'Kantor Sempaja'},
-  {email:'admin@aims.com', password:'aims2025', name:'Admin AIMS',  level:'Admin',  dept:'Management', perusahaan:'PT. ABS', lokasi:'Kantor Sempaja'},
+  {email:'admin',        password:'admin123', name:'Administrator', level:'Admin', dept:'Management', perusahaan:'PT. ABS', lokasi:'Kantor Sempaja'},
+  {email:'admin@aims.com',password:'aims2025',name:'Admin AIMS',   level:'Admin', dept:'Management', perusahaan:'PT. ABS', lokasi:'Kantor Sempaja'},
 ];
-
-// ── LEVEL ACCESS MAP ─────────────────────────────────
-// Semakin tinggi level, semakin banyak akses
-const LEVEL_ORDER = ['Non Staff','Officer','Foreman','Supervisor','Superintendent','Manager','Senior Manager','General Manager','Direktur','Admin'];
 
 // ── FORM DATA ─────────────────────────────────────────
 let formData = {};
@@ -545,6 +541,7 @@ async function doLogin() {
     return;
   }
 
+
   // Cek di Firestore
   try {
     const snap = await db.collection(USERS_COL)
@@ -564,9 +561,8 @@ async function doLogin() {
     }
     saveSession(user, remember, email);
     showAlert('<strong>Login berhasil!</strong> Mengalihkan...','ok');
-    // Karyawan → buat_laporan, Admin → dashboard
-    const dest = (user.level === 'Admin') ? 'dashboard.html' : 'buat_laporan.html';
-    setTimeout(() => window.location.href = dest, 900);
+    // Semua user → dashboard (karyawan biasa juga bisa akses dashboard)
+    setTimeout(() => window.location.href = 'dashboard.html', 900);
   } catch(e) {
     btn.classList.remove('loading');
     showAlert('Gagal terhubung ke server. Periksa koneksi internet.','err');
