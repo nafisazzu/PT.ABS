@@ -191,19 +191,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 
 .proj-card-full{flex-direction:column;align-items:flex-start;}
 
-/* ── ACCESS GUARD OVERLAY ─────────────────────────── */
-#accessGuard{display:none;position:fixed;inset:0;z-index:99999;background:rgba(8,15,28,0.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;}
-#accessGuard.show{display:flex;}
-.guard-card{background:linear-gradient(135deg,#0f1e35,#0a1628);border:1px solid rgba(201,162,39,0.25);border-radius:24px;padding:48px 40px;text-align:center;max-width:400px;width:90%;animation:guardIn .4s cubic-bezier(.16,1,.3,1);}
-@keyframes guardIn{from{opacity:0;transform:scale(.9)translateY(20px);}to{opacity:1;transform:scale(1)translateY(0);}}
-.guard-icon{width:80px;height:80px;border-radius:50%;background:rgba(255,78,106,0.12);border:2px solid rgba(255,78,106,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:32px;color:#ff4e6a;}
-.guard-title{font-family:'Barlow',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:.5px;}
-.guard-sub{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:24px;}
-.guard-user{display:inline-flex;align-items:center;gap:8px;background:rgba(201,162,39,0.1);border:1px solid rgba(201,162,39,0.2);border-radius:20px;padding:6px 16px;font-size:12px;color:#c9a227;font-weight:600;margin-bottom:24px;}
-.guard-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:12px;background:linear-gradient(135deg,#c9a227,#a8841e);color:#fff;font-family:'Barlow',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;border:none;cursor:pointer;transition:all .2s;text-decoration:none;}
-.guard-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,162,39,0.3);}
-.guard-logout{display:block;margin-top:14px;font-size:12px;color:rgba(255,255,255,0.35);cursor:pointer;transition:color .2s;}
-.guard-logout:hover{color:rgba(255,78,106,0.7);}
+
 
 /* ── NOTIFICATION SYSTEM ─────────────────────────── */
 .notif-wrap{position:relative;}
@@ -282,21 +270,9 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <button class="lp-btn lp-btn-primary" onclick="markAsRead(currentNotifId)"><i class="fas fa-check"></i> Tandai Dibaca</button>
     </div>
   </div>
-</div>
-
-
-<!-- ACCESS GUARD OVERLAY -->
-<div id="accessGuard">
-  <div class="guard-card">
-    <div class="guard-icon"><i class="fas fa-shield-alt"></i></div>
-    <div class="guard-title">Akses Terbatas</div>
-    <div class="guard-sub">Halaman ini hanya dapat diakses oleh <strong style="color:#c9a227">Admin</strong>. Akun Anda tidak memiliki izin untuk mengakses halaman ini.</div>
-    <div class="guard-user"><i class="fas fa-user-circle"></i> <span id="guardUserName">—</span> &bull; <span id="guardUserLevel">—</span></div>
     <br>
-    <button class="guard-btn" onclick="window.location.href='buat_laporan.html'">
       <i class="fas fa-file-alt"></i> Pergi ke Buat Laporan
     </button>
-    <span class="guard-logout" onclick="guardLogout()"><i class="fas fa-sign-out-alt"></i> Logout dari akun ini</span>
   </div>
 </div>
 
@@ -340,6 +316,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       Accurate <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
     </a>
     <div class="nav-label">Akun</div>
+    <a href="import_pengawas.html" id="menuImport" style="display:none"><span class="nav-icon" style="background:rgba(34,224,161,0.1);color:#22e0a1"><i class="fas fa-users-cog"></i></span>Import Pengawas</a>
     <a href="#" onclick="logout()" class="logout-btn"><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
   </nav>
   <div class="sidebar-footer">
@@ -426,8 +403,8 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
     <div class="about-grid">
       <div class="about-text">
         <p>PT Arta Bumi Sakti (ABS) adalah sebuah perusahaan kontraktor pertambangan yang berbasis di Indonesia, dengan spesialisasi dalam Pertambangan Mineral dan Batubara. Perusahaan ini menyediakan berbagai layanan seperti kontrak pertambangan, perencanaan tambang, pekerjaan overburden, pekerjaan infrastruktur untuk pertambangan, dan logistik darat dengan fokus pada praktik smart mining.</p>
-        <p>Dengan pengalaman sejak tahun 2021, ABS telah menjadi kontraktor pemegang Izin Usaha Pertambangan (IUP) dan Badan Kerjasama Kontrak Pertambangan Batubara (BKP2B) atau Kontrak Karya (CCoW), di Kalimantan.</p>
-        <p>Sejarah ABS sebenarnya dimulai sejak tahun 2013 ketika perusahaan tersebut memulai langkahnya dengan nama PT Citra Alam Sentosa Mandiri — pengalaman lebih dari satu dekade yang menjadi fondasi penting bagi perkembangan ABS.</p>
+        <p>Dengan pengalaman sejak tahun 2021, ABS telah menjadi kontraktor pemegang Izin Usaha Pertambangan (IUJP) dan Badan Kerjasama Kontrak Pertambangan Batubara (BKP2B) atau Kontrak Karya (CCoW), di Kalimantan.</p>
+        <p>Sejarah ABS sebenarnya dimulai sejak tahun 2013 ketika perusahaan tersebut memulai langkahnya dengan nama PT Citra Alam Sentosa Mandiri pengalaman lebih dari satu dekade yang menjadi fondasi penting bagi perkembangan ABS.</p>
         <div class="about-highlights">
           <div class="about-hl">
             <div class="about-hl-icon"><i class="fas fa-certificate"></i></div>
@@ -649,36 +626,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open');}
 function logout(){if(confirm('Yakin ingin logout?')){localStorage.removeItem('userName');window.location.href='index.html';}}
 </script>
-<script>
-// ── ACCESS GUARD ─────────────────────────────────────
-(function checkAccess() {
-  const isLoggedIn = localStorage.getItem('isLoggedIn');
-  const level      = localStorage.getItem('userLevel') || '';
-  const name       = localStorage.getItem('userName')  || 'User';
 
-  // Belum login → redirect ke login
-  if (!isLoggedIn) {
-    window.location.href = 'index.html';
-    return;
-  }
-
-  // Admin → boleh akses semua, tidak perlu guard
-  if (level === 'Admin') return;
-
-  // Bukan admin → tampilkan overlay
-  document.getElementById('accessGuard').classList.add('show');
-  document.getElementById('guardUserName').textContent  = name;
-  document.getElementById('guardUserLevel').textContent = level || 'Karyawan';
-
-  // Disable scroll body
-  document.body.style.overflow = 'hidden';
-})();
-
-function guardLogout() {
-  localStorage.clear();
-  window.location.href = 'index.html';
-}
-</script>
 <script>
 // ── NOTIFICATION SYSTEM ──────────────────────────────
 (function initNotif(){
@@ -832,6 +780,10 @@ function markAllRead(){
   });
   document.getElementById('notifDropdown')?.classList.remove('open');
 }
+</script>
+<script>
+// Cek login
+if(!localStorage.getItem('isLoggedIn')){window.location.href='index.html';}
 </script>
 </body>
 </html>
