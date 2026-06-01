@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;--bg:#f0f4fa;--card-bg:#fff;--text:#1a2540;--muted:#7a8aaa;--border:#e0e7ef;--sidebar-w:260px;--radius:16px;--shadow:0 4px 24px rgba(11,24,41,.10);--transition:.28s cubic-bezier(.4,0,.2,1);
+:root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--gold:#c9a227;--gold-dim:rgba(201,162,39,0.15);--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;--bg:#f0f4f8;--card-bg:#ffffff;--card-border:rgba(201,162,39,0.12);--text:#1e293b;--muted:#6b7fa0;--border:rgba(0,0,0,0.08);--sidebar-w:260px;--radius:16px;--shadow:0 2px 12px rgba(0,0,0,0.07);--transition:.28s cubic-bezier(.4,0,.2,1);
   --lv1:#6366f1;--lv2:#0ea5e9;--lv3:#f59e0b;--lv4:#22e0a1;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;font-size:14px;}
@@ -17,7 +17,8 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
 .sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
 .sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,.07);}
-.brand-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(0,212,255,.35);flex-shrink:0;}
+.brand-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,162,39,0.35);box-shadow:0 0 18px rgba(201,162,39,0.2),0 4px 16px rgba(0,0,0,0.4);overflow:hidden;position:relative;transition:all 0.3s;}
+.brand-icon img{width:80%;height:80%;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 2px 6px rgba(201,162,39,0.3));}
 .brand-text{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:#fff;letter-spacing:2px;}
 .brand-sub{font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
 .sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;}
@@ -40,16 +41,16 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 
 /* ─── MAIN ──────────────────────────────── */
 .main{margin-left:var(--sidebar-w);padding:0;min-height:100vh;}
-.topbar{background:var(--card-bg);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+.topbar{background:#ffffff;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,0.08);position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
 .topbar-left h5{font-size:15px;font-weight:700;color:var(--navy);margin:0;}
 .topbar-left span{font-size:12px;color:var(--muted);}
 .topbar-right{display:flex;align-items:center;gap:12px;}
-.topbar-btn{width:38px;height:38px;border-radius:10px;background:var(--bg);border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
-.topbar-btn:hover{background:#e2e8f5;color:var(--navy);}
-.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:var(--bg);cursor:pointer;}
-.topbar-user:hover{background:#e2e8f5;}
+.topbar-btn{width:38px;height:38px;border-radius:10px;background:#f0f4f8;border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
+.topbar-btn:hover{background:rgba(201,162,39,0.1);border-color:rgba(201,162,39,0.3);color:var(--gold);}
+.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:#f0f4f8;border:1px solid rgba(0,0,0,0.08);cursor:pointer;}
+.topbar-user:hover{background:rgba(201,162,39,0.08);}
 .topbar-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
-.topbar-uname{font-size:13px;font-weight:600;color:var(--text);}
+.topbar-uname{font-size:13px;font-weight:600;color:var(--navy);}
 .role-badge{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.3px;}
 .role-badge.she{background:rgba(34,224,161,.12);color:#127754;border:1px solid rgba(34,224,161,.25);}
 .role-badge.dok{background:rgba(0,212,255,.10);color:#007fa3;border:1px solid rgba(0,212,255,.25);}
@@ -70,25 +71,25 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .upload-lock-notice{display:flex;align-items:center;gap:8px;padding:9px 14px;background:rgba(255,200,67,.08);border:1px solid rgba(255,200,67,.3);border-radius:10px;font-size:12px;color:#b37d00;font-weight:500;}
 
 /* ─── DEPARTMENT NAV ─────────────────────── */
-.dept-nav{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);padding:6px 8px;margin-bottom:20px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;overflow-x:auto;animation:fadeUp .3s ease both;}
+.dept-nav{background:#ffffff;border-radius:var(--radius);box-shadow:var(--shadow);padding:6px 8px;margin-bottom:20px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;overflow-x:auto;animation:fadeUp .3s ease both;border:1px solid var(--card-border);}
 .dept-nav-btn{display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;border:none;background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--muted);transition:all var(--transition);white-space:nowrap;position:relative;}
-.dept-nav-btn:hover{background:var(--bg);color:var(--navy);}
+.dept-nav-btn:hover{background:rgba(11,24,41,0.06);color:var(--navy);}
 .dept-nav-btn.active{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;box-shadow:0 3px 12px rgba(11,24,41,.2);}
 .dept-nav-btn .dept-count{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 5px;border-radius:20px;font-size:10px;font-weight:800;background:rgba(255,255,255,.2);transition:all var(--transition);}
-.dept-nav-btn:not(.active) .dept-count{background:rgba(11,24,41,.08);color:var(--navy);}
+.dept-nav-btn:not(.active) .dept-count{background:rgba(255,255,255,0.1);color:var(--muted);}
 .dept-nav-icon{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
 .dept-nav-btn.active .dept-nav-icon{background:rgba(255,255,255,.2);}
-.dept-nav-btn:not(.active) .dept-nav-icon{background:rgba(11,24,41,.07);color:var(--navy);}
-.dept-divider{width:1px;height:28px;background:var(--border);margin:0 2px;flex-shrink:0;}
+.dept-nav-btn:not(.active) .dept-nav-icon{background:rgba(255,255,255,0.06);color:var(--muted);}
+.dept-divider{width:1px;height:28px;background:rgba(0,0,0,0.1);margin:0 2px;flex-shrink:0;}
 
 /* ─── LEVEL SECTIONS ─────────────────────── */
 .level-section{margin-bottom:28px;animation:fadeUp .4s ease both;}
 .level-section-header{display:flex;align-items:center;gap:14px;padding:16px 22px;border-radius:var(--radius) var(--radius) 0 0;cursor:pointer;user-select:none;transition:all var(--transition);}
 .level-section-header:hover{filter:brightness(1.05);}
-.lv1-header{background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(99,102,241,.05));border:1.5px solid rgba(99,102,241,.25);border-bottom:none;}
-.lv2-header{background:linear-gradient(135deg,rgba(14,165,233,.15),rgba(14,165,233,.05));border:1.5px solid rgba(14,165,233,.25);border-bottom:none;}
-.lv3-header{background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(245,158,11,.05));border:1.5px solid rgba(245,158,11,.25);border-bottom:none;}
-.lv4-header{background:linear-gradient(135deg,rgba(34,224,161,.15),rgba(34,224,161,.05));border:1.5px solid rgba(34,224,161,.25);border-bottom:none;}
+.lv1-header{background:linear-gradient(135deg,rgba(99,102,241,.10),rgba(99,102,241,.03));border:1.5px solid rgba(99,102,241,.20);border-bottom:none;}
+.lv2-header{background:linear-gradient(135deg,rgba(14,165,233,.10),rgba(14,165,233,.03));border:1.5px solid rgba(14,165,233,.20);border-bottom:none;}
+.lv3-header{background:linear-gradient(135deg,rgba(245,158,11,.10),rgba(245,158,11,.03));border:1.5px solid rgba(245,158,11,.20);border-bottom:none;}
+.lv4-header{background:linear-gradient(135deg,rgba(34,224,161,.10),rgba(34,224,161,.03));border:1.5px solid rgba(34,224,161,.20);border-bottom:none;}
 .level-icon-big{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
 .lv1-icon{background:rgba(99,102,241,.15);color:#4f46e5;}
 .lv2-icon{background:rgba(14,165,233,.15);color:#0284c7;}
@@ -96,7 +97,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .lv4-icon{background:rgba(34,224,161,.15);color:#127754;}
 .level-title{font-size:16px;font-weight:800;flex:1;}
 .lv1-title{color:#4f46e5;}.lv2-title{color:#0284c7;}.lv3-title{color:#d97706;}.lv4-title{color:#127754;}
-.level-subtitle{font-size:11px;color:var(--muted);margin-top:1px;font-weight:400;}
+.level-subtitle{font-size:11px;color:#6b7fa0;margin-top:1px;font-weight:400;}
 .level-count-badge{padding:5px 14px;border-radius:20px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0;}
 .lv1-cnt{background:rgba(99,102,241,.12);color:#4f46e5;}
 .lv2-cnt{background:rgba(14,165,233,.12);color:#0284c7;}
@@ -105,27 +106,27 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .level-toggle-icon{font-size:13px;color:var(--muted);transition:transform var(--transition);}
 .level-toggle-icon.open{transform:rotate(180deg);}
 .level-section-body{border-radius:0 0 var(--radius) var(--radius);border:1.5px solid;border-top:none;padding:18px;}
-.lv1-body{border-color:rgba(99,102,241,.25);}
-.lv2-body{border-color:rgba(14,165,233,.25);}
-.lv3-body{border-color:rgba(245,158,11,.25);}
-.lv4-body{border-color:rgba(34,224,161,.25);}
+.lv1-body{border-color:rgba(99,102,241,.25);background:#ffffff;}
+.lv2-body{border-color:rgba(14,165,233,.25);background:#ffffff;}
+.lv3-body{border-color:rgba(245,158,11,.25);background:#ffffff;}
+.lv4-body{border-color:rgba(34,224,161,.25);background:#ffffff;}
 
 /* ─── TOOLBAR ─────────────────────────────── */
-.toolbar-bar{background:var(--card-bg);border-radius:var(--radius);padding:12px 16px;box-shadow:var(--shadow);margin-bottom:20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;animation:fadeUp .35s ease both;}
+.toolbar-bar{background:#ffffff;border-radius:var(--radius);padding:12px 16px;box-shadow:var(--shadow);margin-bottom:20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;animation:fadeUp .35s ease both;border:1px solid var(--card-border);}
 .search-wrap{position:relative;flex:1;min-width:180px;}
 .search-wrap .s-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none;}
-.search-input{width:100%;padding:10px 14px 10px 34px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;transition:all var(--transition);}
+.search-input{width:100%;padding:10px 14px 10px 34px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--navy);background:#ffffff;outline:none;transition:all var(--transition);}
 .search-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,.10);}
-.filter-sel{padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;cursor:pointer;transition:all var(--transition);}
+.filter-sel{padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--navy);background:#ffffff;outline:none;cursor:pointer;transition:all var(--transition);}
 .filter-sel:focus{border-color:var(--accent);}
 .view-toggle{display:flex;gap:4px;}
-.view-btn{width:36px;height:36px;border-radius:8px;border:1.5px solid var(--border);background:#fff;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all var(--transition);}
+.view-btn{width:36px;height:36px;border-radius:8px;border:1.5px solid rgba(0,0,0,0.1);background:#f0f4f8;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all var(--transition);}
 .view-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
-.view-btn:hover:not(.active){background:#e2e8f5;}
+.view-btn:hover:not(.active){background:rgba(0,0,0,0.06);}
 
 /* ─── STAT CARDS ─────────────────────────── */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
-.stat-card{background:var(--card-bg);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform var(--transition);animation:fadeUp .4s ease both;cursor:pointer;}
+.stat-card{background:#ffffff;border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform var(--transition);animation:fadeUp .4s ease both;cursor:pointer;border:1px solid var(--card-border);}
 .stat-card:hover{transform:translateY(-3px);}
 .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0;}
 .sc-lv1::before{background:var(--lv1);}.sc-lv2::before{background:var(--lv2);}.sc-lv3::before{background:var(--lv3);}.sc-lv4::before{background:var(--lv4);}
@@ -138,13 +139,13 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .sc-lv2 .stat-icon{background:rgba(14,165,233,.12);color:#0284c7;}.sc-lv2 .stat-val{color:#0284c7;}
 .sc-lv3 .stat-icon{background:rgba(245,158,11,.12);color:#d97706;}.sc-lv3 .stat-val{color:#d97706;}
 .sc-lv4 .stat-icon{background:rgba(34,224,161,.12);color:#127754;}.sc-lv4 .stat-val{color:#127754;}
-.stat-lbl{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.3px;}
+.stat-lbl{font-size:11px;color:#6b7fa0;font-weight:600;letter-spacing:.3px;}
 .stat-val{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;line-height:1;margin-top:2px;}
 .stat-sub{font-size:10px;color:var(--muted);margin-top:3px;}
 
 /* ─── DOC GRID ───────────────────────────── */
 .docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
-.doc-card{background:var(--card-bg);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;transition:transform var(--transition),box-shadow var(--transition);cursor:pointer;border:1.5px solid transparent;}
+.doc-card{background:#ffffff;border-radius:14px;box-shadow:var(--shadow);overflow:hidden;transition:transform var(--transition),box-shadow var(--transition);cursor:pointer;border:1.5px solid transparent;}
 .doc-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(11,24,41,.14);}
 .doc-card.lv1-card{border-color:rgba(99,102,241,.2);}.doc-card.lv1-card:hover{border-color:rgba(99,102,241,.4);}
 .doc-card.lv2-card{border-color:rgba(14,165,233,.2);}.doc-card.lv2-card:hover{border-color:rgba(14,165,233,.4);}
@@ -158,10 +159,10 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .doc-card-top{padding:16px 14px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;}
 .doc-type-icon{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;}
 .doc-name{font-size:12px;font-weight:700;color:var(--navy);text-align:center;line-height:1.4;}
-.doc-meta{font-size:10px;color:var(--muted);text-align:center;}
+.doc-meta{font-size:10px;color:#6b7fa0;text-align:center;}
 .doc-badges{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center;}
 .badge-sm{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;}
-.doc-card-bottom{padding:10px 13px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.doc-card-bottom{padding:10px 13px;border-top:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;}
 .doc-actions{display:flex;gap:5px;}
 .act-btn{width:28px;height:28px;border-radius:7px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all var(--transition);}
 .act-view{background:rgba(0,212,255,.10);color:#007fa3;}.act-view:hover{background:rgba(0,212,255,.20);}
@@ -170,12 +171,12 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .act-del:disabled{opacity:.3;cursor:not-allowed;}
 
 /* ─── DOC LIST ───────────────────────────── */
-.docs-list{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+.docs-list{background:#ffffff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--card-border);}
 .docs-list table{width:100%;border-collapse:collapse;}
-.docs-list thead tr{background:linear-gradient(90deg,var(--navy-mid),var(--navy-light));color:#fff;}
+.docs-list thead tr{background:linear-gradient(90deg,var(--navy-mid),var(--navy-light));color:#fff;border-bottom:1px solid var(--card-border);}
 .docs-list th{padding:10px 13px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;}
 .docs-list tbody tr{border-bottom:1px solid var(--border);transition:background var(--transition);cursor:pointer;}
-.docs-list tbody tr:hover{background:#f5f8ff;}
+.docs-list tbody tr:hover{background:#f0f6ff;}
 .docs-list td{padding:9px 13px;font-size:13px;vertical-align:middle;}
 .file-icon-sm{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
 .lv-stripe-sm{width:3px;height:100%;border-radius:2px;flex-shrink:0;}
@@ -186,41 +187,41 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .lb-2{background:rgba(14,165,233,.12);color:#0284c7;}
 .lb-3{background:rgba(245,158,11,.12);color:#d97706;}
 .lb-4{background:rgba(34,224,161,.12);color:#127754;}
-.dept-tag{padding:2px 9px;border-radius:20px;font-size:10px;font-weight:600;background:rgba(11,24,41,.07);color:var(--navy);}
+.dept-tag{padding:2px 9px;border-radius:20px;font-size:10px;font-weight:600;background:rgba(11,24,41,0.08);color:var(--navy);}
 
 /* ─── EMPTY ───────────────────────────────── */
-.empty-section{text-align:center;padding:36px 20px;color:var(--muted);background:rgba(11,24,41,.02);border-radius:10px;}
+.empty-section{text-align:center;padding:36px 20px;color:var(--muted);background:#f7faff;border-radius:10px;}
 .empty-section-icon{font-size:28px;margin-bottom:10px;opacity:.4;}
 .empty-full{text-align:center;padding:56px 20px;color:var(--muted);}
-.empty-full-icon{width:70px;height:70px;border-radius:18px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 13px;}
+.empty-full-icon{width:70px;height:70px;border-radius:18px;background:#f0f4f8;border:1px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 13px;}
 
 /* ─── MODALS ─────────────────────────────── */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(11,24,41,.55);z-index:2000;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.show{display:flex;}
-.modal-box{background:#fff;border-radius:var(--radius);width:100%;max-width:560px;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;overflow:hidden;}
-.modal-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#f7faff,#fff);}
+.modal-box{background:#ffffff;border-radius:var(--radius);width:100%;max-width:560px;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;overflow:hidden;}
+.modal-head{padding:18px 22px;border-bottom:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;background:#f7faff;}
 .modal-head-title{font-size:15px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:10px;}
 .modal-head-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;}
-.btn-close-m{width:32px;height:32px;border-radius:8px;border:none;background:var(--bg);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all var(--transition);}
-.btn-close-m:hover{background:#e2e8f5;color:var(--navy);}
-.modal-body{padding:20px 22px;}
-.modal-footer{padding:13px 22px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;background:#fafcff;}
+.btn-close-m{width:32px;height:32px;border-radius:8px;border:none;background:rgba(255,255,255,0.06);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all var(--transition);}
+.btn-close-m:hover{background:rgba(255,78,106,0.15);color:#ff4e6a;}
+.modal-body{padding:20px 22px;background:#ffffff;}
+.modal-footer{padding:13px 22px;border-top:1px solid rgba(0,0,0,0.07);display:flex;justify-content:flex-end;gap:10px;background:#f7faff;}
 .btn-cancel-m{padding:10px 20px;border-radius:10px;background:#fff;border:1.5px solid var(--border);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
 .btn-cancel-m:hover{border-color:var(--accent2);color:var(--accent2);}
 .btn-save-m{padding:10px 22px;border-radius:10px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:7px;}
 .btn-save-m:hover{opacity:.9;}
-.upload-zone{border:2px dashed var(--border);border-radius:12px;padding:24px 18px;text-align:center;cursor:pointer;transition:all var(--transition);background:#fafcff;position:relative;margin-bottom:16px;}
-.upload-zone:hover,.upload-zone.dragover{border-color:var(--accent);background:rgba(0,212,255,.04);}
+.upload-zone{border:2px dashed rgba(0,0,0,0.15);border-radius:12px;padding:24px 18px;text-align:center;cursor:pointer;transition:all var(--transition);background:#f7faff;position:relative;margin-bottom:16px;}
+.upload-zone:hover,.upload-zone.dragover{border-color:var(--accent);background:rgba(0,212,255,.06);}
 .upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
 .uz-icon{width:48px;height:48px;background:rgba(0,212,255,.10);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--accent);margin:0 auto 10px;}
-.sel-file{display:flex;align-items:center;gap:10px;padding:9px 13px;background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.2);border-radius:10px;margin-bottom:14px;font-size:13px;color:var(--navy);font-weight:500;}
+.sel-file{display:flex;align-items:center;gap:10px;padding:9px 13px;background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.2);border-radius:10px;margin-bottom:14px;font-size:13px;color:var(--navy);font-weight:600;}
 .fl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;display:block;}
-.fc,.fs{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:#fafcff;outline:none;transition:all var(--transition);}
+.fc,.fs{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--navy);background:#f7faff;outline:none;transition:all var(--transition);}
 .fc:focus,.fs:focus{border-color:var(--accent);}
 textarea.fc{resize:vertical;min-height:70px;}
 
 /* RESTRICTED MODAL */
-.restr-box{background:#fff;border-radius:var(--radius);width:90%;max-width:400px;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;text-align:center;padding:36px 28px;}
+.restr-box{background:#ffffff;border-radius:var(--radius);width:90%;max-width:400px;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;text-align:center;padding:36px 28px;}
 .restr-icon{width:72px;height:72px;background:rgba(255,78,106,.10);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--accent2);margin:0 auto 16px;}
 .restr-title{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px;}
 .restr-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
@@ -228,11 +229,11 @@ textarea.fc{resize:vertical;min-height:70px;}
 .btn-ok{padding:11px 28px;border-radius:10px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
 
 /* PREVIEW MODAL */
-.prev-box{background:#fff;border-radius:var(--radius);width:100%;max-width:620px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;}
+.prev-box{background:#ffffff;border-radius:var(--radius);width:100%;max-width:620px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(11,24,41,.25);animation:fadeUp .25s ease;}
 .prev-body{padding:22px 24px;}
 .prev-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
-.prev-field{background:var(--bg);border-radius:10px;padding:11px 13px;}
-.prev-label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
+.prev-field{background:#f7faff;border-radius:10px;padding:11px 13px;border:1px solid rgba(0,0,0,0.07);}
+.prev-label{font-size:11px;color:#6b7fa0;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
 .prev-val{font-size:13px;font-weight:600;color:var(--navy);}
 .prev-doc-icon{width:72px;height:72px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 12px;}
 .prev-doc-name{font-size:17px;font-weight:700;color:var(--navy);text-align:center;margin-bottom:5px;}
@@ -259,52 +260,153 @@ textarea.fc{resize:vertical;min-height:70px;}
   .content{padding:18px 13px 40px;}.stats-row{grid-template-columns:repeat(2,1fr);gap:10px;}
   .page-header{flex-direction:column;align-items:flex-start;}.prev-grid{grid-template-columns:1fr;}
 }
+
+/* ─── UPLOAD TABS ─────────────────────── */
+.upload-tabs{display:flex;gap:0;border-radius:10px;overflow:hidden;border:1.5px solid rgba(0,0,0,0.1);margin-bottom:16px;}
+.upload-tab-btn{flex:1;padding:10px 16px;border:none;background:#f0f4f8;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;}
+.upload-tab-btn:first-child{border-right:1.5px solid rgba(0,0,0,0.08);}
+.upload-tab-btn.active{background:linear-gradient(135deg,rgba(201,162,39,0.15),rgba(201,162,39,0.05));color:#c9a227;}
+.upload-tab-btn:hover:not(.active){background:#e2e8f5;color:var(--navy);}
+.upload-tab-panel{display:none;}
+.upload-tab-panel.active{display:block;}
+
+/* ─── UPLOAD PROGRESS ─────────────────────── */
+.upload-progress-wrap{display:none;margin-bottom:14px;}
+.upload-progress-wrap.show{display:block;}
+.upload-progress-bar-bg{height:8px;background:rgba(0,0,0,0.08);border-radius:8px;overflow:hidden;margin-bottom:6px;}
+.upload-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#c9a227,#22e0a1);border-radius:8px;transition:width .2s;}
+.upload-progress-label{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;}
+
+/* ─── PROGRAM K3 SUBMENU ─────────────────────── */
+
+
+
+
+/* ── NOTIFICATION SYSTEM ─────────────────────────── */
+.notif-wrap{position:relative;}
+.notif-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:#ff4e6a;border-radius:50%;font-size:10px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #080f1c;animation:notifPop .3s cubic-bezier(.16,1,.3,1);z-index:10;}
+@keyframes notifPop{from{transform:scale(0);}to{transform:scale(1);}}
+.notif-badge.hidden{display:none;}
+
+.notif-dropdown{position:absolute;top:calc(100% + 10px);right:0;width:360px;background:#0f1e35;border:1px solid rgba(201,162,39,0.2);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.6);z-index:9999;overflow:hidden;display:none;animation:dropDown .25s cubic-bezier(.16,1,.3,1);}
+@keyframes dropDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+.notif-dropdown.open{display:block;}
+.notif-header{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
+.notif-header-title{font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;}
+.notif-header-title i{color:#c9a227;}
+.notif-mark-all{font-size:11px;color:#c9a227;cursor:pointer;font-weight:600;background:none;border:none;padding:0;transition:opacity .2s;}
+.notif-mark-all:hover{opacity:.7;}
+.notif-list{max-height:340px;overflow-y:auto;}
+.notif-item{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background .2s;display:flex;gap:12px;align-items:flex-start;}
+.notif-item:hover{background:rgba(201,162,39,0.06);}
+.notif-item.unread{background:rgba(201,162,39,0.04);}
+.notif-item:last-child{border-bottom:none;}
+.notif-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.notif-icon.new{background:rgba(201,162,39,0.15);color:#c9a227;}
+.notif-icon.read{background:rgba(255,255,255,0.05);color:#6b7fa0;}
+.notif-body{flex:1;min-width:0;}
+.notif-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.notif-item.read .notif-title{color:#6b7fa0;font-weight:400;}
+.notif-meta{font-size:11px;color:#6b7fa0;display:flex;gap:8px;flex-wrap:wrap;}
+.notif-dot{width:7px;height:7px;border-radius:50%;background:#c9a227;flex-shrink:0;margin-top:4px;}
+.notif-dot.read{background:transparent;}
+.notif-empty{padding:32px 18px;text-align:center;color:#6b7fa0;font-size:13px;}
+.notif-empty i{font-size:28px;display:block;margin-bottom:8px;opacity:.4;}
+.notif-footer{padding:12px 18px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;}
+.notif-footer a{font-size:12px;color:#c9a227;font-weight:600;text-decoration:none;}
+
+/* POPUP DETAIL LAPORAN */
+.laporan-popup{display:none;position:fixed;inset:0;z-index:99999;background:rgba(8,15,28,0.85);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;}
+.laporan-popup.open{display:flex;}
+.laporan-popup-card{background:#0f1e35;border:1px solid rgba(201,162,39,0.2);border-radius:20px;width:100%;max-width:520px;max-height:85vh;overflow-y:auto;animation:dropDown .3s cubic-bezier(.16,1,.3,1);}
+.lp-header{padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
+.lp-title{font-size:15px;font-weight:700;color:#fff;}
+.lp-close{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.05);border:none;color:#6b7fa0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.lp-close:hover{background:rgba(255,78,106,0.15);color:#ff4e6a;}
+.lp-body{padding:20px 24px;}
+.lp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.lp-field{background:rgba(255,255,255,0.03);border-radius:10px;padding:12px 14px;}
+.lp-field.full{grid-column:1/-1;}
+.lp-label{font-size:10px;color:#6b7fa0;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.lp-value{font-size:13px;color:#e8edf5;font-weight:500;line-height:1.5;}
+.lp-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+.lp-badge.high{background:rgba(255,78,106,0.15);color:#ff4e6a;}
+.lp-badge.med{background:rgba(201,162,39,0.15);color:#c9a227;}
+.lp-badge.low{background:rgba(34,224,161,0.15);color:#22e0a1;}
+.lp-footer{padding:14px 24px;border-top:1px solid rgba(255,255,255,0.06);display:flex;gap:10px;justify-content:flex-end;}
+.lp-btn{padding:9px 20px;border-radius:10px;font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all .2s;}
+.lp-btn-primary{background:linear-gradient(135deg,#c9a227,#a8841e);color:#fff;}
+.lp-btn-secondary{background:rgba(255,255,255,0.06);color:#e8edf5;border:1px solid rgba(255,255,255,0.1);}
+
 </style>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
 </head>
 <body>
+
+<!-- NOTIFICATION DROPDOWN -->
+<div class="laporan-popup" id="laporanPopup" onclick="if(event.target===this)closeLaporanPopup()">
+  <div class="laporan-popup-card">
+    <div class="lp-header">
+      <div class="lp-title"><i class="fas fa-file-alt" style="color:#c9a227;margin-right:8px"></i>Detail Laporan</div>
+      <button class="lp-close" onclick="closeLaporanPopup()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="lp-body" id="laporanPopupBody">
+      <div style="text-align:center;padding:20px;color:#6b7fa0">Memuat...</div>
+    </div>
+    <div class="lp-footer">
+      <button class="lp-btn lp-btn-secondary" onclick="closeLaporanPopup()">Tutup</button>
+      <button class="lp-btn lp-btn-primary" onclick="markAsRead(currentNotifId)"><i class="fas fa-check"></i> Tandai Dibaca</button>
+    </div>
+  </div>
+</div>
+    <br>
+      <i class="fas fa-file-alt"></i> Pergi ke Buat Laporan
+    </button>
+  </div>
+</div>
+
 <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
 <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
 
 <div class="sidebar" id="sidebar">
   <div class="sidebar-brand">
-    <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
-    <div><div class="brand-text">AIMS</div><div class="brand-sub">Safety System</div></div>
+    <div class="brand-icon"><img src="LOGO.png" alt="AIMS Logo" onerror="this.style.display='none'"></div>
+    <div><div class="brand-text">SIGAP</div><div class="brand-sub">Safety System</div></div>
   </div>
-  <nav class="sidebar-nav">
+   <nav class="sidebar-nav">
     <div class="nav-label">Menu Utama</div>
-    <a href="dashboard.html"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
+    <a href="dashboard.html" class="active"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
     <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
-     <div class="nav-label">Data</div>
+    <div class="nav-label">Data</div>
     <a href="Bisnis Proses.html"><span class="nav-icon"><i class="fas fa-briefcase"></i></span>Bisnis Proses</a>
-   <a href="Emergency drill.html"><span class="nav-icon"><i class="fas fa-fire-extinguisher"></i></span>Emergency drill</a>
-   <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
-    
-   <a href="Ibpr.html"><span class="nav-icon"><i class="fas fa-search"></i></span>IBPR</a>
-   <a href="Awards.html"><span class="nav-icon"><i class="fas fa-trophy"></i></span>Awards</a>
-   <a href="Smkp minerba.html"><span class="nav-icon"><i class="fas fa-hard-hat"></i></span>SMKP Minerba</a>
-   <a href="Pica smkp.html"><span class="nav-icon"><i class="fas fa-check"></i></span>PICA SMKP</a>
-   <a href="Sml.html"><span class="nav-icon"><i class="fas fa-leaf"></i></span>SML</a>
-   <a href="Evaluasi kebijakan.html"><span class="nav-icon"><i class="fas fa-book"></i></span>Evaluasi Kebijakan</a>
-   <a href="Kompetensi.html"><span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>Kompetensi</a>
-   <a href="Breaking news.html"><span class="nav-icon"><i class="fas fa-newspaper"></i></span>Breaking News</a>
-   <a href="Job desk.html"><span class="nav-icon"><i class="fas fa-user-tie"></i></span>Job Desk</a>
-   <a href="Campaign.html"><span class="nav-icon"><i class="fas fa-bullhorn"></i></span>Campaign</a>
-   <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
-   
-   <div class="nav-label"> Dokumen</div>
-    <a href="dokumen.html" class=""><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
-   <div class="nav-label">Tautan Kerja</div>
-        <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener" style="color:rgba(0,212,255,0.85)">
-      <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent)"><i class="fas fa-external-link-alt"></i></span>
-      SIGAP IBP
-      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
+    <a href="Emergency drill.html"><span class="nav-icon"><i class="fas fa-fire-extinguisher"></i></span>Emergency drill</a>
+    <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
+    <a href="Ibpr.html"><span class="nav-icon"><i class="fas fa-search"></i></span>IBPR</a>
+    <a href="Awards.html"><span class="nav-icon"><i class="fas fa-trophy"></i></span>Awards</a>
+    <a href="Smkp minerba.html"><span class="nav-icon"><i class="fas fa-hard-hat"></i></span>SMKP Minerba</a>
+    <a href="Pica smkp.html"><span class="nav-icon"><i class="fas fa-check"></i></span>PICA SMKP</a>
+    <a href="Sml.html"><span class="nav-icon"><i class="fas fa-leaf"></i></span>SML</a>
+    <a href="Evaluasi kebijakan.html"><span class="nav-icon"><i class="fas fa-book"></i></span>Evaluasi Kebijakan</a>
+    <a href="Kompetensi.html"><span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>Kompetensi</a>
+    <a href="Breaking news.html"><span class="nav-icon"><i class="fas fa-newspaper"></i></span>Breaking News</a>
+    <a href="Job desk.html"><span class="nav-icon"><i class="fas fa-user-tie"></i></span>Job Desk</a>
+    <a href="Campaign.html"><span class="nav-icon"><i class="fas fa-bullhorn"></i></span>Campaign</a>
+    <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
+    <div class="nav-label">Dokumen</div>
+    <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
+    <div class="nav-label">Tautan Kerja</div>
+    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener" style="color:rgba(201,162,39,0.8)">
+      <span class="nav-icon" style="background:rgba(201,162,39,0.1);color:var(--gold)"><i class="fas fa-external-link-alt"></i></span>
+      SIGAP IBP <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
     </a>
-        <a href="https://account.accurate.id/manage" target="_blank" rel="noopener" style="color:rgba(255,200,67,0.85)">
-      <span class="nav-icon" style="background:rgba(255,200,67,0.15);color:var(--accent3)"><i class="fas fa-external-link-alt"></i></span>
-      Accurate
-      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
+    <a href="https://account.accurate.id/manage" target="_blank" rel="noopener" style="color:rgba(0,212,255,0.8)">
+      <span class="nav-icon" style="background:rgba(0,212,255,0.1);color:var(--accent)"><i class="fas fa-external-link-alt"></i></span>
+      Accurate <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
     </a>
     <div class="nav-label">Akun</div>
+    
     <a href="#" onclick="logout()" class="logout-btn"><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
   </nav>
   <div class="sidebar-footer">
@@ -320,11 +422,11 @@ textarea.fc{resize:vertical;min-height:70px;}
 
 <div class="main">
   <div class="topbar">
-    <div class="topbar-left"><h5>Arta Integrated Manajemen System</h5><span>Sistem Informasi Keselamatan Kerja</span></div>
+    <div class="topbar-left"><h5>PT. Insani Baraperkasa</h5><span>Sistem Informasi Keselamatan Kerja</span></div>
     <div class="topbar-right">
       <button class="topbar-btn"><i class="fas fa-bell"></i></button>
       <button class="topbar-btn"><i class="fas fa-cog"></i></button>
-      <span class="role-badge" id="roleBadge">—</span>
+      
       <div class="topbar-user">
         <div class="topbar-avatar"><i class="fas fa-user"></i></div>
         <span class="topbar-uname" id="userNameDisplay">User</span>
@@ -344,12 +446,13 @@ textarea.fc{resize:vertical;min-height:70px;}
           <i class="fas fa-cloud-upload-alt"></i>
           <span id="btnUploadText">Upload Dokumen</span>
         </button>
-        <div class="upload-lock-notice" id="uploadLockNotice" style="display:none;">
-          <i class="fas fa-lock"></i>
-          Upload hanya untuk <strong style="margin-left:3px">Safety Officer / Dok Kontrol</strong>
-        </div>
+
       </div>
     </div>
+
+
+    <!-- ═══ PROGRAM K3 SUB-MENU ═══ -->
+    
 
     <!-- ① DEPARTEMEN NAV — Filter Utama -->
     <div class="dept-nav" id="deptNav"></div>
@@ -406,16 +509,61 @@ textarea.fc{resize:vertical;min-height:70px;}
       <button class="btn-close-m" onclick="closeUploadModal()"><i class="fas fa-times"></i></button>
     </div>
     <div class="modal-body" style="max-height:70vh;overflow-y:auto;">
-      <div class="upload-zone" id="uploadZone" ondragover="dzOver(event)" ondragleave="dzLeave()" ondrop="dzDrop(event)">
-        <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.png,.jpg" onchange="fileSelect(this)">
-        <div class="uz-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-        <div style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:3px">Drag & Drop file di sini</div>
-        <div style="font-size:11px;color:var(--muted)">atau klik untuk memilih · PDF, DOCX, XLSX, PPTX · Maks 20 MB</div>
+      <!-- Tab Switcher -->
+      <div class="upload-tabs">
+        <button class="upload-tab-btn active" id="tabFile" onclick="switchUploadTab('file')">
+          <i class="fas fa-cloud-upload-alt"></i> Upload File Langsung
+        </button>
+        <button class="upload-tab-btn" id="tabDrive" onclick="switchUploadTab('drive')">
+          <i class="fab fa-google-drive"></i> Google Drive Link
+        </button>
       </div>
-      <div id="selFile" class="sel-file" style="display:none">
-        <i class="fas fa-file-alt" style="color:var(--accent);font-size:18px;flex-shrink:0"></i>
-        <span id="selFileName" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
-        <span id="selFileSize" style="color:var(--muted);font-size:12px;flex-shrink:0"></span>
+
+      <!-- Panel: Upload File -->
+      <div class="upload-tab-panel active" id="panelFile">
+        <div class="upload-zone" id="uploadZone" ondragover="dzOver(event)" ondragleave="dzLeave()" ondrop="dzDrop(event)">
+          <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.png,.jpg,.mp4,.mov,.avi" onchange="fileSelect(this)">
+          <div class="uz-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+          <div style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:3px">Drag & Drop file di sini</div>
+          <div style="font-size:11px;color:var(--muted)">atau klik untuk memilih · PDF, DOCX, XLSX, PPTX, Video · Maks 50 MB</div>
+        </div>
+        <div id="selFile" class="sel-file" style="display:none">
+          <i class="fas fa-file-alt" style="color:var(--accent);font-size:18px;flex-shrink:0"></i>
+          <span id="selFileName" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+          <span id="selFileSize" style="color:var(--muted);font-size:12px;flex-shrink:0"></span>
+        </div>
+      </div>
+
+      <!-- Panel: Google Drive -->
+      <div class="upload-tab-panel" id="panelDrive">
+        <div style="background:rgba(66,133,244,0.08);border:1.5px solid rgba(66,133,244,0.25);border-radius:12px;padding:16px;margin-bottom:12px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="width:36px;height:36px;background:rgba(66,133,244,0.15);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#4285f4;flex-shrink:0"><i class="fab fa-google-drive"></i></div>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--navy)">Google Drive Link</div>
+              <div style="font-size:11px;color:var(--muted)">Upload file ke Google Drive, lalu paste link di bawah</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:#64748b;line-height:1.7;background:#f0f4f8;border-radius:8px;padding:10px 12px;">
+            <div style="margin-bottom:4px;font-weight:600;color:var(--navy)">Cara mendapatkan link:</div>
+            <div style="color:var(--muted)">1. Buka Google Drive → klik kanan file</div>
+            <div style="color:var(--muted)">2. Pilih <strong style="color:#4285f4">"Bagikan"</strong> → atur akses <strong style="color:#4285f4">"Siapa saja yang memiliki link"</strong></div>
+            <div style="color:var(--muted)">3. Salin link → paste di kolom bawah</div>
+          </div>
+        </div>
+        <label class="fl"><i class="fab fa-google-drive" style="margin-right:4px;color:#4285f4"></i> Link Google Drive *</label>
+        <input class="fc" type="url" id="uGdrive" placeholder="https://drive.google.com/file/d/...">
+        <div style="font-size:11px;color:var(--muted);margin-top:4px"><i class="fas fa-info-circle"></i> Mendukung semua format: PDF, Video, Word, Excel, dll tanpa batas ukuran</div>
+      </div>
+      <!-- Upload Progress -->
+      <div class="upload-progress-wrap" id="uploadProgressWrap">
+        <div class="upload-progress-bar-bg">
+          <div class="upload-progress-bar" id="uploadProgressBar"></div>
+        </div>
+        <div class="upload-progress-label">
+          <span id="uploadProgressText">Mengupload file...</span>
+          <span id="uploadProgressPct">0%</span>
+        </div>
       </div>
       <div class="row g-3">
         <div class="col-12">
@@ -432,7 +580,7 @@ textarea.fc{resize:vertical;min-height:70px;}
             <option value="">— Pilih level —</option>
             <option value="1">Level 1 — Kebijakan (Policy)</option>
             <option value="2">Level 2 — Prosedur (SOP)</option>
-            <option value="3">Level 3 — Instruksi Kerja (IK)</option>
+            <option value="3">Level 3 — Instruksi Kerja</option>
             <option value="4">Level 4 — Formulir & Rekaman</option>
           </select>
         </div>
@@ -476,26 +624,13 @@ textarea.fc{resize:vertical;min-height:70px;}
           <label class="fl">Deskripsi</label>
           <textarea class="fc" id="uDeskripsi" placeholder="Deskripsi singkat isi dokumen..."></textarea>
         </div>
+
       </div>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel-m" onclick="closeUploadModal()"><i class="fas fa-times"></i> Batal</button>
       <button class="btn-save-m" onclick="saveDoc()"><i class="fas fa-save"></i> Simpan Dokumen</button>
     </div>
-  </div>
-</div>
-
-<!-- ═══ RESTRICTED MODAL ═══ -->
-<div class="modal-overlay" id="restrictedModal">
-  <div class="restr-box">
-    <div class="restr-icon"><i class="fas fa-lock"></i></div>
-    <div class="restr-title">Akses Terbatas</div>
-    <div class="restr-sub">Fitur upload & hapus dokumen hanya dapat diakses oleh pengguna dengan role:</div>
-    <div class="restr-roles">
-      <span class="role-badge she" style="font-size:13px;padding:7px 18px"><i class="fas fa-shield-alt"></i> Safety Officer</span>
-      <span class="role-badge dok" style="font-size:13px;padding:7px 18px"><i class="fas fa-folder-open"></i> Dok Kontrol</span>
-    </div>
-    <button class="btn-ok" onclick="document.getElementById('restrictedModal').classList.remove('show')">Saya Mengerti</button>
   </div>
 </div>
 
@@ -524,7 +659,7 @@ textarea.fc{resize:vertical;min-height:70px;}
       <button class="btn-close-m" onclick="closeDel()"><i class="fas fa-times"></i></button>
     </div>
     <div class="modal-body">
-      <p style="font-size:14px;color:var(--muted);line-height:1.6">Yakin hapus <strong id="delName" style="color:var(--navy)"></strong>? Tindakan ini tidak dapat dibatalkan.</p>
+      <p style="font-size:14px;color:#6b7fa0;line-height:1.6">Yakin hapus <strong id="delName" style="color:var(--navy);font-weight:700"></strong>? Tindakan ini tidak dapat dibatalkan.</p>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel-m" onclick="closeDel()"><i class="fas fa-times"></i> Batal</button>
@@ -536,10 +671,16 @@ textarea.fc{resize:vertical;min-height:70px;}
 <div class="toast-box" id="toast"></div>
 
 <script>
+// ── FIREBASE diload via CDN di <head> ─────────────────
+// db sudah tersedia dari window.db yang diset di script head
+
+// ═══════════════════════════════════════════════════════
+
+
 // ═══════════════════════════════════════════════════════
 // CONFIG
 // ═══════════════════════════════════════════════════════
-const UPLOAD_ROLES = ['Safety Officer','Dok Kontrol','Admin'];
+const UPLOAD_ROLES = ['Admin']; // semua admin bisa akses
 
 const DEPARTMENTS = [
   { id:'', label:'Semua', icon:'fa-globe', color:'#0b1829' },
@@ -553,10 +694,10 @@ const DEPARTMENTS = [
 ];
 
 const LEVELS = [
-  { id:'1', label:'Level 1', sub:'Kebijakan (Policy)', icon:'fa-crown', cls:'lb-1', stripe:'lv1-stripe', header:'lv1-header', body:'lv1-body', icon2:'lv1-icon', cnt:'lv1-cnt', card:'lv1-card', sc:'sc-lv1', color:'#4f46e5', title:'lv1-title' },
-  { id:'2', label:'Level 2', sub:'Prosedur / SOP', icon:'fa-book-open', cls:'lb-2', stripe:'lv2-stripe', header:'lv2-header', body:'lv2-body', icon2:'lv2-icon', cnt:'lv2-cnt', card:'lv2-card', sc:'sc-lv2', color:'#0284c7', title:'lv2-title' },
-  { id:'3', label:'Level 3', sub:'Instruksi Kerja', icon:'fa-tools', cls:'lb-3', stripe:'lv3-stripe', header:'lv3-header', body:'lv3-body', icon2:'lv3-icon', cnt:'lv3-cnt', card:'lv3-card', sc:'sc-lv3', color:'#d97706', title:'lv3-title' },
-  { id:'4', label:'Level 4', sub:'Formulir & Rekaman', icon:'fa-file-alt', cls:'lb-4', stripe:'lv4-stripe', header:'lv4-header', body:'lv4-body', icon2:'lv4-icon', cnt:'lv4-cnt', card:'lv4-card', sc:'sc-lv4', color:'#127754', title:'lv4-title' }
+  { id:'1', label:'Level 1', sub:'Kebijakan (Policy)',    icon:'fa-crown',     cls:'lb-1', stripe:'lv1-stripe', header:'lv1-header', body:'lv1-body', icon2:'lv1-icon', cnt:'lv1-cnt', card:'lv1-card', sc:'sc-lv1', color:'#4f46e5', title:'lv1-title' },
+  { id:'2', label:'Level 2', sub:'Prosedur / SOP',        icon:'fa-book-open', cls:'lb-2', stripe:'lv2-stripe', header:'lv2-header', body:'lv2-body', icon2:'lv2-icon', cnt:'lv2-cnt', card:'lv2-card', sc:'sc-lv2', color:'#0284c7', title:'lv2-title' },
+  { id:'3', label:'Level 3', sub:'Instruksi Kerja',       icon:'fa-tasks',     cls:'lb-3', stripe:'lv3-stripe', header:'lv3-header', body:'lv3-body', icon2:'lv3-icon', cnt:'lv3-cnt', card:'lv3-card', sc:'sc-lv3', color:'#d97706', title:'lv3-title' },
+  { id:'4', label:'Level 4', sub:'Formulir & Rekaman',    icon:'fa-file-alt',  cls:'lb-4', stripe:'lv4-stripe', header:'lv4-header', body:'lv4-body', icon2:'lv4-icon', cnt:'lv4-cnt', card:'lv4-card', sc:'sc-lv4', color:'#127754', title:'lv4-title' }
 ];
 
 const KAT = { 'SOP':{color:'#3b82f6',bg:'rgba(59,130,246,.10)',icon:'fa-book-open',label:'SOP'}, 'Form':{color:'#8b5cf6',bg:'rgba(139,92,246,.10)',icon:'fa-file-alt',label:'Form'}, 'Regulasi':{color:'#d97706',bg:'rgba(245,158,11,.12)',icon:'fa-gavel',label:'Regulasi'}, 'Laporan K3':{color:'#ff4e6a',bg:'rgba(255,78,106,.10)',icon:'fa-chart-line',label:'Laporan K3'}, 'Sertifikat':{color:'#22e0a1',bg:'rgba(34,224,161,.10)',icon:'fa-certificate',label:'Sertifikat'} };
@@ -565,9 +706,67 @@ const TIPE = { 'PDF':{icon:'fa-file-pdf',color:'#ef4444',bg:'rgba(239,68,68,.10)
 // ═══════════════════════════════════════════════════════
 // DATA
 // ═══════════════════════════════════════════════════════
-let documents = [];
 
-let activeDept='', filteredDocs=[...documents], currentView='grid', deleteDocId=null, selFileData=null, currentUserRole='';
+// ── FIREBASE INIT ─────────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyCzEKC8AzK_wx-sg8tDg32JkCa-C4KNqY8",
+  authDomain: "sigap-report-system.firebaseapp.com",
+  projectId: "sigap-report-system",
+  storageBucket: "sigap-report-system.firebasestorage.app",
+  messagingSenderId: "794553302905",
+  appId: "1:794553302905:web:673f1856a8c35cdc58f9a8"
+};
+if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const storage = firebase.storage();
+const DOCS_COL = 'aims_dokumen';
+
+// Dokumen default (tampil saat belum ada data dari Firestore)
+const DEFAULT_DOCS = [];
+
+let documents = [...DEFAULT_DOCS];
+let activeDept='', filteredDocs=[...documents], currentView='grid', deleteDocId=null, selFileData=null, currentUserRole='', uploadFileObj=null;
+let isLoadingDocs = false;
+
+// ── LOAD DOKUMEN DARI FIRESTORE ───────────────────────
+async function loadDocs() {
+  isLoadingDocs = true;
+  try {
+    const snap = await db.collection(DOCS_COL).orderBy('createdAt','desc').get();
+    if (!snap.empty) {
+      const firestoreDocs = [];
+      snap.forEach(doc => {
+        firestoreDocs.push({ id: doc.id, _docId: doc.id, ...doc.data() });
+      });
+      // Gabungkan: Firestore docs + default docs yang tidak ada di Firestore
+      const firestoreIds = firestoreDocs.map(d => d.nomor);
+      const remainingDefault = DEFAULT_DOCS.filter(d => !firestoreIds.includes(d.nomor));
+      documents = [...firestoreDocs, ...remainingDefault];
+    }
+  } catch(e) {
+    console.warn('Firestore gagal, pakai data default:', e);
+  }
+  isLoadingDocs = false;
+  filteredDocs = [...documents];
+  buildStats();
+  applyFilter();
+
+  // Real-time listener
+  db.collection(DOCS_COL).orderBy('createdAt','desc').onSnapshot(snapshot => {
+    if(isLoadingDocs) return;
+    const firestoreDocs = [];
+    snapshot.forEach(doc => {
+      firestoreDocs.push({ id: doc.id, _docId: doc.id, ...doc.data() });
+    });
+    const firestoreIds = firestoreDocs.map(d => d.nomor);
+    const remainingDefault = DEFAULT_DOCS.filter(d => !firestoreIds.includes(d.nomor));
+    documents = [...firestoreDocs, ...remainingDefault];
+    filteredDocs = [...documents];
+    buildStats();
+    applyFilter();
+  }, err => console.warn('Snapshot error:', err));
+}
+
 const collapsedLevels={};
 
 // ═══════════════════════════════════════════════════════
@@ -580,21 +779,9 @@ const collapsedLevels={};
   ['userNameDisplay','sidebarUserName'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=name;});
   const av=document.getElementById('sidebarAvatarLetter');if(av)av.textContent=name.charAt(0).toUpperCase();
   const roleEl=document.getElementById('sidebarUserRole');if(roleEl)roleEl.textContent=role;
-  const badge=document.getElementById('roleBadge');
-  if(badge){badge.textContent=role;badge.className=role==='Safety Officer'?'role-badge she':role==='Dok Kontrol'?'role-badge dok':'role-badge other';}
-
-  const canUpload = UPLOAD_ROLES.includes(role);
-  if(!canUpload){
-    const btn=document.getElementById('btnUpload');
-    if(btn){btn.classList.add('locked');document.getElementById('btnUploadText').innerHTML='<i class="fas fa-lock" style="margin-right:4px"></i>Upload Terkunci';}
-    const notice=document.getElementById('uploadLockNotice');if(notice)notice.style.display='flex';
-  }
 })();
 
 function handleUploadClick(){
-  if(!UPLOAD_ROLES.includes(currentUserRole)){
-    document.getElementById('restrictedModal').classList.add('show'); return;
-  }
   openUpload();
 }
 
@@ -716,10 +903,10 @@ function toggleLevel(lvId){
 }
 
 function renderLvGrid(docs,lv){
-  const canDel=UPLOAD_ROLES.includes(currentUserRole);
   return '<div class="docs-grid">'+docs.map(d=>{
     const tc=getTipe(d.tipe),kc=getKat(d.kategori);
-    return '<div class="doc-card '+lv.card+'" onclick="openPrev('+d.id+')">'
+    const eid = encodeDocId(d.id);
+    return '<div class="doc-card '+lv.card+'" data-id="'+eid+'" onclick="openPrev(getDocId(this))">'
       +'<div class="doc-level-stripe '+lv.stripe+'"></div>'
       +'<div class="doc-card-top">'
       +'<div class="doc-type-icon" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div>'
@@ -733,19 +920,19 @@ function renderLvGrid(docs,lv){
       +'<div class="doc-card-bottom" onclick="event.stopPropagation()">'
       +'<span class="badge-sm" style="background:'+kc.bg+';color:'+kc.color+'"><i class="fas '+kc.icon+'" style="font-size:8px"></i> '+kc.label+'</span>'
       +'<div class="doc-actions">'
-      +'<button class="act-btn act-view" onclick="openPrev('+d.id+')" title="Detail"><i class="fas fa-eye"></i></button>'
-      +'<button class="act-btn act-dl" onclick="downloadDoc('+d.id+')" title="Download"><i class="fas fa-download"></i></button>'
-      +'<button class="act-btn act-del" onclick="openDel('+d.id+')" title="Hapus"'+(canDel?'':' disabled')+'><i class="fas fa-trash-alt"></i></button>'
+      +'<button class="act-btn act-view" data-id="'+eid+'" onclick="openPrev(getDocId(this))" title="Detail"><i class="fas fa-eye"></i></button>'
+      +'<button class="act-btn act-dl"  data-id="'+eid+'" onclick="downloadDoc(getDocId(this))" title="Download"><i class="fas fa-download"></i></button>'
+      +'<button class="act-btn act-del" data-id="'+eid+'" onclick="openDel(getDocId(this))" title="Hapus"><i class="fas fa-trash-alt"></i></button>'
       +'</div></div></div>';
   }).join('')+'</div>';
 }
 
 function renderLvList(docs,lv){
-  const canDel=UPLOAD_ROLES.includes(currentUserRole);
   return '<div class="docs-list"><table><thead><tr><th>No</th><th>Dokumen</th><th>Kategori</th><th>Departemen</th><th>Tipe</th><th>Tanggal</th><th>Ukuran</th><th>Aksi</th></tr></thead><tbody>'
     +docs.map((d,i)=>{
       const tc=getTipe(d.tipe),kc=getKat(d.kategori);
-      return '<tr onclick="openPrev('+d.id+')">'
+      const eid = encodeDocId(d.id);
+      return '<tr data-id="'+eid+'" onclick="openPrev(getDocId(this))">'
         +'<td style="color:var(--muted);font-size:11px;font-family:\'Space Mono\',monospace">'+(i+1)+'</td>'
         +'<td><div style="display:flex;align-items:center;gap:10px">'
         +'<div class="file-icon-sm" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div>'
@@ -757,9 +944,9 @@ function renderLvList(docs,lv){
         +'<td style="font-size:12px;color:var(--muted)">'+fmtTgl(d.tanggal)+'</td>'
         +'<td style="font-size:12px;color:var(--muted)">'+d.ukuran+'</td>'
         +'<td onclick="event.stopPropagation()" style="white-space:nowrap">'
-        +'<button class="act-btn act-view" onclick="openPrev('+d.id+')"><i class="fas fa-eye"></i></button> '
-        +'<button class="act-btn act-dl" onclick="downloadDoc('+d.id+')"><i class="fas fa-download"></i></button> '
-        +'<button class="act-btn act-del" onclick="openDel('+d.id+')"'+(canDel?'':' disabled')+'><i class="fas fa-trash-alt"></i></button>'
+        +'<button class="act-btn act-view" data-id="'+eid+'" onclick="openPrev(getDocId(this))"><i class="fas fa-eye"></i></button> '
+        +'<button class="act-btn act-dl"  data-id="'+eid+'" onclick="downloadDoc(getDocId(this))"><i class="fas fa-download"></i></button> '
+        +'<button class="act-btn act-del" data-id="'+eid+'" onclick="openDel(getDocId(this))"><i class="fas fa-trash-alt"></i></button>'
         +'</td></tr>';
     }).join('')+'</tbody></table></div>';
 }
@@ -774,10 +961,15 @@ function setView(v){
 // ═══════════════════════════════════════════════════════
 // PREVIEW
 // ═══════════════════════════════════════════════════════
+// ── HELPER: encode/decode Firestore ID aman untuk HTML attribute ──
+function encodeDocId(id){ return (id||'').replace(/[^a-zA-Z0-9_-]/g, function(c){ return '_x'+c.charCodeAt(0).toString(16)+'_'; }); }
+function decodeDocId(enc){ return enc.replace(/_x([0-9a-f]+)_/g, function(m,h){ return String.fromCharCode(parseInt(h,16)); }); }
+function getDocId(el){ return decodeDocId(el.dataset.id||''); }
+
 function openPrev(id){
   const d=documents.find(x=>x.id===id);if(!d)return;
   const tc=getTipe(d.tipe),kc=getKat(d.kategori);
-  const lv=LEVELS.find(l=>l.id===d.level)||LEVELS[3];
+  const lv=LEVELS.find(l=>l.id===d.level)||LEVELS[0];
   document.getElementById('prevContent').innerHTML=
     '<div style="text-align:center">'
     +'<div class="prev-doc-icon" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div>'
@@ -798,7 +990,10 @@ function openPrev(id){
     +'<div class="prev-field"><div class="prev-label">Tanggal Terbit</div><div class="prev-val">'+fmtTgl(d.tanggal)+'</div></div>'
     +'<div class="prev-field"><div class="prev-label">Dibuat Oleh</div><div class="prev-val">'+(d.pembuat||'—')+'</div></div>'
     +'</div>'
-    +'<button class="btn-dl-full" onclick="downloadDoc('+d.id+')"><i class="fas fa-download"></i> Download Dokumen</button>';
+    +'<button class="btn-dl-full" data-id="'+encodeDocId(d.id)+'" onclick="downloadDoc(getDocId(this))" style="'+(d.file_url||d.gdrive_link?'':'opacity:.5;pointer-events:none')+'">'
+    +'<i class="'+(d.gdrive_link?'fab fa-google-drive':'fas fa-download')+'"></i> '
+    +(d.file_url?'Download File':'')+(d.gdrive_link?'Buka di Google Drive':'')+((!d.file_url&&!d.gdrive_link)?'File Belum Tersedia':'')
+    +'</button>';
   document.getElementById('previewModal').classList.add('show');
 }
 function closePrev(){document.getElementById('previewModal').classList.remove('show');}
@@ -807,21 +1002,44 @@ function closePrev(){document.getElementById('previewModal').classList.remove('s
 // DELETE
 // ═══════════════════════════════════════════════════════
 function openDel(id){
-  if(!UPLOAD_ROLES.includes(currentUserRole)){document.getElementById('restrictedModal').classList.add('show');return;}
   deleteDocId=id;
   document.getElementById('delName').textContent=documents.find(x=>x.id===id)?.nama||'';
   document.getElementById('deleteModal').classList.add('show');
 }
 function closeDel(){document.getElementById('deleteModal').classList.remove('show');deleteDocId=null;}
-function confirmDel(){
+async function confirmDel(){
   if(!deleteDocId)return;
+  const doc = documents.find(x=>x.id===deleteDocId);
+  // Hapus dari Firestore jika ada _docId
+  if(doc && doc._docId){
+    try {
+      await db.collection(DOCS_COL).doc(doc._docId).delete();
+      // Hapus file dari Storage jika ada
+      if(doc.file_url){
+        try { await storage.refFromURL(doc.file_url).delete(); } catch(e){}
+      }
+    } catch(e){ console.warn('Delete error:', e); }
+  }
   documents=documents.filter(d=>d.id!==deleteDocId);
   closeDel();closePrev();applyFilter();
   showToast('<i class="fas fa-trash-alt"></i> Dokumen berhasil dihapus!');
 }
 function downloadDoc(id){
   const d=documents.find(x=>x.id===id);
-  showToast('<i class="fas fa-download"></i> Mengunduh '+(d?d.nama:'')+'...');
+  if(!d) return;
+  if(d.file_url){
+    // Download langsung dari Firebase Storage
+    const a=document.createElement('a');
+    a.href=d.file_url; a.target='_blank'; a.download=d.nama;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    showToast('<i class="fas fa-download"></i> Mengunduh '+d.nama+'...');
+  } else if(d.gdrive_link){
+    // Buka Google Drive
+    window.open(d.gdrive_link,'_blank');
+    showToast('<i class="fab fa-google-drive"></i> Membuka Google Drive...');
+  } else {
+    showToast('<i class="fas fa-exclamation-circle"></i> File belum tersedia', true);
+  }
 }
 
 // ═══════════════════════════════════════════════════════
@@ -838,16 +1056,30 @@ function closeUploadModal(){
   document.getElementById('uploadModal').classList.remove('show');
   ['uNama','uNomor','uDeskripsi','uPembuat'].forEach(id=>document.getElementById(id).value='');
   ['uKategori','uLevel','uDept'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('selFile').style.display='none';selFileData=null;
+  const gd=document.getElementById('uGdrive');if(gd)gd.value='';
+  document.getElementById('selFile').style.display='none';selFileData=null;uploadFileObj=null;
   document.getElementById('levelPreviewWrap').style.display='none';
+  // Reset tabs ke file mode
+  switchUploadTab('file');
 }
 function fileSelect(input){if(input.files&&input.files[0])procFile(input.files[0]);}
 function dzOver(e){e.preventDefault();document.getElementById('uploadZone').classList.add('dragover');}
 function dzLeave(){document.getElementById('uploadZone').classList.remove('dragover');}
 function dzDrop(e){e.preventDefault();dzLeave();if(e.dataTransfer.files[0])procFile(e.dataTransfer.files[0]);}
+
+function switchUploadTab(tab){
+  document.getElementById('tabFile').classList.toggle('active', tab==='file');
+  document.getElementById('tabDrive').classList.toggle('active', tab==='drive');
+  document.getElementById('panelFile').classList.toggle('active', tab==='file');
+  document.getElementById('panelDrive').classList.toggle('active', tab==='drive');
+  // Reset jika ganti tab
+  if(tab==='file'){ const g=document.getElementById('uGdrive');if(g)g.value=''; }
+  if(tab==='drive'){ uploadFileObj=null;selFileData=null;document.getElementById('selFile').style.display='none'; }
+}
 function procFile(file){
   const ext=file.name.split('.').pop().toUpperCase();
   selFileData={tipe:ext,ukuran:(file.size/1024/1024).toFixed(1)+' MB'};
+  uploadFileObj = file; // Simpan file object untuk upload
   document.getElementById('selFileName').textContent=file.name;
   document.getElementById('selFileSize').textContent=selFileData.ukuran;
   document.getElementById('selFile').style.display='flex';
@@ -871,27 +1103,110 @@ function onLevelChange(){
     +'<span style="color:'+cfg.color+';font-weight:700">'+cfg.label+' — '+cfg.sub+'</span>'
     +'<div class="prev-level-stripe '+cfg.stripe+'" style="margin:0;flex:1;height:4px;border-radius:4px"></div>';
 }
-function saveDoc(){
-  const nama=document.getElementById('uNama').value.trim();
-  const level=document.getElementById('uLevel').value;
-  const kat=document.getElementById('uKategori').value;
-  const dept=document.getElementById('uDept').value;
-  if(!nama){showToast('<i class="fas fa-exclamation-triangle"></i> Nama dokumen wajib!',true);return;}
-  if(!level){showToast('<i class="fas fa-exclamation-triangle"></i> Pilih level dokumen!',true);return;}
-  if(!kat){showToast('<i class="fas fa-exclamation-triangle"></i> Pilih kategori!',true);return;}
-  if(!dept){showToast('<i class="fas fa-exclamation-triangle"></i> Pilih departemen!',true);return;}
-  documents.unshift({
-    id:Date.now(),nama,
-    nomor:document.getElementById('uNomor').value.trim(),
-    level,kategori:kat,dept,
-    tipe:selFileData?.tipe||'PDF',
-    tanggal:document.getElementById('uTanggal').value||new Date().toISOString().split('T')[0],
-    pembuat:document.getElementById('uPembuat').value.trim()||currentUserRole,
-    deskripsi:document.getElementById('uDeskripsi').value.trim(),
-    ukuran:selFileData?.ukuran||'—'
-  });
-  closeUploadModal();buildDeptNav();applyFilter();
-  showToast('<i class="fas fa-check-circle"></i> Dokumen berhasil disimpan!');
+
+// ═══════════════════════════════════════════════════════
+// SAVE DOC — Upload ke Firebase Storage + simpan Firestore
+// ═══════════════════════════════════════════════════════
+async function saveDoc() {
+  const nama     = document.getElementById('uNama').value.trim();
+  const nomor    = document.getElementById('uNomor').value.trim();
+  const kategori = document.getElementById('uKategori').value;
+  const level    = document.getElementById('uLevel').value;
+  const dept     = document.getElementById('uDept').value;
+  const tanggal  = document.getElementById('uTanggal').value;
+  const pembuat  = document.getElementById('uPembuat').value.trim();
+  const deskripsi= document.getElementById('uDeskripsi').value.trim();
+  const gdrive   = document.getElementById('uGdrive')?.value.trim()||'';
+
+  if(!nama||!kategori||!level||!dept||!tanggal){
+    showToast('<i class="fas fa-exclamation-circle"></i> Lengkapi semua field wajib!', true);
+    return;
+  }
+
+  const btn = document.querySelector('.btn-save-m');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+
+  // Deteksi mode upload: file langsung atau Google Drive
+  const isFileMode = document.getElementById('tabFile').classList.contains('active');
+  const gdriveVal  = document.getElementById('uGdrive')?.value.trim()||'';
+
+  // Validasi Google Drive mode
+  if(!isFileMode && !gdriveVal){
+    showToast('<i class="fas fa-exclamation-circle"></i> Masukkan link Google Drive!', true);
+    btn.disabled=false; btn.innerHTML='<i class="fas fa-save"></i> Simpan Dokumen'; return;
+  }
+
+  let file_url = isFileMode ? '' : gdriveVal;
+  let tipe = selFileData ? selFileData.tipe : 'PDF';
+  let ukuran = selFileData ? selFileData.ukuran : '—';
+
+  // Sembunyikan form, tampilkan progress
+  const progressWrap = document.getElementById('uploadProgressWrap');
+  const progressBar  = document.getElementById('uploadProgressBar');
+  const progressText = document.getElementById('uploadProgressText');
+  const progressPct  = document.getElementById('uploadProgressPct');
+
+  try {
+    // Upload file ke Firebase Storage dengan progress tracking
+    if(isFileMode && uploadFileObj) {
+      progressWrap.classList.add('show');
+      progressText.textContent = 'Mengupload file...';
+
+      await new Promise((resolve, reject) => {
+        const fileName = 'dokumen/' + Date.now() + '_' + uploadFileObj.name;
+        const ref = storage.ref(fileName);
+        const task = ref.put(uploadFileObj);
+
+        task.on('state_changed',
+          (snapshot) => {
+            // Progress update
+            const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+            progressBar.style.width = pct + '%';
+            progressPct.textContent = pct + '%';
+            progressText.textContent = 'Mengupload... ' + (snapshot.bytesTransferred/1024/1024).toFixed(1) + ' MB / ' + (snapshot.totalBytes/1024/1024).toFixed(1) + ' MB';
+          },
+          (err) => {
+            console.warn('Storage upload gagal:', err);
+            progressWrap.classList.remove('show');
+            resolve(); // Tetap lanjut meski gagal
+          },
+          async () => {
+            file_url = await task.snapshot.ref.getDownloadURL();
+            progressBar.style.width = '100%';
+            progressPct.textContent = '100%';
+            progressText.textContent = 'Upload selesai!';
+            resolve();
+          }
+        );
+      });
+    }
+
+    // Simpan metadata ke Firestore
+    progressText.textContent = 'Menyimpan ke database...';
+    const docData = {
+      nama, nomor, kategori, level, dept, tanggal, pembuat, deskripsi,
+      tipe, ukuran, gdrive_link: gdrive, file_url,
+      uploadedBy: localStorage.getItem('userName')||'User',
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    await db.collection(DOCS_COL).add(docData);
+
+    progressWrap.classList.remove('show');
+    progressBar.style.width = '0%';
+    showToast('<i class="fas fa-check-circle"></i> Dokumen berhasil disimpan!');
+    closeUploadModal();
+    uploadFileObj = null;
+
+  } catch(e) {
+    console.error('Upload error:', e);
+    progressWrap.classList.remove('show');
+    showToast('<i class="fas fa-times-circle"></i> Gagal menyimpan: ' + e.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-save"></i> Simpan Dokumen';
+  }
 }
 
 // ═══════════════════════════════════════════════════════
@@ -906,7 +1221,7 @@ function logout(){if(confirm('Yakin ingin logout?')){localStorage.clear();window
 
 // ═══ INIT ═══
 buildDeptNav();
-applyFilter();
+loadDocs(); // Load dari Firestore
 
 // ── Auto-set sidebar active berdasarkan URL ──────────────────────────
 (function() {
@@ -920,6 +1235,205 @@ applyFilter();
       }
     }
   });
+})();
+
+
+</script>
+
+<script>
+// ── NOTIFICATION SYSTEM ──────────────────────────────
+(function initNotif(){
+  const level = localStorage.getItem('userLevel') || '';
+  if(level !== 'Admin') return; // Hanya admin
+
+  // Firebase init (jika belum)
+  if(!window._notifFirebase){
+    try{
+      const cfg={apiKey:"AIzaSyCzEKC8AzK_wx-sg8tDg32JkCa-C4KNqY8",authDomain:"sigap-report-system.firebaseapp.com",projectId:"sigap-report-system",storageBucket:"sigap-report-system.firebasestorage.app",messagingSenderId:"794553302905",appId:"1:794553302905:web:673f1856a8c35cdc58f9a8"};
+      if(!firebase.apps.length) firebase.initializeApp(cfg);
+      window._notifDB = firebase.firestore();
+      window._notifFirebase = true;
+    }catch(e){ return; }
+  }
+
+  const db = window._notifDB;
+
+  // Update topbar bell button — tambahkan wrapper & badge
+  const bellBtn = document.querySelector('.topbar-btn');
+  if(bellBtn && !bellBtn.parentElement.classList.contains('notif-wrap')){
+    const wrap = document.createElement('div');
+    wrap.className = 'notif-wrap';
+    wrap.style.position = 'relative';
+    bellBtn.parentNode.insertBefore(wrap, bellBtn);
+    wrap.appendChild(bellBtn);
+    // Badge
+    const badge = document.createElement('span');
+    badge.className = 'notif-badge hidden';
+    badge.id = 'notifBadge';
+    wrap.appendChild(badge);
+    // Dropdown
+    const dd = document.createElement('div');
+    dd.className = 'notif-dropdown';
+    dd.id = 'notifDropdown';
+    dd.innerHTML = `
+      <div class="notif-header">
+        <div class="notif-header-title"><i class="fas fa-bell"></i> Notifikasi Laporan</div>
+        <button class="notif-mark-all" onclick="markAllRead()">Tandai semua dibaca</button>
+      </div>
+      <div class="notif-list" id="notifList"><div class="notif-empty"><i class="fas fa-bell-slash"></i>Belum ada laporan masuk</div></div>
+      <div class="notif-footer"><a href="laporan.html">Lihat Semua Laporan →</a></div>`;
+    wrap.appendChild(dd);
+
+    // Toggle dropdown
+    bellBtn.onclick = function(e){
+      e.stopPropagation();
+      dd.classList.toggle('open');
+    };
+    document.addEventListener('click', ()=> dd.classList.remove('open'));
+  }
+
+  // Real-time listener — 10 laporan terbaru
+  db.collection('aims_laporan')
+    .orderBy('createdAt','desc')
+    .limit(10)
+    .onSnapshot(snapshot => {
+      window._notifData = [];
+      snapshot.forEach(doc => window._notifData.push({id:doc.id,...doc.data()}));
+      renderNotif(window._notifData);
+    }, err => console.warn('Notif error:', err));
+})();
+
+function renderNotif(items){
+  const list  = document.getElementById('notifList');
+  const badge = document.getElementById('notifBadge');
+  if(!list) return;
+
+  const unread = items.filter(i => !i.isRead).length;
+  if(badge){
+    if(unread > 0){ badge.textContent = unread > 9 ? '9+' : unread; badge.classList.remove('hidden'); }
+    else           { badge.classList.add('hidden'); }
+  }
+
+  if(items.length === 0){
+    list.innerHTML = '<div class="notif-empty"><i class="fas fa-bell-slash"></i>Belum ada laporan masuk</div>';
+    return;
+  }
+
+  list.innerHTML = items.map(item => {
+    const isRead = item.isRead;
+    const tgl = item.createdAt?.toDate ? item.createdAt.toDate().toLocaleString('id-ID',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : (item.tanggal||'—');
+    const risikoColor = item.risiko==='Tinggi'?'#ff4e6a': item.risiko==='Sedang'?'#c9a227':'#22e0a1';
+    return `<div class="notif-item ${isRead?'read':'unread'}" onclick="openLaporanPopup('${item.id}')">
+      <div class="notif-dot ${isRead?'read':''}"></div>
+      <div class="notif-icon ${isRead?'read':'new'}"><i class="fas fa-file-alt"></i></div>
+      <div class="notif-body">
+        <div class="notif-title">${item.pelapor||'—'} — ${item.area||'—'}</div>
+        <div class="notif-meta">
+          <span>${item.jenis||'—'}</span>
+          <span style="color:${risikoColor}">● ${item.risiko||'—'}</span>
+          <span>${tgl}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// Buka popup detail
+let currentNotifId = null;
+function openLaporanPopup(id){
+  currentNotifId = id;
+  document.getElementById('notifDropdown')?.classList.remove('open');
+  const popup = document.getElementById('laporanPopup');
+  const body  = document.getElementById('laporanPopupBody');
+  if(!popup||!body) return;
+  popup.classList.add('open');
+
+  const item = (window._notifData||[]).find(i=>i.id===id);
+  if(!item){ body.innerHTML='<div style="text-align:center;padding:20px;color:#6b7fa0">Data tidak ditemukan</div>'; return; }
+
+  const tgl = item.createdAt?.toDate ? item.createdAt.toDate().toLocaleString('id-ID') : (item.tanggal||'—');
+  const badgeClass = item.risiko==='Tinggi'?'high': item.risiko==='Sedang'?'med':'low';
+
+  body.innerHTML = `
+    <div class="lp-row">
+      <div class="lp-field"><div class="lp-label">ID Laporan</div><div class="lp-value" style="font-family:monospace;font-size:12px;color:#c9a227">${item.id}</div></div>
+      <div class="lp-field"><div class="lp-label">Tanggal</div><div class="lp-value">${tgl}</div></div>
+      <div class="lp-field"><div class="lp-label">Nama Pelapor</div><div class="lp-value">${item.pelapor||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">NIK</div><div class="lp-value">${item.nik||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Jabatan</div><div class="lp-value">${item.jabatan||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Departemen</div><div class="lp-value">${item.departemen||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Area</div><div class="lp-value">${item.area||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Jenis Laporan</div><div class="lp-value">${item.jenis||'—'}</div></div>
+      <div class="lp-field full"><div class="lp-label">Aktivitas</div><div class="lp-value">${item.aktivitas||'—'}</div></div>
+      <div class="lp-field full"><div class="lp-label">Deskripsi</div><div class="lp-value">${item.deskripsi||'—'}</div></div>
+      <div class="lp-field full"><div class="lp-label">Tindakan</div><div class="lp-value">${item.tindakan||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Kategori Risiko</div><div class="lp-value"><span class="lp-badge ${badgeClass}">${item.risiko||'—'}</span></div></div>
+      <div class="lp-field"><div class="lp-label">Status</div><div class="lp-value">${item.status||'—'}</div></div>
+      ${item.hasFoto?'<div class="lp-field full"><div class="lp-label">Foto</div><div class="lp-value" style="color:#c9a227"><i class="fas fa-image"></i> Ada foto (lihat di halaman laporan)</div></div>':''}
+    </div>`;
+
+  // Auto tandai dibaca
+  markAsRead(id);
+}
+
+function closeLaporanPopup(){
+  document.getElementById('laporanPopup')?.classList.remove('open');
+  currentNotifId = null;
+}
+
+function markAsRead(id){
+  if(!id||!window._notifDB) return;
+  window._notifDB.collection('aims_laporan').doc(id).update({isRead:true}).catch(()=>{});
+}
+
+function markAllRead(){
+  if(!window._notifData||!window._notifDB) return;
+  window._notifData.filter(i=>!i.isRead).forEach(i=>{
+    window._notifDB.collection('aims_laporan').doc(i.id).update({isRead:true}).catch(()=>{});
+  });
+  document.getElementById('notifDropdown')?.classList.remove('open');
+}
+</script>
+<script>
+// Cek login
+if(!localStorage.getItem('isLoggedIn')){window.location.href='index.html';}
+</script>
+<script>
+// ── TAMPILKAN FOTO PROFIL ─────────────────────────────
+(function showPhoto(){
+  const photo = localStorage.getItem('userPhoto') || '';
+  const name  = localStorage.getItem('userName')  || 'User';
+
+  function setAvatar(el, isTopbar) {
+    if (!el) return;
+    if (photo) {
+      el.style.background = 'none';
+      el.style.padding = '0';
+      el.style.overflow = 'hidden';
+      const img = document.createElement('img');
+      img.src = photo;
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%;';
+      img.onerror = function() {
+        this.style.display = 'none';
+        if (isTopbar) {
+          el.innerHTML = '<i class="fas fa-user"></i>';
+        } else {
+          el.textContent = name.charAt(0).toUpperCase();
+        }
+      };
+      el.innerHTML = '';
+      el.appendChild(img);
+    } else {
+      if (isTopbar) {
+        el.innerHTML = '<i class="fas fa-user"></i>';
+      } else {
+        el.textContent = name.charAt(0).toUpperCase();
+      }
+    }
+  }
+
+  setAvatar(document.getElementById('sidebarAvatarLetter'), false);
+  setAvatar(document.querySelector('.topbar-avatar'), true);
 })();
 </script>
 </body>
