@@ -10,9 +10,11 @@
 <style>
 :root {
   --navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;
+  --gold:#c9a227;--gold-dim:rgba(201,162,39,0.15);
   --accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;
-  --bg:#f0f4fa;--card-bg:#fff;--text:#1a2540;--muted:#7a8aaa;--border:#e0e7ef;
-  --sidebar-w:260px;--radius:16px;--shadow:0 4px 24px rgba(11,24,41,.10);
+  --bg:#080f1c;--card-bg:#0f1e35;--card-border:rgba(201,162,39,0.12);
+  --text:#e8edf5;--muted:#6b7fa0;--border:rgba(255,255,255,0.10);
+  --sidebar-w:260px;--radius:16px;--shadow:0 4px 24px rgba(0,0,0,0.4);
   --transition:.28s cubic-bezier(.4,0,.2,1);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -20,7 +22,8 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
 .sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
 .sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,.07);}
-.brand-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(0,212,255,.35);flex-shrink:0;}
+.brand-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,162,39,0.35);box-shadow:0 0 14px rgba(201,162,39,0.15),0 4px 12px rgba(0,0,0,0.4);overflow:hidden;position:relative;}
+.brand-icon img{width:80%;height:80%;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(201,162,39,0.2));}
 .brand-text{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:#fff;letter-spacing:2px;}
 .brand-sub{font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
 .sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;}
@@ -41,29 +44,29 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .user-info .user-name{font-size:13px;font-weight:600;color:#fff;}
 .user-info .user-role{font-size:11px;color:var(--muted);}
 .main{margin-left:var(--sidebar-w);padding:0;min-height:100vh;}
-.topbar{background:var(--card-bg);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.05);}
-.topbar-left h5{font-size:15px;font-weight:700;color:var(--navy);margin:0;}
-.topbar-left span{font-size:12px;color:var(--muted);}
+.topbar{background:var(--navy-mid);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(201,162,39,0.1);position:sticky;top:0;z-index:100;}
+.topbar-left h5{font-size:15px;font-weight:700;color:#fff;margin:0;}
+.topbar-left span{font-size:12px;color:rgba(255,255,255,0.55);}
 .topbar-right{display:flex;align-items:center;gap:12px;}
-.topbar-btn{width:38px;height:38px;border-radius:10px;background:var(--bg);border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
-.topbar-btn:hover{background:#e2e8f5;color:var(--navy);}
-.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:var(--bg);cursor:pointer;transition:background var(--transition);}
-.topbar-user:hover{background:#e2e8f5;}
+.topbar-btn{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.06);border:none;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);cursor:pointer;transition:all var(--transition);}
+.topbar-btn:hover{background:rgba(201,162,39,0.1);color:#c9a227;}
+.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);cursor:pointer;transition:background var(--transition);}
+.topbar-user:hover{background:rgba(201,162,39,0.08);}
 .topbar-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
-.topbar-uname{font-size:13px;font-weight:600;color:var(--text);}
+.topbar-uname{font-size:13px;font-weight:600;color:#fff;}
 .content{padding:28px 32px 48px;}
 .page-header{margin-bottom:24px;}
-.page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;}
+.page-title{font-size:26px;font-weight:700;color:#fff;display:flex;align-items:center;gap:12px;}
 .title-icon{width:44px;height:44px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(217,119,6,.35);}
-.page-sub{font-size:13px;color:var(--muted);margin-top:6px;}
-.period-banner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));border-radius:var(--radius);padding:16px 22px;margin-bottom:20px;box-shadow:0 4px 20px rgba(11,24,41,.2);animation:fadeUp .4s ease both;}
-.period-left{display:flex;align-items:center;gap:10px;}
-.period-icon{width:38px;height:38px;background:rgba(0,212,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--accent);}
-.period-title{font-size:13px;font-weight:700;color:#fff;}
-.period-sub{font-size:11px;color:rgba(255,255,255,.5);margin-top:1px;}
-.period-badge{background:rgba(0,212,255,.15);border:1px solid rgba(0,212,255,.3);color:var(--accent);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;font-family:'Space Mono',monospace;}
+.page-sub{font-size:13px;color:rgba(255,255,255,0.5);margin-top:6px;}
+
+
+
+
+
+
 .stats-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:12px;margin-bottom:20px;}
-.stat-card{background:var(--card-bg);border-radius:var(--radius);padding:14px 12px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform var(--transition);animation:fadeUp .4s ease both;}
+.stat-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius);padding:14px 12px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform var(--transition);animation:fadeUp .4s ease both;}
 .stat-card:hover{transform:translateY(-3px);}
 .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--radius) var(--radius) 0 0;}
 .stat-card.c1::before{background:#f59e0b;}.stat-card.c2::before{background:var(--accent2);}.stat-card.c3::before{background:#8b5cf6;}
@@ -80,35 +83,45 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .c6  .stat-icon{background:rgba(236,72,153,.10);color:#ec4899;} .c6  .stat-value{color:#ec4899;}
 .c-tta .stat-icon{background:rgba(231,76,60,.10);color:#c0392b;} .c-tta .stat-value{color:#c0392b;}
 .c-kta .stat-icon{background:rgba(230,126,34,.10);color:#d35400;} .c-kta .stat-value{color:#d35400;}
-.data-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;animation:fadeUp .5s ease both;}
-.card-head{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;background:linear-gradient(90deg,#f7faff,var(--card-bg));}
+.data-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;animation:fadeUp .5s ease both;border:1px solid var(--card-border);}
+.card-head{padding:14px 20px;border-bottom:1px solid var(--card-border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;background:rgba(255,255,255,0.02);}
 .card-head-left{display:flex;align-items:center;gap:10px;}
 .card-head-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;background:rgba(245,158,11,.12);color:#d97706;}
-.card-head-title{font-size:14px;font-weight:700;color:var(--navy);}
-.card-head-sub{font-size:11px;color:var(--muted);margin-top:1px;}
+.card-head-title{font-size:14px;font-weight:700;color:#fff;}
+.card-head-sub{font-size:11px;color:rgba(255,255,255,0.45);margin-top:1px;}
 .card-body{padding:16px 20px;}
 .toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .search-wrap{position:relative;}
 .search-wrap .s-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:12px;pointer-events:none;}
 .search-input{padding-left:32px !important;width:200px;}
-.form-control,.form-select{border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text);background:#fafcff;outline:none;transition:all var(--transition);}
+.form-control,.form-select{border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:12px;color:#e8edf5;background:rgba(255,255,255,0.06);outline:none;transition:all var(--transition);}
 .form-control:focus,.form-select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,.10);}
 .filter-select{width:auto;min-width:120px;}
-.date-range-wrap{display:flex;align-items:center;gap:6px;background:#f7faff;border:1.5px solid var(--border);border-radius:10px;padding:4px 12px;}
+.date-range-wrap{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.05);border:1.5px solid var(--border);border-radius:10px;padding:4px 12px;}
 .date-range-wrap label{font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap;}
-.date-range-wrap input[type="date"]{border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text);outline:none;padding:4px 0;cursor:pointer;}
+.date-range-wrap input[type="date"]{border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:12px;color:#e8edf5;outline:none;padding:4px 0;cursor:pointer;}
 .date-sep{color:var(--muted);font-size:12px;font-weight:600;}
-.btn-reset-date{padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);background:#fff;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;transition:all var(--transition);font-family:'DM Sans',sans-serif;white-space:nowrap;}
+.btn-reset-date{padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);background:rgba(255,255,255,0.05);font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;transition:all var(--transition);font-family:'DM Sans',sans-serif;white-space:nowrap;}
 .btn-reset-date:hover{border-color:var(--accent);color:var(--accent);}
+/* Import button */
+.btn-import{padding:7px 14px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--accent4),#19a37a);color:#fff;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;}
+.btn-import:hover{opacity:.9;}
+/* Loading */
+.loading-state{text-align:center;padding:44px 20px;color:var(--muted);}
+.loading-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+/* API badge */
+.api-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(34,224,161,.12);color:#127754;}
+.api-badge.offline{background:rgba(255,200,67,.12);color:#92400e;}
 .table-wrap{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;}
 thead tr{background:linear-gradient(90deg,var(--navy-mid),var(--navy-light));color:#fff;}
 th{padding:10px 13px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;}
 tbody tr{border-bottom:1px solid var(--border);transition:background var(--transition);}
-tbody tr:hover{background:#f5f8ff;}
+tbody tr:hover{background:rgba(255,255,255,0.04);}
 td{padding:9px 13px;font-size:13px;vertical-align:middle;}
 .no-col{color:var(--muted);font-size:12px;font-family:'Space Mono',monospace;}
-.name-col{font-weight:600;color:var(--navy);}
+.name-col{font-weight:600;color:#e8edf5;}
 .nik-col{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);}
 .date-col{font-size:12px;color:var(--muted);}
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;}
@@ -120,69 +133,193 @@ td{padding:9px 13px;font-size:13px;vertical-align:middle;}
 .pagination-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:14px;}
 .page-info{font-size:12px;color:var(--muted);}
 .page-btns{display:flex;gap:4px;}
-.page-btn{padding:5px 11px;border:1.5px solid var(--border);background:#fff;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;color:var(--text);transition:all var(--transition);font-family:'DM Sans',sans-serif;}
+.page-btn{padding:5px 11px;border:1.5px solid var(--border);background:rgba(255,255,255,0.05);border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;color:var(--text);transition:all var(--transition);font-family:'DM Sans',sans-serif;}
 .page-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
 .page-btn.active{background:var(--accent);color:var(--navy);border-color:var(--accent);font-weight:700;}
 .page-btn:disabled{opacity:.35;cursor:default;}
-.empty-state{text-align:center;padding:44px 20px;color:var(--muted);}
-.empty-icon{width:60px;height:60px;border-radius:14px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 12px;}
+.empty-state{text-align:center;padding:44px 20px;color:rgba(255,255,255,0.4);}
+.empty-icon{width:60px;height:60px;border-radius:14px;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 12px;}
 .menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,.25);}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;}
+/* Toast */
+.toast-box{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transform:translateY(12px);transition:all .3s;z-index:3000;pointer-events:none;display:flex;align-items:center;gap:8px;}
+.toast-box.show{opacity:1;transform:translateY(0);}
+#rekapWrap{margin-top:20px;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+/* ─── REKAP SECTION ─────────────────────── */
+.rekap-section{margin-top:20px;animation:fadeUp .5s ease both;}
+.rekap-tabs{display:flex;gap:0;border-radius:12px;overflow:hidden;border:1.5px solid var(--border);margin-bottom:16px;flex-wrap:wrap;}
+.rekap-tab{padding:10px 20px;border:none;background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border-right:1.5px solid var(--border);}
+.rekap-tab:last-child{border-right:none;}
+.rekap-tab.active{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;}
+.rekap-tab:hover:not(.active){background:rgba(255,255,255,0.08);color:#fff;}
+.rekap-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.rekap-sum-card{background:rgba(255,255,255,0.04);border-radius:10px;padding:12px 14px;text-align:center;border:1.5px solid var(--card-border);}
+.rekap-sum-val{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;line-height:1;}
+.rekap-sum-lbl{font-size:11px;color:rgba(255,255,255,0.45);font-weight:600;margin-top:3px;}
+.rekap-sum-card.s-total .rekap-sum-val{color:#fff !important;}
+.rekap-sum-card.s-ok .rekap-sum-val{color:#16a34a;}
+.rekap-sum-card.s-no .rekap-sum-val{color:var(--accent2);}
+.rekap-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.rekap-table{width:100%;border-collapse:collapse;min-width:700px;}
+.rekap-table thead tr{background:linear-gradient(90deg,var(--navy-mid),var(--navy-light));color:#fff;}
+.rekap-table th{padding:9px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;text-align:left;}
+.rekap-table th:first-child{min-width:180px;max-width:240px;}
+.rekap-table tbody tr{border-bottom:1px solid var(--border);transition:background .15s;}
+.rekap-table tbody tr:hover{background:rgba(255,255,255,0.04);}
+.rekap-table td{padding:8px 12px;font-size:13px;vertical-align:middle;white-space:nowrap;}
+.rekap-table td:first-child{white-space:normal;min-width:160px;max-width:220px;word-break:break-word;}
+.rekap-table td:nth-child(2){min-width:100px;}
+.cell-ok{text-align:center;}
+.pill-ok{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(22,163,74,.1);color:#16a34a;}
+.pill-no{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(255,78,106,.1);color:#b91c1c;}
+.pill-skip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(122,138,170,.1);color:var(--muted);}
+.progress-mini{height:6px;background:#e5e7eb;border-radius:4px;overflow:hidden;margin-top:3px;}
+.progress-mini-bar{height:100%;border-radius:4px;transition:width .3s;}
+.bar-ok{background:linear-gradient(90deg,#16a34a,#22c55e);}
+.bar-no{background:linear-gradient(90deg,var(--accent2),#fca5a5);}
+.dept-header-row td{background:rgba(201,162,39,0.08);font-weight:700;color:#c9a227;font-size:12px;letter-spacing:.5px;padding:7px 12px;}
+.rekap-filter-wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.bulan-filter-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:rgba(255,255,255,0.05);font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.bulan-filter-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.bulan-filter-btn:hover:not(.active){border-color:var(--accent);color:var(--accent);}
+@media(max-width:768px){.rekap-summary{grid-template-columns:repeat(3,1fr);}.rekap-tab{font-size:11px;padding:8px 12px;}}
 @media(max-width:1400px){.stats-grid{grid-template-columns:repeat(4,1fr);}}
 @media(max-width:768px){
   .menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}
   .sidebar-overlay.open{display:block;}.main{margin-left:0;}.topbar{padding:14px 16px 14px 64px;}
   .content{padding:18px 12px 40px;}.stats-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
-  .card-body{padding:12px;}.search-input{width:140px;}.page-title{font-size:22px;}
+  .card-body{padding:12px;}.search-input{width:140px;}.page-title{font-size:22px;color:#fff;}
   .date-range-wrap{flex-wrap:wrap;}
 }
+
+
+
+/* ── NOTIFICATION SYSTEM ─────────────────────────── */
+.notif-wrap{position:relative;}
+.notif-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:#ff4e6a;border-radius:50%;font-size:10px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #080f1c;animation:notifPop .3s cubic-bezier(.16,1,.3,1);z-index:10;}
+@keyframes notifPop{from{transform:scale(0);}to{transform:scale(1);}}
+.notif-badge.hidden{display:none;}
+
+.notif-dropdown{position:absolute;top:calc(100% + 10px);right:0;width:360px;background:#0f1e35;border:1px solid rgba(201,162,39,0.2);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.6);z-index:9999;overflow:hidden;display:none;animation:dropDown .25s cubic-bezier(.16,1,.3,1);}
+@keyframes dropDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+.notif-dropdown.open{display:block;}
+.notif-header{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
+.notif-header-title{font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;}
+.notif-header-title i{color:#c9a227;}
+.notif-mark-all{font-size:11px;color:#c9a227;cursor:pointer;font-weight:600;background:none;border:none;padding:0;transition:opacity .2s;}
+.notif-mark-all:hover{opacity:.7;}
+.notif-list{max-height:340px;overflow-y:auto;}
+.notif-item{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background .2s;display:flex;gap:12px;align-items:flex-start;}
+.notif-item:hover{background:rgba(201,162,39,0.06);}
+.notif-item.unread{background:rgba(201,162,39,0.04);}
+.notif-item:last-child{border-bottom:none;}
+.notif-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.notif-icon.new{background:rgba(201,162,39,0.15);color:#c9a227;}
+.notif-icon.read{background:rgba(255,255,255,0.05);color:#6b7fa0;}
+.notif-body{flex:1;min-width:0;}
+.notif-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.notif-item.read .notif-title{color:#6b7fa0;font-weight:400;}
+.notif-meta{font-size:11px;color:#6b7fa0;display:flex;gap:8px;flex-wrap:wrap;}
+.notif-dot{width:7px;height:7px;border-radius:50%;background:#c9a227;flex-shrink:0;margin-top:4px;}
+.notif-dot.read{background:transparent;}
+.notif-empty{padding:32px 18px;text-align:center;color:#6b7fa0;font-size:13px;}
+.notif-empty i{font-size:28px;display:block;margin-bottom:8px;opacity:.4;}
+.notif-footer{padding:12px 18px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;}
+.notif-footer a{font-size:12px;color:#c9a227;font-weight:600;text-decoration:none;}
+
+/* POPUP DETAIL LAPORAN */
+.laporan-popup{display:none;position:fixed;inset:0;z-index:99999;background:rgba(8,15,28,0.85);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;}
+.laporan-popup.open{display:flex;}
+.laporan-popup-card{background:#0f1e35;border:1px solid rgba(201,162,39,0.2);border-radius:20px;width:100%;max-width:520px;max-height:85vh;overflow-y:auto;animation:dropDown .3s cubic-bezier(.16,1,.3,1);}
+.lp-header{padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
+.lp-title{font-size:15px;font-weight:700;color:#fff;}
+.lp-close{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.05);border:none;color:#6b7fa0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.lp-close:hover{background:rgba(255,78,106,0.15);color:#ff4e6a;}
+.lp-body{padding:20px 24px;}
+.lp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.lp-field{background:rgba(255,255,255,0.03);border-radius:10px;padding:12px 14px;}
+.lp-field.full{grid-column:1/-1;}
+.lp-label{font-size:10px;color:#6b7fa0;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.lp-value{font-size:13px;color:#e8edf5;font-weight:500;line-height:1.5;}
+.lp-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+.lp-badge.high{background:rgba(255,78,106,0.15);color:#ff4e6a;}
+.lp-badge.med{background:rgba(201,162,39,0.15);color:#c9a227;}
+.lp-badge.low{background:rgba(34,224,161,0.15);color:#22e0a1;}
+.lp-footer{padding:14px 24px;border-top:1px solid rgba(255,255,255,0.06);display:flex;gap:10px;justify-content:flex-end;}
+.lp-btn{padding:9px 20px;border-radius:10px;font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all .2s;}
+.lp-btn-primary{background:linear-gradient(135deg,#c9a227,#a8841e);color:#fff;}
+.lp-btn-secondary{background:rgba(255,255,255,0.06);color:#e8edf5;border:1px solid rgba(255,255,255,0.1);}
+
+
+/* ─── REKAP SECTION ─────────────────────── */
 </style>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
+
+<!-- NOTIFICATION DROPDOWN -->
+<div class="laporan-popup" id="laporanPopup" onclick="if(event.target===this)closeLaporanPopup()">
+  <div class="laporan-popup-card">
+    <div class="lp-header">
+      <div class="lp-title"><i class="fas fa-file-alt" style="color:#c9a227;margin-right:8px"></i>Detail Laporan</div>
+      <button class="lp-close" onclick="closeLaporanPopup()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="lp-body" id="laporanPopupBody">
+    </div>
+    <div class="lp-footer">
+      <button class="lp-btn lp-btn-secondary" onclick="closeLaporanPopup()">Tutup</button>
+      <button class="lp-btn lp-btn-primary" onclick="markAsRead(currentNotifId)"><i class="fas fa-check"></i> Tandai Dibaca</button>
+    </div>
+  </div>
+</div>
+      <i class="fas fa-file-alt"></i> Pergi ke Buat Laporan
+    </button>
+  </div>
+</div>
 
 <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
 <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
 <div class="sidebar" id="sidebar">
   <div class="sidebar-brand">
-    <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
+    <div class="brand-icon"><img src="LOGO.png" alt="AIMS Logo" onerror="this.style.display='none'"></div>
     <div><div class="brand-text">AIMS</div><div class="brand-sub">Safety System</div></div>
   </div>
   <nav class="sidebar-nav">
     <div class="nav-label">Menu Utama</div>
-    <a href="dashboard.html"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
+    <a href="dashboard.html" class="active"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
     <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
     <div class="nav-label">Data</div>
     <a href="Bisnis Proses.html"><span class="nav-icon"><i class="fas fa-briefcase"></i></span>Bisnis Proses</a>
-   <a href="Emergency drill.html"><span class="nav-icon"><i class="fas fa-fire-extinguisher"></i></span>Emergency drill</a>
-   <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
-    
-   <a href="Ibpr.html"><span class="nav-icon"><i class="fas fa-search"></i></span>IBPR</a>
-   <a href="Awards.html"><span class="nav-icon"><i class="fas fa-trophy"></i></span>Awards</a>
-   <a href="Smkp minerba.html"><span class="nav-icon"><i class="fas fa-hard-hat"></i></span>SMKP Minerba</a>
-   <a href="Pica smkp.html"><span class="nav-icon"><i class="fas fa-check"></i></span>PICA SMKP</a>
-   <a href="Sml.html"><span class="nav-icon"><i class="fas fa-leaf"></i></span>SML</a>
-   <a href="Evaluasi kebijakan.html"><span class="nav-icon"><i class="fas fa-book"></i></span>Evaluasi Kebijakan</a>
-   <a href="Kompetensi.html"><span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>Kompetensi</a>
-   <a href="Breaking news.html"><span class="nav-icon"><i class="fas fa-newspaper"></i></span>Breaking News</a>
-   <a href="Job desk.html"><span class="nav-icon"><i class="fas fa-user-tie"></i></span>Job Desk</a>
-   <a href="Campaign.html"><span class="nav-icon"><i class="fas fa-bullhorn"></i></span>Campaign</a>
-   <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
-   
-   <div class="nav-label">Dokumen</div>
+    <a href="Emergency drill.html"><span class="nav-icon"><i class="fas fa-fire-extinguisher"></i></span>Emergency drill</a>
+    <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
+    <a href="Ibpr.html"><span class="nav-icon"><i class="fas fa-search"></i></span>IBPR</a>
+    <a href="Awards.html"><span class="nav-icon"><i class="fas fa-trophy"></i></span>Awards</a>
+    <a href="Smkp minerba.html"><span class="nav-icon"><i class="fas fa-hard-hat"></i></span>SMKP Minerba</a>
+    <a href="Pica smkp.html"><span class="nav-icon"><i class="fas fa-check"></i></span>PICA SMKP</a>
+    <a href="Sml.html"><span class="nav-icon"><i class="fas fa-leaf"></i></span>SML</a>
+    <a href="Evaluasi kebijakan.html"><span class="nav-icon"><i class="fas fa-book"></i></span>Evaluasi Kebijakan</a>
+    <a href="Kompetensi.html"><span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>Kompetensi</a>
+    <a href="Breaking news.html"><span class="nav-icon"><i class="fas fa-newspaper"></i></span>Breaking News</a>
+    <a href="Job desk.html"><span class="nav-icon"><i class="fas fa-user-tie"></i></span>Job Desk</a>
+    <a href="Campaign.html"><span class="nav-icon"><i class="fas fa-bullhorn"></i></span>Campaign</a>
+    <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
+    <div class="nav-label">Dokumen</div>
     <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
     <div class="nav-label">Tautan Kerja</div>
-    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener" style="color:rgba(0,212,255,0.85)">
-      <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent)"><i class="fas fa-external-link-alt"></i></span>
-      SIGAP IBP
-      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
+    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener" style="color:rgba(201,162,39,0.8)">
+      <span class="nav-icon" style="background:rgba(201,162,39,0.1);color:var(--gold)"><i class="fas fa-external-link-alt"></i></span>
+      SIGAP IBP <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
     </a>
-    <a href="https://account.accurate.id/manage" target="_blank" rel="noopener" style="color:rgba(255,200,67,0.85)">
-      <span class="nav-icon" style="background:rgba(255,200,67,0.15);color:var(--accent3)"><i class="fas fa-external-link-alt"></i></span>
-      Accurate
-      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
+    <a href="https://account.accurate.id/manage" target="_blank" rel="noopener" style="color:rgba(0,212,255,0.8)">
+      <span class="nav-icon" style="background:rgba(0,212,255,0.1);color:var(--accent)"><i class="fas fa-external-link-alt"></i></span>
+      Accurate <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
     </a>
     <div class="nav-label">Akun</div>
+    
     <a href="#" onclick="logout()" class="logout-btn"><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
   </nav>
   <div class="sidebar-footer">
@@ -218,20 +355,11 @@ td{padding:9px 13px;font-size:13px;vertical-align:middle;}
         <div class="title-icon"><i class="fas fa-clipboard-list"></i></div>
         Safety Accountability Program
       </div>
-      <div class="page-sub">Data Aktivitas Keselamatan Karyawan PT. ABS — Menampilkan data bulan berjalan secara default</div>
+      <div class="page-sub">Data Aktivitas Keselamatan Karyawan PT. ABS</div>
     </div>
 
-    <div class="period-banner">
-      <div class="period-left">
-        <div class="period-icon"><i class="fas fa-calendar-check"></i></div>
-        <div>
-          <div class="period-title">Periode Aktif</div>
-          <div class="period-sub" id="periodSubText">Data bulan berjalan ditampilkan secara otomatis</div>
-        </div>
-      </div>
-      <div class="period-badge" id="periodBadgeText">Memuat...</div>
-    </div>
-
+    <div id="loadingState" style="display:none"></div>
+    <div id="tableWrap" style="display:none"></div>
     <div class="stats-grid" id="statsGrid"></div>
 
     <!-- TOP 5 PELAPOR -->
@@ -240,167 +368,504 @@ td{padding:9px 13px;font-size:13px;vertical-align:middle;}
         <div class="card-head-left">
           <div class="card-head-icon"><i class="fas fa-trophy"></i></div>
           <div>
-            <div class="card-head-title">Top 5 Pelapor Terbanyak</div>
-            <div class="card-head-sub">Karyawan paling aktif melaporkan</div>
+            <div class="card-head-title" style="color:#fff">Top 5 Pelapor Terbanyak</div>
+            <div class="card-head-sub">Dari laporan masuk · ikut filter tanggal · <span style="color:#22e0a1"><i class="fas fa-circle" style="font-size:7px"></i> Real-time</span></div>
           </div>
         </div>
-      </div>
-      <div class="card-body">
-        <table>
-          <thead><tr><th>Ranking</th><th>Nama</th><th>NIK</th><th>Total</th></tr></thead>
-          <tbody id="topPelapor"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="data-card">
-      <div class="card-head">
-        <div class="card-head-left">
-          <div class="card-head-icon"><i class="fas fa-table"></i></div>
-          <div>
-            <div class="card-head-title">Data SAP Karyawan</div>
-            <div class="card-head-sub" id="tableSubTitle">Memuat data...</div>
-          </div>
-        </div>
-        <div class="toolbar">
-          <div class="search-wrap">
-            <i class="fas fa-search s-icon"></i>
-            <input class="form-control search-input" type="text" id="searchInput" placeholder="Cari nama / NIK..." oninput="applyFilter()">
-          </div>
-          <div class="date-range-wrap">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="date-range-wrap" style="padding:3px 10px;">
             <label><i class="fas fa-calendar-alt" style="margin-right:4px"></i>Dari</label>
             <input type="date" id="dateFrom" onchange="applyFilter()">
             <span class="date-sep">—</span>
             <label>Sampai</label>
             <input type="date" id="dateTo" onchange="applyFilter()">
           </div>
-          <button class="btn-reset-date" onclick="resetDateFilter()">
-            <i class="fas fa-undo" style="margin-right:4px"></i>Reset Tanggal
-          </button>
-          <select class="form-select filter-select" id="filterJenis" onchange="applyFilter()">
-            <option value="">Semua Jenis SAP</option>
-            <option value="Safety Talk/P5M">Safety Talk/P5M</option>
-            <option value="Safety Talk">Safety Talk</option>
-            <option value="Hazard Report">Hazard Report</option>
-            <option value="Inspeksi">Inspeksi</option>
-            <option value="Personal Contact">Personal Contact</option>
-            <option value="Arsip Hasil Inspeksi">Arsip Hasil Inspeksi</option>
-          </select>
-          <select class="form-select filter-select" id="filterKategori" onchange="applyFilter()">
-            <option value="">TTA & KTA</option>
-            <option value="TTA">TTA (Tindakan Tidak Aman)</option>
-            <option value="KTA">KTA (Kondisi Tidak Aman)</option>
-          </select>
-          <select class="form-select filter-select" id="filterDept" onchange="applyFilter()">
-            <option value="">Semua Departemen</option>
-            <option value="Produksi">Produksi</option>
-            <option value="Plant">Plant</option>
-            <option value="Engineering">Engineering</option>
-            <option value="Logistik">Logistik</option>
-            <option value="HRGA">HRGA</option>
-            <option value="SHE">SHE</option>
-          </select>
-          <select class="form-select filter-select" id="filterJabatan" onchange="applyFilter()">
-            <option value="">Semua Jabatan</option>
-            <option value="Foreman">Foreman</option>
-            <option value="Supervisor">Supervisor</option>
-            <option value="Superintendent">Superintendent</option>
-          </select>
+          <button class="btn-reset-date" onclick="resetDateFilter()"><i class="fas fa-undo" style="margin-right:4px"></i>Reset</button>
+          <span id="top5PeriodeBadge" style="background:rgba(201,162,39,0.15);border:1px solid rgba(201,162,39,0.3);color:#c9a227;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;font-family:monospace">—</span>
         </div>
       </div>
-      <div class="card-body" style="padding-bottom:8px;">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>No</th><th>Tanggal</th><th>Nama</th><th>NIK</th>
-                <th>Jabatan</th><th>Departemen</th><th>Jenis SAP</th>
-                <th>Kategori</th><th>Lokasi</th><th>Area Inspeksi</th>
-              </tr>
-            </thead>
-            <tbody id="sapTable"></tbody>
-          </table>
+      <div class="card-body" style="padding:12px 16px">
+        <div id="top5Empty" style="display:none;text-align:center;padding:24px;color:rgba(255,255,255,0.3)">
+          <i class="fas fa-inbox" style="font-size:28px;display:block;margin-bottom:8px;opacity:0.4"></i>
+          Belum ada laporan masuk di periode ini
         </div>
-        <div id="emptyState" class="empty-state" style="display:none;">
-          <div class="empty-icon"><i class="fas fa-search"></i></div>
-          <div style="font-weight:600;color:var(--navy);margin-bottom:4px;">Tidak ada data</div>
-          <div>Coba ubah filter atau rentang tanggal</div>
+        <table id="top5Table">
+          <thead><tr><th style="width:40px">Rank</th><th>Nama Pelapor</th><th style="text-align:center">Total</th></tr></thead>
+          <tbody id="topPelapor"></tbody>
+        </table>
+      </div>
+    </div>
+
+
+<div id="rekapWrap">
+  <div class="data-card">
+    <div class="card-head">
+      <div class="card-head-left">
+        <div class="card-head-icon" style="background:rgba(34,197,94,.12);color:#16a34a"><i class="fas fa-chart-bar"></i></div>
+        <div>
+          <div class="card-head-title">Data & Rekap Pencapaian SAP</div>
+          <div class="card-head-sub">Target: Foreman 8/bln · Supervisor 6/bln · Superintendent 4/bln · Klik tab departemen untuk filter</div>
         </div>
-        <div class="pagination-row">
-          <span class="page-info" id="pageInfo"></span>
-          <div class="page-btns" id="pageBtns"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <span style="font-size:11px;color:var(--muted);font-weight:600">Filter Bulan:</span>
+        <button class="bulan-filter-btn active" onclick="setRekapBulan('semua')" id="rbtn-semua">Semua</button>
+        <button class="bulan-filter-btn" onclick="setRekapBulan('2026-01')" id="rbtn-2026-01">Jan 2026</button>
+        <button class="bulan-filter-btn" onclick="setRekapBulan('2026-02')" id="rbtn-2026-02">Feb 2026</button>
+        <button class="bulan-filter-btn" onclick="setRekapBulan('2026-03')" id="rbtn-2026-03">Mar 2026</button>
+      </div>
+    </div>
+    <div class="card-body" style="padding:14px 12px;">
+      <div class="rekap-tabs" id="rekapTabs"></div>
+      <div class="rekap-summary" id="rekapSummary"></div>
+      <!-- Search + filter jabatan -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;align-items:center;">
+        <div style="position:relative;flex:1;min-width:180px;">
+          <i class="fas fa-search" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:12px"></i>
+          <input class="form-control" type="text" id="rekapSearch" placeholder="Cari nama / NIK..." style="padding-left:30px;font-size:12px" oninput="renderRekap()">
         </div>
+        <select class="form-select" id="rekapJabatan" onchange="renderRekap()" style="width:auto;min-width:140px;font-size:12px">
+          <option value="">Semua Jabatan</option>
+          <option value="Foreman">Foreman</option>
+          <option value="Supervisor">Supervisor</option>
+          <option value="Superintendent">Superintendent</option>
+        </select>
+        <select class="form-select" id="rekapStatus" onchange="renderRekap()" style="width:auto;min-width:140px;font-size:12px">
+          <option value="">Semua Status</option>
+          <option value="tercapai">✅ Tercapai</option>
+          <option value="belum">❌ Belum Tercapai</option>
+        </select>
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:5px;">
+        <i class="fas fa-arrows-left-right"></i> Geser kanan untuk lihat selengkapnya
+      </div>
+      <div class="rekap-table-wrap">
+        <table class="rekap-table">
+          <thead id="rekapThead"></thead>
+          <tbody id="rekapTbody"></tbody>
+        </table>
       </div>
     </div>
   </div>
 </div>
+
 <script>
-const rawData = [{"tanggal": "2026-03-15", "nama": "Abdussobur", "nik": "01180032", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Safety Talk/P5M", "lokasi": "-", "area": "-", "kategoriBahaya": ""}, {"tanggal": "2026-03-15", "nama": "Abdussobur", "nik": "01180032", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-15", "nama": "Abdussobur", "nik": "01180032", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-15", "nama": "Abdussobur", "nik": "01180032", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-13", "nama": "Abdussobur", "nik": "01180032", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-08", "nama": "Abdussobur", "nik": "01180032", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Safety Talk/P5M", "lokasi": "-", "area": "-", "kategoriBahaya": ""}, {"tanggal": "2026-03-08", "nama": "Abdussobur", "nik": "01180032", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-08", "nama": "Abdussobur", "nik": "01180032", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-08", "nama": "Abdussobur", "nik": "01180032", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-02-13", "nama": "Abdussobur", "nik": "01180032", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "TTA"}, {"tanggal": "2026-02-07", "nama": "Abdussobur", "nik": "01180032", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "TTA"}, {"tanggal": "2026-01-25", "nama": "Abdussobur", "nik": "01180032", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "TTA"}, {"tanggal": "2026-03-13", "nama": "ANGGA RIFKI KURNIAWAN", "nik": "02221065", "jabatan": "Foreman", "dept": "Engineering", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-13", "nama": "ANGGA RIFKI KURNIAWAN", "nik": "02221065", "jabatan": "Foreman", "dept": "Engineering", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-13", "nama": "ANGGA RIFKI KURNIAWAN", "nik": "02221065", "jabatan": "Foreman", "dept": "Engineering", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-16", "nama": "Anton T", "nik": "01190288", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-16", "nama": "Anton T", "nik": "01190288", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-15", "nama": "Anton T", "nik": "01190288", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-15", "nama": "Anton T", "nik": "01190288", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-15", "nama": "Anton T", "nik": "01190288", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Safety Talk/P5M", "lokasi": "-", "area": "-", "kategoriBahaya": ""}, {"tanggal": "2026-03-09", "nama": "Anton t", "nik": "01190288", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Safety Talk/P5M", "lokasi": "-", "area": "-", "kategoriBahaya": ""}, {"tanggal": "2026-03-16", "nama": "Asman", "nik": "02231340", "jabatan": "Foreman", "dept": "SHE", "jenisSAP": "Arsip Hasil Inspeksi", "lokasi": "-", "area": "-", "kategoriBahaya": ""}, {"tanggal": "2026-03-16", "nama": "Asman", "nik": "02231340", "jabatan": "Foreman", "dept": "SHE", "jenisSAP": "Safety Talk/P5M", "lokasi": "-", "area": "-", "kategoriBahaya": ""}, {"tanggal": "2026-03-15", "nama": "Asman", "nik": "02231340", "jabatan": "Foreman", "dept": "SHE", "jenisSAP": "Arsip Hasil Inspeksi", "lokasi": "-", "area": "-", "kategoriBahaya": ""}, {"tanggal": "2026-03-15", "nama": "Asman", "nik": "02231340", "jabatan": "Foreman", "dept": "SHE", "jenisSAP": "Safety Talk/P5M", "lokasi": "-", "area": "-", "kategoriBahaya": ""}, {"tanggal": "2026-03-15", "nama": "Cucuk", "nik": "02251686", "jabatan": "Foreman", "dept": "SHE", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-15", "nama": "Cucuk", "nik": "02251686", "jabatan": "Foreman", "dept": "SHE", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "TTA"}, {"tanggal": "2026-03-15", "nama": "David", "nik": "02231106", "jabatan": "Foreman", "dept": "SHE", "jenisSAP": "Arsip Hasil Inspeksi", "lokasi": "-", "area": "-", "kategoriBahaya": ""}, {"tanggal": "2026-03-15", "nama": "David", "nik": "02231106", "jabatan": "Foreman", "dept": "SHE", "jenisSAP": "Safety Talk/P5M", "lokasi": "-", "area": "-", "kategoriBahaya": ""}, {"tanggal": "2026-03-13", "nama": "David", "nik": "02231106", "jabatan": "Foreman", "dept": "SHE", "jenisSAP": "Inspeksi", "lokasi": "Area Tambang ( Jalan Hauling OB, Front, Disposal )", "area": "-", "kategoriBahaya": ""}, {"tanggal": "2026-03-15", "nama": "Deka susanto", "nik": "02231250", "jabatan": "Foreman", "dept": "SHE", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-16", "nama": "Deka susanto", "nik": "02231250", "jabatan": "Foreman", "dept": "SHE", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-16", "nama": "Deka susanto", "nik": "02231250", "jabatan": "Foreman", "dept": "SHE", "jenisSAP": "Safety Talk/P5M", "lokasi": "-", "area": "-", "kategoriBahaya": ""}, {"tanggal": "2026-03-15", "nama": "Ding Areq", "nik": "02241523", "jabatan": "Foreman", "dept": "SHE", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-15", "nama": "Ding Areq", "nik": "02241523", "jabatan": "Foreman", "dept": "SHE", "jenisSAP": "Safety Talk/P5M", "lokasi": "-", "area": "-", "kategoriBahaya": ""}, {"tanggal": "2026-02-28", "nama": "Erman", "nik": "01190299", "jabatan": "Supervisor", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-16", "nama": "Erman", "nik": "01190299", "jabatan": "Supervisor", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-09", "nama": "Fikriyansyah", "nik": "01190336", "jabatan": "Supervisor", "dept": "Plant", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-09", "nama": "Fikriyansyah", "nik": "01190336", "jabatan": "Supervisor", "dept": "Plant", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "TTA"}, {"tanggal": "2026-03-13", "nama": "Gokma Sitohang", "nik": "01210618", "jabatan": "Superintendent", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-15", "nama": "Hariyoko", "nik": "02241602", "jabatan": "Supervisor", "dept": "Plant", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-15", "nama": "Hasruddin", "nik": "02221053", "jabatan": "Supervisor", "dept": "SHE", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-15", "nama": "Junaidi", "nik": "01200472", "jabatan": "Supervisor", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-12", "nama": "Mohammad Fredi", "nik": "01180086", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-12", "nama": "Mohammad Iqbal Budi Caesar", "nik": "02251676", "jabatan": "Supervisor", "dept": "SHE", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-02-28", "nama": "Muhammad Rusli", "nik": "02251702", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-12", "nama": "Surinsyah", "nik": "01190310", "jabatan": "Foreman", "dept": "Plant", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-17", "nama": "Surinsyah", "nik": "01190310", "jabatan": "Foreman", "dept": "Plant", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}, {"tanggal": "2026-03-18", "nama": "Deka susanto", "nik": "02231250", "jabatan": "Foreman", "dept": "SHE", "jenisSAP": "Arsip Hasil Inspeksi", "lokasi": "-", "area": "-", "kategoriBahaya": ""}, {"tanggal": "2026-03-18", "nama": "Muh Riyada", "nik": "02251691", "jabatan": "Foreman", "dept": "Produksi", "jenisSAP": "Hazard Report", "lokasi": "-", "area": "-", "kategoriBahaya": "KTA"}];
+const rekapData = [{"nik": "02210717", "nama": "Adam bahar noor", "dept": "Engineering", "jabatan": "Foreman", "target": 8, "total": 28, "bulan": {"2026-01": {"actual": 20, "target": 8, "tercapai": true}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 2}, {"nik": "02221065", "nama": "Angga Rifki Kurniawan", "dept": "Engineering", "jabatan": "Foreman", "target": 8, "total": 18, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 13, "target": 8, "tercapai": true}, "2026-03": {"actual": 5, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "04240345", "nama": "Rahadiyan Malvin Sunyoto", "dept": "Engineering", "jabatan": "Foreman", "target": 8, "total": 15, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 10, "target": 8, "tercapai": true}, "2026-03": {"actual": 5, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01180075", "nama": "Kahar", "dept": "Engineering", "jabatan": "Foreman", "target": 8, "total": 14, "bulan": {"2026-01": {"actual": 6, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "02231312", "nama": "muh ardian syaputra", "dept": "Engineering", "jabatan": "Foreman", "target": 8, "total": 12, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 4, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "2241606.0", "nama": "Rifki Azhari Najib S", "dept": "Engineering", "jabatan": "Supervisor", "target": 6, "total": 12, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 8, "target": 6, "tercapai": true}, "2026-03": {"actual": 4, "target": 6, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01210611", "nama": "Muhammad Rusli", "dept": "Engineering", "jabatan": "Superintendent", "target": 4, "total": 3, "bulan": {"2026-01": {"actual": 0, "target": 4, "tercapai": false}, "2026-02": {"actual": 3, "target": 4, "tercapai": false}, "2026-03": {"actual": 0, "target": 4, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "rifki azhari najib sudrajat", "nama": "rifki azhari najib sudrajat", "dept": "Engineering", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 1, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "02210741", "nama": "Aidil fitri", "dept": "HRGA", "jabatan": "Foreman", "target": 8, "total": 16, "bulan": {"2026-01": {"actual": 6, "target": 8, "tercapai": false}, "2026-02": {"actual": 5, "target": 8, "tercapai": false}, "2026-03": {"actual": 5, "target": 8, "tercapai": false}}, "bulanAktif": 3, "bulanTercapai": 0}, {"nik": "01220889", "nama": "Tri Suci RD", "dept": "HRGA", "jabatan": "Supervisor", "target": 6, "total": 16, "bulan": {"2026-01": {"actual": 2, "target": 6, "tercapai": false}, "2026-02": {"actual": 5, "target": 6, "tercapai": false}, "2026-03": {"actual": 9, "target": 6, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 1}, {"nik": "02213137", "nama": "Samsul Hadi", "dept": "HRGA", "jabatan": "Supervisor", "target": 6, "total": 15, "bulan": {"2026-01": {"actual": 3, "target": 6, "tercapai": false}, "2026-02": {"actual": 6, "target": 6, "tercapai": true}, "2026-03": {"actual": 6, "target": 6, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01190373", "nama": "Yogi Kristanto", "dept": "HRGA", "jabatan": "Superintendent", "target": 4, "total": 13, "bulan": {"2026-01": {"actual": 5, "target": 4, "tercapai": true}, "2026-02": {"actual": 4, "target": 4, "tercapai": true}, "2026-03": {"actual": 4, "target": 4, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 3}, {"nik": "01180021", "nama": "Agus tri prasetyo", "dept": "HRGA", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 1, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 0, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "0223137", "nama": "Samsul Hadi", "dept": "HRGA", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 1, "target": 6, "tercapai": false}, "2026-03": {"actual": 0, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "02212137", "nama": "Samsul Hadi", "dept": "HRGA", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 1, "target": 6, "tercapai": false}, "2026-03": {"actual": 0, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "01241518", "nama": "SUDIONO", "dept": "Logistik", "jabatan": "Foreman", "target": 8, "total": 43, "bulan": {"2026-01": {"actual": 6, "target": 8, "tercapai": false}, "2026-02": {"actual": 16, "target": 8, "tercapai": true}, "2026-03": {"actual": 21, "target": 8, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01190254", "nama": "Reynhard Ritchard", "dept": "Logistik", "jabatan": "Supervisor", "target": 6, "total": 30, "bulan": {"2026-01": {"actual": 3, "target": 6, "tercapai": false}, "2026-02": {"actual": 18, "target": 6, "tercapai": true}, "2026-03": {"actual": 9, "target": 6, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01180050", "nama": "M.ISLAHIL WATHAN", "dept": "Logistik", "jabatan": "Foreman", "target": 8, "total": 22, "bulan": {"2026-01": {"actual": 5, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 9, "target": 8, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01190342", "nama": "Mujtahidin", "dept": "Logistik", "jabatan": "Foreman", "target": 8, "total": 19, "bulan": {"2026-01": {"actual": 5, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 6, "target": 8, "tercapai": false}}, "bulanAktif": 3, "bulanTercapai": 1}, {"nik": "01241600", "nama": "Yayang Rudianto", "dept": "Logistik", "jabatan": "Foreman", "target": 8, "total": 12, "bulan": {"2026-01": {"actual": 4, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01190375", "nama": "Sukardi", "dept": "Logistik", "jabatan": "Superintendent", "target": 4, "total": 7, "bulan": {"2026-01": {"actual": 2, "target": 4, "tercapai": false}, "2026-02": {"actual": 5, "target": 4, "tercapai": true}, "2026-03": {"actual": 0, "target": 4, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "081241600", "nama": "Yayang Rudianto", "dept": "Logistik", "jabatan": "Foreman", "target": 8, "total": 2, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 2, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "01190343", "nama": "Mujtahidin", "dept": "Logistik", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "01190310", "nama": "Surinsyah", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 57, "bulan": {"2026-01": {"actual": 6, "target": 8, "tercapai": false}, "2026-02": {"actual": 10, "target": 8, "tercapai": true}, "2026-03": {"actual": 41, "target": 8, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "02241602", "nama": "Hariyoko", "dept": "Plant", "jabatan": "Supervisor", "target": 6, "total": 22, "bulan": {"2026-01": {"actual": 2, "target": 6, "tercapai": false}, "2026-02": {"actual": 8, "target": 6, "tercapai": true}, "2026-03": {"actual": 12, "target": 6, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01180045", "nama": "Dedy josi", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 21, "bulan": {"2026-01": {"actual": 8, "target": 8, "tercapai": true}, "2026-02": {"actual": 9, "target": 8, "tercapai": true}, "2026-03": {"actual": 4, "target": 8, "tercapai": false}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01190336", "nama": "Fikriyansyah", "dept": "Plant", "jabatan": "Supervisor", "target": 6, "total": 19, "bulan": {"2026-01": {"actual": 4, "target": 6, "tercapai": false}, "2026-02": {"actual": 8, "target": 6, "tercapai": true}, "2026-03": {"actual": 7, "target": 6, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "02231159", "nama": "ADI KURNIAWAN", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 16, "bulan": {"2026-01": {"actual": 8, "target": 8, "tercapai": true}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 2}, {"nik": "02231472", "nama": "Ardy kismantoro", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 16, "bulan": {"2026-01": {"actual": 8, "target": 8, "tercapai": true}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 2}, {"nik": "01200490", "nama": "Muhammad Aly Wardhana", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 16, "bulan": {"2026-01": {"actual": 8, "target": 8, "tercapai": true}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 2}, {"nik": "01220961", "nama": "Syaiful ichsan", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 15, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 4, "target": 8, "tercapai": false}, "2026-03": {"actual": 11, "target": 8, "tercapai": true}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01180046", "nama": "Suroto", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 11, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 3, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "04240328", "nama": "Kasmuri budianto", "dept": "Plant", "jabatan": "Supervisor", "target": 6, "total": 10, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 4, "target": 6, "tercapai": false}, "2026-03": {"actual": 6, "target": 6, "tercapai": true}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01180186", "nama": "Hery surianto", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 8, "bulan": {"2026-01": {"actual": 8, "target": 8, "tercapai": true}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "1190336.0", "nama": "Fikriyansyah", "dept": "Plant", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 1, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "011903110", "nama": "Surinsyah", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "011902310", "nama": "Surinsyah", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "001180046", "nama": "Suroto", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "01180046..", "nama": "Suroto", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 1, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "012209610", "nama": "Syaiful ichsan", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 1, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "04249328", "nama": "Kasmuri budianto", "dept": "Plant", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 1, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "02251702", "nama": "Muhammad Rusli", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 67, "bulan": {"2026-01": {"actual": 30, "target": 8, "tercapai": true}, "2026-02": {"actual": 35, "target": 8, "tercapai": true}, "2026-03": {"actual": 2, "target": 8, "tercapai": false}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01180086", "nama": "Mohammad Fredi", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 36, "bulan": {"2026-01": {"actual": 8, "target": 8, "tercapai": true}, "2026-02": {"actual": 9, "target": 8, "tercapai": true}, "2026-03": {"actual": 19, "target": 8, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 3}, {"nik": "01190288", "nama": "Anton T", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 31, "bulan": {"2026-01": {"actual": 7, "target": 8, "tercapai": false}, "2026-02": {"actual": 11, "target": 8, "tercapai": true}, "2026-03": {"actual": 13, "target": 8, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01180059", "nama": "Rezki", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 31, "bulan": {"2026-01": {"actual": 5, "target": 8, "tercapai": false}, "2026-02": {"actual": 16, "target": 8, "tercapai": true}, "2026-03": {"actual": 10, "target": 8, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01180032", "nama": "Abdussobur", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 26, "bulan": {"2026-01": {"actual": 6, "target": 8, "tercapai": false}, "2026-02": {"actual": 9, "target": 8, "tercapai": true}, "2026-03": {"actual": 11, "target": 8, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01210618", "nama": "Gokma Sitohang", "dept": "Produksi", "jabatan": "Superintendent", "target": 4, "total": 25, "bulan": {"2026-01": {"actual": 0, "target": 4, "tercapai": false}, "2026-02": {"actual": 14, "target": 4, "tercapai": true}, "2026-03": {"actual": 11, "target": 4, "tercapai": true}}, "bulanAktif": 2, "bulanTercapai": 2}, {"nik": "01200472", "nama": "Junaidi", "dept": "Produksi", "jabatan": "Supervisor", "target": 6, "total": 24, "bulan": {"2026-01": {"actual": 4, "target": 6, "tercapai": false}, "2026-02": {"actual": 9, "target": 6, "tercapai": true}, "2026-03": {"actual": 11, "target": 6, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "02220785", "nama": "Sabri", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 22, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 15, "target": 8, "tercapai": true}, "2026-03": {"actual": 7, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "02251691", "nama": "Muh riyada", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 20, "bulan": {"2026-01": {"actual": 6, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 6, "target": 8, "tercapai": false}}, "bulanAktif": 3, "bulanTercapai": 1}, {"nik": "01190299", "nama": "Erman", "dept": "Produksi", "jabatan": "Supervisor", "target": 6, "total": 16, "bulan": {"2026-01": {"actual": 2, "target": 6, "tercapai": false}, "2026-02": {"actual": 12, "target": 6, "tercapai": true}, "2026-03": {"actual": 2, "target": 6, "tercapai": false}}, "bulanAktif": 3, "bulanTercapai": 1}, {"nik": "02251682", "nama": "HERU SETIO", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 14, "bulan": {"2026-01": {"actual": 1, "target": 8, "tercapai": false}, "2026-02": {"actual": 9, "target": 8, "tercapai": true}, "2026-03": {"actual": 4, "target": 8, "tercapai": false}}, "bulanAktif": 3, "bulanTercapai": 1}, {"nik": "01190351", "nama": "Rahmuji", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 12, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 2, "target": 8, "tercapai": false}, "2026-03": {"actual": 10, "target": 8, "tercapai": true}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01180110", "nama": "tangsi", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 12, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 9, "target": 8, "tercapai": true}, "2026-03": {"actual": 3, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01190320", "nama": "Mustamin", "dept": "Produksi", "jabatan": "Superintendent", "target": 4, "total": 10, "bulan": {"2026-01": {"actual": 2, "target": 4, "tercapai": false}, "2026-02": {"actual": 4, "target": 4, "tercapai": true}, "2026-03": {"actual": 4, "target": 4, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01190372", "nama": "Prisma anggoro", "dept": "Produksi", "jabatan": "Supervisor", "target": 6, "total": 10, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 2, "target": 6, "tercapai": false}, "2026-03": {"actual": 8, "target": 6, "tercapai": true}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01180011", "nama": "Andre", "dept": "Produksi", "jabatan": "Supervisor", "target": 6, "total": 6, "bulan": {"2026-01": {"actual": 4, "target": 6, "tercapai": false}, "2026-02": {"actual": 2, "target": 6, "tercapai": false}, "2026-03": {"actual": 0, "target": 6, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 0}, {"nik": "01220819", "nama": "Muhammad adi", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 5, "bulan": {"2026-01": {"actual": 5, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "02220836", "nama": "Danang kukuh prasojo", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 4, "bulan": {"2026-01": {"actual": 3, "target": 8, "tercapai": false}, "2026-02": {"actual": 1, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 0}, {"nik": "0220836", "nama": "Danang kukuh prasojo", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 2, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 2, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "1180011.0", "nama": "Andre", "dept": "Produksi", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 1, "target": 6, "tercapai": false}, "2026-03": {"actual": 0, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "O2220836", "nama": "Danang kukuh prasojo", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 1, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "02252691", "nama": "Muh riyada", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 1, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "O1190320", "nama": "Mustamin", "dept": "Produksi", "jabatan": "Superintendent", "target": 4, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 4, "tercapai": false}, "2026-02": {"actual": 0, "target": 4, "tercapai": false}, "2026-03": {"actual": 1, "target": 4, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "01190352", "nama": "Rahmuji", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 1, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "02231340", "nama": "Asman", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 29, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 29, "target": 8, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "02251686", "nama": "Cucuk cahyanto", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 28, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 28, "target": 8, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "02231106", "nama": "David", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 28, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 28, "target": 8, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "02231250", "nama": "Deka susanto", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 28, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 28, "target": 8, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "02241523", "nama": "Ding Areq", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 18, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 18, "target": 8, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "02221053", "nama": "Hasruddin", "dept": "SHE", "jabatan": "Supervisor", "target": 6, "total": 17, "bulan": {"2026-01": {"actual": 1, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 16, "target": 6, "tercapai": true}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "02261709", "nama": "AHMAD RIADHO ROHMAN", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 9, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 9, "target": 8, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "02251676", "nama": "Mohammad Iqbal Budi Caesar", "dept": "SHE", "jabatan": "Supervisor", "target": 6, "total": 9, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 9, "target": 6, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "01210745", "nama": "Subagyo", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 9, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 9, "target": 8, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "01231451", "nama": "harun alrasyid", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 6, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 6, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "0222053", "nama": "Hadruddin", "dept": "SHE", "jabatan": "Supervisor", "target": 6, "total": 2, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 2, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "0123451", "nama": "harun alrasyid", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 2, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 2, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "233.0", "nama": "Ding", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "1231451.0", "nama": "harun alrasyid", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "0221053", "nama": "Hasruddin", "dept": "SHE", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 1, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "00000", "nama": "iqbal budi", "dept": "SHE", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 1, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 0, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "3638o3", "nama": "Nshendbd", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "01220745", "nama": "Subagyo", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}];
+const BULAN_LIST   = ['2026-01','2026-02','2026-03'];
+const BULAN_LABELS = {'2026-01':'Jan 2026','2026-02':'Feb 2026','2026-03':'Mar 2026'};
+const DEPT_LIST    = ['Semua','Produksi','Plant','Engineering','Logistik','HRGA','SHE'];
+const DEPT_COLORS  = {'Produksi':'#ff4e6a','Plant':'#f59e0b','Engineering':'#8b5cf6','Logistik':'#0ea5e9','HRGA':'#ec4899','SHE':'#22e0a1'};
+let rekapActiveDept='Semua', rekapActiveBulan='semua';
 
+function setRekapBulan(bln){
+  rekapActiveBulan=bln;
+  document.querySelectorAll('.bulan-filter-btn').forEach(b=>b.classList.remove('active'));
+  const btn=document.getElementById('rbtn-'+bln);
+  if(btn)btn.classList.add('active');
+  renderRekap();
+}
+function setRekapDept(dept){
+  rekapActiveDept=dept;
+  renderRekapTabs();
+  renderRekap();
+}
+function renderRekapTabs(){
+  const tabsEl=document.getElementById('rekapTabs');
+  tabsEl.innerHTML='';
+  DEPT_LIST.forEach(function(d){
+    const btn=document.createElement('button');
+    btn.className='rekap-tab'+(rekapActiveDept===d?' active':'');
+    const color=DEPT_COLORS[d]||'#7a8aaa';
+    btn.innerHTML=(d==='Semua'
+      ?'<i class="fas fa-globe" style="margin-right:5px"></i>'
+      :`<i class="fas fa-circle" style="font-size:8px;margin-right:5px;color:${color}"></i>`)+d;
+    btn.onclick=function(){setRekapDept(d);};
+    tabsEl.appendChild(btn);
+  });
+}
+function renderRekap(){
+  const bulanToCheck=rekapActiveBulan==='semua'?BULAN_LIST:[rekapActiveBulan];
+  const searchQ=(document.getElementById('rekapSearch')||{value:''}).value.toLowerCase();
+  const filterJab=(document.getElementById('rekapJabatan')||{value:''}).value;
+  const filterSts=(document.getElementById('rekapStatus')||{value:''}).value;
+  let data=rekapActiveDept==='Semua'?rekapData:rekapData.filter(p=>p.dept===rekapActiveDept);
+  if(searchQ) data=data.filter(p=>p.nama.toLowerCase().includes(searchQ)||p.nik.includes(searchQ));
+  if(filterJab) data=data.filter(p=>p.jabatan===filterJab);
+  const rows=data.map(function(p){
+    let totalActual=0,totalTarget=0,bulanTercapai=0;
+    const bulanDetail={};
+    bulanToCheck.forEach(function(bln){
+      const b=p.bulan[bln]||{actual:0,target:p.target,tercapai:false};
+      totalActual+=b.actual; totalTarget+=b.target;
+      if(b.tercapai)bulanTercapai++;
+      bulanDetail[bln]=b;
+    });
+    const pct=totalTarget>0?Math.round((totalActual/totalTarget)*100):0;
+    const aktif=bulanToCheck.filter(function(b){return p.bulan[b]&&p.bulan[b].actual>0;}).length;
+    const tercapai=rekapActiveBulan==='semua'
+      ?(aktif>0&&bulanTercapai>=Math.ceil(aktif*0.67))
+      :bulanTercapai===bulanToCheck.length;
+    return Object.assign({},p,{totalActual:totalActual,totalTarget:totalTarget,pct:pct,tercapai:tercapai,bulanDetail:bulanDetail});
+  });
+
+  const allRows = rows;
+  const filteredRows = filterSts==='tercapai' ? rows.filter(r=>r.tercapai) : filterSts==='belum' ? rows.filter(r=>!r.tercapai) : rows;
+  const total=allRows.length,ok=allRows.filter(function(r){return r.tercapai;}).length,no=total-ok;
+  document.getElementById('rekapSummary').innerHTML=
+    '<div class="rekap-sum-card"><div class="rekap-sum-val" style="color:#fff">'+total+'</div><div class="rekap-sum-lbl" style="color:rgba(255,255,255,0.5)">Total Pengawas</div></div>'+
+    '<div class="rekap-sum-card"><div class="rekap-sum-val" style="color:#22e0a1">'+ok+'</div><div class="rekap-sum-lbl" style="color:rgba(255,255,255,0.5)">✅ Tercapai</div></div>'+
+    '<div class="rekap-sum-card"><div class="rekap-sum-val" style="color:#ff4e6a">'+no+'</div><div class="rekap-sum-lbl" style="color:rgba(255,255,255,0.5)">❌ Belum Tercapai</div></div>';
+
+  const thDept=rekapActiveDept==='Semua'?'<th>Dept</th>':'';
+  const thBulan=bulanToCheck.map(function(b){return '<th style="text-align:center;min-width:90px">'+BULAN_LABELS[b]+'</th>';}).join('');
+  document.getElementById('rekapThead').innerHTML=
+    '<tr><th style="min-width:150px">Nama</th><th style="min-width:90px">NIK</th><th>Jabatan</th>'+thDept+thBulan+
+    '<th style="text-align:center">Total</th><th style="text-align:center;min-width:80px">Progres</th><th style="text-align:center">Status</th></tr>';
+
+  let tbody='';
+  if(rekapActiveDept==='Semua'){
+    const grouped={};
+    filteredRows.forEach(function(r){if(!grouped[r.dept])grouped[r.dept]=[];grouped[r.dept].push(r);});
+    Object.keys(grouped).sort().forEach(function(dept){
+      const drows=grouped[dept].sort(function(a,b){return b.totalActual-a.totalActual;});
+      const dok=drows.filter(function(r){return r.tercapai;}).length;
+      tbody+='<tr><td colspan="'+(7+bulanToCheck.length)+'" style="background:rgba(201,162,39,0.1);font-weight:700;color:#c9a227;font-size:12px;padding:7px 12px">'+
+        '<i class="fas fa-circle" style="font-size:8px;color:'+(DEPT_COLORS[dept]||'#7a8aaa')+';margin-right:6px"></i>'+
+        dept+' — '+drows.length+' orang, <span style="color:#22e0a1">'+dok+' tercapai</span></td></tr>';
+      drows.forEach(function(r){tbody+=buildRekapRow(r,bulanToCheck,true);});
+    });
+  } else {
+    filteredRows.sort(function(a,b){return b.totalActual-a.totalActual;}).forEach(function(r){tbody+=buildRekapRow(r,bulanToCheck,false);});
+  }
+  document.getElementById('rekapTbody').innerHTML=tbody||'<tr><td colspan="10" style="text-align:center;padding:24px;color:var(--muted)">Tidak ada data</td></tr>';
+}
+
+function buildRekapRow(r,bulanList,showDept){
+  const jabBadge=r.jabatan==='Foreman'?'b-foreman':r.jabatan==='Supervisor'?'b-super':'b-supt';
+  let bulanCells=bulanList.map(function(bln){
+    const b=r.bulanDetail[bln]||{actual:0,target:r.target,tercapai:false};
+    if(b.actual===0) return '<td style="text-align:center"><span class="pill-skip">—</span></td>';
+    if(b.tercapai)   return '<td style="text-align:center"><span class="pill-ok"><i class="fas fa-check" style="font-size:8px"></i> '+b.actual+'/'+b.target+'</span></td>';
+    return '<td style="text-align:center"><span class="pill-no"><i class="fas fa-times" style="font-size:8px"></i> '+b.actual+'/'+b.target+'</span></td>';
+  }).join('');
+  const pct=Math.min(r.pct,100);
+  const barClass=r.tercapai?'bar-ok':'bar-no';
+  const deptCell=showDept?'<td>'+r.dept+'</td>':'';
+  const statusCell=r.tercapai
+    ?'<span class="pill-ok"><i class="fas fa-check-circle" style="font-size:10px"></i> Tercapai</span>'
+    :'<span class="pill-no"><i class="fas fa-times-circle" style="font-size:10px"></i> Belum</span>';
+  return '<tr>'+
+    '<td style="min-width:150px;white-space:normal"><b style="color:#e8edf5">'+r.nama+'</b></td>'+
+    '<td style="font-family:monospace;font-size:11px;color:var(--muted);white-space:nowrap">'+r.nik+'</td>'+
+    '<td style="white-space:nowrap"><span class="badge '+jabBadge+'">'+r.jabatan+'</span></td>'+
+    deptCell+bulanCells+
+    '<td style="text-align:center;font-weight:700">'+r.totalActual+'</td>'+
+    '<td style="min-width:80px">'+
+      '<div style="font-size:11px;color:var(--muted);text-align:right;margin-bottom:2px">'+pct+'%</div>'+
+      '<div class="progress-mini"><div class="progress-mini-bar '+barClass+'" style="width:'+pct+'%"></div></div>'+
+    '</td>'+
+    '<td style="text-align:center;white-space:nowrap">'+statusCell+'</td>'+
+    '</tr>';
+}
+renderRekapTabs();
+renderRekap();
+</script>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast-box" id="toast"></div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────
+const API_URL   = 'http://localhost:8000/api';
+const TOKEN     = localStorage.getItem('aims_token');
 const PAGE_SIZE = 25;
-let filtered = [...rawData];
+
+let allData     = [];
+let filtered    = [];
 let currentPage = 1;
+let useAPI      = false;
 
-function getMonthLabel(d) {
-  const mo = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-  return mo[d.getMonth()] + ' ' + d.getFullYear();
+// ── DATA LOKAL (fallback) ─────────────────────────────
+const localData = [{"tanggal":"2026-03-15","nama":"Abdussobur","nik":"01180032","jabatan":"Foreman","dept":"Produksi","jenisSAP":"Safety Talk/P5M","lokasi":"-","area":"-","kategoriBahaya":""},{"tanggal":"2026-03-15","nama":"Abdussobur","nik":"01180032","jabatan":"Foreman","dept":"Produksi","jenisSAP":"Hazard Report","lokasi":"-","area":"-","kategoriBahaya":"KTA"},{"tanggal":"2026-03-13","nama":"Abdussobur","nik":"01180032","jabatan":"Foreman","dept":"Produksi","jenisSAP":"Hazard Report","lokasi":"-","area":"-","kategoriBahaya":"KTA"},{"tanggal":"2026-03-08","nama":"Abdussobur","nik":"01180032","jabatan":"Foreman","dept":"Produksi","jenisSAP":"Safety Talk/P5M","lokasi":"-","area":"-","kategoriBahaya":""},{"tanggal":"2026-03-08","nama":"Abdussobur","nik":"01180032","jabatan":"Foreman","dept":"Produksi","jenisSAP":"Hazard Report","lokasi":"-","area":"-","kategoriBahaya":"KTA"},{"tanggal":"2026-03-16","nama":"Anton T","nik":"01190288","jabatan":"Foreman","dept":"Produksi","jenisSAP":"Hazard Report","lokasi":"-","area":"-","kategoriBahaya":"KTA"},{"tanggal":"2026-03-15","nama":"Anton T","nik":"01190288","jabatan":"Foreman","dept":"Produksi","jenisSAP":"Hazard Report","lokasi":"-","area":"-","kategoriBahaya":"KTA"},{"tanggal":"2026-03-15","nama":"Asman","nik":"02231340","jabatan":"Foreman","dept":"SHE","jenisSAP":"Safety Talk/P5M","lokasi":"-","area":"-","kategoriBahaya":""},{"tanggal":"2026-03-15","nama":"David","nik":"02231106","jabatan":"Foreman","dept":"SHE","jenisSAP":"Arsip Hasil Inspeksi","lokasi":"-","area":"-","kategoriBahaya":""},{"tanggal":"2026-03-15","nama":"Deka susanto","nik":"02231250","jabatan":"Foreman","dept":"SHE","jenisSAP":"Hazard Report","lokasi":"-","area":"-","kategoriBahaya":"KTA"},{"tanggal":"2026-03-13","nama":"Gokma Sitohang","nik":"01210618","jabatan":"Superintendent","dept":"Produksi","jenisSAP":"Hazard Report","lokasi":"-","area":"-","kategoriBahaya":"KTA"},{"tanggal":"2026-03-15","nama":"Hariyoko","nik":"02241602","jabatan":"Supervisor","dept":"Plant","jenisSAP":"Hazard Report","lokasi":"-","area":"-","kategoriBahaya":"KTA"},{"tanggal":"2026-03-12","nama":"Mohammad Fredi","nik":"01180086","jabatan":"Foreman","dept":"Produksi","jenisSAP":"Hazard Report","lokasi":"-","area":"-","kategoriBahaya":"KTA"},{"tanggal":"2026-02-28","nama":"Muhammad Rusli","nik":"02251702","jabatan":"Foreman","dept":"Produksi","jenisSAP":"Hazard Report","lokasi":"-","area":"-","kategoriBahaya":"KTA"}];
+
+// ── HELPERS ───────────────────────────────────────────
+// Firebase tidak perlu headers
+function showToast(msg, err) {
+  const t = document.getElementById('toast');
+  t.innerHTML = msg; t.style.background = err ? 'var(--accent2)' : 'var(--navy)';
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3000);
 }
-function getFirstDayOfMonth(d) {
-  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-01';
-}
-function getLastDayOfMonth(d) {
-  const last = new Date(d.getFullYear(), d.getMonth()+1, 0);
-  return last.getFullYear() + '-' + String(last.getMonth()+1).padStart(2,'0') + '-' + String(last.getDate()).padStart(2,'0');
+function normalizeSAP(d) {
+  // Normalisasi field dari API (snake_case) ke format HTML (camelCase)
+  return {
+    tanggal:       d.tanggal || d.tanggal,
+    nama:          d.nama,
+    nik:           d.nik,
+    jabatan:       d.jabatan,
+    dept:          d.dept,
+    jenisSAP:      d.jenis_sap || d.jenisSAP || '',
+    lokasi:        d.lokasi || '-',
+    area:          d.area || '-',
+    kategoriBahaya: d.kategori_bahaya || d.kategoriBahaya || '',
+  };
 }
 
-(function initDateRange() {
-  const dates = rawData.map(d => d.tanggal).filter(Boolean).sort();
-  const latestDate = dates[dates.length - 1];
-  const latest = new Date(latestDate);
-  document.getElementById('dateFrom').value = getFirstDayOfMonth(latest);
-  document.getElementById('dateTo').value   = getLastDayOfMonth(latest);
-  document.getElementById('periodSubText').textContent = 'Menampilkan data bulan berjalan: ' + getMonthLabel(latest);
-  document.getElementById('periodBadgeText').textContent = getMonthLabel(latest);
-})();
+// ── LOAD DATA dari Firebase ───────────────────────────
+async function loadData() {
+  document.getElementById('loadingState').style.display = '';
+  document.getElementById('tableWrap').style.display    = 'none';
 
+  try {
+    const q    = query(collection(db, 'sap'), orderBy('tanggal', 'desc'));
+    const snap = await getDocs(q);
+    allData = snap.docs.map(d => ({ id: d.id, ...normalizeSAP(d.data()) }));
+    useAPI  = true;
+    document.getElementById('apiBadge').innerHTML = '<i class="fas fa-circle" style="font-size:7px"></i> Firebase';
+    document.getElementById('apiBadge').className = 'api-badge';
+
+    if (allData.length === 0 && localData.length > 0) {
+      document.getElementById('btnImport').style.display = '';
+    }
+  } catch(e) {
+    console.warn('Firebase gagal, fallback ke lokal:', e);
+    allData = [...localData];
+    useAPI  = false;
+    document.getElementById('apiBadge').innerHTML = '<i class="fas fa-circle" style="font-size:7px"></i> Lokal';
+    document.getElementById('apiBadge').className = 'api-badge offline';
+    document.getElementById('btnImport').style.display = '';
+  }
+
+  initPage();
+}
+
+// ── IMPORT DATA LOKAL KE FIREBASE ────────────────────
+async function importToAPI() {
+  if (!confirm('Import '+localData.length+' data ke Firebase?')) return;
+  try {
+    let count = 0;
+    for (const row of localData) {
+      await addDoc(collection(db, 'sap'), {
+        tanggal:         row.tanggal || '',
+        nama:            row.nama || '',
+        nik:             row.nik || '',
+        jabatan:         row.jabatan || '',
+        dept:            row.dept || '',
+        jenis_sap:       row.jenisSAP || row.jenis_sap || '',
+        lokasi:          row.lokasi || '-',
+        area:            row.area || '-',
+        kategori_bahaya: row.kategoriBahaya || row.kategori_bahaya || '',
+        created_at:      new Date().toISOString()
+      });
+      count++;
+    }
+    showToast('<i class="fas fa-check-circle"></i> '+count+' data berhasil diimport ke Firebase!');
+    document.getElementById('btnImport').style.display = 'none';
+    loadData();
+  } catch(e) {
+    showToast('<i class="fas fa-times"></i> Error: '+e.message, true);
+  }
+}
+
+// ── INIT ──────────────────────────────────────────────
+function initPage() {
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('tableWrap').style.display    = '';
+
+  // Set periode default = bulan berjalan (bulan saat ini)
+  const now = new Date();
+  document.getElementById('dateFrom').value = getFirstDayOfMonth(now);
+  document.getElementById('dateTo').value   = getLastDayOfMonth(now);
+
+
+  renderTopPelapor();
+  applyFilter();
+}
+
+// ── HELPERS TANGGAL ───────────────────────────────────
+function getMonthLabel(d){const mo=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];return mo[d.getMonth()]+' '+d.getFullYear();}
+function getFirstDayOfMonth(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-01';}
+function getLastDayOfMonth(d){const last=new Date(d.getFullYear(),d.getMonth()+1,0);return last.getFullYear()+'-'+String(last.getMonth()+1).padStart(2,'0')+'-'+String(last.getDate()).padStart(2,'0');}
+function formatTgl(t){if(!t)return'—';try{const[y,m,d]=t.split('-');const mo=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];return parseInt(d)+' '+mo[parseInt(m)-1]+' '+y;}catch{return t;}}
+
+// ── STATS ─────────────────────────────────────────────
 function buildStats(data) {
   const total  = data.length;
-  const talk   = data.filter(d => d.jenisSAP && d.jenisSAP.includes('Safety Talk')).length;
-  const hazard = data.filter(d => d.jenisSAP === 'Hazard Report').length;
-  const insp   = data.filter(d => d.jenisSAP === 'Inspeksi').length;
-  const pc     = data.filter(d => d.jenisSAP === 'Personal Contact').length;
-  const arsip  = data.filter(d => d.jenisSAP === 'Arsip Hasil Inspeksi').length;
-  const tta    = data.filter(d => d.kategoriBahaya === 'TTA').length;
-  const kta    = data.filter(d => d.kategoriBahaya === 'KTA').length;
-  document.getElementById('statsGrid').innerHTML =
-    statCard('c1','fa-layer-group','Total KPI',total,'0.05s') +
-    statCard('c5','fa-bullhorn','Safety Talk',talk,'0.08s') +
-    statCard('c2','fa-exclamation-circle','Hazard Report',hazard,'0.11s') +
-    statCard('c3','fa-clipboard-check','Inspeksi',insp,'0.14s') +
-    statCard('c4','fa-user-check','Personal Contact',pc,'0.17s') +
-    statCard('c6','fa-archive','Arsip Inspeksi',arsip,'0.20s') +
-    statCard('c-tta','fa-running','TTA',tta,'0.23s') +
-    statCard('c-kta','fa-hard-hat','KTA',kta,'0.26s');
+  const talk   = data.filter(d=>d.jenisSAP&&d.jenisSAP.includes('Safety Talk')).length;
+  const hazard = data.filter(d=>d.jenisSAP==='Hazard Report').length;
+  const insp   = data.filter(d=>d.jenisSAP==='Inspeksi').length;
+  const pc     = data.filter(d=>d.jenisSAP==='Personal Contact').length;
+  const arsip  = data.filter(d=>d.jenisSAP==='Arsip Hasil Inspeksi').length;
+  const tta    = data.filter(d=>d.kategoriBahaya==='TTA').length;
+  const kta    = data.filter(d=>d.kategoriBahaya==='KTA').length;
+  document.getElementById('statsGrid').innerHTML=
+    sc('c1','fa-layer-group','Total KPI',total,'0.05s')+
+    sc('c5','fa-bullhorn','Safety Talk',talk,'0.08s')+
+    sc('c2','fa-exclamation-circle','Hazard Report',hazard,'0.11s')+
+    sc('c3','fa-clipboard-check','Inspeksi',insp,'0.14s')+
+    sc('c4','fa-user-check','Personal Contact',pc,'0.17s')+
+    sc('c6','fa-archive','Arsip Inspeksi',arsip,'0.20s')+
+    sc('c-tta','fa-running','TTA',tta,'0.23s')+
+    sc('c-kta','fa-hard-hat','KTA',kta,'0.26s');
 }
-function statCard(cls,icon,label,val,delay){
-  return '<div class="stat-card '+cls+'" style="animation-delay:'+delay+'"><div class="stat-icon"><i class="fas '+icon+'"></i></div><div class="stat-label">'+label+'</div><div class="stat-value">'+val+'</div></div>';
+function sc(cls,icon,label,val,delay){return'<div class="stat-card '+cls+'" style="animation-delay:'+delay+'"><div class="stat-icon"><i class="fas '+icon+'"></i></div><div class="stat-label">'+label+'</div><div class="stat-value">'+val+'</div></div>';}
+
+// ── TOP 5 PELAPOR ─────────────────────────────────────
+// ── TOP 5 DARI FIRESTORE AIMS_LAPORAN ────────────────
+let top5Listener = null;
+
+function loadTop5() {
+  try {
+    if(!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey:"AIzaSyCzEKC8AzK_wx-sg8tDg32JkCa-C4KNqY8",
+        authDomain:"sigap-report-system.firebaseapp.com",
+        projectId:"sigap-report-system",
+        storageBucket:"sigap-report-system.firebasestorage.app",
+        messagingSenderId:"794553302905",
+        appId:"1:794553302905:web:673f1856a8c35cdc58f9a8"
+      });
+    }
+    const db = firebase.firestore();
+
+    // Real-time listener — ambil semua laporan
+    if(top5Listener) top5Listener(); // unsubscribe lama
+    top5Listener = db.collection('aims_laporan')
+      .orderBy('createdAt','desc')
+      .onSnapshot(function(snap) {
+        const laporanData = [];
+        snap.forEach(function(doc) {
+          laporanData.push(doc.data());
+        });
+        window._top5Data = laporanData;
+        renderTop5(laporanData);
+      }, function(err) {
+        console.warn('Top5 listener error:', err);
+        document.getElementById('top5Empty').style.display = '';
+        document.getElementById('top5Table').style.display = 'none';
+      });
+  } catch(e) {
+    console.warn('Top5 Firebase error:', e);
+  }
 }
 
-function renderTopPelapor() {
-  let map = {};
-  rawData.forEach(item => {
-    let key = item.nama.trim().toUpperCase() + '|' + item.nik;
-    if (!map[key]) map[key] = { nama: item.nama.trim(), nik: item.nik, total: 0 };
+function renderTop5(laporanData) {
+  // Filter berdasarkan periode aktif (dateFrom & dateTo)
+  const from = document.getElementById('dateFrom')?.value || '';
+  const to   = document.getElementById('dateTo')?.value   || '';
+
+  const filtered = laporanData.filter(function(d) {
+    const tgl = d.tanggal || (d.createdAt?.toDate ? d.createdAt.toDate().toISOString().split('T')[0] : '');
+    const mFrom = !from || tgl >= from;
+    const mTo   = !to   || tgl <= to;
+    return mFrom && mTo;
+  });
+
+  // Update badge periode
+  const badge = document.getElementById('top5PeriodeBadge');
+  if(badge) {
+    if(from || to) {
+      badge.textContent = (from ? formatTglTop5(from) : '—') + ' – ' + (to ? formatTglTop5(to) : '—');
+    } else {
+      badge.textContent = 'Semua Waktu';
+    }
+  }
+
+  // Hitung per pelapor
+  const map = {};
+  filtered.forEach(function(d) {
+    const key = (d.pelapor||'').trim().toUpperCase();
+    if(!key) return;
+    if(!map[key]) map[key] = { nama: (d.pelapor||'').trim(), nik: d.nik||'—', total: 0 };
     map[key].total++;
   });
-  let arr = Object.values(map).sort((a,b) => b.total - a.total).slice(0,5);
-  document.getElementById('topPelapor').innerHTML = arr.map((item,i) => {
-    const badge = i===0?'🥇':i===1?'🥈':i===2?'🥉':'';
-    return '<tr><td>'+badge+' '+(i+1)+'</td><td>'+item.nama+'</td><td>'+item.nik+'</td><td><b>'+item.total+'</b></td></tr>';
+
+  const arr = Object.values(map).sort(function(a,b){ return b.total - a.total; }).slice(0,5);
+
+  const tbody  = document.getElementById('topPelapor');
+  const empty  = document.getElementById('top5Empty');
+  const table  = document.getElementById('top5Table');
+
+  if(!arr.length) {
+    if(empty)  empty.style.display  = '';
+    if(table)  table.style.display  = 'none';
+    return;
+  }
+  if(empty) empty.style.display = 'none';
+  if(table) table.style.display = '';
+
+  const colors   = ['#f59e0b','#94a3b8','#d97706','#c9a227','#6b7fa0'];
+  const maxTotal = arr[0].total;
+
+  tbody.innerHTML = arr.map(function(item, i) {
+    const medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':'';
+    const rank  = medal || ('<span style="color:rgba(255,255,255,0.4);font-family:monospace;font-size:12px">#'+(i+1)+'</span>');
+    const barW  = Math.round((item.total / maxTotal) * 100);
+    const c     = colors[i] || '#c9a227';
+    return `<tr>
+      <td style="text-align:center;font-size:18px;width:36px">${rank}</td>
+      <td>
+        <div style="font-weight:700;color:#e8edf5;font-size:13px">${item.nama}</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:1px">NIK: ${item.nik}</div>
+        <div style="height:4px;background:rgba(255,255,255,0.07);border-radius:4px;margin-top:5px">
+          <div style="height:100%;width:${barW}%;background:${c};border-radius:4px;transition:width .5s"></div>
+        </div>
+      </td>
+      <td style="text-align:center;white-space:nowrap">
+        <span style="font-family:monospace;font-size:20px;font-weight:700;color:${c}">${item.total}</span>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4)">laporan</div>
+      </td>
+    </tr>`;
   }).join('');
 }
 
+function formatTglTop5(t) {
+  if(!t) return '—';
+  try {
+    const [y,m,d] = t.split('-');
+    const mo = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+    return parseInt(d)+' '+mo[parseInt(m)-1]+' '+y;
+  } catch(e) { return t; }
+}
+
+function renderTopPelapor() {
+  let map={};
+  allData.forEach(item=>{
+    let key=item.nama.trim().toUpperCase()+'|'+item.nik;
+    if(!map[key])map[key]={nama:item.nama.trim(),nik:item.nik,dept:item.dept||'',total:0};
+    map[key].total++;
+  });
+  let arr=Object.values(map).sort((a,b)=>b.total-a.total).slice(0,5);
+  const colors=['#f59e0b','#94a3b8','#d97706','#c9a227','#6b7fa0'];
+  const maxTotal=arr[0]?arr[0].total:1;
+  document.getElementById('topPelapor').innerHTML=arr.map((item,i)=>{
+    const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':'';
+    const rank=medal||('<span style="color:rgba(255,255,255,0.4);font-family:monospace;font-size:12px">#'+(i+1)+'</span>');
+    const barW=Math.round((item.total/maxTotal)*100);
+    const c=colors[i]||'#c9a227';
+    return `<tr>
+      <td style="text-align:center;font-size:18px;width:36px">${rank}</td>
+      <td>
+        <div style="font-weight:700;color:#e8edf5;font-size:13px">${item.nama}</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:1px">${item.nik}${item.dept?' · '+item.dept:''}</div>
+        <div style="height:4px;background:rgba(255,255,255,0.07);border-radius:4px;margin-top:5px">
+          <div style="height:100%;width:${barW}%;background:${c};border-radius:4px;transition:width .5s"></div>
+        </div>
+      </td>
+      <td style="text-align:center;white-space:nowrap">
+        <span style="font-family:monospace;font-size:20px;font-weight:700;color:${c}">${item.total}</span>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4)">aktivitas</div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+// ── FILTER ────────────────────────────────────────────
 function applyFilter() {
+  // Update Top 5 ikut filter tanggal
+  if(window._top5Data) renderTop5(window._top5Data);
   const q    = document.getElementById('searchInput').value.toLowerCase();
   const jenis= document.getElementById('filterJenis').value;
   const dept = document.getElementById('filterDept').value;
@@ -408,36 +873,34 @@ function applyFilter() {
   const kat  = document.getElementById('filterKategori').value;
   const from = document.getElementById('dateFrom').value;
   const to   = document.getElementById('dateTo').value;
-  if (from || to) {
-    document.getElementById('periodBadgeText').textContent = (from?formatTgl(from):'—') + ' – ' + (to?formatTgl(to):'—');
-    document.getElementById('periodSubText').textContent = 'Filter periode aktif: ' + (from?formatTgl(from):'—') + ' s/d ' + (to?formatTgl(to):'—');
+  if(from||to){
   }
-  filtered = rawData.filter(d => {
-    const mQ   = !q    || d.nama.toLowerCase().includes(q) || d.nik.toLowerCase().includes(q);
-    const mJ   = !jenis|| d.jenisSAP === jenis;
-    const mD   = !dept || d.dept === dept;
-    const mJb  = !jab  || d.jabatan === jab;
-    const mKat = !kat  || d.kategoriBahaya === kat;
-    const mFrom= !from || d.tanggal >= from;
-    const mTo  = !to   || d.tanggal <= to;
-    return mQ && mJ && mD && mJb && mKat && mFrom && mTo;
+  filtered=allData.filter(d=>{
+    const mQ  =!q||d.nama.toLowerCase().includes(q)||d.nik.toLowerCase().includes(q);
+    const mJ  =!jenis||d.jenisSAP===jenis;
+    const mD  =!dept||d.dept===dept;
+    const mJb =!jab||d.jabatan===jab;
+    const mKat=!kat||d.kategoriBahaya===kat;
+    const mFrom=!from||d.tanggal>=from;
+    const mTo  =!to||d.tanggal<=to;
+    return mQ&&mJ&&mD&&mJb&&mKat&&mFrom&&mTo;
   });
-  currentPage = 1;
+  currentPage=1;
   buildStats(filtered);
   renderTable();
 }
 
-function resetDateFilter() {
-  const dates = rawData.map(d => d.tanggal).filter(Boolean).sort();
-  const latest = new Date(dates[dates.length-1]);
-  document.getElementById('dateFrom').value = getFirstDayOfMonth(latest);
-  document.getElementById('dateTo').value   = getLastDayOfMonth(latest);
-  document.getElementById('periodBadgeText').textContent = getMonthLabel(latest);
-  document.getElementById('periodSubText').textContent = 'Menampilkan data bulan berjalan: ' + getMonthLabel(latest);
+function resetDateFilter(){
+  const dates=allData.map(d=>d.tanggal).filter(Boolean).sort();
+  if(!dates.length)return;
+  const latest=new Date(dates[dates.length-1]);
+  document.getElementById('dateFrom').value=getFirstDayOfMonth(latest);
+  document.getElementById('dateTo').value=getLastDayOfMonth(latest);
   applyFilter();
 }
 
-const jenisBadge = {
+// ── RENDER TABLE ──────────────────────────────────────
+const jenisBadge={
   'Safety Talk/P5M':['b-talk','<i class="fas fa-bullhorn" style="font-size:9px"></i> Safety Talk/P5M'],
   'Safety Talk':    ['b-talk','<i class="fas fa-bullhorn" style="font-size:9px"></i> Safety Talk'],
   'Hazard Report':  ['b-hr',  '<i class="fas fa-exclamation-circle" style="font-size:9px"></i> Hazard Report'],
@@ -445,92 +908,268 @@ const jenisBadge = {
   'Personal Contact':['b-pc', '<i class="fas fa-user-check" style="font-size:9px"></i> Personal Contact'],
   'Arsip Hasil Inspeksi':['b-arsip','<i class="fas fa-archive" style="font-size:9px"></i> Arsip Inspeksi'],
 };
-const jabBadge = { Foreman:'b-foreman', Supervisor:'b-super', Superintendent:'b-supt' };
+const jabBadge={Foreman:'b-foreman',Supervisor:'b-super',Superintendent:'b-supt'};
 
-function renderTable() {
-  const tbody = document.getElementById('sapTable');
-  const start = (currentPage-1)*PAGE_SIZE;
-  const pageData = filtered.slice(start, start+PAGE_SIZE);
-  document.getElementById('tableSubTitle').textContent = filtered.length + ' dari ' + rawData.length + ' data ditampilkan';
-  if (!filtered.length) {
-    tbody.innerHTML = '';
-    document.getElementById('emptyState').style.display = '';
-  } else {
-    document.getElementById('emptyState').style.display = 'none';
-    tbody.innerHTML = pageData.map((d,i) => {
-      const [bClass,bLabel] = jenisBadge[d.jenisSAP] || ['b-arsip', d.jenisSAP||'—'];
-      const jbClass = jabBadge[d.jabatan] || 'b-arsip';
-      const lokasi  = (d.lokasi && d.lokasi!=='-') ? d.lokasi : '<span style="color:var(--muted)">—</span>';
-      const area    = (d.area && d.area!=='-') ? d.area : '<span style="color:var(--muted)">—</span>';
-      const katHtml = d.kategoriBahaya==='TTA'
-        ? '<span class="badge b-tta"><i class="fas fa-running" style="font-size:9px"></i> TTA</span>'
-        : d.kategoriBahaya==='KTA'
-        ? '<span class="badge b-kta"><i class="fas fa-hard-hat" style="font-size:9px"></i> KTA</span>'
-        : '<span style="color:var(--muted);font-size:11px">—</span>';
-      return '<tr>'+
-        '<td class="no-col">'+(start+i+1)+'</td>'+
-        '<td class="date-col">'+d.tanggal+'</td>'+
-        '<td class="name-col">'+d.nama+'</td>'+
-        '<td class="nik-col">'+d.nik+'</td>'+
-        '<td><span class="badge '+jbClass+'">'+d.jabatan+'</span></td>'+
-        '<td>'+d.dept+'</td>'+
-        '<td><span class="badge '+bClass+'">'+bLabel+'</span></td>'+
-        '<td>'+katHtml+'</td>'+
-        '<td style="font-size:12px;max-width:180px">'+lokasi+'</td>'+
-        '<td style="font-size:12px">'+area+'</td>'+
-        '</tr>';
+function renderTable(){
+  const tbody=document.getElementById('sapTable');
+  const start=(currentPage-1)*PAGE_SIZE;
+  const pageData=filtered.slice(start,start+PAGE_SIZE);
+  document.getElementById('tableSubTitle').textContent=filtered.length+' dari '+allData.length+' data ditampilkan'+(useAPI?' (Server)':' (Lokal)');
+  if(!filtered.length){
+    tbody.innerHTML='';document.getElementById('emptyState').style.display='';
+  }else{
+    document.getElementById('emptyState').style.display='none';
+    tbody.innerHTML=pageData.map((d,i)=>{
+      const[bClass,bLabel]=jenisBadge[d.jenisSAP]||['b-arsip',d.jenisSAP||'—'];
+      const jbClass=jabBadge[d.jabatan]||'b-arsip';
+      const lokasi=(d.lokasi&&d.lokasi!=='-')?d.lokasi:'<span style="color:var(--muted)">—</span>';
+      const area=(d.area&&d.area!=='-')?d.area:'<span style="color:var(--muted)">—</span>';
+      const katHtml=d.kategoriBahaya==='TTA'?'<span class="badge b-tta"><i class="fas fa-running" style="font-size:9px"></i> TTA</span>':d.kategoriBahaya==='KTA'?'<span class="badge b-kta"><i class="fas fa-hard-hat" style="font-size:9px"></i> KTA</span>':'<span style="color:var(--muted);font-size:11px">—</span>';
+      return'<tr><td class="no-col">'+(start+i+1)+'</td><td class="date-col">'+d.tanggal+'</td><td class="name-col">'+d.nama+'</td><td class="nik-col">'+d.nik+'</td><td><span class="badge '+jbClass+'">'+d.jabatan+'</span></td><td>'+d.dept+'</td><td><span class="badge '+bClass+'">'+bLabel+'</span></td><td>'+katHtml+'</td><td style="font-size:12px;max-width:180px">'+lokasi+'</td><td style="font-size:12px">'+area+'</td></tr>';
     }).join('');
   }
   renderPagination();
 }
 
-function formatTgl(t) {
-  if (!t) return '—';
-  try { const [y,m,d]=t.split('-'); const mo=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des']; return parseInt(d)+' '+mo[parseInt(m)-1]+' '+y; } catch { return t; }
+function renderPagination(){
+  const total=filtered.length,pages=Math.ceil(total/PAGE_SIZE);
+  const start=(currentPage-1)*PAGE_SIZE+1,end=Math.min(currentPage*PAGE_SIZE,total);
+  document.getElementById('pageInfo').textContent=total?'Menampilkan '+start+'–'+end+' dari '+total+' data':'Tidak ada data';
+  let html='<button class="page-btn" onclick="goPage('+(currentPage-1)+')" '+(currentPage===1?'disabled':'')+'>‹ Prev</button>';
+  for(let p=Math.max(1,currentPage-2);p<=Math.min(pages,currentPage+2);p++)
+    html+='<button class="page-btn '+(p===currentPage?'active':'')+'" onclick="goPage('+p+')">'+p+'</button>';
+  html+='<button class="page-btn" onclick="goPage('+(currentPage+1)+')" '+(currentPage===pages||!pages?'disabled':'')+'>Next ›</button>';
+  document.getElementById('pageBtns').innerHTML=html;
 }
 
-function renderPagination() {
-  const total=filtered.length, pages=Math.ceil(total/PAGE_SIZE);
-  const start=(currentPage-1)*PAGE_SIZE+1, end=Math.min(currentPage*PAGE_SIZE,total);
-  document.getElementById('pageInfo').textContent = total ? 'Menampilkan '+start+'–'+end+' dari '+total+' data' : 'Tidak ada data';
-  let html = '<button class="page-btn" onclick="goPage('+(currentPage-1)+')" '+(currentPage===1?'disabled':'')+'>‹ Prev</button>';
-  for (let p=Math.max(1,currentPage-2); p<=Math.min(pages,currentPage+2); p++)
-    html += '<button class="page-btn '+(p===currentPage?'active':'')+'" onclick="goPage('+p+')">'+p+'</button>';
-  html += '<button class="page-btn" onclick="goPage('+(currentPage+1)+')" '+(currentPage===pages||!pages?'disabled':'')+'>Next ›</button>';
-  document.getElementById('pageBtns').innerHTML = html;
-}
+function goPage(p){const pages=Math.ceil(filtered.length/PAGE_SIZE);if(p<1||p>pages)return;currentPage=p;renderTable();}
 
-function goPage(p) {
-  const pages = Math.ceil(filtered.length/PAGE_SIZE);
-  if (p<1||p>pages) return;
-  currentPage = p; renderTable();
-}
-
-(function() {
-  const name = localStorage.getItem('userName')||'User';
+// ── SIDEBAR / AUTH ────────────────────────────────────
+(function(){
+  const name=localStorage.getItem('userName')||'User';
   ['userNameDisplay','sidebarUserName'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=name;});
   const av=document.getElementById('sidebarAvatarLetter');if(av)av.textContent=name.charAt(0).toUpperCase();
 })();
-
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open');}
 function logout(){if(confirm('Yakin ingin logout?')){localStorage.clear();window.location.href='index.html';}}
 
-// ── Auto-set sidebar active berdasarkan URL ──────────────────────────
-(function() {
-  var page = window.location.pathname.split('/').pop() || 'dashboard.html';
-  document.querySelectorAll('.sidebar-nav a[href]').forEach(function(a) {
+// ── Auto-set sidebar active ───────────────────────────
+(function(){
+  var page=window.location.pathname.split('/').pop()||'dashboard.html';
+  document.querySelectorAll('.sidebar-nav a[href]').forEach(function(a){
     a.classList.remove('active');
-    var href = a.getAttribute('href');
-    if (href && href !== '#' && !href.startsWith('http')) {
-      if (href === page || (page === '' && href === 'dashboard.html')) {
-        a.classList.add('active');
-      }
-    }
+    var href=a.getAttribute('href');
+    if(href&&href!=='#'&&!href.startsWith('http')){if(href===page)a.classList.add('active');}
   });
 })();
 
-renderTopPelapor();
-applyFilter();
+// ── START ─────────────────────────────────────────────
+// Set filter bulan berjalan langsung
+(function(){
+  const now = new Date();
+  document.getElementById('dateFrom').value = getFirstDayOfMonth(now);
+  document.getElementById('dateTo').value   = getLastDayOfMonth(now);
+})();
+loadData();
+loadTop5();
+</script>
+
+
+<script>
+// ── NOTIFICATION SYSTEM ──────────────────────────────
+(function initNotif(){
+  const level = localStorage.getItem('userLevel') || '';
+  if(level !== 'Admin') return; // Hanya admin
+
+  // Firebase init (jika belum)
+  if(!window._notifFirebase){
+    try{
+      const cfg={apiKey:"AIzaSyCzEKC8AzK_wx-sg8tDg32JkCa-C4KNqY8",authDomain:"sigap-report-system.firebaseapp.com",projectId:"sigap-report-system",storageBucket:"sigap-report-system.firebasestorage.app",messagingSenderId:"794553302905",appId:"1:794553302905:web:673f1856a8c35cdc58f9a8"};
+      if(!firebase.apps.length) firebase.initializeApp(cfg);
+      window._notifDB = firebase.firestore();
+      window._notifFirebase = true;
+    }catch(e){ return; }
+  }
+
+  const db = window._notifDB;
+
+  // Update topbar bell button — tambahkan wrapper & badge
+  const bellBtn = document.querySelector('.topbar-btn');
+  if(bellBtn && !bellBtn.parentElement.classList.contains('notif-wrap')){
+    const wrap = document.createElement('div');
+    wrap.className = 'notif-wrap';
+    wrap.style.position = 'relative';
+    bellBtn.parentNode.insertBefore(wrap, bellBtn);
+    wrap.appendChild(bellBtn);
+    // Badge
+    const badge = document.createElement('span');
+    badge.className = 'notif-badge hidden';
+    badge.id = 'notifBadge';
+    wrap.appendChild(badge);
+    // Dropdown
+    const dd = document.createElement('div');
+    dd.className = 'notif-dropdown';
+    dd.id = 'notifDropdown';
+    dd.innerHTML = `
+      <div class="notif-header">
+        <div class="notif-header-title"><i class="fas fa-bell"></i> Notifikasi Laporan</div>
+        <button class="notif-mark-all" onclick="markAllRead()">Tandai semua dibaca</button>
+      </div>
+      <div class="notif-list" id="notifList"><div class="notif-empty"><i class="fas fa-bell-slash"></i>Belum ada laporan masuk</div></div>
+      <div class="notif-footer"><a href="laporan.html">Lihat Semua Laporan →</a></div>`;
+    wrap.appendChild(dd);
+
+    // Toggle dropdown
+    bellBtn.onclick = function(e){
+      e.stopPropagation();
+      dd.classList.toggle('open');
+    };
+    document.addEventListener('click', ()=> dd.classList.remove('open'));
+  }
+
+  // Real-time listener — 10 laporan terbaru
+  db.collection('aims_laporan')
+    .orderBy('createdAt','desc')
+    .limit(10)
+    .onSnapshot(snapshot => {
+      window._notifData = [];
+      snapshot.forEach(doc => window._notifData.push({id:doc.id,...doc.data()}));
+      renderNotif(window._notifData);
+    }, err => console.warn('Notif error:', err));
+})();
+
+function renderNotif(items){
+  const list  = document.getElementById('notifList');
+  const badge = document.getElementById('notifBadge');
+  if(!list) return;
+
+  const unread = items.filter(i => !i.isRead).length;
+  if(badge){
+    if(unread > 0){ badge.textContent = unread > 9 ? '9+' : unread; badge.classList.remove('hidden'); }
+    else           { badge.classList.add('hidden'); }
+  }
+
+  if(items.length === 0){
+    list.innerHTML = '<div class="notif-empty"><i class="fas fa-bell-slash"></i>Belum ada laporan masuk</div>';
+    return;
+  }
+
+  list.innerHTML = items.map(item => {
+    const isRead = item.isRead;
+    const tgl = item.createdAt?.toDate ? item.createdAt.toDate().toLocaleString('id-ID',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : (item.tanggal||'—');
+    const risikoColor = item.risiko==='Tinggi'?'#ff4e6a': item.risiko==='Sedang'?'#c9a227':'#22e0a1';
+    return `<div class="notif-item ${isRead?'read':'unread'}" onclick="openLaporanPopup('${item.id}')">
+      <div class="notif-dot ${isRead?'read':''}"></div>
+      <div class="notif-icon ${isRead?'read':'new'}"><i class="fas fa-file-alt"></i></div>
+      <div class="notif-body">
+        <div class="notif-title">${item.pelapor||'—'} — ${item.area||'—'}</div>
+        <div class="notif-meta">
+          <span>${item.jenis||'—'}</span>
+          <span style="color:${risikoColor}">● ${item.risiko||'—'}</span>
+          <span>${tgl}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// Buka popup detail
+let currentNotifId = null;
+function openLaporanPopup(id){
+  currentNotifId = id;
+  document.getElementById('notifDropdown')?.classList.remove('open');
+  const popup = document.getElementById('laporanPopup');
+  const body  = document.getElementById('laporanPopupBody');
+  if(!popup||!body) return;
+  popup.classList.add('open');
+
+  const item = (window._notifData||[]).find(i=>i.id===id);
+  if(!item){ body.innerHTML='<div style="text-align:center;padding:20px;color:#6b7fa0">Data tidak ditemukan</div>'; return; }
+
+  const tgl = item.createdAt?.toDate ? item.createdAt.toDate().toLocaleString('id-ID') : (item.tanggal||'—');
+  const badgeClass = item.risiko==='Tinggi'?'high': item.risiko==='Sedang'?'med':'low';
+
+  body.innerHTML = `
+    <div class="lp-row">
+      <div class="lp-field"><div class="lp-label">ID Laporan</div><div class="lp-value" style="font-family:monospace;font-size:12px;color:#c9a227">${item.id}</div></div>
+      <div class="lp-field"><div class="lp-label">Tanggal</div><div class="lp-value">${tgl}</div></div>
+      <div class="lp-field"><div class="lp-label">Nama Pelapor</div><div class="lp-value">${item.pelapor||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">NIK</div><div class="lp-value">${item.nik||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Jabatan</div><div class="lp-value">${item.jabatan||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Departemen</div><div class="lp-value">${item.departemen||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Area</div><div class="lp-value">${item.area||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Jenis Laporan</div><div class="lp-value">${item.jenis||'—'}</div></div>
+      <div class="lp-field full"><div class="lp-label">Aktivitas</div><div class="lp-value">${item.aktivitas||'—'}</div></div>
+      <div class="lp-field full"><div class="lp-label">Deskripsi</div><div class="lp-value">${item.deskripsi||'—'}</div></div>
+      <div class="lp-field full"><div class="lp-label">Tindakan</div><div class="lp-value">${item.tindakan||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Kategori Risiko</div><div class="lp-value"><span class="lp-badge ${badgeClass}">${item.risiko||'—'}</span></div></div>
+      <div class="lp-field"><div class="lp-label">Status</div><div class="lp-value">${item.status||'—'}</div></div>
+      ${item.hasFoto?'<div class="lp-field full"><div class="lp-label">Foto</div><div class="lp-value" style="color:#c9a227"><i class="fas fa-image"></i> Ada foto (lihat di halaman laporan)</div></div>':''}
+    </div>`;
+
+  // Auto tandai dibaca
+  markAsRead(id);
+}
+
+function closeLaporanPopup(){
+  document.getElementById('laporanPopup')?.classList.remove('open');
+  currentNotifId = null;
+}
+
+function markAsRead(id){
+  if(!id||!window._notifDB) return;
+  window._notifDB.collection('aims_laporan').doc(id).update({isRead:true}).catch(()=>{});
+}
+
+function markAllRead(){
+  if(!window._notifData||!window._notifDB) return;
+  window._notifData.filter(i=>!i.isRead).forEach(i=>{
+    window._notifDB.collection('aims_laporan').doc(i.id).update({isRead:true}).catch(()=>{});
+  });
+  document.getElementById('notifDropdown')?.classList.remove('open');
+}
+</script>
+<script>
+// Cek login
+if(!localStorage.getItem('isLoggedIn')){window.location.href='index.html';}
+</script>
+<script>
+// ── TAMPILKAN FOTO PROFIL ─────────────────────────────
+(function showPhoto(){
+  const photo = localStorage.getItem('userPhoto') || '';
+  const name  = localStorage.getItem('userName')  || 'User';
+
+  function setAvatar(el, isTopbar) {
+    if (!el) return;
+    if (photo) {
+      el.style.background = 'none';
+      el.style.padding = '0';
+      el.style.overflow = 'hidden';
+      const img = document.createElement('img');
+      img.src = photo;
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%;';
+      img.onerror = function() {
+        this.style.display = 'none';
+        if (isTopbar) {
+          el.innerHTML = '<i class="fas fa-user"></i>';
+        } else {
+          el.textContent = name.charAt(0).toUpperCase();
+        }
+      };
+      el.innerHTML = '';
+      el.appendChild(img);
+    } else {
+      if (isTopbar) {
+        el.innerHTML = '<i class="fas fa-user"></i>';
+      } else {
+        el.textContent = name.charAt(0).toUpperCase();
+      }
+    }
+  }
+
+  setAvatar(document.getElementById('sidebarAvatarLetter'), false);
+  setAvatar(document.querySelector('.topbar-avatar'), true);
+})();
 </script>
 </body>
 </html>
