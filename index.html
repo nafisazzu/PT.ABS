@@ -9,6 +9,7 @@
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
 <style>
 :root{
   --navy:#0a1628;--navy2:#0d2040;--gold:#c9a227;--gold2:#a8841e;
@@ -199,7 +200,7 @@ html,body{height:100%;font-family:"Barlow",sans-serif;}
           <!-- TABS -->
           <div class="tabs" id="mainTabs">
             <button class="tab-btn active" onclick="switchTab('login')">Masuk</button>
-            <button class="tab-btn" onclick="switchTab('register')">Registrasi</button>
+            <button class="tab-btn" onclick="switchTab('register')">Daftar Akun</button>
           </div>
 
           <div id="alertBox" class="alert hidden"></div>
@@ -299,14 +300,11 @@ html,body{height:100%;font-family:"Barlow",sans-serif;}
                   <i class="fas fa-layer-group finput-ico"></i>
                   <select class="fselect" id="regLevel">
                     <option value="">-- Pilih Level --</option>
-                    <option value="Non Staff">Non Staff</option>
-                    <option value="Officer">Officer</option>
                     <option value="Foreman">Foreman</option>
                     <option value="Supervisor">Supervisor</option>
                     <option value="Superintendent">Superintendent</option>
+                    <option value="PJO">PJO</option>
                     <option value="Manager">Manager</option>
-                    <option value="Senior Manager">Senior Manager</option>
-                    <option value="General Manager">General Manager</option>
                     <option value="Direktur">Direktur</option>
                   </select>
                 </div>
@@ -317,32 +315,13 @@ html,body{height:100%;font-family:"Barlow",sans-serif;}
                   <i class="fas fa-sitemap finput-ico"></i>
                   <select class="fselect" id="regDept">
                     <option value="">-- Pilih Dept --</option>
-                    <option>Engineering & Technical Support</option>
-                    <option>External & CSR</option>
-                    <option>Finance & Acc</option>
-                    <option>Geology & Exploration</option>
-                    <option>Hauling</option>
+                   
+                    <option>Engineering </option> 
                     <option>HRGA</option>
-                    <option>HSE</option>
-                    <option>Information Technology</option>
-                    <option>Internal Audit</option>
-                    <option>Land Acquisition</option>
-                    <option>Legal</option>
-                    <option>Logistic</option>
-                    <option>Management</option>
-                    <option>Mining Operation South (Selatan)</option>
-                    <option>PJO</option>
+                     <option>Logistic</option>
                     <option>Plant</option>
-                    <option>Port, Shipping & Coal Quality</option>
-                    <option>Procurement</option>
-                    <option>Produksi</option>
-                    <option>Project & Asset Management</option>
-                    <option>SATPAM</option>
-                    <option>SCM - CI</option>
-                    <option>Security Service & Litigation</option>
-                    <option>SHE</option>
-                    <option>Survey</option>
-                    <option>Tech Service Mining Operation South</option>
+                     <option>Produksi</option>
+                   <option>SHE</option>
                   </select>
                 </div>
               </div>
@@ -356,15 +335,8 @@ html,body{height:100%;font-family:"Barlow",sans-serif;}
                   <i class="fas fa-building finput-ico"></i>
                   <select class="fselect" id="regPerusahaan">
                     <option value="">-- Pilih --</option>
-                    <option value="PT. IBP">PT. IBP</option>
-                    <option value="PT. BUMA">PT. BUMA</option>
-                    <option value="PT. ABS">PT. ABS</option>
-                    <option value="PT. MAJU">PT. MAJU</option>
-                    <option value="PT. BMS">PT. BMS</option>
-                    <option value="PT. MOP">PT. MOP</option>
-                    <option value="PT. AIP">PT. AIP</option>
-                    <option value="PT. SSJ">PT. SSJ</option>
-                    <option value="PT. TAKA">PT. TAKA</option>
+                    <option value=" PT. Arta Bumi Sakti"> PT. Arta Bumi Sakti</option>
+                  
                   </select>
                 </div>
               </div>
@@ -374,11 +346,8 @@ html,body{height:100%;font-family:"Barlow",sans-serif;}
                   <i class="fas fa-map-marker-alt finput-ico"></i>
                   <select class="fselect" id="regLokasi">
                     <option value="">-- Pilih --</option>
-                    <option value="HO Jakarta">HO Jakarta</option>
-                    <option value="Kantor Sempaja">Kantor Sempaja</option>
-                    <option value="Site Loa Haur">Site Loa Haur</option>
-                    <option value="Site Loa Janan">Site Loa Janan</option>
-                    <option value="Site Separi">Site Separi</option>
+                    <option value="PT. Insani Bara Perkasa">PT. Insani Bara Perkasa</option>
+                    
                   </select>
                 </div>
               </div>
@@ -489,6 +458,7 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+const storage = firebase.storage();
 const USERS_COL = 'aims_users';
 
 // ── AKUN ADMIN LOKAL ─────────────────────────────────
@@ -733,6 +703,24 @@ async function doRegister() {
       return;
     }
 
+    // Upload foto ke Firebase Storage jika ada
+    let photoURL = '';
+    if (photoBase64) {
+      try {
+        // Convert base64 ke blob
+        const res = await fetch(photoBase64);
+        const blob = await res.blob();
+        const fileName = 'photos/' + Date.now() + '_' + formData.email.replace(/[^a-z0-9]/gi,'_') + '.jpg';
+        const ref = storage.ref(fileName);
+        const snap = await ref.put(blob);
+        photoURL = await snap.ref.getDownloadURL();
+      } catch(e) {
+        console.warn('Upload foto gagal, simpan tanpa foto:', e);
+        // Fallback: simpan base64 kecil jika storage gagal
+        photoURL = photoBase64;
+      }
+    }
+
     // Simpan ke Firestore
     await db.collection(USERS_COL).add({
       nik:        formData.nik,
@@ -745,7 +733,7 @@ async function doRegister() {
       perusahaan: formData.perusahaan,
       lokasi:     formData.lokasi,
       password:   pw,
-      photo:      photoBase64,
+      photo:      photoURL,
       createdAt:  firebase.firestore.FieldValue.serverTimestamp(),
       status:     'active'
     });
@@ -763,13 +751,29 @@ async function doRegister() {
 // ── FOTO PREVIEW ──────────────────────────────────────
 function previewPhoto(input) {
   if (!input.files || !input.files[0]) return;
+  const file = input.files[0];
+  // Kompres gambar sebelum preview & simpan
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  const img = new Image();
   const reader = new FileReader();
   reader.onload = (e) => {
-    photoBase64 = e.target.result;
-    const preview = document.getElementById('photoPreview');
-    preview.innerHTML = `<img src="${photoBase64}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+    img.onload = () => {
+      // Resize ke max 200x200px
+      const size = 200;
+      canvas.width = size; canvas.height = size;
+      // Crop ke square dari tengah
+      const min = Math.min(img.width, img.height);
+      const sx = (img.width - min) / 2;
+      const sy = (img.height - min) / 2;
+      ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
+      photoBase64 = canvas.toDataURL('image/jpeg', 0.7); // kompres 70%
+      const preview = document.getElementById('photoPreview');
+      preview.innerHTML = `<img src="${photoBase64}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+    };
+    img.src = e.target.result;
   };
-  reader.readAsDataURL(input.files[0]);
+  reader.readAsDataURL(file);
 }
 
 // ── HELPERS ───────────────────────────────────────────
