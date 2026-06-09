@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SAP AIMS</title>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0b1829">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AIMS">
+  <link rel="apple-touch-icon" href="LOGO.png">
+  <meta name="mobile-web-app-capable" content="yes">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -12,9 +20,9 @@
   --navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;
   --gold:#c9a227;--gold-dim:rgba(201,162,39,0.15);
   --accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;
-  --bg:#080f1c;--card-bg:#0f1e35;--card-border:rgba(201,162,39,0.12);
-  --text:#e8edf5;--muted:#6b7fa0;--border:rgba(255,255,255,0.10);
-  --sidebar-w:260px;--radius:16px;--shadow:0 4px 24px rgba(0,0,0,0.4);
+  --bg:#f0f4f8;--card-bg:#ffffff;--card-border:rgba(201,162,39,0.12);
+  --text:#1e293b;--muted:#6b7fa0;--border:rgba(0,0,0,0.08);
+  --sidebar-w:260px;--radius:16px;--shadow:0 2px 12px rgba(0,0,0,0.07);
   --transition:.28s cubic-bezier(.4,0,.2,1);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -22,8 +30,8 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
 .sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
 .sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,.07);}
-.brand-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,162,39,0.35);box-shadow:0 0 14px rgba(201,162,39,0.15),0 4px 12px rgba(0,0,0,0.4);overflow:hidden;position:relative;}
-.brand-icon img{width:80%;height:80%;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(201,162,39,0.2));}
+.brand-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,162,39,0.35);box-shadow:0 0 18px rgba(201,162,39,0.2),0 4px 16px rgba(0,0,0,0.4);overflow:hidden;position:relative;transition:all 0.3s;}
+.brand-icon img{width:80%;height:80%;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 2px 6px rgba(201,162,39,0.3));}
 .brand-text{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:#fff;letter-spacing:2px;}
 .brand-sub{font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
 .sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;}
@@ -45,20 +53,20 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .user-info .user-role{font-size:11px;color:var(--muted);}
 .main{margin-left:var(--sidebar-w);padding:0;min-height:100vh;}
 .topbar{background:var(--navy-mid);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(201,162,39,0.1);position:sticky;top:0;z-index:100;}
-.topbar-left h5{font-size:15px;font-weight:700;color:#fff;margin:0;}
+.topbar-left h5{font-size:15px;font-weight:700;color:#ffffff;margin:0;}
 .topbar-left span{font-size:12px;color:rgba(255,255,255,0.55);}
 .topbar-right{display:flex;align-items:center;gap:12px;}
-.topbar-btn{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.06);border:none;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);cursor:pointer;transition:all var(--transition);}
+.topbar-btn{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.06);border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
 .topbar-btn:hover{background:rgba(201,162,39,0.1);color:#c9a227;}
 .topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);cursor:pointer;transition:background var(--transition);}
 .topbar-user:hover{background:rgba(201,162,39,0.08);}
 .topbar-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
-.topbar-uname{font-size:13px;font-weight:600;color:#fff;}
+.topbar-uname{font-size:13px;font-weight:600;color:#ffffff;}
 .content{padding:28px 32px 48px;}
 .page-header{margin-bottom:24px;}
-.page-title{font-size:26px;font-weight:700;color:#fff;display:flex;align-items:center;gap:12px;}
+.page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;}
 .title-icon{width:44px;height:44px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(217,119,6,.35);}
-.page-sub{font-size:13px;color:rgba(255,255,255,0.5);margin-top:6px;}
+.page-sub{font-size:13px;color:var(--muted);margin-top:6px;}
 
 
 
@@ -87,19 +95,19 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .card-head{padding:14px 20px;border-bottom:1px solid var(--card-border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;background:rgba(255,255,255,0.02);}
 .card-head-left{display:flex;align-items:center;gap:10px;}
 .card-head-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;background:rgba(245,158,11,.12);color:#d97706;}
-.card-head-title{font-size:14px;font-weight:700;color:#fff;}
-.card-head-sub{font-size:11px;color:rgba(255,255,255,0.45);margin-top:1px;}
+.card-head-title{font-size:14px;font-weight:700;color:var(--navy);}
+.card-head-sub{font-size:11px;color:var(--muted);margin-top:1px;}
 .card-body{padding:16px 20px;}
 .toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .search-wrap{position:relative;}
 .search-wrap .s-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:12px;pointer-events:none;}
 .search-input{padding-left:32px !important;width:200px;}
-.form-control,.form-select{border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:12px;color:#e8edf5;background:rgba(255,255,255,0.06);outline:none;transition:all var(--transition);}
+.form-control,.form-select{border:1.5px solid rgba(0,0,0,0.1);border-radius:10px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--navy);background:#ffffff;outline:none;transition:all var(--transition);}
 .form-control:focus,.form-select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,.10);}
 .filter-select{width:auto;min-width:120px;}
 .date-range-wrap{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.05);border:1.5px solid var(--border);border-radius:10px;padding:4px 12px;}
 .date-range-wrap label{font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap;}
-.date-range-wrap input[type="date"]{border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:12px;color:#e8edf5;outline:none;padding:4px 0;cursor:pointer;}
+.date-range-wrap input[type="date"]{border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--navy);outline:none;padding:4px 0;cursor:pointer;}
 .date-sep{color:var(--muted);font-size:12px;font-weight:600;}
 .btn-reset-date{padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);background:rgba(255,255,255,0.05);font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;transition:all var(--transition);font-family:'DM Sans',sans-serif;white-space:nowrap;}
 .btn-reset-date:hover{border-color:var(--accent);color:var(--accent);}
@@ -121,7 +129,7 @@ tbody tr{border-bottom:1px solid var(--border);transition:background var(--trans
 tbody tr:hover{background:rgba(255,255,255,0.04);}
 td{padding:9px 13px;font-size:13px;vertical-align:middle;}
 .no-col{color:var(--muted);font-size:12px;font-family:'Space Mono',monospace;}
-.name-col{font-weight:600;color:#e8edf5;}
+.name-col{font-weight:600;color:var(--navy);}
 .nik-col{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);}
 .date-col{font-size:12px;color:var(--muted);}
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;}
@@ -137,7 +145,7 @@ td{padding:9px 13px;font-size:13px;vertical-align:middle;}
 .page-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
 .page-btn.active{background:var(--accent);color:var(--navy);border-color:var(--accent);font-weight:700;}
 .page-btn:disabled{opacity:.35;cursor:default;}
-.empty-state{text-align:center;padding:44px 20px;color:rgba(255,255,255,0.4);}
+.empty-state{text-align:center;padding:44px 20px;color:var(--muted);}
 .empty-icon{width:60px;height:60px;border-radius:14px;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 12px;}
 .menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,.25);}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;}
@@ -151,10 +159,10 @@ td{padding:9px 13px;font-size:13px;vertical-align:middle;}
 /* ─── REKAP SECTION ─────────────────────── */
 .rekap-section{margin-top:20px;animation:fadeUp .5s ease both;}
 .rekap-tabs{display:flex;gap:0;border-radius:12px;overflow:hidden;border:1.5px solid var(--border);margin-bottom:16px;flex-wrap:wrap;}
-.rekap-tab{padding:10px 20px;border:none;background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border-right:1.5px solid var(--border);}
+.rekap-tab{padding:10px 20px;border:none;background:#f0f4f8;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border-right:1.5px solid var(--border);}
 .rekap-tab:last-child{border-right:none;}
 .rekap-tab.active{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;}
-.rekap-tab:hover:not(.active){background:rgba(255,255,255,0.08);color:#fff;}
+.rekap-tab:hover:not(.active){background:rgba(0,0,0,0.05);color:var(--navy);}
 .rekap-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
 .rekap-sum-card{background:rgba(255,255,255,0.04);border-radius:10px;padding:12px 14px;text-align:center;border:1.5px solid var(--card-border);}
 .rekap-sum-val{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;line-height:1;}
@@ -182,7 +190,7 @@ td{padding:9px 13px;font-size:13px;vertical-align:middle;}
 .bar-no{background:linear-gradient(90deg,var(--accent2),#fca5a5);}
 .dept-header-row td{background:rgba(201,162,39,0.08);font-weight:700;color:#c9a227;font-size:12px;letter-spacing:.5px;padding:7px 12px;}
 .rekap-filter-wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
-.bulan-filter-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:rgba(255,255,255,0.05);font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.bulan-filter-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:rgba(255,255,255,0.05);font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
 .bulan-filter-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
 .bulan-filter-btn:hover:not(.active){border-color:var(--accent);color:var(--accent);}
 @media(max-width:768px){.rekap-summary{grid-template-columns:repeat(3,1fr);}.rekap-tab{font-size:11px;padding:8px 12px;}}
@@ -191,7 +199,7 @@ td{padding:9px 13px;font-size:13px;vertical-align:middle;}
   .menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}
   .sidebar-overlay.open{display:block;}.main{margin-left:0;}.topbar{padding:14px 16px 14px 64px;}
   .content{padding:18px 12px 40px;}.stats-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
-  .card-body{padding:12px;}.search-input{width:140px;}.page-title{font-size:22px;color:#fff;}
+  .card-body{padding:12px;}.search-input{width:140px;}.page-title{font-size:22px;color:var(--navy);}
   .date-range-wrap{flex-wrap:wrap;}
 }
 
@@ -243,7 +251,7 @@ td{padding:9px 13px;font-size:13px;vertical-align:middle;}
 .lp-field{background:rgba(255,255,255,0.03);border-radius:10px;padding:12px 14px;}
 .lp-field.full{grid-column:1/-1;}
 .lp-label{font-size:10px;color:#6b7fa0;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
-.lp-value{font-size:13px;color:#e8edf5;font-weight:500;line-height:1.5;}
+.lp-value{font-size:13px;color:var(--navy);font-weight:500;line-height:1.5;}
 .lp-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
 .lp-badge.high{background:rgba(255,78,106,0.15);color:#ff4e6a;}
 .lp-badge.med{background:rgba(201,162,39,0.15);color:#c9a227;}
@@ -251,7 +259,7 @@ td{padding:9px 13px;font-size:13px;vertical-align:middle;}
 .lp-footer{padding:14px 24px;border-top:1px solid rgba(255,255,255,0.06);display:flex;gap:10px;justify-content:flex-end;}
 .lp-btn{padding:9px 20px;border-radius:10px;font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all .2s;}
 .lp-btn-primary{background:linear-gradient(135deg,#c9a227,#a8841e);color:#fff;}
-.lp-btn-secondary{background:rgba(255,255,255,0.06);color:#e8edf5;border:1px solid rgba(255,255,255,0.1);}
+.lp-btn-secondary{background:rgba(255,255,255,0.06);color:var(--navy);border:1px solid rgba(255,255,255,0.1);}
 
 
 /* ─── REKAP SECTION ─────────────────────── */
@@ -368,25 +376,25 @@ td{padding:9px 13px;font-size:13px;vertical-align:middle;}
         <div class="card-head-left">
           <div class="card-head-icon"><i class="fas fa-trophy"></i></div>
           <div>
-            <div class="card-head-title" style="color:#fff">Top 5 Pelapor Terbanyak</div>
+            <div class="card-head-title" style="color:var(--navy)">Top 5 Pelapor Terbanyak</div>
             <div class="card-head-sub">Dari laporan masuk · ikut filter tanggal · <span style="color:#22e0a1"><i class="fas fa-circle" style="font-size:7px"></i> Real-time</span></div>
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <div class="date-range-wrap" style="padding:3px 10px;">
             <label><i class="fas fa-calendar-alt" style="margin-right:4px"></i>Dari</label>
-            <input type="date" id="dateFrom" onchange="applyFilter()">
+            <input type="date" id="dateFrom" onchange="applyFilter()" aria-label="Tanggal dari">
             <span class="date-sep">—</span>
             <label>Sampai</label>
-            <input type="date" id="dateTo" onchange="applyFilter()">
+            <input type="date" id="dateTo" onchange="applyFilter()" aria-label="Tanggal sampai">
           </div>
           <button class="btn-reset-date" onclick="resetDateFilter()"><i class="fas fa-undo" style="margin-right:4px"></i>Reset</button>
           <span id="top5PeriodeBadge" style="background:rgba(201,162,39,0.15);border:1px solid rgba(201,162,39,0.3);color:#c9a227;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;font-family:monospace">—</span>
         </div>
       </div>
       <div class="card-body" style="padding:12px 16px">
-        <div id="top5Empty" style="display:none;text-align:center;padding:24px;color:rgba(255,255,255,0.3)">
-          <i class="fas fa-inbox" style="font-size:28px;display:block;margin-bottom:8px;opacity:0.4"></i>
+        <div id="top5Empty" style="display:none;text-align:center;padding:24px;color:var(--muted)">
+          <i class="fas fa-inbox" style="font-size:28px;display:block;margin-bottom:8px;opacity:0.3;color:var(--muted)"></i>
           Belum ada laporan masuk di periode ini
         </div>
         <table id="top5Table">
@@ -424,13 +432,13 @@ td{padding:9px 13px;font-size:13px;vertical-align:middle;}
           <i class="fas fa-search" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:12px"></i>
           <input class="form-control" type="text" id="rekapSearch" placeholder="Cari nama / NIK..." style="padding-left:30px;font-size:12px" oninput="renderRekap()">
         </div>
-        <select class="form-select" id="rekapJabatan" onchange="renderRekap()" style="width:auto;min-width:140px;font-size:12px">
+        <select class="form-select" id="rekapJabatan" onchange="renderRekap()" aria-label="Filter level jabatan" style="width:auto;min-width:140px;font-size:12px">
           <option value="">Semua Jabatan</option>
           <option value="Foreman">Foreman</option>
           <option value="Supervisor">Supervisor</option>
           <option value="Superintendent">Superintendent</option>
         </select>
-        <select class="form-select" id="rekapStatus" onchange="renderRekap()" style="width:auto;min-width:140px;font-size:12px">
+        <select class="form-select" id="rekapStatus" onchange="renderRekap()" aria-label="Filter status pencapaian" style="width:auto;min-width:140px;font-size:12px">
           <option value="">Semua Status</option>
           <option value="tercapai">✅ Tercapai</option>
           <option value="belum">❌ Belum Tercapai</option>
@@ -450,7 +458,75 @@ td{padding:9px 13px;font-size:13px;vertical-align:middle;}
 </div>
 
 <script>
-const rekapData = [{"nik": "02210717", "nama": "Adam bahar noor", "dept": "Engineering", "jabatan": "Foreman", "target": 8, "total": 28, "bulan": {"2026-01": {"actual": 20, "target": 8, "tercapai": true}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 2}, {"nik": "02221065", "nama": "Angga Rifki Kurniawan", "dept": "Engineering", "jabatan": "Foreman", "target": 8, "total": 18, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 13, "target": 8, "tercapai": true}, "2026-03": {"actual": 5, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "04240345", "nama": "Rahadiyan Malvin Sunyoto", "dept": "Engineering", "jabatan": "Foreman", "target": 8, "total": 15, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 10, "target": 8, "tercapai": true}, "2026-03": {"actual": 5, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01180075", "nama": "Kahar", "dept": "Engineering", "jabatan": "Foreman", "target": 8, "total": 14, "bulan": {"2026-01": {"actual": 6, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "02231312", "nama": "muh ardian syaputra", "dept": "Engineering", "jabatan": "Foreman", "target": 8, "total": 12, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 4, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "2241606.0", "nama": "Rifki Azhari Najib S", "dept": "Engineering", "jabatan": "Supervisor", "target": 6, "total": 12, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 8, "target": 6, "tercapai": true}, "2026-03": {"actual": 4, "target": 6, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01210611", "nama": "Muhammad Rusli", "dept": "Engineering", "jabatan": "Superintendent", "target": 4, "total": 3, "bulan": {"2026-01": {"actual": 0, "target": 4, "tercapai": false}, "2026-02": {"actual": 3, "target": 4, "tercapai": false}, "2026-03": {"actual": 0, "target": 4, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "rifki azhari najib sudrajat", "nama": "rifki azhari najib sudrajat", "dept": "Engineering", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 1, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "02210741", "nama": "Aidil fitri", "dept": "HRGA", "jabatan": "Foreman", "target": 8, "total": 16, "bulan": {"2026-01": {"actual": 6, "target": 8, "tercapai": false}, "2026-02": {"actual": 5, "target": 8, "tercapai": false}, "2026-03": {"actual": 5, "target": 8, "tercapai": false}}, "bulanAktif": 3, "bulanTercapai": 0}, {"nik": "01220889", "nama": "Tri Suci RD", "dept": "HRGA", "jabatan": "Supervisor", "target": 6, "total": 16, "bulan": {"2026-01": {"actual": 2, "target": 6, "tercapai": false}, "2026-02": {"actual": 5, "target": 6, "tercapai": false}, "2026-03": {"actual": 9, "target": 6, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 1}, {"nik": "02213137", "nama": "Samsul Hadi", "dept": "HRGA", "jabatan": "Supervisor", "target": 6, "total": 15, "bulan": {"2026-01": {"actual": 3, "target": 6, "tercapai": false}, "2026-02": {"actual": 6, "target": 6, "tercapai": true}, "2026-03": {"actual": 6, "target": 6, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01190373", "nama": "Yogi Kristanto", "dept": "HRGA", "jabatan": "Superintendent", "target": 4, "total": 13, "bulan": {"2026-01": {"actual": 5, "target": 4, "tercapai": true}, "2026-02": {"actual": 4, "target": 4, "tercapai": true}, "2026-03": {"actual": 4, "target": 4, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 3}, {"nik": "01180021", "nama": "Agus tri prasetyo", "dept": "HRGA", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 1, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 0, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "0223137", "nama": "Samsul Hadi", "dept": "HRGA", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 1, "target": 6, "tercapai": false}, "2026-03": {"actual": 0, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "02212137", "nama": "Samsul Hadi", "dept": "HRGA", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 1, "target": 6, "tercapai": false}, "2026-03": {"actual": 0, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "01241518", "nama": "SUDIONO", "dept": "Logistik", "jabatan": "Foreman", "target": 8, "total": 43, "bulan": {"2026-01": {"actual": 6, "target": 8, "tercapai": false}, "2026-02": {"actual": 16, "target": 8, "tercapai": true}, "2026-03": {"actual": 21, "target": 8, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01190254", "nama": "Reynhard Ritchard", "dept": "Logistik", "jabatan": "Supervisor", "target": 6, "total": 30, "bulan": {"2026-01": {"actual": 3, "target": 6, "tercapai": false}, "2026-02": {"actual": 18, "target": 6, "tercapai": true}, "2026-03": {"actual": 9, "target": 6, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01180050", "nama": "M.ISLAHIL WATHAN", "dept": "Logistik", "jabatan": "Foreman", "target": 8, "total": 22, "bulan": {"2026-01": {"actual": 5, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 9, "target": 8, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01190342", "nama": "Mujtahidin", "dept": "Logistik", "jabatan": "Foreman", "target": 8, "total": 19, "bulan": {"2026-01": {"actual": 5, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 6, "target": 8, "tercapai": false}}, "bulanAktif": 3, "bulanTercapai": 1}, {"nik": "01241600", "nama": "Yayang Rudianto", "dept": "Logistik", "jabatan": "Foreman", "target": 8, "total": 12, "bulan": {"2026-01": {"actual": 4, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01190375", "nama": "Sukardi", "dept": "Logistik", "jabatan": "Superintendent", "target": 4, "total": 7, "bulan": {"2026-01": {"actual": 2, "target": 4, "tercapai": false}, "2026-02": {"actual": 5, "target": 4, "tercapai": true}, "2026-03": {"actual": 0, "target": 4, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "081241600", "nama": "Yayang Rudianto", "dept": "Logistik", "jabatan": "Foreman", "target": 8, "total": 2, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 2, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "01190343", "nama": "Mujtahidin", "dept": "Logistik", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "01190310", "nama": "Surinsyah", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 57, "bulan": {"2026-01": {"actual": 6, "target": 8, "tercapai": false}, "2026-02": {"actual": 10, "target": 8, "tercapai": true}, "2026-03": {"actual": 41, "target": 8, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "02241602", "nama": "Hariyoko", "dept": "Plant", "jabatan": "Supervisor", "target": 6, "total": 22, "bulan": {"2026-01": {"actual": 2, "target": 6, "tercapai": false}, "2026-02": {"actual": 8, "target": 6, "tercapai": true}, "2026-03": {"actual": 12, "target": 6, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01180045", "nama": "Dedy josi", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 21, "bulan": {"2026-01": {"actual": 8, "target": 8, "tercapai": true}, "2026-02": {"actual": 9, "target": 8, "tercapai": true}, "2026-03": {"actual": 4, "target": 8, "tercapai": false}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01190336", "nama": "Fikriyansyah", "dept": "Plant", "jabatan": "Supervisor", "target": 6, "total": 19, "bulan": {"2026-01": {"actual": 4, "target": 6, "tercapai": false}, "2026-02": {"actual": 8, "target": 6, "tercapai": true}, "2026-03": {"actual": 7, "target": 6, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "02231159", "nama": "ADI KURNIAWAN", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 16, "bulan": {"2026-01": {"actual": 8, "target": 8, "tercapai": true}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 2}, {"nik": "02231472", "nama": "Ardy kismantoro", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 16, "bulan": {"2026-01": {"actual": 8, "target": 8, "tercapai": true}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 2}, {"nik": "01200490", "nama": "Muhammad Aly Wardhana", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 16, "bulan": {"2026-01": {"actual": 8, "target": 8, "tercapai": true}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 2}, {"nik": "01220961", "nama": "Syaiful ichsan", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 15, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 4, "target": 8, "tercapai": false}, "2026-03": {"actual": 11, "target": 8, "tercapai": true}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01180046", "nama": "Suroto", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 11, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 3, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "04240328", "nama": "Kasmuri budianto", "dept": "Plant", "jabatan": "Supervisor", "target": 6, "total": 10, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 4, "target": 6, "tercapai": false}, "2026-03": {"actual": 6, "target": 6, "tercapai": true}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01180186", "nama": "Hery surianto", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 8, "bulan": {"2026-01": {"actual": 8, "target": 8, "tercapai": true}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "1190336.0", "nama": "Fikriyansyah", "dept": "Plant", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 1, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "011903110", "nama": "Surinsyah", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "011902310", "nama": "Surinsyah", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "001180046", "nama": "Suroto", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "01180046..", "nama": "Suroto", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 1, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "012209610", "nama": "Syaiful ichsan", "dept": "Plant", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 1, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "04249328", "nama": "Kasmuri budianto", "dept": "Plant", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 1, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "02251702", "nama": "Muhammad Rusli", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 67, "bulan": {"2026-01": {"actual": 30, "target": 8, "tercapai": true}, "2026-02": {"actual": 35, "target": 8, "tercapai": true}, "2026-03": {"actual": 2, "target": 8, "tercapai": false}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01180086", "nama": "Mohammad Fredi", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 36, "bulan": {"2026-01": {"actual": 8, "target": 8, "tercapai": true}, "2026-02": {"actual": 9, "target": 8, "tercapai": true}, "2026-03": {"actual": 19, "target": 8, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 3}, {"nik": "01190288", "nama": "Anton T", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 31, "bulan": {"2026-01": {"actual": 7, "target": 8, "tercapai": false}, "2026-02": {"actual": 11, "target": 8, "tercapai": true}, "2026-03": {"actual": 13, "target": 8, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01180059", "nama": "Rezki", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 31, "bulan": {"2026-01": {"actual": 5, "target": 8, "tercapai": false}, "2026-02": {"actual": 16, "target": 8, "tercapai": true}, "2026-03": {"actual": 10, "target": 8, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01180032", "nama": "Abdussobur", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 26, "bulan": {"2026-01": {"actual": 6, "target": 8, "tercapai": false}, "2026-02": {"actual": 9, "target": 8, "tercapai": true}, "2026-03": {"actual": 11, "target": 8, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01210618", "nama": "Gokma Sitohang", "dept": "Produksi", "jabatan": "Superintendent", "target": 4, "total": 25, "bulan": {"2026-01": {"actual": 0, "target": 4, "tercapai": false}, "2026-02": {"actual": 14, "target": 4, "tercapai": true}, "2026-03": {"actual": 11, "target": 4, "tercapai": true}}, "bulanAktif": 2, "bulanTercapai": 2}, {"nik": "01200472", "nama": "Junaidi", "dept": "Produksi", "jabatan": "Supervisor", "target": 6, "total": 24, "bulan": {"2026-01": {"actual": 4, "target": 6, "tercapai": false}, "2026-02": {"actual": 9, "target": 6, "tercapai": true}, "2026-03": {"actual": 11, "target": 6, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "02220785", "nama": "Sabri", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 22, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 15, "target": 8, "tercapai": true}, "2026-03": {"actual": 7, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "02251691", "nama": "Muh riyada", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 20, "bulan": {"2026-01": {"actual": 6, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 6, "target": 8, "tercapai": false}}, "bulanAktif": 3, "bulanTercapai": 1}, {"nik": "01190299", "nama": "Erman", "dept": "Produksi", "jabatan": "Supervisor", "target": 6, "total": 16, "bulan": {"2026-01": {"actual": 2, "target": 6, "tercapai": false}, "2026-02": {"actual": 12, "target": 6, "tercapai": true}, "2026-03": {"actual": 2, "target": 6, "tercapai": false}}, "bulanAktif": 3, "bulanTercapai": 1}, {"nik": "02251682", "nama": "HERU SETIO", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 14, "bulan": {"2026-01": {"actual": 1, "target": 8, "tercapai": false}, "2026-02": {"actual": 9, "target": 8, "tercapai": true}, "2026-03": {"actual": 4, "target": 8, "tercapai": false}}, "bulanAktif": 3, "bulanTercapai": 1}, {"nik": "01190351", "nama": "Rahmuji", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 12, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 2, "target": 8, "tercapai": false}, "2026-03": {"actual": 10, "target": 8, "tercapai": true}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01180110", "nama": "tangsi", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 12, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 9, "target": 8, "tercapai": true}, "2026-03": {"actual": 3, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01190320", "nama": "Mustamin", "dept": "Produksi", "jabatan": "Superintendent", "target": 4, "total": 10, "bulan": {"2026-01": {"actual": 2, "target": 4, "tercapai": false}, "2026-02": {"actual": 4, "target": 4, "tercapai": true}, "2026-03": {"actual": 4, "target": 4, "tercapai": true}}, "bulanAktif": 3, "bulanTercapai": 2}, {"nik": "01190372", "nama": "Prisma anggoro", "dept": "Produksi", "jabatan": "Supervisor", "target": 6, "total": 10, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 2, "target": 6, "tercapai": false}, "2026-03": {"actual": 8, "target": 6, "tercapai": true}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "01180011", "nama": "Andre", "dept": "Produksi", "jabatan": "Supervisor", "target": 6, "total": 6, "bulan": {"2026-01": {"actual": 4, "target": 6, "tercapai": false}, "2026-02": {"actual": 2, "target": 6, "tercapai": false}, "2026-03": {"actual": 0, "target": 6, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 0}, {"nik": "01220819", "nama": "Muhammad adi", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 5, "bulan": {"2026-01": {"actual": 5, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "02220836", "nama": "Danang kukuh prasojo", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 4, "bulan": {"2026-01": {"actual": 3, "target": 8, "tercapai": false}, "2026-02": {"actual": 1, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 2, "bulanTercapai": 0}, {"nik": "0220836", "nama": "Danang kukuh prasojo", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 2, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 2, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "1180011.0", "nama": "Andre", "dept": "Produksi", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 1, "target": 6, "tercapai": false}, "2026-03": {"actual": 0, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "O2220836", "nama": "Danang kukuh prasojo", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 1, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "02252691", "nama": "Muh riyada", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 1, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "O1190320", "nama": "Mustamin", "dept": "Produksi", "jabatan": "Superintendent", "target": 4, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 4, "tercapai": false}, "2026-02": {"actual": 0, "target": 4, "tercapai": false}, "2026-03": {"actual": 1, "target": 4, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "01190352", "nama": "Rahmuji", "dept": "Produksi", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 1, "target": 8, "tercapai": false}, "2026-03": {"actual": 0, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "02231340", "nama": "Asman", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 29, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 29, "target": 8, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "02251686", "nama": "Cucuk cahyanto", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 28, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 28, "target": 8, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "02231106", "nama": "David", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 28, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 28, "target": 8, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "02231250", "nama": "Deka susanto", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 28, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 28, "target": 8, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "02241523", "nama": "Ding Areq", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 18, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 18, "target": 8, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "02221053", "nama": "Hasruddin", "dept": "SHE", "jabatan": "Supervisor", "target": 6, "total": 17, "bulan": {"2026-01": {"actual": 1, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 16, "target": 6, "tercapai": true}}, "bulanAktif": 2, "bulanTercapai": 1}, {"nik": "02261709", "nama": "AHMAD RIADHO ROHMAN", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 9, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 9, "target": 8, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "02251676", "nama": "Mohammad Iqbal Budi Caesar", "dept": "SHE", "jabatan": "Supervisor", "target": 6, "total": 9, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 9, "target": 6, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "01210745", "nama": "Subagyo", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 9, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 9, "target": 8, "tercapai": true}}, "bulanAktif": 1, "bulanTercapai": 1}, {"nik": "01231451", "nama": "harun alrasyid", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 6, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 6, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "0222053", "nama": "Hadruddin", "dept": "SHE", "jabatan": "Supervisor", "target": 6, "total": 2, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 2, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "0123451", "nama": "harun alrasyid", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 2, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 2, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "233.0", "nama": "Ding", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "1231451.0", "nama": "harun alrasyid", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "0221053", "nama": "Hasruddin", "dept": "SHE", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 1, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "00000", "nama": "iqbal budi", "dept": "SHE", "jabatan": "Supervisor", "target": 6, "total": 1, "bulan": {"2026-01": {"actual": 1, "target": 6, "tercapai": false}, "2026-02": {"actual": 0, "target": 6, "tercapai": false}, "2026-03": {"actual": 0, "target": 6, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "3638o3", "nama": "Nshendbd", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}, {"nik": "01220745", "nama": "Subagyo", "dept": "SHE", "jabatan": "Foreman", "target": 8, "total": 1, "bulan": {"2026-01": {"actual": 0, "target": 8, "tercapai": false}, "2026-02": {"actual": 0, "target": 8, "tercapai": false}, "2026-03": {"actual": 1, "target": 8, "tercapai": false}}, "bulanAktif": 1, "bulanTercapai": 0}];
+const rekapData = [
+  {nik:'04240005',nama:"Panji Irawan",dept:"Management",jabatan:"PJO",target:6,total:0,rekap:{},bulan:{}},
+  {nik:'01190373',nama:"Yogi Kristanto",dept:"HRGA",jabatan:"Superintendent",target:4,total:13,rekap:{"2026-03": {"hazard": 4}, "2026-02": {"hazard": 4}, "2026-01": {"hazard": 5}},bulan:{"2026-03": {"actual": 4, "target": 4, "tercapai": true}, "2026-02": {"actual": 4, "target": 4, "tercapai": true}, "2026-01": {"actual": 5, "target": 4, "tercapai": true}}},
+  {nik:'01220889',nama:"Tri Suci Romandoni",dept:"HRGA",jabatan:"Supervisor",target:6,total:16,rekap:{"2026-03": {"hazard": 9}, "2026-02": {"hazard": 5}, "2026-01": {"hazard": 2}},bulan:{"2026-03": {"actual": 9, "target": 6, "tercapai": true}, "2026-02": {"actual": 5, "target": 6, "tercapai": false}, "2026-01": {"actual": 2, "target": 6, "tercapai": false}}},
+  {nik:'02231317',nama:"Samsul Hadi",dept:"HRGA",jabatan:"Supervisor",target:6,total:0,rekap:{},bulan:{}},
+  {nik:'01210540',nama:"Muhammad Nasir",dept:"HRGA",jabatan:"Foreman",target:8,total:0,rekap:{},bulan:{}},
+  {nik:'01180085',nama:"Pandu Wiyantoro Andrio",dept:"HRGA",jabatan:"Foreman",target:8,total:0,rekap:{},bulan:{}},
+  {nik:'02210741',nama:"Aidil Fitri",dept:"HRGA",jabatan:"Foreman",target:8,total:16,rekap:{"2026-03": {"hazard": 5}, "2026-02": {"hazard": 5}, "2026-01": {"hazard": 6}},bulan:{"2026-03": {"actual": 5, "target": 8, "tercapai": false}, "2026-02": {"actual": 5, "target": 8, "tercapai": false}, "2026-01": {"actual": 6, "target": 8, "tercapai": false}}},
+  {nik:'01180156',nama:"Rita Novita Sari",dept:"HRGA",jabatan:"Foreman",target:8,total:0,rekap:{},bulan:{}},
+  {nik:'02220906',nama:"Stefhany Putri Sakinah",dept:"HRGA",jabatan:"Foreman",target:8,total:0,rekap:{},bulan:{}},
+  {nik:'02231203',nama:"Muhammad Haddad Alwi",dept:"Finance",jabatan:"Foreman",target:8,total:0,rekap:{},bulan:{}},
+  {nik:'01180177',nama:"Yulianus",dept:"HSE",jabatan:"Superintendent",target:4,total:0,rekap:{},bulan:{}},
+  {nik:'02221053',nama:"Hasruddin",dept:"HSE",jabatan:"Supervisor",target:6,total:17,rekap:{"2026-03": {"hazard": 5, "inspeksi": 9, "safety_talk": 2}, "2026-01": {"hazard": 1}},bulan:{"2026-03": {"actual": 16, "target": 6, "tercapai": true}, "2026-01": {"actual": 1, "target": 6, "tercapai": false}}},
+  {nik:'02251676',nama:"Mohammad Iqbal Budi Caesar",dept:"HSE",jabatan:"Supervisor",target:6,total:9,rekap:{"2026-03": {"hazard": 7, "safety_talk": 2}},bulan:{"2026-03": {"actual": 9, "target": 6, "tercapai": true}}},
+  {nik:'01210745',nama:"Subagyo",dept:"HSE",jabatan:"Foreman",target:8,total:9,rekap:{"2026-03": {"safety_talk": 4, "hazard": 5}},bulan:{"2026-03": {"actual": 9, "target": 8, "tercapai": true}}},
+  {nik:'02231106',nama:"David Candra",dept:"HSE",jabatan:"Foreman",target:8,total:28,rekap:{"2026-03": {"inspeksi": 13, "hazard": 12, "safety_talk": 3}},bulan:{"2026-03": {"actual": 28, "target": 8, "tercapai": true}}},
+  {nik:'02231250',nama:"Deka Susanto",dept:"HSE",jabatan:"Foreman",target:8,total:28,rekap:{"2026-03": {"inspeksi": 14, "hazard": 9, "safety_talk": 5}},bulan:{"2026-03": {"actual": 28, "target": 8, "tercapai": true}}},
+  {nik:'02231340',nama:"Asman",dept:"HSE",jabatan:"Foreman",target:8,total:29,rekap:{"2026-03": {"inspeksi": 11, "safety_talk": 11, "hazard": 7}},bulan:{"2026-03": {"actual": 29, "target": 8, "tercapai": true}}},
+  {nik:'01231451',nama:"Muhammad Harun Al Rasyid",dept:"HSE",jabatan:"Foreman",target:8,total:6,rekap:{"2026-03": {"hazard": 3, "inspeksi": 2, "safety_talk": 1}},bulan:{"2026-03": {"actual": 6, "target": 8, "tercapai": false}}},
+  {nik:'02251686',nama:"Cucuk Cahyanto Pratama",dept:"HSE",jabatan:"Foreman",target:8,total:28,rekap:{"2026-03": {"hazard": 6, "safety_talk": 8, "inspeksi": 14}},bulan:{"2026-03": {"actual": 28, "target": 8, "tercapai": true}}},
+  {nik:'02241523',nama:"Ding Areq",dept:"HSE",jabatan:"Foreman",target:8,total:18,rekap:{"2026-03": {"hazard": 9, "safety_talk": 5, "personal_contact": 2, "inspeksi": 2}},bulan:{"2026-03": {"actual": 18, "target": 8, "tercapai": true}}},
+  {nik:'02261709',nama:"Ahmad Riadho Rohman",dept:"HSE",jabatan:"Foreman",target:8,total:9,rekap:{"2026-03": {"safety_talk": 3, "hazard": 5, "inspeksi": 1}},bulan:{"2026-03": {"actual": 9, "target": 8, "tercapai": true}}},
+  {nik:'01190375',nama:"Sukardi",dept:"Logistik",jabatan:"Superintendent",target:4,total:7,rekap:{"2026-02": {"hazard": 5}, "2026-01": {"hazard": 2}},bulan:{"2026-02": {"actual": 5, "target": 4, "tercapai": true}, "2026-01": {"actual": 2, "target": 4, "tercapai": false}}},
+  {nik:'01190254',nama:"Reynhard Ritchard Djompilino",dept:"Logistik",jabatan:"Supervisor",target:6,total:30,rekap:{"2026-03": {"hazard": 5, "inspeksi": 2, "safety_talk": 2}, "2026-02": {"hazard": 8, "inspeksi": 10}, "2026-01": {"hazard": 3}},bulan:{"2026-03": {"actual": 9, "target": 6, "tercapai": true}, "2026-02": {"actual": 18, "target": 6, "tercapai": true}, "2026-01": {"actual": 3, "target": 6, "tercapai": false}}},
+  {nik:'01180050',nama:"Muhammad Islahil Wathan",dept:"Logistik",jabatan:"Foreman",target:8,total:22,rekap:{"2026-03": {"hazard": 3, "safety_talk": 6}, "2026-01": {"hazard": 5}, "2026-02": {"hazard": 8}},bulan:{"2026-03": {"actual": 9, "target": 8, "tercapai": true}, "2026-01": {"actual": 5, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}}},
+  {nik:'01190342',nama:"Mujtahidin",dept:"Logistik",jabatan:"Foreman",target:8,total:19,rekap:{"2026-02": {"hazard": 8}, "2026-03": {"hazard": 6}, "2026-01": {"hazard": 5}},bulan:{"2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-03": {"actual": 6, "target": 8, "tercapai": false}, "2026-01": {"actual": 5, "target": 8, "tercapai": false}}},
+  {nik:'01200493',nama:"Agus Selamet Setiawan",dept:"Purchasing",jabatan:"Foreman",target:8,total:0,rekap:{},bulan:{}},
+  {nik:'01210609',nama:"Arif Rahman Hakim",dept:"Purchasing",jabatan:"Foreman",target:8,total:0,rekap:{},bulan:{}},
+  {nik:'01210611',nama:"Muhammad Rusli",dept:"Engineering",jabatan:"Superintendent",target:4,total:3,rekap:{"2026-02": {"hazard": 3}},bulan:{"2026-02": {"actual": 3, "target": 4, "tercapai": false}}},
+  {nik:'02231312',nama:"Muh. Ardian Syaputra",dept:"Engineering",jabatan:"Supervisor",target:6,total:12,rekap:{"2026-03": {"hazard": 4}, "2026-02": {"hazard": 8}},bulan:{"2026-03": {"actual": 4, "target": 6, "tercapai": false}, "2026-02": {"actual": 8, "target": 6, "tercapai": true}}},
+  {nik:'02241606',nama:"Rifki Azhari Najib Sudrajat",dept:"Engineering",jabatan:"Supervisor",target:6,total:0,rekap:{},bulan:{}},
+  {nik:'01231093',nama:"Rafael Arya Putra Segala",dept:"Engineering",jabatan:"Supervisor",target:6,total:0,rekap:{},bulan:{}},
+  {nik:'04240345',nama:"Rahadiyan Malvin Sunyoto",dept:"Engineering",jabatan:"Foreman",target:8,total:15,rekap:{"2026-03": {"hazard": 3, "inspeksi": 2}, "2026-02": {"hazard": 3, "inspeksi": 7}},bulan:{"2026-03": {"actual": 5, "target": 8, "tercapai": false}, "2026-02": {"actual": 10, "target": 8, "tercapai": true}}},
+  {nik:'02221065',nama:"Angga Rifki Kurniawan",dept:"Engineering",jabatan:"Foreman",target:8,total:18,rekap:{"2026-03": {"hazard": 5}, "2026-02": {"hazard": 13}},bulan:{"2026-03": {"actual": 5, "target": 8, "tercapai": false}, "2026-02": {"actual": 13, "target": 8, "tercapai": true}}},
+  {nik:'01180075',nama:"Kaharuddin T",dept:"Engineering",jabatan:"Foreman",target:8,total:14,rekap:{"2026-02": {"hazard": 8}, "2026-01": {"hazard": 6}},bulan:{"2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-01": {"actual": 6, "target": 8, "tercapai": false}}},
+  {nik:'02210717',nama:"Adam Bahar Noor",dept:"Engineering",jabatan:"Foreman",target:8,total:28,rekap:{"2026-02": {"hazard": 8}, "2026-01": {"hazard": 20}},bulan:{"2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-01": {"actual": 20, "target": 8, "tercapai": true}}},
+  {nik:'02231362',nama:"Jimmi Nata",dept:"Engineering",jabatan:"Foreman",target:8,total:0,rekap:{},bulan:{}},
+  {nik:'01180021',nama:"Agus Tri Prasetyo",dept:"Plant",jabatan:"Supervisor",target:6,total:1,rekap:{"2026-01": {"hazard": 1}},bulan:{"2026-01": {"actual": 1, "target": 6, "tercapai": false}}},
+  {nik:'02241602',nama:"Hariyoko",dept:"Plant",jabatan:"Supervisor",target:6,total:22,rekap:{"2026-03": {"hazard": 9, "safety_talk": 3}, "2026-02": {"hazard": 8}, "2026-01": {"hazard": 2}},bulan:{"2026-03": {"actual": 12, "target": 6, "tercapai": true}, "2026-02": {"actual": 8, "target": 6, "tercapai": true}, "2026-01": {"actual": 2, "target": 6, "tercapai": false}}},
+  {nik:'04240328',nama:"Kasmuri Budianto",dept:"Plant",jabatan:"Supervisor",target:6,total:10,rekap:{"2026-03": {"hazard": 6}, "2026-02": {"hazard": 4}},bulan:{"2026-03": {"actual": 6, "target": 6, "tercapai": true}, "2026-02": {"actual": 4, "target": 6, "tercapai": false}}},
+  {nik:'01190336',nama:"Fikriansyah",dept:"Plant",jabatan:"Supervisor",target:6,total:19,rekap:{"2026-03": {"hazard": 5, "safety_talk": 2}, "2026-02": {"hazard": 8}, "2026-01": {"hazard": 4}},bulan:{"2026-03": {"actual": 7, "target": 6, "tercapai": true}, "2026-02": {"actual": 8, "target": 6, "tercapai": true}, "2026-01": {"actual": 4, "target": 6, "tercapai": false}}},
+  {nik:'01180045',nama:"Dedy Josi Wigyo",dept:"Plant",jabatan:"Foreman",target:8,total:21,rekap:{"2026-03": {"hazard": 4}, "2026-02": {"hazard": 9}, "2026-01": {"hazard": 8}},bulan:{"2026-03": {"actual": 4, "target": 8, "tercapai": false}, "2026-02": {"actual": 9, "target": 8, "tercapai": true}, "2026-01": {"actual": 8, "target": 8, "tercapai": true}}},
+  {nik:'01180186',nama:"Hery Surianto",dept:"Plant",jabatan:"Foreman",target:8,total:8,rekap:{"2026-01": {"hazard": 8}},bulan:{"2026-01": {"actual": 8, "target": 8, "tercapai": true}}},
+  {nik:'01200490',nama:"Muhammad Aly Wardhana",dept:"Plant",jabatan:"Foreman",target:8,total:16,rekap:{"2026-02": {"hazard": 8}, "2026-01": {"hazard": 8}},bulan:{"2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-01": {"actual": 8, "target": 8, "tercapai": true}}},
+  {nik:'01180046',nama:"Suroto",dept:"Plant",jabatan:"Foreman",target:8,total:11,rekap:{"2026-03": {"hazard": 3}, "2026-02": {"hazard": 8}},bulan:{"2026-03": {"actual": 3, "target": 8, "tercapai": false}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}}},
+  {nik:'02231159',nama:"Adi Kurniawan",dept:"Plant",jabatan:"Foreman",target:8,total:16,rekap:{"2026-01": {"hazard": 8}, "2026-02": {"hazard": 8}},bulan:{"2026-01": {"actual": 8, "target": 8, "tercapai": true}, "2026-02": {"actual": 8, "target": 8, "tercapai": true}}},
+  {nik:'01190310',nama:"Surinsyah",dept:"Plant",jabatan:"Foreman",target:8,total:57,rekap:{"2026-03": {"inspeksi": 11, "hazard": 26, "safety_talk": 4}, "2026-02": {"hazard": 10}, "2026-01": {"hazard": 6}},bulan:{"2026-03": {"actual": 41, "target": 8, "tercapai": true}, "2026-02": {"actual": 10, "target": 8, "tercapai": true}, "2026-01": {"actual": 6, "target": 8, "tercapai": false}}},
+  {nik:'01220826',nama:"Djoko Suseno",dept:"Plant",jabatan:"Foreman",target:8,total:0,rekap:{},bulan:{}},
+  {nik:'01190320',nama:"Mustamin",dept:"Produksi",jabatan:"Superintendent",target:4,total:10,rekap:{"2026-03": {"hazard": 4}, "2026-02": {"hazard": 4}, "2026-01": {"hazard": 2}},bulan:{"2026-03": {"actual": 4, "target": 4, "tercapai": true}, "2026-02": {"actual": 4, "target": 4, "tercapai": true}, "2026-01": {"actual": 2, "target": 4, "tercapai": false}}},
+  {nik:'01190299',nama:"Erman Syamsuddin",dept:"Produksi",jabatan:"Supervisor",target:6,total:16,rekap:{"2026-02": {"hazard": 12}, "2026-01": {"hazard": 2}, "2026-03": {"hazard": 2}},bulan:{"2026-02": {"actual": 12, "target": 6, "tercapai": true}, "2026-01": {"actual": 2, "target": 6, "tercapai": false}, "2026-03": {"actual": 2, "target": 6, "tercapai": false}}},
+  {nik:'01180002',nama:"Serinta Ginting",dept:"Produksi",jabatan:"Supervisor",target:6,total:0,rekap:{},bulan:{}},
+  {nik:'01190372',nama:"Prisma Anggoro",dept:"Produksi",jabatan:"Supervisor",target:6,total:10,rekap:{"2026-03": {"hazard": 8}, "2026-02": {"hazard": 2}},bulan:{"2026-03": {"actual": 8, "target": 6, "tercapai": true}, "2026-02": {"actual": 2, "target": 6, "tercapai": false}}},
+  {nik:'01180111',nama:"Andre Triansyah",dept:"Produksi",jabatan:"Supervisor",target:6,total:0,rekap:{},bulan:{}},
+  {nik:'01200472',nama:"Junaidi",dept:"Produksi",jabatan:"Supervisor",target:6,total:24,rekap:{"2026-02": {"hazard": 9}, "2026-03": {"hazard": 11}, "2026-01": {"hazard": 4}},bulan:{"2026-02": {"actual": 9, "target": 6, "tercapai": true}, "2026-03": {"actual": 11, "target": 6, "tercapai": true}, "2026-01": {"actual": 4, "target": 6, "tercapai": false}}},
+  {nik:'01190351',nama:"Rahmuji",dept:"Produksi",jabatan:"Foreman",target:8,total:12,rekap:{"2026-03": {"hazard": 10}, "2026-02": {"hazard": 2}},bulan:{"2026-03": {"actual": 10, "target": 8, "tercapai": true}, "2026-02": {"actual": 2, "target": 8, "tercapai": false}}},
+  {nik:'01180032',nama:"Abdussobur",dept:"Produksi",jabatan:"Foreman",target:8,total:26,rekap:{"2026-03": {"safety_talk": 2, "hazard": 9}, "2026-02": {"hazard": 9}, "2026-01": {"hazard": 6}},bulan:{"2026-03": {"actual": 11, "target": 8, "tercapai": true}, "2026-02": {"actual": 9, "target": 8, "tercapai": true}, "2026-01": {"actual": 6, "target": 8, "tercapai": false}}},
+  {nik:'01180086',nama:"Mohammad Fredi",dept:"Produksi",jabatan:"Foreman",target:8,total:36,rekap:{"2026-03": {"hazard": 19}, "2026-02": {"hazard": 9}, "2026-01": {"hazard": 8}},bulan:{"2026-03": {"actual": 19, "target": 8, "tercapai": true}, "2026-02": {"actual": 9, "target": 8, "tercapai": true}, "2026-01": {"actual": 8, "target": 8, "tercapai": true}}},
+  {nik:'01190288',nama:"Anton Tangdilintin",dept:"Produksi",jabatan:"Foreman",target:8,total:31,rekap:{"2026-03": {"hazard": 10, "safety_talk": 3}, "2026-02": {"hazard": 11}, "2026-01": {"hazard": 6, "inspeksi": 1}},bulan:{"2026-03": {"actual": 13, "target": 8, "tercapai": true}, "2026-02": {"actual": 11, "target": 8, "tercapai": true}, "2026-01": {"actual": 7, "target": 8, "tercapai": false}}},
+  {nik:'02220785',nama:"Sabri",dept:"Produksi",jabatan:"Foreman",target:8,total:22,rekap:{"2026-03": {"hazard": 6, "inspeksi": 1}, "2026-02": {"hazard": 15}},bulan:{"2026-03": {"actual": 7, "target": 8, "tercapai": false}, "2026-02": {"actual": 15, "target": 8, "tercapai": true}}},
+  {nik:'01220819',nama:"Muhammad Adi",dept:"Produksi",jabatan:"Foreman",target:8,total:5,rekap:{"2026-01": {"hazard": 5}},bulan:{"2026-01": {"actual": 5, "target": 8, "tercapai": false}}},
+  {nik:'01180059',nama:"Rezki",dept:"Produksi",jabatan:"Foreman",target:8,total:31,rekap:{"2026-03": {"hazard": 10}, "2026-02": {"hazard": 16}, "2026-01": {"inspeksi": 3, "hazard": 2}},bulan:{"2026-03": {"actual": 10, "target": 8, "tercapai": true}, "2026-02": {"actual": 16, "target": 8, "tercapai": true}, "2026-01": {"actual": 5, "target": 8, "tercapai": false}}},
+  {nik:'01210618',nama:"Gok Mauliate Godang Sitohang",dept:"Produksi",jabatan:"Foreman",target:8,total:25,rekap:{"2026-03": {"hazard": 11}, "2026-02": {"hazard": 14}},bulan:{"2026-03": {"actual": 11, "target": 8, "tercapai": true}, "2026-02": {"actual": 14, "target": 8, "tercapai": true}}},
+  {nik:'01180110',nama:"Tangsi",dept:"Produksi",jabatan:"Foreman",target:8,total:12,rekap:{"2026-03": {"hazard": 3}, "2026-02": {"hazard": 9}},bulan:{"2026-03": {"actual": 3, "target": 8, "tercapai": false}, "2026-02": {"actual": 9, "target": 8, "tercapai": true}}},
+  {nik:'02220836',nama:"Danang Kukuh Prasojo",dept:"Produksi",jabatan:"Foreman",target:8,total:4,rekap:{"2026-02": {"hazard": 1}, "2026-01": {"hazard": 3}},bulan:{"2026-02": {"actual": 1, "target": 8, "tercapai": false}, "2026-01": {"actual": 3, "target": 8, "tercapai": false}}},
+  {nik:'02251682',nama:"Heru Setio",dept:"Produksi",jabatan:"Foreman",target:8,total:14,rekap:{"2026-02": {"hazard": 9}, "2026-03": {"hazard": 4}, "2026-01": {"hazard": 1}},bulan:{"2026-02": {"actual": 9, "target": 8, "tercapai": true}, "2026-03": {"actual": 4, "target": 8, "tercapai": false}, "2026-01": {"actual": 1, "target": 8, "tercapai": false}}},
+  {nik:'02251702',nama:"Muhammad Rusli Fm",dept:"Produksi",jabatan:"Foreman",target:8,total:67,rekap:{"2026-03": {"hazard": 2}, "2026-02": {"hazard": 35}, "2026-01": {"hazard": 30}},bulan:{"2026-03": {"actual": 2, "target": 8, "tercapai": false}, "2026-02": {"actual": 35, "target": 8, "tercapai": true}, "2026-01": {"actual": 30, "target": 8, "tercapai": true}}},
+  {nik:'02251691',nama:"Muh. Riyada",dept:"Produksi",jabatan:"Foreman",target:8,total:20,rekap:{"2026-02": {"hazard": 8}, "2026-01": {"hazard": 6}, "2026-03": {"hazard": 6}},bulan:{"2026-02": {"actual": 8, "target": 8, "tercapai": true}, "2026-01": {"actual": 6, "target": 8, "tercapai": false}, "2026-03": {"actual": 6, "target": 8, "tercapai": false}}},
+  {nik:'01190234',nama:"Eci Devayana Gultom",dept:"Produksi",jabatan:"Foreman",target:8,total:0,rekap:{},bulan:{}}
+];
 const BULAN_LIST   = ['2026-01','2026-02','2026-03'];
 const BULAN_LABELS = {'2026-01':'Jan 2026','2026-02':'Feb 2026','2026-03':'Mar 2026'};
 const DEPT_LIST    = ['Semua','Produksi','Plant','Engineering','Logistik','HRGA','SHE'];
@@ -495,10 +571,13 @@ function renderRekap(){
     let totalActual=0,totalTarget=0,bulanTercapai=0;
     const bulanDetail={};
     bulanToCheck.forEach(function(bln){
-      const b=p.bulan[bln]||{actual:0,target:p.target,tercapai:false};
-      totalActual+=b.actual; totalTarget+=b.target;
-      if(b.tercapai)bulanTercapai++;
-      bulanDetail[bln]=b;
+      const rawCats = p.rekap && p.rekap[bln] ? p.rekap[bln] : {};
+      const actual = Object.values(rawCats).reduce(function(s,v){return s+v;},0);
+      const target = p.target||6;
+      const tercapai = actual >= target;
+      totalActual+=actual; totalTarget+=target;
+      if(tercapai)bulanTercapai++;
+      bulanDetail[bln]={actual:actual,target:target,tercapai:tercapai,cats:rawCats};
     });
     const pct=totalTarget>0?Math.round((totalActual/totalTarget)*100):0;
     const aktif=bulanToCheck.filter(function(b){return p.bulan[b]&&p.bulan[b].actual>0;}).length;
@@ -512,14 +591,18 @@ function renderRekap(){
   const filteredRows = filterSts==='tercapai' ? rows.filter(r=>r.tercapai) : filterSts==='belum' ? rows.filter(r=>!r.tercapai) : rows;
   const total=allRows.length,ok=allRows.filter(function(r){return r.tercapai;}).length,no=total-ok;
   document.getElementById('rekapSummary').innerHTML=
-    '<div class="rekap-sum-card"><div class="rekap-sum-val" style="color:#fff">'+total+'</div><div class="rekap-sum-lbl" style="color:rgba(255,255,255,0.5)">Total Pengawas</div></div>'+
-    '<div class="rekap-sum-card"><div class="rekap-sum-val" style="color:#22e0a1">'+ok+'</div><div class="rekap-sum-lbl" style="color:rgba(255,255,255,0.5)">✅ Tercapai</div></div>'+
-    '<div class="rekap-sum-card"><div class="rekap-sum-val" style="color:#ff4e6a">'+no+'</div><div class="rekap-sum-lbl" style="color:rgba(255,255,255,0.5)">❌ Belum Tercapai</div></div>';
+    '<div class="rekap-sum-card"><div class="rekap-sum-val" style="color:var(--navy)">'+total+'</div><div class="rekap-sum-lbl" style="color:var(--muted)">Total Pengawas</div></div>'+
+    '<div class="rekap-sum-card"><div class="rekap-sum-val" style="color:#22e0a1">'+ok+'</div><div class="rekap-sum-lbl" style="color:var(--muted)">✅ Tercapai</div></div>'+
+    '<div class="rekap-sum-card"><div class="rekap-sum-val" style="color:#ff4e6a">'+no+'</div><div class="rekap-sum-lbl" style="color:var(--muted)">❌ Belum Tercapai</div></div>';
 
   const thDept=rekapActiveDept==='Semua'?'<th>Dept</th>':'';
   const thBulan=bulanToCheck.map(function(b){return '<th style="text-align:center;min-width:90px">'+BULAN_LABELS[b]+'</th>';}).join('');
   document.getElementById('rekapThead').innerHTML=
     '<tr><th style="min-width:150px">Nama</th><th style="min-width:90px">NIK</th><th>Jabatan</th>'+thDept+thBulan+
+    '<th style="text-align:center;min-width:65px">⚠️ Hazard</th>'+
+    '<th style="text-align:center;min-width:65px">🔍 Inspeksi</th>'+
+    '<th style="text-align:center;min-width:75px">💬 Safety Talk</th>'+
+    '<th style="text-align:center;min-width:80px">👤 Pers.Contact</th>'+
     '<th style="text-align:center">Total</th><th style="text-align:center;min-width:80px">Progres</th><th style="text-align:center">Status</th></tr>';
 
   let tbody='';
@@ -540,6 +623,16 @@ function renderRekap(){
   document.getElementById('rekapTbody').innerHTML=tbody||'<tr><td colspan="10" style="text-align:center;padding:24px;color:var(--muted)">Tidak ada data</td></tr>';
 }
 
+function getCatTotal(r, cat) {
+  var total = 0;
+  Object.keys(r.bulanDetail||{}).forEach(function(bln){
+    var bd = r.bulanDetail[bln];
+    if(bd && bd.cats && bd.cats[cat]) total += bd.cats[cat];
+  });
+  if(total===0) return '<span style="color:var(--muted)">—</span>';
+  return '<b style="color:var(--navy)">'+total+'</b>';
+}
+
 function buildRekapRow(r,bulanList,showDept){
   const jabBadge=r.jabatan==='Foreman'?'b-foreman':r.jabatan==='Supervisor'?'b-super':'b-supt';
   let bulanCells=bulanList.map(function(bln){
@@ -555,11 +648,16 @@ function buildRekapRow(r,bulanList,showDept){
     ?'<span class="pill-ok"><i class="fas fa-check-circle" style="font-size:10px"></i> Tercapai</span>'
     :'<span class="pill-no"><i class="fas fa-times-circle" style="font-size:10px"></i> Belum</span>';
   return '<tr>'+
-    '<td style="min-width:150px;white-space:normal"><b style="color:#e8edf5">'+r.nama+'</b></td>'+
+    '<td style="min-width:150px;white-space:normal"><b style="color:var(--navy)">'+r.nama+'</b></td>'+
     '<td style="font-family:monospace;font-size:11px;color:var(--muted);white-space:nowrap">'+r.nik+'</td>'+
     '<td style="white-space:nowrap"><span class="badge '+jabBadge+'">'+r.jabatan+'</span></td>'+
     deptCell+bulanCells+
+    '<td style="text-align:center">'+getCatTotal(r,'hazard')+'</td>'+
+    '<td style="text-align:center">'+getCatTotal(r,'inspeksi')+'</td>'+
+    '<td style="text-align:center">'+getCatTotal(r,'safety_talk')+'</td>'+
+    '<td style="text-align:center">'+getCatTotal(r,'personal_contact')+'</td>'+
     '<td style="text-align:center;font-weight:700">'+r.totalActual+'</td>'+
+
     '<td style="min-width:80px">'+
       '<div style="font-size:11px;color:var(--muted);text-align:right;margin-bottom:2px">'+pct+'%</div>'+
       '<div class="progress-mini"><div class="progress-mini-bar '+barClass+'" style="width:'+pct+'%"></div></div>'+
@@ -614,13 +712,24 @@ function normalizeSAP(d) {
 }
 
 // ── LOAD DATA dari Firebase ───────────────────────────
+// Inisialisasi Firebase compat dulu
+const firebaseConfig = {
+  apiKey: "AIzaSyCzEKC8AzK_wx-sg8tDg32JkCa-C4KNqY8",
+  authDomain: "sigap-report-system.firebaseapp.com",
+  projectId: "sigap-report-system",
+  storageBucket: "sigap-report-system.firebasestorage.app",
+  messagingSenderId: "794553302905",
+  appId: "1:794553302905:web:673f1856a8c35cdc58f9a8"
+};
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
 async function loadData() {
   document.getElementById('loadingState').style.display = '';
   document.getElementById('tableWrap').style.display    = 'none';
 
   try {
-    const q    = query(collection(db, 'sap'), orderBy('tanggal', 'desc'));
-    const snap = await getDocs(q);
+    const snap = await db.collection('sap').orderBy('tanggal', 'desc').get();
     allData = snap.docs.map(d => ({ id: d.id, ...normalizeSAP(d.data()) }));
     useAPI  = true;
     document.getElementById('apiBadge').innerHTML = '<i class="fas fa-circle" style="font-size:7px"></i> Firebase';
@@ -801,21 +910,21 @@ function renderTop5(laporanData) {
 
   tbody.innerHTML = arr.map(function(item, i) {
     const medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':'';
-    const rank  = medal || ('<span style="color:rgba(255,255,255,0.4);font-family:monospace;font-size:12px">#'+(i+1)+'</span>');
+    const rank  = medal || ('<span style="color:var(--muted);font-family:monospace;font-size:12px">#'+(i+1)+'</span>');
     const barW  = Math.round((item.total / maxTotal) * 100);
     const c     = colors[i] || '#c9a227';
     return `<tr>
       <td style="text-align:center;font-size:18px;width:36px">${rank}</td>
       <td>
-        <div style="font-weight:700;color:#e8edf5;font-size:13px">${item.nama}</div>
-        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:1px">NIK: ${item.nik}</div>
+        <div style="font-weight:700;color:var(--navy);font-size:13px">${item.nama}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:1px">NIK: ${item.nik}</div>
         <div style="height:4px;background:rgba(255,255,255,0.07);border-radius:4px;margin-top:5px">
           <div style="height:100%;width:${barW}%;background:${c};border-radius:4px;transition:width .5s"></div>
         </div>
       </td>
       <td style="text-align:center;white-space:nowrap">
         <span style="font-family:monospace;font-size:20px;font-weight:700;color:${c}">${item.total}</span>
-        <div style="font-size:10px;color:rgba(255,255,255,0.4)">laporan</div>
+        <div style="font-size:10px;color:var(--muted)">laporan</div>
       </td>
     </tr>`;
   }).join('');
@@ -842,21 +951,21 @@ function renderTopPelapor() {
   const maxTotal=arr[0]?arr[0].total:1;
   document.getElementById('topPelapor').innerHTML=arr.map((item,i)=>{
     const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':'';
-    const rank=medal||('<span style="color:rgba(255,255,255,0.4);font-family:monospace;font-size:12px">#'+(i+1)+'</span>');
+    const rank=medal||('<span style="color:var(--muted);font-family:monospace;font-size:12px">#'+(i+1)+'</span>');
     const barW=Math.round((item.total/maxTotal)*100);
     const c=colors[i]||'#c9a227';
     return `<tr>
       <td style="text-align:center;font-size:18px;width:36px">${rank}</td>
       <td>
-        <div style="font-weight:700;color:#e8edf5;font-size:13px">${item.nama}</div>
-        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:1px">${item.nik}${item.dept?' · '+item.dept:''}</div>
+        <div style="font-weight:700;color:var(--navy);font-size:13px">${item.nama}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:1px">${item.nik}${item.dept?' · '+item.dept:''}</div>
         <div style="height:4px;background:rgba(255,255,255,0.07);border-radius:4px;margin-top:5px">
           <div style="height:100%;width:${barW}%;background:${c};border-radius:4px;transition:width .5s"></div>
         </div>
       </td>
       <td style="text-align:center;white-space:nowrap">
         <span style="font-family:monospace;font-size:20px;font-weight:700;color:${c}">${item.total}</span>
-        <div style="font-size:10px;color:rgba(255,255,255,0.4)">aktivitas</div>
+        <div style="font-size:10px;color:var(--muted)">aktivitas</div>
       </td>
     </tr>`;
   }).join('');
@@ -977,9 +1086,16 @@ loadTop5();
 
 <script>
 // ── NOTIFICATION SYSTEM ──────────────────────────────
-(function initNotif(){
+// Tunggu Firebase SDK siap dulu baru jalankan
+function initNotif(){
   const level = localStorage.getItem('userLevel') || '';
   if(level !== 'Admin') return; // Hanya admin
+
+  // Cek Firebase SDK sudah tersedia
+  if(typeof firebase === 'undefined') {
+    setTimeout(initNotif, 300); // Coba lagi 300ms kemudian
+    return;
+  }
 
   // Firebase init (jika belum)
   if(!window._notifFirebase){
@@ -1036,7 +1152,9 @@ loadTop5();
       snapshot.forEach(doc => window._notifData.push({id:doc.id,...doc.data()}));
       renderNotif(window._notifData);
     }, err => console.warn('Notif error:', err));
-})();
+}
+// Jalankan setelah DOM siap
+document.addEventListener('DOMContentLoaded', function(){ initNotif(); });
 
 function renderNotif(items){
   const list  = document.getElementById('notifList');
@@ -1170,6 +1288,31 @@ if(!localStorage.getItem('isLoggedIn')){window.location.href='index.html';}
   setAvatar(document.getElementById('sidebarAvatarLetter'), false);
   setAvatar(document.querySelector('.topbar-avatar'), true);
 })();
+</script>
+
+<script>
+// ── Register Service Worker (PWA) ──
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js')
+      .then(function(reg) {
+        console.log('[PWA] Service Worker terdaftar:', reg.scope);
+        // Cek update
+        reg.addEventListener('updatefound', function() {
+          const newWorker = reg.installing;
+          newWorker.addEventListener('statechange', function() {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // Ada versi baru — bisa tampilkan notif update
+              console.log('[PWA] Update tersedia, refresh untuk memperbarui');
+            }
+          });
+        });
+      })
+      .catch(function(err) {
+        console.log('[PWA] Service Worker gagal:', err);
+      });
+  });
+}
 </script>
 </body>
 </html>
