@@ -7,18 +7,25 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1829">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AIMS">
+<link rel="apple-touch-icon" href="LOGO.png">
 <style>
-:root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--gold:#c9a227;--gold-dim:rgba(201,162,39,0.15);--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;--bg:#f0f4f8;--card-bg:#ffffff;--card-border:rgba(201,162,39,0.12);--text:#1e293b;--muted:#6b7fa0;--border:rgba(0,0,0,0.08);--sidebar-w:260px;--radius:16px;--shadow:0 2px 12px rgba(0,0,0,0.07);--transition:.28s cubic-bezier(.4,0,.2,1);--page-color:#c9a227;}
+:root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--gold:#c9a227;--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;--bg:#f0f4f8;--card-bg:#ffffff;--text:#1e293b;--muted:#6b7fa0;--border:rgba(0,0,0,0.08);--sidebar-w:260px;--radius:16px;--shadow:0 2px 12px rgba(0,0,0,0.07);--transition:.28s cubic-bezier(.4,0,.2,1);}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;font-size:14px;}
 .sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
 .sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
 .sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,.07);}
-.brand-icon{width:48px;height:48px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,162,39,0.35);box-shadow:0 0 18px rgba(201,162,39,0.2),0 4px 16px rgba(0,0,0,0.4);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex-shrink:0;overflow:hidden;position:relative;transition:all 0.3s;}.brand-icon img{width:80%;height:80%;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 2px 6px rgba(201,162,39,0.3));}
+.brand-icon{width:48px;height:48px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,162,39,0.35);box-shadow:0 0 18px rgba(201,162,39,0.2),0 4px 16px rgba(0,0,0,0.4);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex-shrink:0;overflow:hidden;position:relative;}
+.brand-icon img{width:80%;height:80%;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 2px 6px rgba(201,162,39,0.3));}
 .brand-text{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:#fff;letter-spacing:2px;}
-.brand-sub{font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
+.brand-sub{font-size:11px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
 .sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;}
-.nav-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3);padding:14px 12px 6px;font-weight:600;}
+.nav-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3);padding:14px 12px 6px;font-weight:600;}
 .sidebar-nav a{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.65);text-decoration:none;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;transition:all var(--transition);margin-bottom:2px;position:relative;}
 .sidebar-nav a .nav-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(255,255,255,.06);flex-shrink:0;transition:all var(--transition);}
 .sidebar-nav a:hover{color:#fff;background:rgba(255,255,255,.07);}
@@ -34,187 +41,87 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .user-avatar{width:36px;height:36px;background:linear-gradient(135deg,var(--accent3),#ff8c00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:700;}
 .user-info .user-name{font-size:13px;font-weight:600;color:#fff;}
 .user-info .user-role{font-size:11px;color:var(--muted);}
-.main{margin-left:var(--sidebar-w);min-height:100vh;}
-.topbar{background:#ffffff;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--card-border);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.2);}
+.main{margin-left:var(--sidebar-w);padding:0;min-height:100vh;}
+.topbar{background:#ffffff;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.05);}
 .topbar-left h5{font-size:15px;font-weight:700;color:var(--navy);margin:0;}
 .topbar-left span{font-size:12px;color:var(--muted);}
 .topbar-right{display:flex;align-items:center;gap:12px;}
-.topbar-btn{width:38px;height:38px;border-radius:10px;background:#f0f4f8;border:1px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
+.topbar-btn{width:38px;height:38px;border-radius:10px;background:#f0f4f8;border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
 .topbar-btn:hover{background:#e2e8f5;color:var(--navy);}
-.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:#f0f4f8;cursor:pointer;border:1px solid rgba(0,0,0,0.08);}
+.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:#f0f4f8;cursor:pointer;}
 .topbar-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
 .topbar-uname{font-size:13px;font-weight:600;color:var(--navy);}
 .content{padding:28px 32px 48px;}
-/* PAGE HEADER */
 .page-header{margin-bottom:24px;}
 .page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;}
-.title-icon{width:44px;height:44px;background:var(--page-color);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.3);}
-.page-sub{font-size:13px;color:#6b7fa0;margin-top:6px;}
-/* STATS */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;}
-.stat-c{background:#ffffff;border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);border-left:4px solid var(--page-color);border:1px solid var(--card-border);border-left:4px solid var(--page-color);}
-.stat-c .val{font-family:'Space Mono',monospace;font-size:28px;font-weight:700;color:var(--page-color);}
-.stat-c .lbl{font-size:11px;color:#6b7fa0;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
-/* UPLOAD CARD */
-.upload-card{background:#ffffff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px;border:1px solid var(--card-border);}
-.card-head{padding:16px 22px;border-bottom:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;background:#f7faff;}
-.card-head-title{font-size:15px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;}
-.card-body{padding:22px;}
-/* UPLOAD ZONE */
-.upload-zone{border:2px dashed rgba(0,0,0,0.15);border-radius:14px;padding:32px 20px;text-align:center;cursor:pointer;transition:all var(--transition);background:#f7faff;position:relative;}
-.upload-zone:hover,.upload-zone.drag{border-color:var(--page-color);background:rgba(201,162,39,.04);}
-.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-.uz-icon{width:56px;height:56px;border-radius:14px;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--page-color);margin:0 auto 12px;}
-.uz-title{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:4px;}
-.uz-sub{font-size:12px;color:var(--muted);}
-/* TOOLBAR */
-.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
-.search-wrap{position:relative;flex:1;min-width:200px;}
-.search-wrap .s-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none;}
-.search-input{width:100%;padding:9px 14px 9px 34px;border:1.5px solid rgba(0,0,0,0.1);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--navy);background:#ffffff;outline:none;transition:all var(--transition);}
-.search-input::placeholder{color:#a0aec0;}
-.search-input:focus{border-color:var(--page-color);}
-.filter-sel{padding:9px 13px;border:1.5px solid rgba(0,0,0,0.1);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--navy);background:#ffffff;outline:none;cursor:pointer;}
-.filter-sel option{background:#ffffff;color:var(--navy);}
-/* FILE GRID */
-.files-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;}
-.file-card{background:#f7faff;border:1.5px solid rgba(0,0,0,0.08);border-radius:14px;padding:16px;transition:all var(--transition);position:relative;cursor:pointer;}
-.file-card:hover{border-color:var(--page-color);box-shadow:0 4px 20px rgba(201,162,39,.12);transform:translateY(-2px);}
-.file-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:10px;}
-.file-name{font-size:13px;font-weight:600;color:var(--navy);line-height:1.4;margin-bottom:4px;word-break:break-word;}
-.file-meta{font-size:11px;color:var(--muted);}
-.file-actions{display:flex;gap:6px;margin-top:10px;}
-.btn-dl{flex:1;padding:6px;border-radius:8px;border:none;background:rgba(0,0,0,0.06);color:var(--navy);font-size:12px;font-weight:600;cursor:pointer;transition:all var(--transition);font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:5px;}
-.btn-dl:hover{background:var(--page-color);color:#fff;}
-.btn-del-f{width:32px;height:32px;border-radius:8px;border:none;background:rgba(255,78,106,.10);color:var(--accent2);cursor:pointer;transition:all var(--transition);display:flex;align-items:center;justify-content:center;font-size:12px;}
-.btn-del-f:hover{background:var(--accent2);color:#fff;}
-/* FILE TYPE COLORS */
-.ft-pdf{background:rgba(239,68,68,.12);color:#ef4444;}
-.ft-doc,.ft-docx{background:rgba(59,130,246,.12);color:#3b82f6;}
-.ft-xls,.ft-xlsx{background:rgba(34,197,94,.12);color:#22c55e;}
-.ft-ppt,.ft-pptx{background:rgba(249,115,22,.12);color:#f97316;}
-.ft-mp4,.ft-video{background:rgba(139,92,246,.12);color:#8b5cf6;}
-.ft-img{background:rgba(236,72,153,.12);color:#ec4899;}
-.ft-other{background:rgba(122,138,170,.12);color:var(--muted);}
-/* EMPTY */
-.empty-state{text-align:center;padding:48px 20px;color:var(--muted);}
-.empty-icon{font-size:48px;opacity:.2;display:block;margin-bottom:12px;}
-/* TOAST */
-.toast-box{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transform:translateY(12px);transition:all .3s;z-index:3000;pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,.4);}
-.toast-box.show{opacity:1;transform:translateY(0);}
-/* MOBILE */
-.menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;}
-.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-@media(max-width:768px){
-  .menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}
-  .sidebar-overlay.open{display:block;}.main{margin-left:0;}.topbar{padding:14px 16px 14px 64px;}
-  .content{padding:20px 14px 40px;}.stats-row{grid-template-columns:repeat(2,1fr);}.files-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}
-}
-
-
-
-/* ── NOTIFICATION SYSTEM ─────────────────────────── */
-.notif-wrap{position:relative;}
-.notif-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:#ff4e6a;border-radius:50%;font-size:10px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #080f1c;animation:notifPop .3s cubic-bezier(.16,1,.3,1);z-index:10;}
-@keyframes notifPop{from{transform:scale(0);}to{transform:scale(1);}}
-.notif-badge.hidden{display:none;}
-
-.notif-dropdown{position:absolute;top:calc(100% + 10px);right:0;width:360px;background:#0f1e35;border:1px solid rgba(201,162,39,0.2);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.6);z-index:9999;overflow:hidden;display:none;animation:dropDown .25s cubic-bezier(.16,1,.3,1);}
-@keyframes dropDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
-.notif-dropdown.open{display:block;}
-.notif-header{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
-.notif-header-title{font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;}
-.notif-header-title i{color:#c9a227;}
-.notif-mark-all{font-size:11px;color:#c9a227;cursor:pointer;font-weight:600;background:none;border:none;padding:0;transition:opacity .2s;}
-.notif-mark-all:hover{opacity:.7;}
-.notif-list{max-height:340px;overflow-y:auto;}
-.notif-item{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background .2s;display:flex;gap:12px;align-items:flex-start;}
-.notif-item:hover{background:rgba(201,162,39,0.06);}
-.notif-item.unread{background:rgba(201,162,39,0.04);}
-.notif-item:last-child{border-bottom:none;}
-.notif-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
-.notif-icon.new{background:rgba(201,162,39,0.15);color:#c9a227;}
-.notif-icon.read{background:rgba(255,255,255,0.05);color:#6b7fa0;}
-.notif-body{flex:1;min-width:0;}
-.notif-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.notif-item.read .notif-title{color:#6b7fa0;font-weight:400;}
-.notif-meta{font-size:11px;color:#6b7fa0;display:flex;gap:8px;flex-wrap:wrap;}
-.notif-dot{width:7px;height:7px;border-radius:50%;background:#c9a227;flex-shrink:0;margin-top:4px;}
-.notif-dot.read{background:transparent;}
-.notif-empty{padding:32px 18px;text-align:center;color:#6b7fa0;font-size:13px;}
-.notif-empty i{font-size:28px;display:block;margin-bottom:8px;opacity:.4;}
-.notif-footer{padding:12px 18px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;}
-.notif-footer a{font-size:12px;color:#c9a227;font-weight:600;text-decoration:none;}
-
-/* POPUP DETAIL LAPORAN */
-.laporan-popup{display:none;position:fixed;inset:0;z-index:99999;background:rgba(8,15,28,0.85);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;}
-.laporan-popup.open{display:flex;}
-.laporan-popup-card{background:#0f1e35;border:1px solid rgba(201,162,39,0.2);border-radius:20px;width:100%;max-width:520px;max-height:85vh;overflow-y:auto;animation:dropDown .3s cubic-bezier(.16,1,.3,1);}
-.lp-header{padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
-.lp-title{font-size:15px;font-weight:700;color:#fff;}
-.lp-close{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.05);border:none;color:#6b7fa0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
-.lp-close:hover{background:rgba(255,78,106,0.15);color:#ff4e6a;}
-.lp-body{padding:20px 24px;}
-.lp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
-.lp-field{background:rgba(255,255,255,0.03);border-radius:10px;padding:12px 14px;}
-.lp-field.full{grid-column:1/-1;}
-.lp-label{font-size:10px;color:#6b7fa0;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
-.lp-value{font-size:13px;color:#e8edf5;font-weight:500;line-height:1.5;}
-.lp-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
-.lp-badge.high{background:rgba(255,78,106,0.15);color:#ff4e6a;}
-.lp-badge.med{background:rgba(201,162,39,0.15);color:#c9a227;}
-.lp-badge.low{background:rgba(34,224,161,0.15);color:#22e0a1;}
-.lp-footer{padding:14px 24px;border-top:1px solid rgba(255,255,255,0.06);display:flex;gap:10px;justify-content:flex-end;}
-.lp-btn{padding:9px 20px;border-radius:10px;font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all .2s;}
-.lp-btn-primary{background:linear-gradient(135deg,#c9a227,#a8841e);color:#fff;}
-.lp-btn-secondary{background:rgba(255,255,255,0.06);color:#e8edf5;border:1px solid rgba(255,255,255,0.1);}
-
-
-/* ── ACCESS GUARD ── */
+.title-icon{width:44px;height:44px;background:#ff4e6a;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(255,78,106,.35);}
+.page-sub{font-size:13px;color:var(--muted);margin-top:6px;}
+.info-bar{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));border-radius:var(--radius);padding:16px 22px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:0 4px 20px rgba(11,24,41,.2);}
+.info-bar-left{display:flex;align-items:center;gap:12px;}
+.info-icon{width:40px;height:40px;background:rgba(255,78,106,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#ff4e6a;}
+.info-title{font-size:14px;font-weight:700;color:#fff;}
+.info-sub{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;}
+.btn-open-drive{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:all var(--transition);font-family:'DM Sans',sans-serif;}
+.btn-open-drive:hover{background:rgba(255,255,255,.22);color:#fff;}
+.drive-card{background:#ffffff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,0.06);}
+.drive-card-head{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#f7faff,#ffffff);}
+.drive-card-title{font-size:14px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;}
+.drive-frame{width:100%;height:calc(100vh - 280px);min-height:500px;border:none;display:block;}
+.frame-wrap{position:relative;}
+.frame-loading{position:absolute;inset:0;background:#f7faff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;border-radius:0 0 var(--radius) var(--radius);z-index:10;}
+.frame-loading.hidden{display:none;}
+.loading-spinner{width:48px;height:48px;border:4px solid rgba(255,78,106,0.15);border-top-color:#ff4e6a;border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{font-size:14px;font-weight:600;color:var(--muted);}
+.loading-sub{font-size:12px;color:var(--muted);opacity:.7;}
+/* EMPTY STATE */
+.empty-state{padding:48px 20px;text-align:center;}
+.empty-icon{width:72px;height:72px;background:rgba(255,78,106,0.08);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:32px;color:#ff4e6a;}
+.empty-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.empty-desc{font-size:13px;color:var(--muted);margin-bottom:24px;max-width:380px;margin-left:auto;margin-right:auto;line-height:1.6;}
+.empty-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
+.btn-primary-drive{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;background:var(--navy);color:#fff;text-decoration:none;font-size:14px;font-weight:600;transition:all .3s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-primary-drive:hover{background:var(--navy-light);color:#fff;}
+.btn-secondary-drive{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;background:#f0f4f8;color:var(--navy);border:1.5px solid rgba(0,0,0,0.1);font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .3s;}
+.btn-secondary-drive:hover{background:#e2e8f5;}
+.how-to{margin-top:20px;padding:14px 20px;background:#f7faff;border-radius:10px;border:1px solid rgba(0,0,0,0.06);display:inline-block;text-align:left;}
+.how-to-title{font-size:11px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.how-to-steps{font-size:12px;color:var(--muted);line-height:1.9;}
+/* GUARD */
 .guard-overlay{display:none;position:fixed;inset:0;background:rgba(11,24,41,0.92);z-index:9999;align-items:center;justify-content:center;}
 .guard-overlay.show{display:flex;}
 .guard-box{background:#ffffff;border-radius:20px;padding:40px 36px;max-width:420px;width:90%;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,0.4);}
 .guard-title{font-size:20px;font-weight:700;color:#0b1829;margin-bottom:10px;}
 .guard-sub{font-size:14px;color:#6b7fa0;line-height:1.6;margin-bottom:16px;}
 .guard-user{font-size:12px;color:#6b7fa0;background:#f0f4f8;padding:8px 14px;border-radius:8px;display:inline-block;}
-.guard-btn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:10px 22px;border-radius:10px;background:#0b1829;color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.guard-btn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:10px 22px;border-radius:10px;background:#0b1829;color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;}
 .guard-logout{display:block;margin-top:12px;font-size:12px;color:#6b7fa0;cursor:pointer;text-decoration:underline;}
 .guard-logout:hover{color:#ff4e6a;}
+.menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;}
+@media(max-width:768px){
+  .menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}
+  .sidebar-overlay.open{display:block;}.main{margin-left:0;}.topbar{padding:14px 16px 14px 64px;}
+  .content{padding:18px 13px 40px;}.drive-frame{height:60vh;min-height:400px;}
+  .info-bar{flex-direction:column;align-items:flex-start;}.btn-open-drive{width:100%;justify-content:center;}
+  .empty-actions{flex-direction:column;}.btn-primary-drive,.btn-secondary-drive{width:100%;justify-content:center;}
+}
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
-<!-- NOTIFICATION DROPDOWN -->
-<div class="laporan-popup" id="laporanPopup" onclick="if(event.target===this)closeLaporanPopup()">
-  <div class="laporan-popup-card">
-    <div class="lp-header">
-      <div class="lp-title"><i class="fas fa-file-alt" style="color:#c9a227;margin-right:8px"></i>Detail Laporan</div>
-      <button class="lp-close" onclick="closeLaporanPopup()"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="lp-body" id="laporanPopupBody">
-      <div style="text-align:center;padding:20px;color:#6b7fa0">Memuat...</div>
-    </div>
-    <div class="lp-footer">
-      <button class="lp-btn lp-btn-secondary" onclick="closeLaporanPopup()">Tutup</button>
-      <button class="lp-btn lp-btn-primary" onclick="markAsRead(currentNotifId)"><i class="fas fa-check"></i> Tandai Dibaca</button>
-    </div>
-  </div>
-</div>
-
-
 <div class="guard-overlay" id="guardOverlay" style="display:none">
   <div class="guard-box">
     <div class="guard-title">Akses Terbatas</div>
-    <div class="guard-sub">Halaman ini hanya dapat diakses oleh <strong style="color:#c9a227">Admin</strong>. Akun Anda tidak memiliki izin untuk mengakses halaman ini.</div>
+    <div class="guard-sub">Halaman ini hanya dapat diakses oleh <strong style="color:#c9a227">Admin</strong>.</div>
     <div class="guard-user"><i class="fas fa-user-circle"></i> <span id="guardUserName">—</span> &bull; <span id="guardUserLevel">—</span></div>
     <br>
     <button class="guard-btn" onclick="window.location.href='buat_laporan.html'">
       <i class="fas fa-file-alt"></i> Pergi ke Buat Laporan
     </button>
-    <span class="guard-logout" onclick="guardLogout()"><i class="fas fa-sign-out-alt"></i> Logout dari akun ini</span>
+    <span class="guard-logout" onclick="guardLogout()"><i class="fas fa-sign-out-alt"></i> Logout</span>
   </div>
 </div>
 
@@ -232,7 +139,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
     <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
     <div class="nav-label">Data</div>
     <a href="Bisnis Proses.html"><span class="nav-icon"><i class="fas fa-briefcase"></i></span>Bisnis Proses</a>
-    <a href="Emergency drill.html"><span class="nav-icon"><i class="fas fa-fire-extinguisher"></i></span>Emergency drill</a>
+    <a href="Emergency drill.html"><span class="nav-icon"><i class="fas fa-fire-extinguisher"></i></span>Emergency Drill</a>
     <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
     <a href="Ibpr.html"><span class="nav-icon"><i class="fas fa-search"></i></span>IBPR</a>
     <a href="Awards.html"><span class="nav-icon"><i class="fas fa-trophy"></i></span>Awards</a>
@@ -241,7 +148,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
     <a href="Sml.html"><span class="nav-icon"><i class="fas fa-leaf"></i></span>SML</a>
     <a href="Evaluasi kebijakan.html"><span class="nav-icon"><i class="fas fa-book"></i></span>Evaluasi Kebijakan</a>
     <a href="Kompetensi.html"><span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>Kompetensi</a>
-    <a href="Breaking news.html"><span class="nav-icon"><i class="fas fa-newspaper"></i></span>Breaking News</a>
+    <a href="Breaking news.html" class="active"><span class="nav-icon"><i class="fas fa-newspaper"></i></span>Breaking News</a>
     <a href="Job desk.html"><span class="nav-icon"><i class="fas fa-user-tie"></i></span>Job Desk</a>
     <a href="Campaign.html"><span class="nav-icon"><i class="fas fa-bullhorn"></i></span>Campaign</a>
     <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
@@ -277,7 +184,8 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <span>Sistem Informasi Keselamatan Kerja</span>
     </div>
     <div class="topbar-right">
-      <button class="topbar-btn"><i class="fas fa-bell"></i></button>
+      <button class="topbar-btn" aria-label="Notifikasi"><i class="fas fa-bell"></i></button>
+      <button class="topbar-btn" aria-label="Pengaturan"><i class="fas fa-cog"></i></button>
       <div class="topbar-user">
         <div class="topbar-avatar"><i class="fas fa-user"></i></div>
         <span class="topbar-uname" id="userNameDisplay">User</span>
@@ -291,435 +199,150 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
         <div class="title-icon"><i class="fas fa-newspaper"></i></div>
         Breaking News
       </div>
-      <div class="page-sub">Kelola dan akses file dokumen, video, dan materi Breaking News</div>
+      <div class="page-sub">Dokumen dan materi Breaking News PT. ABS — tersimpan di Google Drive</div>
     </div>
 
-    <!-- STATS -->
-    <div class="stats-row" id="statsRow">
-      <div class="stat-c"><div class="val" id="statTotal">0</div><div class="lbl">Total File</div></div>
-      <div class="stat-c"><div class="val" id="statPDF">0</div><div class="lbl">PDF</div></div>
-      <div class="stat-c"><div class="val" id="statVideo">0</div><div class="lbl">Video</div></div>
-      <div class="stat-c"><div class="val" id="statLain">0</div><div class="lbl">Lainnya</div></div>
-    </div>
-
-    <!-- UPLOAD -->
-    <div class="upload-card" style="margin-bottom:20px;">
-      <div class="card-head">
-        <div class="card-head-title"><i class="fas fa-cloud-upload-alt" style="color:var(--page-color)"></i> Upload File</div>
-      </div>
-      <div class="card-body">
-        <div class="upload-zone" id="uploadZone" ondragover="dzOver(event)" ondragleave="dzLeave()" ondrop="dzDrop(event)">
-          <input type="file" id="fileInput" multiple accept="*/*" onchange="handleFiles(this.files)">
-          <div class="uz-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-          <div class="uz-title">Drag & Drop file di sini</div>
-          <div class="uz-sub">atau klik untuk pilih · PDF, DOCX, XLSX, PPTX, MP4, gambar, dll · Maks 10 MB/file</div>
+    <div class="info-bar">
+      <div class="info-bar-left">
+        <div class="info-icon"><i class="fab fa-google-drive"></i></div>
+        <div>
+          <div class="info-title">Folder Google Drive — Breaking News</div>
+          <div class="info-sub">File dapat dilihat, didownload, dan dikelola langsung dari Google Drive</div>
         </div>
       </div>
+      <a href="https://drive.google.com/drive/folders/1YLqxZPu1HamlVFZ9AHnKfm2SHUi7rq7i?usp=sharing" target="_blank" class="btn-open-drive">
+        <i class="fab fa-google-drive"></i> Buka di Google Drive
+      </a>
     </div>
 
-    <!-- FILE LIST -->
-    <div class="upload-card">
-      <div class="card-head">
-        <div class="card-head-title"><i class="fas fa-folder-open" style="color:var(--page-color)"></i> Daftar File</div>
-        <span id="fileCount" style="font-size:12px;color:var(--muted)">0 file</span>
+    <div class="drive-card">
+      <div class="drive-card-head">
+        <div class="drive-card-title">
+          <i class="fab fa-google-drive" style="color:#4285f4"></i>
+          Isi Folder Breaking News
+        </div>
+        <span style="font-size:11px;color:var(--muted)">
+          <i class="fas fa-info-circle"></i> Klik file untuk membuka atau download
+        </span>
       </div>
-      <div class="card-body">
-        <div class="toolbar">
-          <div class="search-wrap">
-            <i class="fas fa-search s-icon"></i>
-            <input class="search-input" type="text" id="searchInput" placeholder="Cari nama file..." oninput="renderFiles()">
+
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon"><i class="fas fa-newspaper"></i></div>
+        <div class="empty-title">Folder Masih Kosong</div>
+        <div class="empty-desc">Belum ada file Breaking News yang tersimpan di Google Drive. Klik tombol di bawah untuk membuka folder dan mulai upload file.</div>
+        <div class="empty-actions">
+          <a href="https://drive.google.com/drive/folders/1YLqxZPu1HamlVFZ9AHnKfm2SHUi7rq7i" target="_blank" class="btn-primary-drive">
+            <i class="fab fa-google-drive"></i> Buka & Upload ke Google Drive
+          </a>
+          <button onclick="loadDrive()" class="btn-secondary-drive">
+            <i class="fas fa-sync-alt"></i> Refresh / Cek Ulang
+          </button>
+        </div>
+        <div class="how-to">
+          <div class="how-to-title">📋 Cara upload file:</div>
+          <div class="how-to-steps">
+            1. Klik tombol "Buka & Upload ke Google Drive"<br>
+            2. Upload file (PDF, Word, Excel, Gambar, dll)<br>
+            3. Kembali ke halaman ini & klik "Refresh"<br>
+            4. File akan tampil otomatis di bawah
           </div>
-          <select class="filter-sel" id="filterType" onchange="renderFiles()">
-            <option value="">Semua Tipe</option>
-            <option value="pdf">PDF</option>
-            <option value="doc">Word</option>
-            <option value="xls">Excel</option>
-            <option value="ppt">PowerPoint</option>
-            <option value="video">Video</option>
-            <option value="img">Gambar</option>
-            <option value="other">Lainnya</option>
-          </select>
         </div>
-        <div class="files-grid" id="filesGrid"></div>
-        <div class="empty-state" id="emptyState" style="display:none;">
-          <span class="empty-icon"><i class="fas fa-folder-open"></i></span>
-          <div style="font-weight:600;color:var(--navy);margin-bottom:4px">Belum ada file</div>
-          <div>Upload file menggunakan area di atas</div>
+      </div>
+
+      <!-- Drive Frame -->
+      <div id="driveFrame" style="display:none;">
+        <div style="padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:12px;color:var(--muted)"><i class="fas fa-folder-open" style="color:#4285f4;margin-right:6px"></i>Isi folder Breaking News</span>
+          <button onclick="backToEmpty()" style="font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:4px;">
+            <i class="fas fa-arrow-left"></i> Kembali
+          </button>
+        </div>
+        <div class="frame-wrap">
+          <div class="frame-loading" id="frameLoading">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Memuat dokumen...</div>
+            <div class="loading-sub">Mohon tunggu, Google Drive sedang dimuat</div>
+          </div>
+          <iframe
+            class="drive-frame"
+            id="driveIframe"
+            src="https://drive.google.com/embeddedfolderview?id=1YLqxZPu1HamlVFZ9AHnKfm2SHUi7rq7i#list"
+            allowfullscreen
+            onload="document.getElementById('frameLoading').classList.add('hidden')">
+          </iframe>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="toast-box" id="toast"></div>
-
 <script>
-const STORAGE_KEY = 'aims_files_breaking_news';
-let files = [];
-
-function loadFiles() {
-  try { files = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch(e) { files = []; }
-  renderFiles();
-  updateStats();
-}
-
-function saveFiles() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(files)); }
-  catch(e) { showToast('<i class="fas fa-exclamation-triangle"></i> Storage penuh!', true); }
-}
-
-function handleFiles(fileList) {
-  Array.from(fileList).forEach(file => {
-    if (file.size > 10 * 1024 * 1024) { showToast('File ' + file.name + ' terlalu besar (maks 10MB)!', true); return; }
-    const reader = new FileReader();
-    reader.onload = e => {
-      const entry = {
-        id: Date.now() + Math.random(),
-        name: file.name,
-        size: file.size,
-        type: file.type,
-        ext: file.name.split('.').pop().toLowerCase(),
-        data: e.target.result,
-        uploadedAt: new Date().toLocaleDateString('id-ID', {dateStyle:'medium'}),
-        uploadedBy: localStorage.getItem('userName') || 'User'
-      };
-      files.unshift(entry);
-      saveFiles();
-      renderFiles();
-      updateStats();
-      showToast('<i class="fas fa-check-circle"></i> ' + file.name + ' berhasil diupload!');
-    };
-    reader.readAsDataURL(file);
-  });
-  document.getElementById('fileInput').value = '';
-}
-
-function dzOver(e) { e.preventDefault(); document.getElementById('uploadZone').classList.add('drag'); }
-function dzLeave() { document.getElementById('uploadZone').classList.remove('drag'); }
-function dzDrop(e) { e.preventDefault(); dzLeave(); handleFiles(e.dataTransfer.files); }
-
-function deleteFile(id) {
-  if (!confirm('Hapus file ini?')) return;
-  files = files.filter(f => f.id !== id);
-  saveFiles();
-  renderFiles();
-  updateStats();
-  showToast('<i class="fas fa-trash-alt"></i> File dihapus!');
-}
-
-function downloadFile(id) {
-  const f = files.find(x => x.id === id);
-  if (!f) return;
-  const a = document.createElement('a');
-  a.href = f.data;
-  a.download = f.name;
-  a.click();
-  showToast('<i class="fas fa-download"></i> Mengunduh ' + f.name + '...');
-}
-
-function previewFile(id) {
-  const f = files.find(x => x.id === id);
-  if (!f) return;
-  if (f.type.startsWith('image/')) {
-    const w = window.open('');
-    w.document.write('<img src="' + f.data + '" style="max-width:100%;max-height:100vh;">');
-  } else if (f.type === 'application/pdf') {
-    const w = window.open('');
-    w.document.write('<iframe src="' + f.data + '" style="width:100%;height:100vh;border:none;"></iframe>');
-  } else if (f.type.startsWith('video/')) {
-    const w = window.open('');
-    w.document.write('<video src="' + f.data + '" controls style="max-width:100%;max-height:100vh;"></video>');
-  } else {
-    downloadFile(id);
-  }
-}
-
-function getTypeGroup(ext) {
-  if (['pdf'].includes(ext)) return 'pdf';
-  if (['doc','docx'].includes(ext)) return 'doc';
-  if (['xls','xlsx','csv'].includes(ext)) return 'xls';
-  if (['ppt','pptx'].includes(ext)) return 'ppt';
-  if (['mp4','avi','mov','mkv','webm'].includes(ext)) return 'video';
-  if (['jpg','jpeg','png','gif','webp','svg'].includes(ext)) return 'img';
-  return 'other';
-}
-
-function getTypeIcon(ext) {
-  const g = getTypeGroup(ext);
-  const map = {pdf:'fa-file-pdf',doc:'fa-file-word',xls:'fa-file-excel',ppt:'fa-file-powerpoint',video:'fa-file-video',img:'fa-file-image',other:'fa-file'};
-  return map[g] || 'fa-file';
-}
-
-function getTypeClass(ext) { return 'ft-' + getTypeGroup(ext); }
-
-function fmtSize(bytes) {
-  if (bytes < 1024) return bytes + ' B';
-  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
-  return (bytes/1024/1024).toFixed(1) + ' MB';
-}
-
-function renderFiles() {
-  const q = (document.getElementById('searchInput').value || '').toLowerCase();
-  const ft = document.getElementById('filterType').value;
-  let list = files.filter(f => {
-    const mQ = !q || f.name.toLowerCase().includes(q);
-    const mT = !ft || getTypeGroup(f.ext) === ft;
-    return mQ && mT;
-  });
-  document.getElementById('fileCount').textContent = files.length + ' file';
-  if (!list.length) {
-    document.getElementById('filesGrid').innerHTML = '';
-    document.getElementById('emptyState').style.display = '';
-    return;
-  }
+function loadDrive() {
   document.getElementById('emptyState').style.display = 'none';
-  document.getElementById('filesGrid').innerHTML = list.map(f => `
-    <div class="file-card" onclick="previewFile(${f.id})">
-      <div class="file-icon ${getTypeClass(f.ext)}"><i class="fas ${getTypeIcon(f.ext)}"></i></div>
-      <div class="file-name">${f.name}</div>
-      <div class="file-meta">${fmtSize(f.size)} · ${f.ext.toUpperCase()} · ${f.uploadedAt}</div>
-      <div class="file-meta" style="margin-top:2px"><i class="fas fa-user" style="font-size:9px;margin-right:3px"></i>${f.uploadedBy}</div>
-      <div class="file-actions" onclick="event.stopPropagation()">
-        <button class="btn-dl" onclick="downloadFile(${f.id})"><i class="fas fa-download"></i> Download</button>
-        <button class="btn-del-f" onclick="deleteFile(${f.id})"><i class="fas fa-trash-alt"></i></button>
-      </div>
-    </div>
-  `).join('');
+  document.getElementById('driveFrame').style.display = 'block';
+  const iframe = document.getElementById('driveIframe');
+  // Reload iframe setiap kali diklik
+  iframe.src = '';
+  setTimeout(function() {
+    iframe.src = 'https://drive.google.com/embeddedfolderview?id=1YLqxZPu1HamlVFZ9AHnKfm2SHUi7rq7i#list';
+  }, 100);
+  document.getElementById('frameLoading').classList.remove('hidden');
 }
 
-function updateStats() {
-  document.getElementById('statTotal').textContent = files.length;
-  document.getElementById('statPDF').textContent   = files.filter(f => f.ext === 'pdf').length;
-  document.getElementById('statVideo').textContent = files.filter(f => getTypeGroup(f.ext) === 'video').length;
-  document.getElementById('statLain').textContent  = files.filter(f => !['pdf','video'].includes(getTypeGroup(f.ext))).length;
-}
-
-function showToast(msg, err) {
-  const t = document.getElementById('toast');
-  t.innerHTML = msg;
-  t.style.background = err ? 'var(--accent2)' : 'var(--navy)';
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+function backToEmpty() {
+  document.getElementById('emptyState').style.display = 'block';
+  document.getElementById('driveFrame').style.display = 'none';
 }
 
 (function() {
   const name = localStorage.getItem('userName') || 'User';
-  ['userNameDisplay','sidebarUserName'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = name; });
-  const av = document.getElementById('sidebarAvatarLetter'); if(av) av.textContent = name.charAt(0).toUpperCase();
-})();
-
-function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('open'); }
-function logout() { if(confirm('Yakin ingin logout?')) { localStorage.clear(); window.location.href = 'index.html'; } }
-
-(function() {
-  var page = window.location.pathname.split('/').pop() || 'dashboard.html';
-  document.querySelectorAll('.sidebar-nav a[href]').forEach(function(a) {
-    a.classList.remove('active');
-    var href = a.getAttribute('href');
-    if (href && href !== '#' && !href.startsWith('http')) {
-      if (href === page) a.classList.add('active');
-    }
+  ['userNameDisplay','sidebarUserName'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.textContent = name;
   });
+  const av = document.getElementById('sidebarAvatarLetter');
+  if (av) av.textContent = name.charAt(0).toUpperCase();
 })();
 
-loadFiles();
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+function logout() {
+  if (confirm('Yakin ingin logout?')) { localStorage.clear(); window.location.href = 'index.html'; }
+}
+function guardLogout() { localStorage.clear(); window.location.href = 'index.html'; }
 </script>
 
+<script>if(!localStorage.getItem('isLoggedIn')){window.location.href='index.html';}</script>
+
 <script>
-// ── NOTIFICATION SYSTEM ──────────────────────────────
-(function initNotif(){
-  const level = localStorage.getItem('userLevel') || '';
-  if(level !== 'Admin') return; // Hanya admin
-
-  // Firebase init (jika belum)
-  if(!window._notifFirebase){
-    try{
-      const cfg={apiKey:"AIzaSyCzEKC8AzK_wx-sg8tDg32JkCa-C4KNqY8",authDomain:"sigap-report-system.firebaseapp.com",projectId:"sigap-report-system",storageBucket:"sigap-report-system.firebasestorage.app",messagingSenderId:"794553302905",appId:"1:794553302905:web:673f1856a8c35cdc58f9a8"};
-      if(!firebase.apps.length) firebase.initializeApp(cfg);
-      window._notifDB = firebase.firestore();
-      window._notifFirebase = true;
-    }catch(e){ return; }
-  }
-
-  const db = window._notifDB;
-
-  // Update topbar bell button — tambahkan wrapper & badge
-  const bellBtn = document.querySelector('.topbar-btn');
-  if(bellBtn && !bellBtn.parentElement.classList.contains('notif-wrap')){
-    const wrap = document.createElement('div');
-    wrap.className = 'notif-wrap';
-    wrap.style.position = 'relative';
-    bellBtn.parentNode.insertBefore(wrap, bellBtn);
-    wrap.appendChild(bellBtn);
-    // Badge
-    const badge = document.createElement('span');
-    badge.className = 'notif-badge hidden';
-    badge.id = 'notifBadge';
-    wrap.appendChild(badge);
-    // Dropdown
-    const dd = document.createElement('div');
-    dd.className = 'notif-dropdown';
-    dd.id = 'notifDropdown';
-    dd.innerHTML = `
-      <div class="notif-header">
-        <div class="notif-header-title"><i class="fas fa-bell"></i> Notifikasi Laporan</div>
-        <button class="notif-mark-all" onclick="markAllRead()">Tandai semua dibaca</button>
-      </div>
-      <div class="notif-list" id="notifList"><div class="notif-empty"><i class="fas fa-bell-slash"></i>Belum ada laporan masuk</div></div>
-      <div class="notif-footer"><a href="laporan.html">Lihat Semua Laporan →</a></div>`;
-    wrap.appendChild(dd);
-
-    // Toggle dropdown
-    bellBtn.onclick = function(e){
-      e.stopPropagation();
-      dd.classList.toggle('open');
-    };
-    document.addEventListener('click', ()=> dd.classList.remove('open'));
-  }
-
-  // Real-time listener — 10 laporan terbaru
-  db.collection('aims_laporan')
-    .orderBy('createdAt','desc')
-    .limit(10)
-    .onSnapshot(snapshot => {
-      window._notifData = [];
-      snapshot.forEach(doc => window._notifData.push({id:doc.id,...doc.data()}));
-      renderNotif(window._notifData);
-    }, err => console.warn('Notif error:', err));
-})();
-
-function renderNotif(items){
-  const list  = document.getElementById('notifList');
-  const badge = document.getElementById('notifBadge');
-  if(!list) return;
-
-  const unread = items.filter(i => !i.isRead).length;
-  if(badge){
-    if(unread > 0){ badge.textContent = unread > 9 ? '9+' : unread; badge.classList.remove('hidden'); }
-    else           { badge.classList.add('hidden'); }
-  }
-
-  if(items.length === 0){
-    list.innerHTML = '<div class="notif-empty"><i class="fas fa-bell-slash"></i>Belum ada laporan masuk</div>';
-    return;
-  }
-
-  list.innerHTML = items.map(item => {
-    const isRead = item.isRead;
-    const tgl = item.createdAt?.toDate ? item.createdAt.toDate().toLocaleString('id-ID',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : (item.tanggal||'—');
-    const risikoColor = item.risiko==='Tinggi'?'#ff4e6a': item.risiko==='Sedang'?'#c9a227':'#22e0a1';
-    return `<div class="notif-item ${isRead?'read':'unread'}" onclick="openLaporanPopup('${item.id}')">
-      <div class="notif-dot ${isRead?'read':''}"></div>
-      <div class="notif-icon ${isRead?'read':'new'}"><i class="fas fa-file-alt"></i></div>
-      <div class="notif-body">
-        <div class="notif-title">${item.pelapor||'—'} — ${item.area||'—'}</div>
-        <div class="notif-meta">
-          <span>${item.jenis||'—'}</span>
-          <span style="color:${risikoColor}">● ${item.risiko||'—'}</span>
-          <span>${tgl}</span>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-// Buka popup detail
-let currentNotifId = null;
-function openLaporanPopup(id){
-  currentNotifId = id;
-  document.getElementById('notifDropdown')?.classList.remove('open');
-  const popup = document.getElementById('laporanPopup');
-  const body  = document.getElementById('laporanPopupBody');
-  if(!popup||!body) return;
-  popup.classList.add('open');
-
-  const item = (window._notifData||[]).find(i=>i.id===id);
-  if(!item){ body.innerHTML='<div style="text-align:center;padding:20px;color:#6b7fa0">Data tidak ditemukan</div>'; return; }
-
-  const tgl = item.createdAt?.toDate ? item.createdAt.toDate().toLocaleString('id-ID') : (item.tanggal||'—');
-  const badgeClass = item.risiko==='Tinggi'?'high': item.risiko==='Sedang'?'med':'low';
-
-  body.innerHTML = `
-    <div class="lp-row">
-      <div class="lp-field"><div class="lp-label">ID Laporan</div><div class="lp-value" style="font-family:monospace;font-size:12px;color:#c9a227">${item.id}</div></div>
-      <div class="lp-field"><div class="lp-label">Tanggal</div><div class="lp-value">${tgl}</div></div>
-      <div class="lp-field"><div class="lp-label">Nama Pelapor</div><div class="lp-value">${item.pelapor||'—'}</div></div>
-      <div class="lp-field"><div class="lp-label">NIK</div><div class="lp-value">${item.nik||'—'}</div></div>
-      <div class="lp-field"><div class="lp-label">Jabatan</div><div class="lp-value">${item.jabatan||'—'}</div></div>
-      <div class="lp-field"><div class="lp-label">Departemen</div><div class="lp-value">${item.departemen||'—'}</div></div>
-      <div class="lp-field"><div class="lp-label">Area</div><div class="lp-value">${item.area||'—'}</div></div>
-      <div class="lp-field"><div class="lp-label">Jenis Laporan</div><div class="lp-value">${item.jenis||'—'}</div></div>
-      <div class="lp-field full"><div class="lp-label">Aktivitas</div><div class="lp-value">${item.aktivitas||'—'}</div></div>
-      <div class="lp-field full"><div class="lp-label">Deskripsi</div><div class="lp-value">${item.deskripsi||'—'}</div></div>
-      <div class="lp-field full"><div class="lp-label">Tindakan</div><div class="lp-value">${item.tindakan||'—'}</div></div>
-      <div class="lp-field"><div class="lp-label">Kategori Risiko</div><div class="lp-value"><span class="lp-badge ${badgeClass}">${item.risiko||'—'}</span></div></div>
-      <div class="lp-field"><div class="lp-label">Status</div><div class="lp-value">${item.status||'—'}</div></div>
-      ${item.hasFoto?'<div class="lp-field full"><div class="lp-label">Foto</div><div class="lp-value" style="color:#c9a227"><i class="fas fa-image"></i> Ada foto (lihat di halaman laporan)</div></div>':''}
-    </div>`;
-
-  // Auto tandai dibaca
-  markAsRead(id);
-}
-
-function closeLaporanPopup(){
-  document.getElementById('laporanPopup')?.classList.remove('open');
-  currentNotifId = null;
-}
-
-function markAsRead(id){
-  if(!id||!window._notifDB) return;
-  window._notifDB.collection('aims_laporan').doc(id).update({isRead:true}).catch(()=>{});
-}
-
-function markAllRead(){
-  if(!window._notifData||!window._notifDB) return;
-  window._notifData.filter(i=>!i.isRead).forEach(i=>{
-    window._notifDB.collection('aims_laporan').doc(i.id).update({isRead:true}).catch(()=>{});
-  });
-  document.getElementById('notifDropdown')?.classList.remove('open');
-}
-</script>
-<script>
-// Cek login
-if(!localStorage.getItem('isLoggedIn')){window.location.href='index.html';}
-</script>
-<script>
-// ── TAMPILKAN FOTO PROFIL ─────────────────────────────
 (function showPhoto(){
   const photo = localStorage.getItem('userPhoto') || '';
   const name  = localStorage.getItem('userName')  || 'User';
-
   function setAvatar(el, isTopbar) {
     if (!el) return;
     if (photo) {
-      el.style.background = 'none';
-      el.style.padding = '0';
-      el.style.overflow = 'hidden';
-      const img = document.createElement('img');
-      img.src = photo;
+      el.style.background = 'none'; el.style.padding = '0'; el.style.overflow = 'hidden';
+      const img = document.createElement('img'); img.src = photo;
       img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%;';
-      img.onerror = function() {
-        this.style.display = 'none';
-        if (isTopbar) {
-          el.innerHTML = '<i class="fas fa-user"></i>';
-        } else {
-          el.textContent = name.charAt(0).toUpperCase();
-        }
-      };
-      el.innerHTML = '';
-      el.appendChild(img);
+      img.onerror = function() { this.style.display='none'; if(isTopbar){el.innerHTML='<i class="fas fa-user"></i>';}else{el.textContent=name.charAt(0).toUpperCase();} };
+      el.innerHTML = ''; el.appendChild(img);
     } else {
-      if (isTopbar) {
-        el.innerHTML = '<i class="fas fa-user"></i>';
-      } else {
-        el.textContent = name.charAt(0).toUpperCase();
-      }
+      if(isTopbar){el.innerHTML='<i class="fas fa-user"></i>';}else{el.textContent=name.charAt(0).toUpperCase();}
     }
   }
-
   setAvatar(document.getElementById('sidebarAvatarLetter'), false);
   setAvatar(document.querySelector('.topbar-avatar'), true);
 })();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+  });
+}
 </script>
 </body>
 </html>
