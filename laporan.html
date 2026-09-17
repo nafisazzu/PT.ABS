@@ -50,7 +50,8 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .content{padding:28px 32px 48px;}
 .page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;margin-bottom:6px;}
 .title-icon{width:44px;height:44px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(245,158,11,0.3);}
-.page-sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
+.page-sub{font-size:13px;color:var(--muted);margin-bottom:24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+#dataSourceInfo{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(34,224,161,0.10);color:#127754;}
 .stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:24px;}
 .stat-card{background:var(--card-bg);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform var(--transition);animation:fadeUp 0.4s ease both;}
 .stat-card:hover{transform:translateY(-3px);}
@@ -120,6 +121,7 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
 .b-nm{background:rgba(139,92,246,0.10);color:#5b21b6;}
 .b-obs{background:rgba(34,224,161,0.12);color:#127754;}
 .b-lain{background:rgba(0,212,255,0.10);color:#007fa3;}
+.b-photostatus{background:rgba(201,162,39,0.15);color:#a8841e;}
 .btn-view{padding:4px 10px;border-radius:7px;background:rgba(0,212,255,0.10);color:#007fa3;border:none;font-size:12px;cursor:pointer;transition:all var(--transition);margin-right:4px;font-family:'DM Sans',sans-serif;font-weight:600;}
 .btn-view:hover{background:rgba(0,212,255,0.20);}
 .btn-del{padding:4px 10px;border-radius:7px;background:rgba(255,78,106,0.10);color:#b91c1c;border:none;font-size:12px;cursor:pointer;transition:all var(--transition);font-family:'DM Sans',sans-serif;font-weight:600;}
@@ -281,7 +283,6 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
   </div>
 </div>
 
-
 <!-- ACCESS GUARD OVERLAY -->
 <div id="accessGuard">
   <div class="guard-card">
@@ -307,23 +308,33 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
   </div>
   <nav class="sidebar-nav">
     <div class="nav-label">Menu Utama</div>
-    <a href="dashboard.html"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
+    <a href="dashboard.html" class="active"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
     <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
+    <div class="nav-label">Data</div>
+    <a href="Bisnis Proses.html"><span class="nav-icon"><i class="fas fa-briefcase"></i></span>Bisnis Proses</a>
+    <a href="Emergency drill.html"><span class="nav-icon"><i class="fas fa-fire-extinguisher"></i></span>Emergency drill</a>
     <a href="laporan_induksi.html"><span class="nav-icon"><i class="fas fa-user-shield"></i></span>Laporan Induksi</a>
+    <a href="Ibpr.html"><span class="nav-icon"><i class="fas fa-search"></i></span>IBPR</a>
+    <a href="Awards.html"><span class="nav-icon"><i class="fas fa-trophy"></i></span>Awards</a>
+    <a href="Smkp minerba.html"><span class="nav-icon"><i class="fas fa-hard-hat"></i></span>SMKP Minerba</a>
+    <a href="Pica smkp.html"><span class="nav-icon"><i class="fas fa-check"></i></span>PICA SMKP</a>
+    <a href="Sml.html"><span class="nav-icon"><i class="fas fa-leaf"></i></span>SML</a>
+    <a href="Evaluasi kebijakan.html"><span class="nav-icon"><i class="fas fa-book"></i></span>Evaluasi Kebijakan</a>
+    <a href="Kompetensi.html"><span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>Kompetensi</a>
+    <a href="Breaking news.html"><span class="nav-icon"><i class="fas fa-newspaper"></i></span>Breaking News</a>
+    <a href="Job desk.html"><span class="nav-icon"><i class="fas fa-user-tie"></i></span>Job Desk</a>
+    <a href="Campaign.html"><span class="nav-icon"><i class="fas fa-bullhorn"></i></span>Campaign</a>
     <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
-    <div class="nav-label">Data &amp; Dokumen</div>
+    <div class="nav-label">Dokumen</div>
     <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
-    <a href="laporan.html" class=""><span class="nav-icon"><i class="fas fa-list"></i></span>Laporan</a>
     <div class="nav-label">Tautan Kerja</div>
-    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener noreferrer" style="color:rgba(0,212,255,0.85);">
-      <span class="nav-icon" style="background:rgba(0,212,255,0.15);color:var(--accent);"><i class="fas fa-external-link-alt"></i></span>
-      SIGAP IBP
-      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.55;"></i>
+    <a href="https://sigap.ptibp.com/login" target="_blank" rel="noopener" style="color:rgba(201,162,39,0.8)">
+      <span class="nav-icon" style="background:rgba(201,162,39,0.1);color:var(--gold)"><i class="fas fa-external-link-alt"></i></span>
+      SIGAP IBP <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
     </a>
-        <a href="https://account.accurate.id/manage" target="_blank" rel="noopener" style="color:rgba(255,200,67,0.85)">
-      <span class="nav-icon" style="background:rgba(255,200,67,0.15);color:var(--accent3)"><i class="fas fa-external-link-alt"></i></span>
-      Accurate
-      <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
+    <a href="https://account.accurate.id/manage" target="_blank" rel="noopener" style="color:rgba(0,212,255,0.8)">
+      <span class="nav-icon" style="background:rgba(0,212,255,0.1);color:var(--accent)"><i class="fas fa-external-link-alt"></i></span>
+      Accurate <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
     </a>
     <div class="nav-label">Akun</div>
     <a href="#" onclick="logout()" class="logout-btn"><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
@@ -357,7 +368,7 @@ td{padding:11px 14px;font-size:13px;vertical-align:middle;}
 
   <div class="content">
     <div class="page-title"><div class="title-icon"><i class="fas fa-list-alt"></i></div>Rekap Laporan K3</div>
-    <div class="page-sub">Semua laporan keselamatan kerja — data masuk otomatis dari halaman Buat Laporan</div>
+    <div class="page-sub">Semua laporan keselamatan kerja — data masuk otomatis dari halaman Buat Laporan <span id="dataSourceInfo"></span></div>
 
     <div class="stats-grid" id="statsGrid"></div>
 
@@ -482,14 +493,16 @@ const firebaseConfig = {
 if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const REPORTS_COL  = 'aims_laporan';
-const REPORTS_KEY  = 'sigap_reports_v1'; // localStorage backup
+const REPORTS_KEY  = 'sigap_reports_v1'; // localStorage — fallback utk laporan LAMA saja
 
 let allData=[], filtered=[], currentPage=1, deleteIdx=-1, deleteDocId=null;
 const PAGE_SIZE=15;
 let chartJ=null, chartB=null;
 let isLoading = false;
 
-// ── LOAD DATA — Firestore utama + localStorage fallback ──
+// ── LOAD DATA — Firestore adalah sumber utama (termasuk foto).
+// localStorage HANYA dipakai untuk menampilkan laporan lama yang
+// dibuat sebelum foto ikut dikirim ke Firestore (data legacy).
 async function loadData(){
   isLoading = true;
   showLoadingState(true);
@@ -498,39 +511,36 @@ async function loadData(){
       .orderBy('createdAt','desc')
       .get();
 
-    // Data dari Firestore
+    // Data dari Firestore — foto sudah ikut di dalam dokumen
     const firestoreData = [];
     snap.forEach(doc => {
       const d = doc.data();
       firestoreData.push({
         ...d,
         _docId: doc.id,
-        // Konversi timestamp Firestore ke ISO string
         createdAt: d.createdAt?.toDate ? d.createdAt.toDate().toISOString() : (d.createdAt || new Date().toISOString()),
         tanggal:   d.tanggal || (d.createdAt?.toDate ? d.createdAt.toDate().toISOString().slice(0,10) : '—'),
+        foto:       d.foto       || [],
+        fotoBefore: d.fotoBefore || [],
+        fotoAfter:  d.fotoAfter  || [],
       });
     });
 
-    // Gabungkan dengan data localStorage (yang ada foto)
+    // Laporan LEGACY: ada di localStorage tapi TIDAK ada di Firestore
+    // sama sekali (dibuat sebelum sistem Firestore ada). Kalau id-nya
+    // sudah ada di Firestore, foto dari Firestore yang dipakai — TIDAK
+    // di-overwrite oleh localStorage, supaya konsisten lintas device.
     const localData = [];
-    try { 
+    try {
       const raw = JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]');
       raw.forEach(ld => {
-        // Cek apakah sudah ada di Firestore
-        const match = firestoreData.find(fd => fd.id === ld.id);
-        if(match){
-          // Merge — ambil foto dari localStorage, data lain dari Firestore
-          match.foto      = ld.foto      || match.foto      || [];
-          match.fotoBefore= ld.fotoBefore|| match.fotoBefore|| [];
-          match.fotoAfter = ld.fotoAfter || match.fotoAfter || [];
-        } else {
-          // Laporan lama (sebelum sistem Firestore) — tetap tampilkan
+        const alreadyInFirestore = firestoreData.some(fd => fd.id === ld.id);
+        if(!alreadyInFirestore){
           localData.push({...ld, _source:'local'});
         }
       });
     } catch(e){}
 
-    // Gabungkan: Firestore dulu, lalu data lokal lama
     allData = [...firestoreData, ...localData];
 
     showLoadingState(false);
@@ -538,11 +548,12 @@ async function loadData(){
     buildCharts();
     applyFilter();
 
-    // Update indikator sumber data
     const srcEl = document.getElementById('dataSourceInfo');
-    if(srcEl) srcEl.innerHTML = `<i class="fas fa-cloud" style="color:#22e0a1"></i> ${firestoreData.length} dari Firestore${localData.length?' + '+localData.length+' lokal':''}`;
+    if(srcEl) srcEl.innerHTML = `<i class="fas fa-cloud"></i> ${firestoreData.length} dari server${localData.length?' + '+localData.length+' lokal (lama)':''}`;
 
-    // Real-time listener untuk update otomatis
+    // Real-time listener untuk update otomatis — foto ikut terbawa
+    // langsung dari snapshot Firestore, tidak perlu di-"pertahankan"
+    // dari state lama lagi.
     db.collection(REPORTS_COL)
       .orderBy('createdAt','desc')
       .onSnapshot(snapshot => {
@@ -550,19 +561,16 @@ async function loadData(){
         const newData = [];
         snapshot.forEach(doc => {
           const d = doc.data();
-          const existing = allData.find(a => a._docId === doc.id);
           newData.push({
             ...d,
             _docId: doc.id,
             createdAt: d.createdAt?.toDate ? d.createdAt.toDate().toISOString() : (d.createdAt||''),
             tanggal:   d.tanggal || (d.createdAt?.toDate ? d.createdAt.toDate().toISOString().slice(0,10) : '—'),
-            // Pertahankan foto dari data yang sudah ada
-            foto:       existing?.foto       || [],
-            fotoBefore: existing?.fotoBefore || [],
-            fotoAfter:  existing?.fotoAfter  || [],
+            foto:       d.foto       || [],
+            fotoBefore: d.fotoBefore || [],
+            fotoAfter:  d.fotoAfter  || [],
           });
         });
-        // Gabungkan dengan data lokal lama
         const oldLocal = allData.filter(a => a._source==='local');
         allData = [...newData, ...oldLocal];
         buildStats(); buildCharts(); applyFilter();
@@ -571,7 +579,6 @@ async function loadData(){
 
   } catch(err) {
     console.warn('Firestore gagal, pakai localStorage:', err);
-    // Fallback ke localStorage
     try { allData = JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]'); }
     catch(e){ allData=[]; }
     const srcEl = document.getElementById('dataSourceInfo');
@@ -665,12 +672,13 @@ function renderTable(){
     tbody.innerHTML=pageData.map((d,i)=>{
       const idx=allData.indexOf(d);
       const unread = !d.isRead && d._docId ? 'style="font-weight:700;color:#c9a227"' : '';
+      const hasAnyFoto = (d.foto&&d.foto.length) || (d.fotoBefore&&d.fotoBefore.length) || (d.fotoAfter&&d.fotoAfter.length);
       return `<tr onclick="viewDetail(${idx})" ${!d.isRead&&d._docId?'style="background:rgba(201,162,39,0.03)"':''}>
         <td class="no-col">${start+i+1}</td>
         <td class="id-col" ${unread}>${d.id}</td>
         <td class="date-col">${d.tanggal||'—'}</td>
         <td style="font-weight:600;color:var(--navy)">${d.pelapor||'—'}${!d.isRead&&d._docId?'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#ff4e6a;margin-left:6px;vertical-align:middle"></span>':''}</td>
-        <td style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${d.area}">${d.area||'—'}</td>
+        <td style="max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${d.area}">${d.area||'—'}${hasAnyFoto?' <i class="fas fa-image" style="color:#c9a227;font-size:10px" title="Ada foto"></i>':''}</td>
         <td>${jBadge(d.jenis)}</td>
         <td>${rBadge(d.risiko)}</td>
         <td>${sBadge(d.status)}</td>
@@ -712,25 +720,25 @@ function statusTimeline(current,idx){
 
 async function updateStatus(idx,newStatus){
   allData[idx].status=newStatus;
-  // Update Firestore jika ada docId
   if(allData[idx]._docId){
     try {
       await db.collection(REPORTS_COL).doc(allData[idx]._docId).update({status:newStatus});
     } catch(e){ console.warn('Update status gagal:', e); }
   }
-  // Update localStorage juga
-  try {
-    const local = JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]');
-    const li = local.findIndex(l=>l.id===allData[idx].id);
-    if(li>=0){ local[li].status=newStatus; localStorage.setItem(REPORTS_KEY,JSON.stringify(local)); }
-  } catch(e){}
+  // Laporan legacy (belum punya _docId) masih disimpan di localStorage
+  if(!allData[idx]._docId){
+    try {
+      const local = JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]');
+      const li = local.findIndex(l=>l.id===allData[idx].id);
+      if(li>=0){ local[li].status=newStatus; localStorage.setItem(REPORTS_KEY,JSON.stringify(local)); }
+    } catch(e){}
+  }
   buildStats();buildCharts();applyFilter();viewDetail(idx);
   showToast(`<i class="fas fa-check-circle"></i> Status diperbarui ke <strong>${newStatus}</strong>`);
 }
 
 function viewDetail(idx){
   const d=allData[idx];
-  // Tandai dibaca di Firestore
   if(d._docId && !d.isRead){
     d.isRead = true;
     db.collection(REPORTS_COL).doc(d._docId).update({isRead:true}).catch(()=>{});
@@ -759,6 +767,9 @@ function viewDetail(idx){
       </div>
     </div>`:''
   ;
+  const noFotoNotice = d._source!=='local' && !foto && !hasBefore && !hasAfter && d.hasFoto
+    ? `<div class="detail-full detail-item"><div class="detail-label" style="color:#c0202e"><i class="fas fa-exclamation-triangle"></i> Foto Tidak Ditemukan</div><div class="detail-value" style="font-weight:400;color:var(--muted)">Laporan ini seharusnya memiliki foto, tapi datanya tidak ditemukan di server (kemungkinan dikirim sebelum perbaikan sistem penyimpanan foto).</div></div>`
+    : '';
   const tgl = d.createdAt ? new Date(d.createdAt).toLocaleString('id-ID') : '—';
   document.getElementById('modalBody').innerHTML=`
     <div class="detail-grid">
@@ -777,8 +788,8 @@ function viewDetail(idx){
       <div class="detail-full detail-item"><div class="detail-label">Tindakan Perbaikan</div><div class="detail-value" style="font-weight:400;line-height:1.6;">${d.tindakan||'-'}</div></div>
       <div class="detail-item"><div class="detail-label">Dibuat Oleh</div><div class="detail-value">${d.createdBy||'-'}</div></div>
       <div class="detail-item"><div class="detail-label">Waktu Input</div><div class="detail-value">${tgl}</div></div>
-      ${d._source==='local'?'<div class="detail-full detail-item"><div class="detail-label" style="color:#c9a227"><i class="fas fa-hdd"></i> Sumber Data</div><div class="detail-value" style="color:#c9a227">Data lokal (sebelum sistem cloud)</div></div>':''}
-      ${foto}${baSection}
+      ${d._source==='local'?'<div class="detail-full detail-item"><div class="detail-label" style="color:#c9a227"><i class="fas fa-hdd"></i> Sumber Data</div><div class="detail-value" style="color:#c9a227">Data lokal (dibuat sebelum sistem cloud — foto hanya tersedia di perangkat asal laporan ini dibuat)</div></div>':''}
+      ${foto}${baSection}${noFotoNotice}
     </div>`;
   document.getElementById('detailModal').classList.add('show');
   setTimeout(function(){
@@ -801,12 +812,10 @@ async function deleteRow(idx){
 }
 async function confirmDelete(){
   if(deleteIdx<0)return;
-  // Hapus dari Firestore
   if(deleteDocId){
     try { await db.collection(REPORTS_COL).doc(deleteDocId).delete(); }
     catch(e){ console.warn('Firestore delete gagal:', e); }
   }
-  // Hapus dari localStorage
   try {
     const local=JSON.parse(localStorage.getItem(REPORTS_KEY)||'[]');
     const newLocal=local.filter(l=>l.id!==allData[deleteIdx].id);
@@ -874,7 +883,6 @@ function logout(){if(confirm('Yakin ingin logout?')){localStorage.removeItem('us
 // Mulai load data
 loadData();
 
-
 // ── Auto-set sidebar active berdasarkan URL ──────────────────────────
 (function() {
   var page = window.location.pathname.split('/').pop() || 'dashboard.html';
@@ -919,7 +927,6 @@ function closeLightbox() {
   document.getElementById('lightboxImg').src = '';
 }
 
-// Keyboard navigation
 document.addEventListener('keydown', function(e) {
   const lb = document.getElementById('lightbox');
   if (lb.style.display !== 'flex') return;
@@ -927,7 +934,6 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft')  lbNav(-1);
   if (e.key === 'Escape')     closeLightbox();
 });
-
 </script>
 
 <!-- LIGHTBOX FOTO -->
@@ -944,6 +950,7 @@ document.addEventListener('keydown', function(e) {
   </button>
   <div id="lbCounter" style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.7);font-size:13px;font-family:'Space Mono',monospace;"></div>
 </div>
+
 <script>
 // ── ACCESS GUARD ─────────────────────────────────────
 (function checkAccess() {
@@ -951,21 +958,17 @@ document.addEventListener('keydown', function(e) {
   const level      = localStorage.getItem('userLevel') || '';
   const name       = localStorage.getItem('userName')  || 'User';
 
-  // Belum login → redirect ke login
   if (!isLoggedIn) {
     window.location.href = 'index.html';
     return;
   }
 
-  // Admin → boleh akses semua, tidak perlu guard
   if (level === 'Admin') return;
 
-  // Bukan admin → tampilkan overlay
   document.getElementById('accessGuard').classList.add('show');
   document.getElementById('guardUserName').textContent  = name;
   document.getElementById('guardUserLevel').textContent = level || 'Karyawan';
 
-  // Disable scroll body
   document.body.style.overflow = 'hidden';
 })();
 
@@ -980,7 +983,6 @@ function guardLogout() {
   const level = localStorage.getItem('userLevel') || '';
   if(level !== 'Admin') return; // Hanya admin
 
-  // Firebase init (jika belum)
   if(!window._notifFirebase){
     try{
       const cfg={apiKey:"AIzaSyCzEKC8AzK_wx-sg8tDg32JkCa-C4KNqY8",authDomain:"sigap-report-system.firebaseapp.com",projectId:"sigap-report-system",storageBucket:"sigap-report-system.firebasestorage.app",messagingSenderId:"794553302905",appId:"1:794553302905:web:673f1856a8c35cdc58f9a8"};
@@ -992,7 +994,6 @@ function guardLogout() {
 
   const db = window._notifDB;
 
-  // Update topbar bell button — tambahkan wrapper & badge
   const bellBtn = document.querySelector('.topbar-btn');
   if(bellBtn && !bellBtn.parentElement.classList.contains('notif-wrap')){
     const wrap = document.createElement('div');
@@ -1000,12 +1001,10 @@ function guardLogout() {
     wrap.style.position = 'relative';
     bellBtn.parentNode.insertBefore(wrap, bellBtn);
     wrap.appendChild(bellBtn);
-    // Badge
     const badge = document.createElement('span');
     badge.className = 'notif-badge hidden';
     badge.id = 'notifBadge';
     wrap.appendChild(badge);
-    // Dropdown
     const dd = document.createElement('div');
     dd.className = 'notif-dropdown';
     dd.id = 'notifDropdown';
@@ -1018,7 +1017,6 @@ function guardLogout() {
       <div class="notif-footer"><a href="laporan.html">Lihat Semua Laporan →</a></div>`;
     wrap.appendChild(dd);
 
-    // Toggle dropdown
     bellBtn.onclick = function(e){
       e.stopPropagation();
       dd.classList.toggle('open');
@@ -1026,7 +1024,6 @@ function guardLogout() {
     document.addEventListener('click', ()=> dd.classList.remove('open'));
   }
 
-  // Real-time listener — 10 laporan terbaru
   db.collection('aims_laporan')
     .orderBy('createdAt','desc')
     .limit(10)
@@ -1072,7 +1069,6 @@ function renderNotif(items){
   }).join('');
 }
 
-// Buka popup detail
 let currentNotifId = null;
 function openLaporanPopup(id){
   currentNotifId = id;
@@ -1087,6 +1083,10 @@ function openLaporanPopup(id){
 
   const tgl = item.createdAt?.toDate ? item.createdAt.toDate().toLocaleString('id-ID') : (item.tanggal||'—');
   const badgeClass = item.risiko==='Tinggi'?'high': item.risiko==='Sedang'?'med':'low';
+
+  const fotoNote = (item.foto&&item.foto.length)||(item.fotoBefore&&item.fotoBefore.length)||(item.fotoAfter&&item.fotoAfter.length)
+    ? '<div class="lp-field full"><div class="lp-label">Foto</div><div class="lp-value" style="color:#c9a227"><i class="fas fa-image"></i> Ada foto — buka Detail Laporan untuk melihat</div></div>'
+    : (item.hasFoto ? '<div class="lp-field full"><div class="lp-label">Foto</div><div class="lp-value" style="color:#c9a227"><i class="fas fa-image"></i> Ada foto (lihat di halaman laporan)</div></div>' : '');
 
   body.innerHTML = `
     <div class="lp-row">
@@ -1103,10 +1103,9 @@ function openLaporanPopup(id){
       <div class="lp-field full"><div class="lp-label">Tindakan</div><div class="lp-value">${item.tindakan||'—'}</div></div>
       <div class="lp-field"><div class="lp-label">Kategori Risiko</div><div class="lp-value"><span class="lp-badge ${badgeClass}">${item.risiko||'—'}</span></div></div>
       <div class="lp-field"><div class="lp-label">Status</div><div class="lp-value">${item.status||'—'}</div></div>
-      ${item.hasFoto?'<div class="lp-field full"><div class="lp-label">Foto</div><div class="lp-value" style="color:#c9a227"><i class="fas fa-image"></i> Ada foto (lihat di halaman laporan)</div></div>':''}
+      ${fotoNote}
     </div>`;
 
-  // Auto tandai dibaca
   markAsRead(id);
 }
 
