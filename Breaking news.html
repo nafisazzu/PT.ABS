@@ -3,30 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campaign – AIMS</title>
+<title>Breaking News – AIMS</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b1829">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="AIMS">
 <link rel="apple-touch-icon" href="LOGO.png">
 <style>
-:root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--bg:#f0f4f8;--text:#1e293b;--muted:#6b7fa0;--border:rgba(0,0,0,0.08);--sidebar-w:260px;--radius:16px;--shadow:0 2px 12px rgba(0,0,0,0.07);--transition:.28s cubic-bezier(.4,0,.2,1);}
+:root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--gold:#c9a227;--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;--bg:#f0f4f8;--card-bg:#ffffff;--text:#1e293b;--muted:#6b7fa0;--border:rgba(0,0,0,0.08);--sidebar-w:260px;--radius:16px;--shadow:0 2px 12px rgba(0,0,0,0.07);--transition:.28s cubic-bezier(.4,0,.2,1);}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;font-size:14px;}
 .sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
 .sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
 .sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,.07);}
-.brand-icon{width:48px;height:48px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,162,39,0.35);box-shadow:0 0 18px rgba(201,162,39,0.2);border-radius:14px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-.brand-icon img{width:80%;height:80%;object-fit:contain;}
+.brand-icon{width:48px;height:48px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,162,39,0.35);box-shadow:0 0 18px rgba(201,162,39,0.2),0 4px 16px rgba(0,0,0,0.4);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex-shrink:0;overflow:hidden;position:relative;}
+.brand-icon img{width:80%;height:80%;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 2px 6px rgba(201,162,39,0.3));}
 .brand-text{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:#fff;letter-spacing:2px;}
-.brand-sub{font-size:11px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;}
+.brand-sub{font-size:11px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
 .sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;}
 .nav-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3);padding:14px 12px 6px;font-weight:600;}
 .sidebar-nav a{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.65);text-decoration:none;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;transition:all var(--transition);margin-bottom:2px;position:relative;}
-.sidebar-nav a .nav-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(255,255,255,.06);flex-shrink:0;}
+.sidebar-nav a .nav-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(255,255,255,.06);flex-shrink:0;transition:all var(--transition);}
 .sidebar-nav a:hover{color:#fff;background:rgba(255,255,255,.07);}
 .sidebar-nav a:hover .nav-icon{background:rgba(0,212,255,.18);color:var(--accent);}
 .sidebar-nav a.active{color:#fff;background:linear-gradient(90deg,rgba(0,212,255,.18),rgba(0,212,255,.05));}
@@ -34,53 +35,76 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .sidebar-nav a.active::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--accent);border-radius:3px 0 0 3px;}
 .sidebar-nav a.logout-btn{color:rgba(255,78,106,.75);}
 .sidebar-nav a.logout-btn:hover{color:var(--accent2);background:rgba(255,78,106,.08);}
+.sidebar-nav a.logout-btn .nav-icon{background:rgba(255,78,106,.1);}
 .sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.07);}
 .sidebar-user{display:flex;align-items:center;gap:10px;}
 .user-avatar{width:36px;height:36px;background:linear-gradient(135deg,var(--accent3),#ff8c00);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;font-weight:700;}
 .user-info .user-name{font-size:13px;font-weight:600;color:#fff;}
 .user-info .user-role{font-size:11px;color:var(--muted);}
-.main{margin-left:var(--sidebar-w);min-height:100vh;}
-.topbar{background:#fff;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+.main{margin-left:var(--sidebar-w);padding:0;min-height:100vh;}
+.topbar{background:#ffffff;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.05);}
 .topbar-left h5{font-size:15px;font-weight:700;color:var(--navy);margin:0;}
 .topbar-left span{font-size:12px;color:var(--muted);}
 .topbar-right{display:flex;align-items:center;gap:12px;}
-.topbar-btn{width:38px;height:38px;border-radius:10px;background:#f0f4f8;border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;}
-.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:#f0f4f8;}
+.topbar-btn{width:38px;height:38px;border-radius:10px;background:#f0f4f8;border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
+.topbar-btn:hover{background:#e2e8f5;color:var(--navy);}
+.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:#f0f4f8;cursor:pointer;}
 .topbar-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
 .topbar-uname{font-size:13px;font-weight:600;color:var(--navy);}
 .content{padding:28px 32px 48px;}
-.page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;margin-bottom:6px;}
-.title-icon{width:44px;height:44px;background:#f59e0b;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(245,158,11,.35);flex-shrink:0;}
-.page-sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
-.info-bar{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));border-radius:var(--radius);padding:16px 22px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.page-header{margin-bottom:24px;}
+.page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;}
+.title-icon{width:44px;height:44px;background:#ff4e6a;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(255,78,106,.35);}
+.page-sub{font-size:13px;color:var(--muted);margin-top:6px;}
+.info-bar{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));border-radius:var(--radius);padding:16px 22px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:0 4px 20px rgba(11,24,41,.2);}
 .info-bar-left{display:flex;align-items:center;gap:12px;}
-.info-icon{width:40px;height:40px;background:rgba(245,158,11,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#f59e0b;}
+.info-icon{width:40px;height:40px;background:rgba(255,78,106,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#ff4e6a;}
 .info-title{font-size:14px;font-weight:700;color:#fff;}
 .info-sub{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;}
-.btn-drive{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);font-size:13px;font-weight:600;text-decoration:none;transition:all .3s;}
-.btn-drive:hover{background:rgba(255,255,255,.22);color:#fff;}
-.drive-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,0.06);}
-.drive-card-head{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#f7faff;}
+.btn-open-drive{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:all var(--transition);font-family:'DM Sans',sans-serif;}
+.btn-open-drive:hover{background:rgba(255,255,255,.22);color:#fff;}
+.drive-card{background:#ffffff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,0.06);}
+.drive-card-head{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#f7faff,#ffffff);}
 .drive-card-title{font-size:14px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;}
 .drive-frame{width:100%;height:calc(100vh - 280px);min-height:500px;border:none;display:block;}
-.loading-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:60px 20px;}
-.loading-spinner{width:48px;height:48px;border:4px solid rgba(245,158,11,0.15);border-top-color:#f59e0b;border-radius:50%;animation:spin .8s linear infinite;}
+.frame-wrap{position:relative;}
+.frame-loading{position:absolute;inset:0;background:#f7faff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;border-radius:0 0 var(--radius) var(--radius);z-index:10;}
+.frame-loading.hidden{display:none;}
+.loading-spinner{width:48px;height:48px;border:4px solid rgba(255,78,106,0.15);border-top-color:#ff4e6a;border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{font-size:14px;font-weight:600;color:var(--muted);}
+.loading-sub{font-size:12px;color:var(--muted);opacity:.7;}
+/* EMPTY STATE */
+.empty-state{padding:48px 20px;text-align:center;}
+.empty-icon{width:72px;height:72px;background:rgba(255,78,106,0.08);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:32px;color:#ff4e6a;}
+.empty-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.empty-desc{font-size:13px;color:var(--muted);margin-bottom:24px;max-width:380px;margin-left:auto;margin-right:auto;line-height:1.6;}
+.empty-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
+.btn-primary-drive{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;background:var(--navy);color:#fff;text-decoration:none;font-size:14px;font-weight:600;transition:all .3s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-primary-drive:hover{background:var(--navy-light);color:#fff;}
+.btn-secondary-drive{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;background:#f0f4f8;color:var(--navy);border:1.5px solid rgba(0,0,0,0.1);font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .3s;}
+.btn-secondary-drive:hover{background:#e2e8f5;}
+.how-to{margin-top:20px;padding:14px 20px;background:#f7faff;border-radius:10px;border:1px solid rgba(0,0,0,0.06);display:inline-block;text-align:left;}
+.how-to-title{font-size:11px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.how-to-steps{font-size:12px;color:var(--muted);line-height:1.9;}
+/* GUARD */
 .guard-overlay{display:none;position:fixed;inset:0;background:rgba(11,24,41,0.92);z-index:9999;align-items:center;justify-content:center;}
 .guard-overlay.show{display:flex;}
-.guard-box{background:#fff;border-radius:20px;padding:40px 36px;max-width:420px;width:90%;text-align:center;}
+.guard-box{background:#ffffff;border-radius:20px;padding:40px 36px;max-width:420px;width:90%;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,0.4);}
 .guard-title{font-size:20px;font-weight:700;color:#0b1829;margin-bottom:10px;}
 .guard-sub{font-size:14px;color:#6b7fa0;line-height:1.6;margin-bottom:16px;}
 .guard-user{font-size:12px;color:#6b7fa0;background:#f0f4f8;padding:8px 14px;border-radius:8px;display:inline-block;}
 .guard-btn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:10px 22px;border-radius:10px;background:#0b1829;color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;}
 .guard-logout{display:block;margin-top:12px;font-size:12px;color:#6b7fa0;cursor:pointer;text-decoration:underline;}
+.guard-logout:hover{color:#ff4e6a;}
 .menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;}
 @media(max-width:768px){
   .menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}
   .sidebar-overlay.open{display:block;}.main{margin-left:0;}.topbar{padding:14px 16px 14px 64px;}
-  .content{padding:18px 13px 40px;}.drive-frame{height:65vh;min-height:400px;}
-  .info-bar{flex-direction:column;}.btn-drive{width:100%;justify-content:center;}
+  .content{padding:18px 13px 40px;}.drive-frame{height:60vh;min-height:400px;}
+  .info-bar{flex-direction:column;align-items:flex-start;}.btn-open-drive{width:100%;justify-content:center;}
+  .empty-actions{flex-direction:column;}.btn-primary-drive,.btn-secondary-drive{width:100%;justify-content:center;}
 }
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -124,9 +148,9 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
     <a href="Sml.html"><span class="nav-icon"><i class="fas fa-leaf"></i></span>SML</a>
     <a href="Evaluasi kebijakan.html"><span class="nav-icon"><i class="fas fa-book"></i></span>Evaluasi Kebijakan</a>
     <a href="Kompetensi.html"><span class="nav-icon"><i class="fas fa-graduation-cap"></i></span>Kompetensi</a>
-    <a href="Breaking news.html"><span class="nav-icon"><i class="fas fa-newspaper"></i></span>Breaking News</a>
+    <a href="Breaking news.html" class="active"><span class="nav-icon"><i class="fas fa-newspaper"></i></span>Breaking News</a>
     <a href="Job desk.html"><span class="nav-icon"><i class="fas fa-user-tie"></i></span>Job Desk</a>
-    <a href="Campaign.html" class="active"><span class="nav-icon"><i class="fas fa-bullhorn"></i></span>Campaign</a>
+    <a href="Campaign.html"><span class="nav-icon"><i class="fas fa-bullhorn"></i></span>Campaign</a>
     <a href="sap.html"><span class="nav-icon"><i class="fas fa-clipboard-list"></i></span>SAP</a>
     <div class="nav-label">Dokumen</div>
     <a href="dokumen.html"><span class="nav-icon"><i class="fas fa-folder-open"></i></span>Dokumen</a>
@@ -160,31 +184,33 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <span>Sistem Informasi Keselamatan Kerja</span>
     </div>
     <div class="topbar-right">
-      <button class="topbar-btn"><i class="fas fa-bell"></i></button>
-      <button class="topbar-btn"><i class="fas fa-cog"></i></button>
+      <button class="topbar-btn" aria-label="Notifikasi"><i class="fas fa-bell"></i></button>
+      <button class="topbar-btn" aria-label="Pengaturan"><i class="fas fa-cog"></i></button>
       <div class="topbar-user">
-        <div class="topbar-avatar" id="topbarAvatar"><i class="fas fa-user"></i></div>
+        <div class="topbar-avatar"><i class="fas fa-user"></i></div>
         <span class="topbar-uname" id="userNameDisplay">User</span>
       </div>
     </div>
   </div>
 
   <div class="content">
-    <div class="page-title">
-      <div class="title-icon"><i class="fas fa-bullhorn"></i></div>
-      Campaign
+    <div class="page-header">
+      <div class="page-title">
+        <div class="title-icon"><i class="fas fa-newspaper"></i></div>
+        Breaking News
+      </div>
+      <div class="page-sub">Dokumen dan materi Breaking News PT. ABS — tersimpan di Google Drive</div>
     </div>
-    <div class="page-sub">Dokumen dan materi Campaign PT. ABS — tersimpan di Google Drive</div>
 
     <div class="info-bar">
       <div class="info-bar-left">
         <div class="info-icon"><i class="fab fa-google-drive"></i></div>
         <div>
-          <div class="info-title">Folder Google Drive — Campaign</div>
-          <div class="info-sub">File dikelola langsung dari Google Drive — selalu up to date</div>
+          <div class="info-title">Folder Google Drive — Breaking News</div>
+          <div class="info-sub">File dapat dilihat, didownload, dan dikelola langsung dari Google Drive</div>
         </div>
       </div>
-      <a href="https://drive.google.com/drive/folders/1OsREfkgmfuYGQiE1-IUXTmsqmB7n1Bu8?usp=sharing" target="_blank" class="btn-drive">
+      <a href="https://drive.google.com/drive/folders/1YLqxZPu1HamlVFZ9AHnKfm2SHUi7rq7i?usp=sharing" target="_blank" class="btn-open-drive">
         <i class="fab fa-google-drive"></i> Buka di Google Drive
       </a>
     </div>
@@ -193,76 +219,91 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <div class="drive-card-head">
         <div class="drive-card-title">
           <i class="fab fa-google-drive" style="color:#4285f4"></i>
-          Isi Folder Campaign
+          Isi Folder Breaking News
         </div>
         <span style="font-size:11px;color:var(--muted)">
-          <i class="fas fa-info-circle"></i> Klik file untuk membuka
+          <i class="fas fa-info-circle"></i> Klik file untuk membuka atau download
         </span>
       </div>
 
-      <div class="loading-wrap" id="loadingWrap">
-        <div class="loading-spinner"></div>
-        <div style="font-size:14px;font-weight:600;color:var(--muted)">Memuat folder...</div>
-        <div style="font-size:12px;color:var(--muted);opacity:.7">Mohon tunggu sebentar</div>
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon"><i class="fas fa-newspaper"></i></div>
+        <div class="empty-title">Folder Masih Kosong</div>
+        <div class="empty-desc">Belum ada file Breaking News yang tersimpan di Google Drive. Klik tombol di bawah untuk membuka folder dan mulai upload file.</div>
+        <div class="empty-actions">
+          <a href="https://drive.google.com/drive/folders/1YLqxZPu1HamlVFZ9AHnKfm2SHUi7rq7i" target="_blank" class="btn-primary-drive">
+            <i class="fab fa-google-drive"></i> Buka & Upload ke Google Drive
+          </a>
+          <button onclick="loadDrive()" class="btn-secondary-drive">
+            <i class="fas fa-sync-alt"></i> Refresh / Cek Ulang
+          </button>
+        </div>
+        <div class="how-to">
+          <div class="how-to-title">📋 Cara upload file:</div>
+          <div class="how-to-steps">
+            1. Klik tombol "Buka & Upload ke Google Drive"<br>
+            2. Upload file (PDF, Word, Excel, Gambar, dll)<br>
+            3. Kembali ke halaman ini & klik "Refresh"<br>
+            4. File akan tampil otomatis di bawah
+          </div>
+        </div>
       </div>
 
-      <iframe
-        class="drive-frame"
-        id="driveIframe"
-        style="display:none;"
-        src="https://drive.google.com/embeddedfolderview?id=1OsREfkgmfuYGQiE1-IUXTmsqmB7n1Bu8#list"
-        allowfullscreen
-        onload="onIframeLoad()">
-      </iframe>
-
-      <div id="emptyState" style="display:none;padding:48px 20px;text-align:center;">
-        <div style="width:64px;height:64px;background:rgba(245,158,11,0.08);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:28px;color:#f59e0b;">
-          <i class="fas fa-bullhorn"></i>
+      <!-- Drive Frame -->
+      <div id="driveFrame" style="display:none;">
+        <div style="padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:12px;color:var(--muted)"><i class="fas fa-folder-open" style="color:#4285f4;margin-right:6px"></i>Isi folder Breaking News</span>
+          <button onclick="backToEmpty()" style="font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:4px;">
+            <i class="fas fa-arrow-left"></i> Kembali
+          </button>
         </div>
-        <div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px;">Folder Masih Kosong</div>
-        <div style="font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.6;">
-          Belum ada file di folder ini. Buka Google Drive untuk upload file.
+        <div class="frame-wrap">
+          <div class="frame-loading" id="frameLoading">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Memuat dokumen...</div>
+            <div class="loading-sub">Mohon tunggu, Google Drive sedang dimuat</div>
+          </div>
+          <iframe
+            class="drive-frame"
+            id="driveIframe"
+            src="https://drive.google.com/embeddedfolderview?id=1YLqxZPu1HamlVFZ9AHnKfm2SHUi7rq7i#list"
+            allowfullscreen
+            onload="document.getElementById('frameLoading').classList.add('hidden')">
+          </iframe>
         </div>
-        <a href="https://drive.google.com/drive/folders/1OsREfkgmfuYGQiE1-IUXTmsqmB7n1Bu8" target="_blank"
-          style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;background:var(--navy);color:#fff;text-decoration:none;font-size:14px;font-weight:600;">
-          <i class="fab fa-google-drive"></i> Buka & Upload ke Google Drive
-        </a>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-var iframeLoaded = false;
-function onIframeLoad() {
-  iframeLoaded = true;
-  document.getElementById('loadingWrap').style.display = 'none';
-  document.getElementById('driveIframe').style.display = 'block';
+function loadDrive() {
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('driveFrame').style.display = 'block';
+  const iframe = document.getElementById('driveIframe');
+  // Reload iframe setiap kali diklik
+  iframe.src = '';
   setTimeout(function() {
-    try {
-      var iframe = document.getElementById('driveIframe');
-      var iDoc = iframe.contentDocument || iframe.contentWindow.document;
-      if ((iDoc.body ? iDoc.body.innerHTML : '').length < 100) {
-        iframe.style.display = 'none';
-        document.getElementById('emptyState').style.display = 'block';
-      }
-    } catch(e) {}
-  }, 2000);
+    iframe.src = 'https://drive.google.com/embeddedfolderview?id=1YLqxZPu1HamlVFZ9AHnKfm2SHUi7rq7i#list';
+  }, 100);
+  document.getElementById('frameLoading').classList.remove('hidden');
 }
-setTimeout(function() {
-  if (!iframeLoaded) {
-    document.getElementById('loadingWrap').style.display = 'none';
-    document.getElementById('emptyState').style.display = 'block';
-  }
-}, 10000);
+
+function backToEmpty() {
+  document.getElementById('emptyState').style.display = 'block';
+  document.getElementById('driveFrame').style.display = 'none';
+}
+
 (function() {
-  var name = localStorage.getItem('userName') || 'User';
-  ['userNameDisplay','sidebarUserName'].forEach(function(id) {
-    var el = document.getElementById(id); if (el) el.textContent = name;
+  const name = localStorage.getItem('userName') || 'User';
+  ['userNameDisplay','sidebarUserName'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.textContent = name;
   });
-  var av = document.getElementById('sidebarAvatarLetter');
+  const av = document.getElementById('sidebarAvatarLetter');
   if (av) av.textContent = name.charAt(0).toUpperCase();
 })();
+
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('overlay').classList.toggle('open');
@@ -272,27 +313,30 @@ function logout() {
 }
 function guardLogout() { localStorage.clear(); window.location.href = 'index.html'; }
 </script>
+
 <script>if(!localStorage.getItem('isLoggedIn')){window.location.href='index.html';}</script>
+
 <script>
-(function(){
-  var photo = localStorage.getItem('userPhoto') || '';
-  var name = localStorage.getItem('userName') || 'User';
+(function showPhoto(){
+  const photo = localStorage.getItem('userPhoto') || '';
+  const name  = localStorage.getItem('userName')  || 'User';
   function setAvatar(el, isTopbar) {
     if (!el) return;
     if (photo) {
-      el.style.background = 'none'; el.style.overflow = 'hidden';
-      var img = document.createElement('img'); img.src = photo;
+      el.style.background = 'none'; el.style.padding = '0'; el.style.overflow = 'hidden';
+      const img = document.createElement('img'); img.src = photo;
       img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%;';
-      img.onerror = function() { el.innerHTML = isTopbar ? '<i class="fas fa-user"></i>' : name.charAt(0).toUpperCase(); };
+      img.onerror = function() { this.style.display='none'; if(isTopbar){el.innerHTML='<i class="fas fa-user"></i>';}else{el.textContent=name.charAt(0).toUpperCase();} };
       el.innerHTML = ''; el.appendChild(img);
     } else {
-      el.innerHTML = isTopbar ? '<i class="fas fa-user"></i>' : name.charAt(0).toUpperCase();
+      if(isTopbar){el.innerHTML='<i class="fas fa-user"></i>';}else{el.textContent=name.charAt(0).toUpperCase();}
     }
   }
   setAvatar(document.getElementById('sidebarAvatarLetter'), false);
-  setAvatar(document.getElementById('topbarAvatar'), true);
+  setAvatar(document.querySelector('.topbar-avatar'), true);
 })();
 </script>
+
 <script>
 if('serviceWorker' in navigator){
   window.addEventListener('load',function(){
