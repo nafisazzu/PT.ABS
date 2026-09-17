@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dokumen – AIMS</title>
+<title>Dokumen – SIGAP</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -11,10 +11,31 @@
 :root{--navy:#0b1829;--navy-mid:#122040;--navy-light:#1a3460;--gold:#c9a227;--gold-dim:rgba(201,162,39,0.15);--accent:#00d4ff;--accent2:#ff4e6a;--accent3:#ffc843;--accent4:#22e0a1;--bg:#f0f4f8;--card-bg:#ffffff;--card-border:rgba(201,162,39,0.12);--text:#1e293b;--muted:#6b7fa0;--border:rgba(0,0,0,0.08);--sidebar-w:260px;--radius:16px;--shadow:0 2px 12px rgba(0,0,0,0.07);--transition:.28s cubic-bezier(.4,0,.2,1);
   --lv1:#6366f1;--lv2:#0ea5e9;--lv3:#f59e0b;--lv4:#22e0a1;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;font-size:14px;}
+html,body{background:#f0f4f8;background:var(--bg);font-family:'DM Sans',sans-serif;color:#1e293b;color:var(--text);min-height:100vh;font-size:14px;}
 
 /* ─── SIDEBAR ─────────────────────────────── */
-.sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
+/* Nilai literal (260px / #0b1829) diberi duluan sebagai fallback,
+   lalu ditimpa oleh var(--sidebar-w)/var(--navy) kalau custom
+   property berhasil di-resolve. Kalau karena sebab apapun variabel
+   custom property gagal terbaca di suatu browser/konteks, sidebar
+   tetap punya lebar dan warna yang benar, bukan collapse jadi 0. */
+.sidebar{
+  width:260px;
+  width:var(--sidebar-w);
+  height:100vh;
+  background:#0b1829;
+  background:var(--navy);
+  position:fixed;
+  top:0;
+  left:0;
+  display:flex;
+  flex-direction:column;
+  z-index:1000;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+  transition:transform var(--transition);
+  overflow:hidden;
+  flex-shrink:0;
+}
 .sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
 .sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,.07);}
 .brand-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,162,39,0.35);box-shadow:0 0 18px rgba(201,162,39,0.2),0 4px 16px rgba(0,0,0,0.4);overflow:hidden;position:relative;transition:all 0.3s;}
@@ -40,17 +61,25 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .user-info .user-role{font-size:11px;color:var(--muted);}
 
 /* ─── MAIN ──────────────────────────────── */
-.main{margin-left:var(--sidebar-w);padding:0;min-height:100vh;}
-.topbar{background:#ffffff;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,0.08);position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
-.topbar-left h5{font-size:15px;font-weight:700;color:var(--navy);margin:0;}
-.topbar-left span{font-size:12px;color:var(--muted);}
+/* Sama seperti sidebar: fallback literal 260px duluan, baru ditimpa
+   var(--sidebar-w). Ini yang membuat konten tidak lagi menempel di
+   tepi kiri (topbar full-width) kalau custom property bermasalah. */
+.main{
+  margin-left:260px;
+  margin-left:var(--sidebar-w);
+  padding:0;
+  min-height:100vh;
+}
+.topbar{background:var(--navy-mid);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(201,162,39,0.1);position:sticky;top:0;z-index:100;}
+.topbar-left h5{font-size:15px;font-weight:700;color:#ffffff;margin:0;}
+.topbar-left span{font-size:12px;color:rgba(255,255,255,0.55);}
 .topbar-right{display:flex;align-items:center;gap:12px;}
-.topbar-btn{width:38px;height:38px;border-radius:10px;background:#f0f4f8;border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
-.topbar-btn:hover{background:rgba(201,162,39,0.1);border-color:rgba(201,162,39,0.3);color:var(--gold);}
-.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:#f0f4f8;border:1px solid rgba(0,0,0,0.08);cursor:pointer;}
+.topbar-btn{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.06);border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
+.topbar-btn:hover{background:rgba(201,162,39,0.1);color:#c9a227;}
+.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);cursor:pointer;transition:background var(--transition);}
 .topbar-user:hover{background:rgba(201,162,39,0.08);}
 .topbar-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
-.topbar-uname{font-size:13px;font-weight:600;color:var(--navy);}
+.topbar-uname{font-size:13px;font-weight:600;color:#ffffff;}
 .role-badge{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.3px;}
 .role-badge.she{background:rgba(34,224,161,.12);color:#127754;border:1px solid rgba(34,224,161,.25);}
 .role-badge.dok{background:rgba(0,212,255,.10);color:#007fa3;border:1px solid rgba(0,212,255,.25);}
@@ -210,11 +239,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .btn-cancel-m:hover{border-color:var(--accent2);color:var(--accent2);}
 .btn-save-m{padding:10px 22px;border-radius:10px;background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:7px;}
 .btn-save-m:hover{opacity:.9;}
-.upload-zone{border:2px dashed rgba(0,0,0,0.15);border-radius:12px;padding:24px 18px;text-align:center;cursor:pointer;transition:all var(--transition);background:#f7faff;position:relative;margin-bottom:16px;}
-.upload-zone:hover,.upload-zone.dragover{border-color:var(--accent);background:rgba(0,212,255,.06);}
-.upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-.uz-icon{width:48px;height:48px;background:rgba(0,212,255,.10);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--accent);margin:0 auto 10px;}
-.sel-file{display:flex;align-items:center;gap:10px;padding:9px 13px;background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.2);border-radius:10px;margin-bottom:14px;font-size:13px;color:var(--navy);font-weight:600;}
+.btn-save-m:disabled{opacity:.6;cursor:not-allowed;}
 .fl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;display:block;}
 .fc,.fs{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--navy);background:#f7faff;outline:none;transition:all var(--transition);}
 .fc:focus,.fs:focus{border-color:var(--accent);}
@@ -238,7 +263,6 @@ textarea.fc{resize:vertical;min-height:70px;}
 .prev-doc-icon{width:72px;height:72px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 12px;}
 .prev-doc-name{font-size:17px;font-weight:700;color:var(--navy);text-align:center;margin-bottom:5px;}
 .prev-doc-desc{font-size:13px;color:var(--muted);text-align:center;line-height:1.6;}
-/* Level stripe in preview */
 .prev-level-stripe{height:6px;border-radius:4px;margin:12px auto 0;max-width:80px;}
 .btn-dl-full{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:10px;background:linear-gradient(135deg,var(--accent4),#19a37a);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;width:100%;margin-top:16px;font-family:'DM Sans',sans-serif;}
 .btn-dl-full:hover{opacity:.9;}
@@ -246,41 +270,6 @@ textarea.fc{resize:vertical;min-height:70px;}
 /* TOAST */
 .toast-box{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transform:translateY(12px);transition:all .3s;z-index:3000;pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(11,24,41,.25);}
 .toast-box.show{opacity:1;transform:translateY(0);}
-
-/* MOBILE */
-.menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;}
-.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-
-@media(max-width:1100px){.stats-row{grid-template-columns:repeat(2,1fr);}.docs-grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));}}
-@media(max-width:768px){
-  .menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}
-  .sidebar-overlay.open{display:block;}.main{margin-left:0;}.topbar{padding:14px 16px 14px 64px;}
-  .content{padding:18px 13px 40px;}.stats-row{grid-template-columns:repeat(2,1fr);gap:10px;}
-  .page-header{flex-direction:column;align-items:flex-start;}.prev-grid{grid-template-columns:1fr;}
-}
-
-/* ─── UPLOAD TABS ─────────────────────── */
-.upload-tabs{display:flex;gap:0;border-radius:10px;overflow:hidden;border:1.5px solid rgba(0,0,0,0.1);margin-bottom:16px;}
-.upload-tab-btn{flex:1;padding:10px 16px;border:none;background:#f0f4f8;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;}
-.upload-tab-btn:first-child{border-right:1.5px solid rgba(0,0,0,0.08);}
-.upload-tab-btn.active{background:linear-gradient(135deg,rgba(201,162,39,0.15),rgba(201,162,39,0.05));color:#c9a227;}
-.upload-tab-btn:hover:not(.active){background:#e2e8f5;color:var(--navy);}
-.upload-tab-panel{display:none;}
-.upload-tab-panel.active{display:block;}
-
-/* ─── UPLOAD PROGRESS ─────────────────────── */
-.upload-progress-wrap{display:none;margin-bottom:14px;}
-.upload-progress-wrap.show{display:block;}
-.upload-progress-bar-bg{height:8px;background:rgba(0,0,0,0.08);border-radius:8px;overflow:hidden;margin-bottom:6px;}
-.upload-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#c9a227,#22e0a1);border-radius:8px;transition:width .2s;}
-.upload-progress-label{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;}
-
-/* ─── PROGRAM K3 SUBMENU ─────────────────────── */
-
-
-
 
 /* ── NOTIFICATION SYSTEM ─────────────────────────── */
 .notif-wrap{position:relative;}
@@ -314,6 +303,28 @@ textarea.fc{resize:vertical;min-height:70px;}
 .notif-empty i{font-size:28px;display:block;margin-bottom:8px;opacity:.4;}
 .notif-footer{padding:12px 18px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;}
 .notif-footer a{font-size:12px;color:#c9a227;font-weight:600;text-decoration:none;}
+
+/* MOBILE */
+.menu-toggle{display:none;position:fixed;top:16px;left:16px;z-index:1100;width:40px;height:40px;border-radius:10px;background:var(--navy);border:none;color:#fff;font-size:16px;align-items:center;justify-content:center;cursor:pointer;}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+@media(max-width:1100px){.stats-row{grid-template-columns:repeat(2,1fr);}.docs-grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));}}
+@media(max-width:768px){
+  .menu-toggle{display:flex;}.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);}
+  .sidebar-overlay.open{display:block;}.main{margin-left:0 !important;}.topbar{padding:14px 16px 14px 64px;}
+  .content{padding:18px 13px 40px;}.stats-row{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .page-header{flex-direction:column;align-items:flex-start;}.prev-grid{grid-template-columns:1fr;}
+}
+
+/* ─── DEPT SUB-GROUP HEADER (dalam tiap Level) ─────────────────── */
+.dept-group{margin-bottom:18px;}
+.dept-group:last-child{margin-bottom:0;}
+.dept-group-header{display:flex;align-items:center;gap:9px;padding:8px 4px;margin-bottom:10px;border-bottom:1.5px solid rgba(0,0,0,0.06);}
+.dept-group-icon{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
+.dept-group-name{font-size:13px;font-weight:700;color:var(--navy);flex:1;}
+.dept-group-count{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--muted);background:rgba(0,0,0,0.04);padding:2px 9px;border-radius:20px;}
 
 /* POPUP DETAIL LAPORAN */
 .laporan-popup{display:none;position:fixed;inset:0;z-index:99999;background:rgba(8,15,28,0.85);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;}
@@ -361,11 +372,6 @@ textarea.fc{resize:vertical;min-height:70px;}
     </div>
   </div>
 </div>
-    <br>
-      <i class="fas fa-file-alt"></i> Pergi ke Buat Laporan
-    </button>
-  </div>
-</div>
 
 <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
 <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
@@ -375,7 +381,7 @@ textarea.fc{resize:vertical;min-height:70px;}
     <div class="brand-icon"><img src="LOGO.png" alt="AIMS Logo" onerror="this.style.display='none'"></div>
     <div><div class="brand-text">AIMS</div><div class="brand-sub">Safety System</div></div>
   </div>
-    <nav class="sidebar-nav">
+   <nav class="sidebar-nav">
     <div class="nav-label">Menu Utama</div>
     <a href="dashboard.html" class="active"><span class="nav-icon"><i class="fas fa-home"></i></span>Dashboard</a>
     <a href="buat_laporan.html"><span class="nav-icon"><i class="fas fa-plus-circle"></i></span>Buat Laporan</a>
@@ -406,7 +412,7 @@ textarea.fc{resize:vertical;min-height:70px;}
       Accurate <i class="fas fa-arrow-up-right-from-square" style="font-size:9px;margin-left:auto;opacity:0.6"></i>
     </a>
     <div class="nav-label">Akun</div>
-    
+
     <a href="#" onclick="logout()" class="logout-btn"><span class="nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout</a>
   </nav>
   <div class="sidebar-footer">
@@ -426,7 +432,7 @@ textarea.fc{resize:vertical;min-height:70px;}
     <div class="topbar-right">
       <button class="topbar-btn"><i class="fas fa-bell"></i></button>
       <button class="topbar-btn"><i class="fas fa-cog"></i></button>
-      
+
       <div class="topbar-user">
         <div class="topbar-avatar"><i class="fas fa-user"></i></div>
         <span class="topbar-uname" id="userNameDisplay">User</span>
@@ -452,7 +458,7 @@ textarea.fc{resize:vertical;min-height:70px;}
 
 
     <!-- ═══ PROGRAM K3 SUB-MENU ═══ -->
-    
+
 
     <!-- ① DEPARTEMEN NAV — Filter Utama -->
     <div class="dept-nav" id="deptNav"></div>
@@ -504,38 +510,13 @@ textarea.fc{resize:vertical;min-height:70px;}
     <div class="modal-head">
       <div class="modal-head-title">
         <div class="modal-head-icon" style="background:rgba(14,165,233,.12);color:#0ea5e9"><i class="fas fa-cloud-upload-alt"></i></div>
-        Upload Dokumen Baru
+        <span id="uploadModalTitle">Upload Dokumen Baru</span>
       </div>
       <button class="btn-close-m" onclick="closeUploadModal()"><i class="fas fa-times"></i></button>
     </div>
     <div class="modal-body" style="max-height:70vh;overflow-y:auto;">
-      <!-- Tab Switcher -->
-      <div class="upload-tabs">
-        <button class="upload-tab-btn active" id="tabFile" onclick="switchUploadTab('file')">
-          <i class="fas fa-cloud-upload-alt"></i> Upload File Langsung
-        </button>
-        <button class="upload-tab-btn" id="tabDrive" onclick="switchUploadTab('drive')">
-          <i class="fab fa-google-drive"></i> Google Drive Link
-        </button>
-      </div>
-
-      <!-- Panel: Upload File -->
-      <div class="upload-tab-panel active" id="panelFile">
-        <div class="upload-zone" id="uploadZone" ondragover="dzOver(event)" ondragleave="dzLeave()" ondrop="dzDrop(event)">
-          <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.png,.jpg,.mp4,.mov,.avi" onchange="fileSelect(this)">
-          <div class="uz-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-          <div style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:3px">Drag & Drop file di sini</div>
-          <div style="font-size:11px;color:var(--muted)">atau klik untuk memilih · PDF, DOCX, XLSX, PPTX, Video · Maks 50 MB</div>
-        </div>
-        <div id="selFile" class="sel-file" style="display:none">
-          <i class="fas fa-file-alt" style="color:var(--accent);font-size:18px;flex-shrink:0"></i>
-          <span id="selFileName" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
-          <span id="selFileSize" style="color:var(--muted);font-size:12px;flex-shrink:0"></span>
-        </div>
-      </div>
-
-      <!-- Panel: Google Drive -->
-      <div class="upload-tab-panel" id="panelDrive">
+      <!-- Panel: Google Drive (satu-satunya cara upload) -->
+      <div class="upload-tab-panel active" id="panelDrive">
         <div style="background:rgba(66,133,244,0.08);border:1.5px solid rgba(66,133,244,0.25);border-radius:12px;padding:16px;margin-bottom:12px;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
             <div style="width:36px;height:36px;background:rgba(66,133,244,0.15);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#4285f4;flex-shrink:0"><i class="fab fa-google-drive"></i></div>
@@ -554,16 +535,6 @@ textarea.fc{resize:vertical;min-height:70px;}
         <label class="fl"><i class="fab fa-google-drive" style="margin-right:4px;color:#4285f4"></i> Link Google Drive *</label>
         <input class="fc" type="url" id="uGdrive" placeholder="https://drive.google.com/file/d/...">
         <div style="font-size:11px;color:var(--muted);margin-top:4px"><i class="fas fa-info-circle"></i> Mendukung semua format: PDF, Video, Word, Excel, dll tanpa batas ukuran</div>
-      </div>
-      <!-- Upload Progress -->
-      <div class="upload-progress-wrap" id="uploadProgressWrap">
-        <div class="upload-progress-bar-bg">
-          <div class="upload-progress-bar" id="uploadProgressBar"></div>
-        </div>
-        <div class="upload-progress-label">
-          <span id="uploadProgressText">Mengupload file...</span>
-          <span id="uploadProgressPct">0%</span>
-        </div>
       </div>
       <div class="row g-3">
         <div class="col-12">
@@ -629,7 +600,7 @@ textarea.fc{resize:vertical;min-height:70px;}
     </div>
     <div class="modal-footer">
       <button class="btn-cancel-m" onclick="closeUploadModal()"><i class="fas fa-times"></i> Batal</button>
-      <button class="btn-save-m" onclick="saveDoc()"><i class="fas fa-save"></i> Simpan Dokumen</button>
+      <button class="btn-save-m" id="btnSaveDoc" onclick="saveDoc()"><i class="fas fa-save"></i> <span id="btnSaveDocText">Simpan Dokumen</span></button>
     </div>
   </div>
 </div>
@@ -672,10 +643,6 @@ textarea.fc{resize:vertical;min-height:70px;}
 
 <script>
 // ── FIREBASE diload via CDN di <head> ─────────────────
-// db sudah tersedia dari window.db yang diset di script head
-
-// ═══════════════════════════════════════════════════════
-
 
 // ═══════════════════════════════════════════════════════
 // CONFIG
@@ -725,7 +692,7 @@ const DOCS_COL = 'aims_dokumen';
 const DEFAULT_DOCS = [];
 
 let documents = [...DEFAULT_DOCS];
-let activeDept='', filteredDocs=[...documents], currentView='grid', deleteDocId=null, selFileData=null, currentUserRole='', uploadFileObj=null;
+let activeDept='', filteredDocs=[...documents], currentView='grid', deleteDocId=null, currentUserRole='';
 let isLoadingDocs = false;
 
 // ── LOAD DOKUMEN DARI FIRESTORE ───────────────────────
@@ -738,7 +705,6 @@ async function loadDocs() {
       snap.forEach(doc => {
         firestoreDocs.push({ id: doc.id, _docId: doc.id, ...doc.data() });
       });
-      // Gabungkan: Firestore docs + default docs yang tidak ada di Firestore
       const firestoreIds = firestoreDocs.map(d => d.nomor);
       const remainingDefault = DEFAULT_DOCS.filter(d => !firestoreIds.includes(d.nomor));
       documents = [...firestoreDocs, ...remainingDefault];
@@ -751,7 +717,8 @@ async function loadDocs() {
   buildStats();
   applyFilter();
 
-  // Real-time listener
+  // Real-time listener — karena saveDoc() sekarang instan (tidak ada upload
+  // file besar), tidak perlu lagi menekan render selama proses simpan.
   db.collection(DOCS_COL).orderBy('createdAt','desc').onSnapshot(snapshot => {
     if(isLoadingDocs) return;
     const firestoreDocs = [];
@@ -865,13 +832,15 @@ function applyFilter(){
 // ═══════════════════════════════════════════════════════
 function renderAll(){
   const area=document.getElementById('docsArea');
-  if(!filteredDocs.length){
+  const allDocsForRender = filteredDocs;
+
+  if(!allDocsForRender.length){
     area.innerHTML='<div class="empty-full"><div class="empty-full-icon"><i class="fas fa-folder-open"></i></div><div style="font-weight:700;color:var(--navy);font-size:15px;margin-bottom:6px">Tidak ada dokumen</div><div>Coba ubah filter atau departemen</div></div>';
     return;
   }
 
   area.innerHTML = LEVELS.map(lv=>{
-    const lvDocs = filteredDocs.filter(d=>d.level===lv.id);
+    const lvDocs = allDocsForRender.filter(d=>d.level===lv.id);
     if(!lvDocs.length) return ''; // skip empty levels
     const isOpen = collapsedLevels[lv.id]!==true;
     return '<div class="level-section" id="lvsec-'+lv.id+'">'
@@ -902,53 +871,91 @@ function toggleLevel(lvId){
   }
 }
 
+// Kelompokkan daftar dokumen per departemen, dalam urutan yang sama
+// seperti DEPARTMENTS (kecuali 'Semua'). Dept yang tidak punya dokumen
+// di grup ini dilewati — hanya dept yang benar-benar punya isi yang tampil.
+function groupByDept(docs){
+  const groups = [];
+  DEPARTMENTS.filter(d=>d.id!=='').forEach(d=>{
+    const items = docs.filter(x=>x.dept===d.id);
+    if(items.length) groups.push({dept:d, items});
+  });
+  // Dokumen dengan dept di luar daftar DEPARTMENTS (data lama/tidak baku)
+  // tetap ditampilkan, dikelompokkan di bawah label departemen aslinya
+  const knownIds = DEPARTMENTS.map(d=>d.id);
+  const unknownDepts = [...new Set(docs.filter(x=>!knownIds.includes(x.dept)).map(x=>x.dept))];
+  unknownDepts.forEach(deptName=>{
+    const items = docs.filter(x=>x.dept===deptName);
+    groups.push({dept:{id:deptName,label:deptName||'Tanpa Departemen',icon:'fa-folder',color:'#7a8aaa'}, items});
+  });
+  return groups;
+}
+
 function renderLvGrid(docs,lv){
-  return '<div class="docs-grid">'+docs.map(d=>{
-    const tc=getTipe(d.tipe),kc=getKat(d.kategori);
-    const eid = encodeDocId(d.id);
-    return '<div class="doc-card '+lv.card+'" data-id="'+eid+'" onclick="openPrev(getDocId(this))">'
-      +'<div class="doc-level-stripe '+lv.stripe+'"></div>'
-      +'<div class="doc-card-top">'
-      +'<div class="doc-type-icon" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div>'
-      +'<div class="doc-name">'+d.nama+'</div>'
-      +'<div class="doc-meta">'+(d.nomor?d.nomor+' · ':'')+fmtTgl(d.tanggal)+'</div>'
-      +'<div class="doc-badges">'
-      +'<span class="lb '+lv.cls+'"><i class="fas '+lv.icon+'" style="font-size:8px"></i> '+lv.label+'</span>'
-      +'<span class="dept-tag">'+d.dept+'</span>'
+  const groups = groupByDept(docs);
+  return groups.map(g=>{
+    return '<div class="dept-group">'
+      +'<div class="dept-group-header">'
+      +'<div class="dept-group-icon" style="background:'+g.dept.color+'22;color:'+g.dept.color+'"><i class="fas '+g.dept.icon+'"></i></div>'
+      +'<div class="dept-group-name">'+g.dept.label+'</div>'
+      +'<div class="dept-group-count">'+g.items.length+'</div>'
       +'</div>'
-      +'</div>'
-      +'<div class="doc-card-bottom" onclick="event.stopPropagation()">'
-      +'<span class="badge-sm" style="background:'+kc.bg+';color:'+kc.color+'"><i class="fas '+kc.icon+'" style="font-size:8px"></i> '+kc.label+'</span>'
-      +'<div class="doc-actions">'
-      +'<button class="act-btn act-view" data-id="'+eid+'" onclick="openPrev(getDocId(this))" title="Detail"><i class="fas fa-eye"></i></button>'
-      +'<button class="act-btn act-dl"  data-id="'+eid+'" onclick="downloadDoc(getDocId(this))" title="Download"><i class="fas fa-download"></i></button>'
-      +'<button class="act-btn act-del" data-id="'+eid+'" onclick="openDel(getDocId(this))" title="Hapus"><i class="fas fa-trash-alt"></i></button>'
-      +'</div></div></div>';
-  }).join('')+'</div>';
+      +'<div class="docs-grid">'+g.items.map(d=>{
+        const tc=getTipe(d.tipe),kc=getKat(d.kategori);
+        const eid = encodeDocId(d.id);
+        return '<div class="doc-card '+lv.card+'" data-id="'+eid+'" onclick="openPrev(getDocId(this))">'
+          +'<div class="doc-level-stripe '+lv.stripe+'"></div>'
+          +'<div class="doc-card-top">'
+          +'<div class="doc-type-icon" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div>'
+          +'<div class="doc-name">'+d.nama+'</div>'
+          +'<div class="doc-meta">'+(d.nomor?d.nomor+' · ':'')+fmtTgl(d.tanggal)+'</div>'
+          +'<div class="doc-badges">'
+          +'<span class="lb '+lv.cls+'"><i class="fas '+lv.icon+'" style="font-size:8px"></i> '+lv.label+'</span>'
+          +'</div>'
+          +'</div>'
+          +'<div class="doc-card-bottom" onclick="event.stopPropagation()">'
+          +'<span class="badge-sm" style="background:'+kc.bg+';color:'+kc.color+'"><i class="fas '+kc.icon+'" style="font-size:8px"></i> '+kc.label+'</span>'
+          +'<div class="doc-actions">'
+          +'<button class="act-btn act-view" data-id="'+eid+'" onclick="openPrev(getDocId(this))" title="Detail"><i class="fas fa-eye"></i></button>'
+          +'<button class="act-btn act-dl"  data-id="'+eid+'" onclick="downloadDoc(getDocId(this))" title="Download"><i class="fas fa-download"></i></button>'
+          +'<button class="act-btn act-del" data-id="'+eid+'" onclick="openDel(getDocId(this))" title="Hapus"><i class="fas fa-trash-alt"></i></button>'
+          +'</div></div></div>';
+      }).join('')+'</div></div>';
+  }).join('');
 }
 
 function renderLvList(docs,lv){
-  return '<div class="docs-list"><table><thead><tr><th>No</th><th>Dokumen</th><th>Kategori</th><th>Departemen</th><th>Tipe</th><th>Tanggal</th><th>Ukuran</th><th>Aksi</th></tr></thead><tbody>'
-    +docs.map((d,i)=>{
-      const tc=getTipe(d.tipe),kc=getKat(d.kategori);
-      const eid = encodeDocId(d.id);
-      return '<tr data-id="'+eid+'" onclick="openPrev(getDocId(this))">'
-        +'<td style="color:var(--muted);font-size:11px;font-family:\'Space Mono\',monospace">'+(i+1)+'</td>'
-        +'<td><div style="display:flex;align-items:center;gap:10px">'
-        +'<div class="file-icon-sm" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div>'
-        +'<div><div style="font-weight:600;color:var(--navy);font-size:13px">'+d.nama+'</div>'
-        +'<div style="font-size:10px;color:var(--muted);margin-top:1px">'+(d.nomor||'—')+'</div></div></div></td>'
-        +'<td><span class="badge-sm" style="background:'+kc.bg+';color:'+kc.color+'"><i class="fas '+kc.icon+'" style="font-size:8px"></i> '+kc.label+'</span></td>'
-        +'<td><span class="dept-tag">'+d.dept+'</span></td>'
-        +'<td><span style="font-family:\'Space Mono\',monospace;font-size:11px;font-weight:700;color:'+tc.color+'">'+d.tipe+'</span></td>'
-        +'<td style="font-size:12px;color:var(--muted)">'+fmtTgl(d.tanggal)+'</td>'
-        +'<td style="font-size:12px;color:var(--muted)">'+d.ukuran+'</td>'
-        +'<td onclick="event.stopPropagation()" style="white-space:nowrap">'
-        +'<button class="act-btn act-view" data-id="'+eid+'" onclick="openPrev(getDocId(this))"><i class="fas fa-eye"></i></button> '
-        +'<button class="act-btn act-dl"  data-id="'+eid+'" onclick="downloadDoc(getDocId(this))"><i class="fas fa-download"></i></button> '
-        +'<button class="act-btn act-del" data-id="'+eid+'" onclick="openDel(getDocId(this))"><i class="fas fa-trash-alt"></i></button>'
-        +'</td></tr>';
-    }).join('')+'</tbody></table></div>';
+  const groups = groupByDept(docs);
+  let counter = 0;
+  return groups.map(g=>{
+    return '<div class="dept-group">'
+      +'<div class="dept-group-header">'
+      +'<div class="dept-group-icon" style="background:'+g.dept.color+'22;color:'+g.dept.color+'"><i class="fas '+g.dept.icon+'"></i></div>'
+      +'<div class="dept-group-name">'+g.dept.label+'</div>'
+      +'<div class="dept-group-count">'+g.items.length+'</div>'
+      +'</div>'
+      +'<div class="docs-list"><table><thead><tr><th>No</th><th>Dokumen</th><th>Kategori</th><th>Tipe</th><th>Tanggal</th><th>Ukuran</th><th>Aksi</th></tr></thead><tbody>'
+      +g.items.map((d)=>{
+        counter++;
+        const tc=getTipe(d.tipe),kc=getKat(d.kategori);
+        const eid = encodeDocId(d.id);
+        return '<tr data-id="'+eid+'" onclick="openPrev(getDocId(this))">'
+          +'<td style="color:var(--muted);font-size:11px;font-family:\'Space Mono\',monospace">'+counter+'</td>'
+          +'<td><div style="display:flex;align-items:center;gap:10px">'
+          +'<div class="file-icon-sm" style="background:'+tc.bg+';color:'+tc.color+'"><i class="fas '+tc.icon+'"></i></div>'
+          +'<div><div style="font-weight:600;color:var(--navy);font-size:13px">'+d.nama+'</div>'
+          +'<div style="font-size:10px;color:var(--muted);margin-top:1px">'+(d.nomor||'—')+'</div></div></div></td>'
+          +'<td><span class="badge-sm" style="background:'+kc.bg+';color:'+kc.color+'"><i class="fas '+kc.icon+'" style="font-size:8px"></i> '+kc.label+'</span></td>'
+          +'<td><span style="font-family:\'Space Mono\',monospace;font-size:11px;font-weight:700;color:'+tc.color+'">'+d.tipe+'</span></td>'
+          +'<td style="font-size:12px;color:var(--muted)">'+fmtTgl(d.tanggal)+'</td>'
+          +'<td style="font-size:12px;color:var(--muted)">'+d.ukuran+'</td>'
+          +'<td onclick="event.stopPropagation()" style="white-space:nowrap">'
+          +'<button class="act-btn act-view" data-id="'+eid+'" onclick="openPrev(getDocId(this))"><i class="fas fa-eye"></i></button> '
+          +'<button class="act-btn act-dl"  data-id="'+eid+'" onclick="downloadDoc(getDocId(this))"><i class="fas fa-download"></i></button> '
+          +'<button class="act-btn act-del" data-id="'+eid+'" onclick="openDel(getDocId(this))"><i class="fas fa-trash-alt"></i></button>'
+          +'</td></tr>';
+      }).join('')+'</tbody></table></div></div>';
+  }).join('');
 }
 
 function setView(v){
@@ -961,7 +968,6 @@ function setView(v){
 // ═══════════════════════════════════════════════════════
 // PREVIEW
 // ═══════════════════════════════════════════════════════
-// ── HELPER: encode/decode Firestore ID aman untuk HTML attribute ──
 function encodeDocId(id){ return (id||'').replace(/[^a-zA-Z0-9_-]/g, function(c){ return '_x'+c.charCodeAt(0).toString(16)+'_'; }); }
 function decodeDocId(enc){ return enc.replace(/_x([0-9a-f]+)_/g, function(m,h){ return String.fromCharCode(parseInt(h,16)); }); }
 function getDocId(el){ return decodeDocId(el.dataset.id||''); }
@@ -993,6 +999,9 @@ function openPrev(id){
     +'<button class="btn-dl-full" data-id="'+encodeDocId(d.id)+'" onclick="downloadDoc(getDocId(this))" style="'+(d.file_url||d.gdrive_link?'':'opacity:.5;pointer-events:none')+'">'
     +'<i class="'+(d.gdrive_link?'fab fa-google-drive':'fas fa-download')+'"></i> '
     +(d.file_url?'Download File':'')+(d.gdrive_link?'Buka di Google Drive':'')+((!d.file_url&&!d.gdrive_link)?'File Belum Tersedia':'')
+    +'</button>'
+    +'<button class="btn-dl-full" data-id="'+encodeDocId(d.id)+'" onclick="openEditDoc(getDocId(this))" style="background:linear-gradient(135deg,#0ea5e9,#0284c7);margin-top:8px">'
+    +'<i class="fas fa-pen"></i> Edit Dokumen'
     +'</button>';
   document.getElementById('previewModal').classList.add('show');
 }
@@ -1010,11 +1019,9 @@ function closeDel(){document.getElementById('deleteModal').classList.remove('sho
 async function confirmDel(){
   if(!deleteDocId)return;
   const doc = documents.find(x=>x.id===deleteDocId);
-  // Hapus dari Firestore jika ada _docId
   if(doc && doc._docId){
     try {
       await db.collection(DOCS_COL).doc(doc._docId).delete();
-      // Hapus file dari Storage jika ada
       if(doc.file_url){
         try { await storage.refFromURL(doc.file_url).delete(); } catch(e){}
       }
@@ -1028,13 +1035,11 @@ function downloadDoc(id){
   const d=documents.find(x=>x.id===id);
   if(!d) return;
   if(d.file_url){
-    // Download langsung dari Firebase Storage
     const a=document.createElement('a');
     a.href=d.file_url; a.target='_blank'; a.download=d.nama;
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     showToast('<i class="fas fa-download"></i> Mengunduh '+d.nama+'...');
   } else if(d.gdrive_link){
-    // Buka Google Drive
     window.open(d.gdrive_link,'_blank');
     showToast('<i class="fab fa-google-drive"></i> Membuka Google Drive...');
   } else {
@@ -1045,51 +1050,51 @@ function downloadDoc(id){
 // ═══════════════════════════════════════════════════════
 // UPLOAD
 // ═══════════════════════════════════════════════════════
+// editingDocId: null berarti mode "Tambah Dokumen Baru".
+// Kalau berisi id dokumen, berarti mode "Edit" — saveDoc() akan
+// update dokumen itu, bukan membuat dokumen baru.
+let editingDocId = null;
+
 function openUpload(){
+  editingDocId = null;
+  document.getElementById('uploadModalTitle').textContent = 'Upload Dokumen Baru';
+  document.getElementById('btnSaveDocText').textContent = 'Simpan Dokumen';
   document.getElementById('uploadModal').classList.add('show');
   document.getElementById('uTanggal').value=new Date().toISOString().split('T')[0];
   document.getElementById('uPembuat').value=localStorage.getItem('userName')||'';
-  // Pre-fill dept jika filter aktif
   if(activeDept)document.getElementById('uDept').value=activeDept;
 }
+
+function openEditDoc(id){
+  const d=documents.find(x=>x.id===id);
+  if(!d)return;
+  editingDocId = id;
+  document.getElementById('uploadModalTitle').textContent = 'Edit Dokumen';
+  document.getElementById('btnSaveDocText').textContent = 'Simpan Perubahan';
+
+  // Isi form dengan data dokumen yang ada
+  document.getElementById('uNama').value = d.nama||'';
+  document.getElementById('uNomor').value = d.nomor||'';
+  document.getElementById('uKategori').value = d.kategori||'';
+  document.getElementById('uLevel').value = d.level||'';
+  document.getElementById('uDept').value = d.dept||'';
+  document.getElementById('uTanggal').value = d.tanggal||'';
+  document.getElementById('uPembuat').value = d.pembuat||'';
+  document.getElementById('uDeskripsi').value = d.deskripsi||'';
+  const gd=document.getElementById('uGdrive'); if(gd) gd.value = d.gdrive_link||'';
+  onLevelChange();
+
+  closePrev();
+  document.getElementById('uploadModal').classList.add('show');
+}
+
 function closeUploadModal(){
   document.getElementById('uploadModal').classList.remove('show');
   ['uNama','uNomor','uDeskripsi','uPembuat'].forEach(id=>document.getElementById(id).value='');
   ['uKategori','uLevel','uDept'].forEach(id=>document.getElementById(id).value='');
   const gd=document.getElementById('uGdrive');if(gd)gd.value='';
-  document.getElementById('selFile').style.display='none';selFileData=null;uploadFileObj=null;
   document.getElementById('levelPreviewWrap').style.display='none';
-  // Reset tabs ke file mode
-  switchUploadTab('file');
-}
-function fileSelect(input){if(input.files&&input.files[0])procFile(input.files[0]);}
-function dzOver(e){e.preventDefault();document.getElementById('uploadZone').classList.add('dragover');}
-function dzLeave(){document.getElementById('uploadZone').classList.remove('dragover');}
-function dzDrop(e){e.preventDefault();dzLeave();if(e.dataTransfer.files[0])procFile(e.dataTransfer.files[0]);}
-
-function switchUploadTab(tab){
-  document.getElementById('tabFile').classList.toggle('active', tab==='file');
-  document.getElementById('tabDrive').classList.toggle('active', tab==='drive');
-  document.getElementById('panelFile').classList.toggle('active', tab==='file');
-  document.getElementById('panelDrive').classList.toggle('active', tab==='drive');
-  // Reset jika ganti tab
-  if(tab==='file'){ const g=document.getElementById('uGdrive');if(g)g.value=''; }
-  if(tab==='drive'){ uploadFileObj=null;selFileData=null;document.getElementById('selFile').style.display='none'; }
-}
-function procFile(file){
-  const ext=file.name.split('.').pop().toUpperCase();
-  selFileData={tipe:ext,ukuran:(file.size/1024/1024).toFixed(1)+' MB'};
-  uploadFileObj = file; // Simpan file object untuk upload
-  document.getElementById('selFileName').textContent=file.name;
-  document.getElementById('selFileSize').textContent=selFileData.ukuran;
-  document.getElementById('selFile').style.display='flex';
-  if(!document.getElementById('uNama').value)document.getElementById('uNama').value=file.name.replace(/\.[^/.]+$/,'');
-  // Auto-suggest kategori
-  if(!document.getElementById('uKategori').value){
-    if(ext==='XLSX'||ext==='XLS')document.getElementById('uKategori').value='Form';
-    else if(ext==='PPTX'||ext==='PPT')document.getElementById('uKategori').value='Laporan K3';
-    else if(ext==='PDF'||ext==='DOCX'||ext==='DOC')document.getElementById('uKategori').value='SOP';
-  }
+  editingDocId = null;
 }
 function onLevelChange(){
   const lv=document.getElementById('uLevel').value;
@@ -1105,7 +1110,11 @@ function onLevelChange(){
 }
 
 // ═══════════════════════════════════════════════════════
-// SAVE DOC — Upload ke Firebase Storage + simpan Firestore
+// SAVE DOC — simpan metadata + link Google Drive ke Firestore.
+// Tidak ada upload file ke Firebase Storage: dokumen fisiknya
+// disimpan user di Google Drive mereka sendiri, di sini kita
+// cuma menyimpan link-nya. Ini membuat proses simpan selalu
+// cepat (tidak tergantung ukuran file atau kecepatan transfer).
 // ═══════════════════════════════════════════════════════
 async function saveDoc() {
   const nama     = document.getElementById('uNama').value.trim();
@@ -1122,90 +1131,56 @@ async function saveDoc() {
     showToast('<i class="fas fa-exclamation-circle"></i> Lengkapi semua field wajib!', true);
     return;
   }
-
-  const btn = document.querySelector('.btn-save-m');
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
-
-  // Deteksi mode upload: file langsung atau Google Drive
-  const isFileMode = document.getElementById('tabFile').classList.contains('active');
-  const gdriveVal  = document.getElementById('uGdrive')?.value.trim()||'';
-
-  // Validasi Google Drive mode
-  if(!isFileMode && !gdriveVal){
+  if(!gdrive){
     showToast('<i class="fas fa-exclamation-circle"></i> Masukkan link Google Drive!', true);
-    btn.disabled=false; btn.innerHTML='<i class="fas fa-save"></i> Simpan Dokumen'; return;
+    return;
   }
 
-  let file_url = isFileMode ? '' : gdriveVal;
-  let tipe = selFileData ? selFileData.tipe : 'PDF';
-  let ukuran = selFileData ? selFileData.ukuran : '—';
+  const btn = document.getElementById('btnSaveDoc');
+  const btnText = document.getElementById('btnSaveDocText');
+  btn.disabled = true;
+  btnText.textContent = editingDocId ? 'Menyimpan perubahan...' : 'Menyimpan...';
 
-  // Sembunyikan form, tampilkan progress
-  const progressWrap = document.getElementById('uploadProgressWrap');
-  const progressBar  = document.getElementById('uploadProgressBar');
-  const progressText = document.getElementById('uploadProgressText');
-  const progressPct  = document.getElementById('uploadProgressPct');
+  // Tebak tipe file dari ekstensi di URL Drive kalau memungkinkan, kalau tidak default 'PDF'
+  let tipe = 'PDF';
+  const lower = gdrive.toLowerCase();
+  if(lower.includes('.doc')) tipe='DOCX';
+  else if(lower.includes('.xls')) tipe='XLSX';
+  else if(lower.includes('.ppt')) tipe='PPTX';
 
   try {
-    // Upload file ke Firebase Storage dengan progress tracking
-    if(isFileMode && uploadFileObj) {
-      progressWrap.classList.add('show');
-      progressText.textContent = 'Mengupload file...';
-
-      await new Promise((resolve, reject) => {
-        const fileName = 'dokumen/' + Date.now() + '_' + uploadFileObj.name;
-        const ref = storage.ref(fileName);
-        const task = ref.put(uploadFileObj);
-
-        task.on('state_changed',
-          (snapshot) => {
-            // Progress update
-            const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-            progressBar.style.width = pct + '%';
-            progressPct.textContent = pct + '%';
-            progressText.textContent = 'Mengupload... ' + (snapshot.bytesTransferred/1024/1024).toFixed(1) + ' MB / ' + (snapshot.totalBytes/1024/1024).toFixed(1) + ' MB';
-          },
-          (err) => {
-            console.warn('Storage upload gagal:', err);
-            progressWrap.classList.remove('show');
-            resolve(); // Tetap lanjut meski gagal
-          },
-          async () => {
-            file_url = await task.snapshot.ref.getDownloadURL();
-            progressBar.style.width = '100%';
-            progressPct.textContent = '100%';
-            progressText.textContent = 'Upload selesai!';
-            resolve();
-          }
-        );
-      });
+    if(editingDocId){
+      // ── MODE EDIT: update dokumen yang sudah ada, bukan bikin baru.
+      // createdAt sengaja tidak disentuh supaya urutan "terbaru" tetap
+      // mencerminkan kapan dokumen pertama kali dibuat, bukan kapan diedit.
+      const existing = documents.find(x=>x.id===editingDocId);
+      const docId = existing?._docId || editingDocId;
+      const updateData = {
+        nama, nomor, kategori, level, dept, tanggal, pembuat, deskripsi,
+        tipe, gdrive_link: gdrive,
+        lastEditedBy: localStorage.getItem('userName')||'User',
+        lastEditedAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      await db.collection(DOCS_COL).doc(docId).update(updateData);
+      showToast('<i class="fas fa-check-circle"></i> Perubahan berhasil disimpan!');
+    } else {
+      // ── MODE TAMBAH: buat dokumen baru seperti biasa
+      const docData = {
+        nama, nomor, kategori, level, dept, tanggal, pembuat, deskripsi,
+        tipe, ukuran: '—', gdrive_link: gdrive, file_url: '',
+        uploadedBy: localStorage.getItem('userName')||'User',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      await db.collection(DOCS_COL).add(docData);
+      showToast('<i class="fas fa-check-circle"></i> Dokumen berhasil disimpan!');
     }
-
-    // Simpan metadata ke Firestore
-    progressText.textContent = 'Menyimpan ke database...';
-    const docData = {
-      nama, nomor, kategori, level, dept, tanggal, pembuat, deskripsi,
-      tipe, ukuran, gdrive_link: gdrive, file_url,
-      uploadedBy: localStorage.getItem('userName')||'User',
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    };
-
-    await db.collection(DOCS_COL).add(docData);
-
-    progressWrap.classList.remove('show');
-    progressBar.style.width = '0%';
-    showToast('<i class="fas fa-check-circle"></i> Dokumen berhasil disimpan!');
     closeUploadModal();
-    uploadFileObj = null;
-
   } catch(e) {
-    console.error('Upload error:', e);
-    progressWrap.classList.remove('show');
+    console.error('Save error:', e);
     showToast('<i class="fas fa-times-circle"></i> Gagal menyimpan: ' + e.message, true);
   } finally {
     btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-save"></i> Simpan Dokumen';
+    btnText.textContent = 'Simpan Dokumen';
   }
 }
 
@@ -1244,9 +1219,8 @@ loadDocs(); // Load dari Firestore
 // ── NOTIFICATION SYSTEM ──────────────────────────────
 (function initNotif(){
   const level = localStorage.getItem('userLevel') || '';
-  if(level !== 'Admin') return; // Hanya admin
+  if(level !== 'Admin') return;
 
-  // Firebase init (jika belum)
   if(!window._notifFirebase){
     try{
       const cfg={apiKey:"AIzaSyCzEKC8AzK_wx-sg8tDg32JkCa-C4KNqY8",authDomain:"sigap-report-system.firebaseapp.com",projectId:"sigap-report-system",storageBucket:"sigap-report-system.firebasestorage.app",messagingSenderId:"794553302905",appId:"1:794553302905:web:673f1856a8c35cdc58f9a8"};
@@ -1258,7 +1232,6 @@ loadDocs(); // Load dari Firestore
 
   const db = window._notifDB;
 
-  // Update topbar bell button — tambahkan wrapper & badge
   const bellBtn = document.querySelector('.topbar-btn');
   if(bellBtn && !bellBtn.parentElement.classList.contains('notif-wrap')){
     const wrap = document.createElement('div');
@@ -1266,12 +1239,10 @@ loadDocs(); // Load dari Firestore
     wrap.style.position = 'relative';
     bellBtn.parentNode.insertBefore(wrap, bellBtn);
     wrap.appendChild(bellBtn);
-    // Badge
     const badge = document.createElement('span');
     badge.className = 'notif-badge hidden';
     badge.id = 'notifBadge';
     wrap.appendChild(badge);
-    // Dropdown
     const dd = document.createElement('div');
     dd.className = 'notif-dropdown';
     dd.id = 'notifDropdown';
@@ -1284,7 +1255,6 @@ loadDocs(); // Load dari Firestore
       <div class="notif-footer"><a href="laporan.html">Lihat Semua Laporan →</a></div>`;
     wrap.appendChild(dd);
 
-    // Toggle dropdown
     bellBtn.onclick = function(e){
       e.stopPropagation();
       dd.classList.toggle('open');
@@ -1292,7 +1262,6 @@ loadDocs(); // Load dari Firestore
     document.addEventListener('click', ()=> dd.classList.remove('open'));
   }
 
-  // Real-time listener — 10 laporan terbaru
   db.collection('aims_laporan')
     .orderBy('createdAt','desc')
     .limit(10)
@@ -1338,7 +1307,6 @@ function renderNotif(items){
   }).join('');
 }
 
-// Buka popup detail
 let currentNotifId = null;
 function openLaporanPopup(id){
   currentNotifId = id;
@@ -1372,7 +1340,6 @@ function openLaporanPopup(id){
       ${item.hasFoto?'<div class="lp-field full"><div class="lp-label">Foto</div><div class="lp-value" style="color:#c9a227"><i class="fas fa-image"></i> Ada foto (lihat di halaman laporan)</div></div>':''}
     </div>`;
 
-  // Auto tandai dibaca
   markAsRead(id);
 }
 
