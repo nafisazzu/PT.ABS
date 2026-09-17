@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SMKP Minerba – AIMS</title>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0b1829">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AIMS">
+  <link rel="apple-touch-icon" href="LOGO.png">
+  <meta name="mobile-web-app-capable" content="yes">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -16,11 +24,11 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .sidebar{width:var(--sidebar-w);height:100vh;background:var(--navy);position:fixed;top:0;left:0;display:flex;flex-direction:column;z-index:1000;transition:transform var(--transition);overflow:hidden;}
 .sidebar::before{content:'';position:absolute;width:260px;height:260px;background:radial-gradient(circle,rgba(0,212,255,.12) 0%,transparent 70%);top:-60px;left:-60px;pointer-events:none;}
 .sidebar-brand{display:flex;align-items:center;gap:12px;padding:28px 24px 24px;border-bottom:1px solid rgba(255,255,255,.07);}
-.brand-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(0,212,255,.35);flex-shrink:0;}
+.brand-icon{width:48px;height:48px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(201,162,39,0.35);box-shadow:0 0 18px rgba(201,162,39,0.2),0 4px 16px rgba(0,0,0,0.4);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex-shrink:0;overflow:hidden;position:relative;transition:all 0.3s;}.brand-icon img{width:80%;height:80%;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 2px 6px rgba(201,162,39,0.3));}
 .brand-text{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:#fff;letter-spacing:2px;}
-.brand-sub{font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
+.brand-sub{font-size:11px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
 .sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;}
-.nav-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3);padding:14px 12px 6px;font-weight:600;}
+.nav-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3);padding:14px 12px 6px;font-weight:600;}
 .sidebar-nav a{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.65);text-decoration:none;padding:11px 14px;border-radius:10px;font-size:14px;font-weight:500;transition:all var(--transition);margin-bottom:2px;position:relative;}
 .sidebar-nav a .nav-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(255,255,255,.06);flex-shrink:0;transition:all var(--transition);}
 .sidebar-nav a:hover{color:#fff;background:rgba(255,255,255,.07);}
@@ -39,13 +47,13 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 
 /* MAIN */
 .main{margin-left:var(--sidebar-w);padding:0;min-height:100vh;}
-.topbar{background:var(--card-bg);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+.topbar{background:#ffffff;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.05);}
 .topbar-left h5{font-size:15px;font-weight:700;color:var(--navy);margin:0;}
 .topbar-left span{font-size:12px;color:var(--muted);}
 .topbar-right{display:flex;align-items:center;gap:12px;}
-.topbar-btn{width:38px;height:38px;border-radius:10px;background:var(--bg);border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
+.topbar-btn{width:38px;height:38px;border-radius:10px;background:#f0f4f8;border:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all var(--transition);}
 .topbar-btn:hover{background:#e2e8f5;color:var(--navy);}
-.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:var(--bg);cursor:pointer;}
+.topbar-user{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:12px;background:#f0f4f8;cursor:pointer;}
 .topbar-user:hover{background:#e2e8f5;}
 .topbar-avatar{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),#0099cc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
 .topbar-uname{font-size:13px;font-weight:600;color:var(--text);}
@@ -55,7 +63,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .page-header{margin-bottom:24px;}
 .page-title{font-size:26px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;}
 .title-icon{width:44px;height:44px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;box-shadow:0 4px 14px rgba(245,158,11,.35);}
-.page-sub{font-size:13px;color:var(--muted);margin-top:6px;}
+.page-sub{font-size:13px;color:#6b7fa0;margin-top:6px;}
 
 /* INFO BAR */
 .info-bar{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));border-radius:var(--radius);padding:16px 22px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:0 4px 20px rgba(11,24,41,.2);}
@@ -67,8 +75,8 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
 .btn-open-drive:hover{background:rgba(255,255,255,.22);color:#fff;}
 
 /* DRIVE FRAME */
-.drive-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
-.drive-card-head{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#f7faff,var(--card-bg));}
+.drive-card{background:#ffffff;border-radius:var(--radius);box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid rgba(0,0,0,0.06);overflow:hidden;}
+.drive-card-head{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#f7faff,#ffffff);}
 .drive-card-title{font-size:14px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:8px;}
 .drive-frame{width:100%;height:calc(100vh - 280px);min-height:500px;border:none;display:block;}
 
@@ -83,16 +91,156 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
   .sidebar-overlay.open{display:block;}.main{margin-left:0;}.topbar{padding:14px 16px 14px 64px;}
   .content{padding:18px 13px 40px;}.drive-frame{height:60vh;}
 }
+
+
+
+/* ── NOTIFICATION SYSTEM ─────────────────────────── */
+.notif-wrap{position:relative;}
+.notif-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:#ff4e6a;border-radius:50%;font-size:11px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #080f1c;animation:notifPop .3s cubic-bezier(.16,1,.3,1);z-index:10;}
+@keyframes notifPop{from{transform:scale(0);}to{transform:scale(1);}}
+.notif-badge.hidden{display:none;}
+
+.notif-dropdown{position:absolute;top:calc(100% + 10px);right:0;width:360px;background:#0f1e35;border:1px solid rgba(201,162,39,0.2);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.6);z-index:9999;overflow:hidden;display:none;animation:dropDown .25s cubic-bezier(.16,1,.3,1);}
+@keyframes dropDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+.notif-dropdown.open{display:block;}
+.notif-header{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
+.notif-header-title{font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;}
+.notif-header-title i{color:#c9a227;}
+.notif-mark-all{font-size:11px;color:#c9a227;cursor:pointer;font-weight:600;background:none;border:none;padding:0;transition:opacity .2s;}
+.notif-mark-all:hover{opacity:.7;}
+.notif-list{max-height:340px;overflow-y:auto;}
+.notif-item{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:background .2s;display:flex;gap:12px;align-items:flex-start;}
+.notif-item:hover{background:rgba(201,162,39,0.06);}
+.notif-item.unread{background:rgba(201,162,39,0.04);}
+.notif-item:last-child{border-bottom:none;}
+.notif-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.notif-icon.new{background:rgba(201,162,39,0.15);color:#c9a227;}
+.notif-icon.read{background:rgba(255,255,255,0.05);color:#6b7fa0;}
+.notif-body{flex:1;min-width:0;}
+.notif-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.notif-item.read .notif-title{color:#6b7fa0;font-weight:400;}
+.notif-meta{font-size:11px;color:#6b7fa0;display:flex;gap:8px;flex-wrap:wrap;}
+.notif-dot{width:7px;height:7px;border-radius:50%;background:#c9a227;flex-shrink:0;margin-top:4px;}
+.notif-dot.read{background:transparent;}
+.notif-empty{padding:32px 18px;text-align:center;color:#6b7fa0;font-size:13px;}
+.notif-empty i{font-size:28px;display:block;margin-bottom:8px;opacity:.4;}
+.notif-footer{padding:12px 18px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;}
+.notif-footer a{font-size:12px;color:#c9a227;font-weight:600;text-decoration:none;}
+
+/* POPUP DETAIL LAPORAN */
+.laporan-popup{display:none;position:fixed;inset:0;z-index:99999;background:rgba(8,15,28,0.85);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;}
+.laporan-popup.open{display:flex;}
+.laporan-popup-card{background:#0f1e35;border:1px solid rgba(201,162,39,0.2);border-radius:20px;width:100%;max-width:520px;max-height:85vh;overflow-y:auto;animation:dropDown .3s cubic-bezier(.16,1,.3,1);}
+.lp-header{padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
+.lp-title{font-size:15px;font-weight:700;color:#fff;}
+.lp-close{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.05);border:none;color:#6b7fa0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.lp-close:hover{background:rgba(255,78,106,0.15);color:#ff4e6a;}
+.lp-body{padding:20px 24px;}
+.lp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.lp-field{background:rgba(255,255,255,0.03);border-radius:10px;padding:12px 14px;}
+.lp-field.full{grid-column:1/-1;}
+.lp-label{font-size:11px;color:#6b7fa0;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.lp-value{font-size:13px;color:#e8edf5;font-weight:500;line-height:1.5;}
+.lp-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+.lp-badge.high{background:rgba(255,78,106,0.15);color:#ff4e6a;}
+.lp-badge.med{background:rgba(201,162,39,0.15);color:#c9a227;}
+.lp-badge.low{background:rgba(34,224,161,0.15);color:#22e0a1;}
+.lp-footer{padding:14px 24px;border-top:1px solid rgba(255,255,255,0.06);display:flex;gap:10px;justify-content:flex-end;}
+.lp-btn{padding:9px 20px;border-radius:10px;font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all .2s;}
+.lp-btn-primary{background:linear-gradient(135deg,#c9a227,#a8841e);color:#fff;}
+.lp-btn-secondary{background:rgba(255,255,255,0.06);color:#e8edf5;border:1px solid rgba(255,255,255,0.1);}
+
+
+/* ── ACCESS GUARD ── */
+.guard-overlay{display:none;position:fixed;inset:0;background:rgba(11,24,41,0.92);z-index:9999;align-items:center;justify-content:center;}
+.guard-overlay.show{display:flex;}
+.guard-box{background:#ffffff;border-radius:20px;padding:40px 36px;max-width:420px;width:90%;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,0.4);}
+.guard-title{font-size:20px;font-weight:700;color:#0b1829;margin-bottom:10px;}
+.guard-sub{font-size:14px;color:#6b7fa0;line-height:1.6;margin-bottom:16px;}
+.guard-user{font-size:12px;color:#6b7fa0;background:#f0f4f8;padding:8px 14px;border-radius:8px;display:inline-block;}
+.guard-btn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:10px 22px;border-radius:10px;background:#0b1829;color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.guard-logout{display:block;margin-top:12px;font-size:12px;color:#6b7fa0;cursor:pointer;text-decoration:underline;}
+.guard-logout:hover{color:#ff4e6a;}
+
+/* ── MOBILE ANDROID FIX ── */
+@media(max-width:480px){
+  .content{padding:14px 10px 40px;}
+  .page-title{font-size:20px;}
+  .topbar{padding:12px 14px 12px 60px;}
+  .topbar-left h5{font-size:13px;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .stat-value{font-size:20px;}
+  .card-body{padding:12px 10px;}
+  .toolbar{gap:6px;}
+  .search-input{width:100% !important;}
+  table{font-size:12px;}
+  th,td{padding:7px 8px;}
+  .rekap-table{min-width:500px;}
+  .files-grid{grid-template-columns:repeat(2,1fr);}
+  .drive-frame{height:50vh;}
+  .topbar-btn{width:34px;height:34px;}
+  .page-btn{padding:4px 8px;font-size:11px;}
+}
+@media(max-width:768px){
+  input,select,textarea{font-size:16px !important;}
+  .btn-main,.btn-outline,.topbar-btn{min-height:44px;}
+}
+
+/* ── LOADING INDICATOR ── */
+.frame-wrap{position:relative;}
+.frame-loading{position:absolute;inset:0;background:#f7faff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;border-radius:0 0 var(--radius) var(--radius);z-index:10;}
+.frame-loading.hidden{display:none;}
+.loading-spinner{width:48px;height:48px;border:4px solid rgba(245,158,11,0.15);border-top-color:#f59e0b;border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{font-size:14px;font-weight:600;color:var(--muted);}
+.loading-sub{font-size:12px;color:var(--muted);opacity:.7;}
+
 </style>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
+
+<!-- NOTIFICATION DROPDOWN -->
+<div class="laporan-popup" id="laporanPopup" onclick="if(event.target===this)closeLaporanPopup()">
+  <div class="laporan-popup-card">
+    <div class="lp-header">
+      <div class="lp-title"><i class="fas fa-file-alt" style="color:#c9a227;margin-right:8px"></i>Detail Laporan</div>
+      <button class="lp-close" onclick="closeLaporanPopup()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="lp-body" id="laporanPopupBody">
+      <div style="text-align:center;padding:20px;color:#6b7fa0">Memuat...</div>
+    </div>
+    <div class="lp-footer">
+      <button class="lp-btn lp-btn-secondary" onclick="closeLaporanPopup()">Tutup</button>
+      <button class="lp-btn lp-btn-primary" onclick="markAsRead(currentNotifId)"><i class="fas fa-check"></i> Tandai Dibaca</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="guard-overlay" id="guardOverlay" style="display:none">
+  <div class="guard-box">
+    <div class="guard-title">Akses Terbatas</div>
+    <div class="guard-sub">Halaman ini hanya dapat diakses oleh <strong style="color:#c9a227">Admin</strong>. Akun Anda tidak memiliki izin untuk mengakses halaman ini.</div>
+    <div class="guard-user"><i class="fas fa-user-circle"></i> <span id="guardUserName">—</span> &bull; <span id="guardUserLevel">—</span></div>
+    <br>
+    <button class="guard-btn" onclick="window.location.href='buat_laporan.html'">
+      <i class="fas fa-file-alt"></i> Pergi ke Buat Laporan
+    </button>
+    <span class="guard-logout" onclick="guardLogout()"><i class="fas fa-sign-out-alt"></i> Logout dari akun ini</span>
+  </div>
+</div>
 
 <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
 <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
 
 <div class="sidebar" id="sidebar">
   <div class="sidebar-brand">
-    <div class="brand-icon"><i class="fas fa-shield-alt"></i></div>
+    <div class="brand-icon"><img src="LOGO.png" alt="AIMS Logo" onerror="this.style.display='none'"></div>
     <div><div class="brand-text">AIMS</div><div class="brand-sub">Safety System</div></div>
   </div>
   <nav class="sidebar-nav">
@@ -163,7 +311,7 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
         <div class="title-icon"><i class="fas fa-hard-hat"></i></div>
         SMKP Minerba
       </div>
-      <div class="page-sub">Laporan Audit SMKP Minerba PT. ABS — tersimpan di Google Drive</div>
+      <div class="page-sub">Evidance SMKP Minerba 2025 PT. ABS — tersimpan di Google Drive</div>
     </div>
 
     <!-- INFO BAR -->
@@ -171,12 +319,12 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <div class="info-bar-left">
         <div class="info-icon"><i class="fab fa-google-drive"></i></div>
         <div>
-          <div class="info-title">Laporan Audit SMKP Minerba Tahap I & II 2025</div>
-          <div class="info-sub">Laporan Audit SMKP Minerba tersimpan di Google Drive</div>
+          <div class="info-title">Evidance SMKP Minerba 2025</div>
+          <div class="info-sub">File Evidance SMKP Minerba 2025 tersimpan di Google Drive</div>
         </div>
       </div>
-      <a href="https://drive.google.com/file/d/1oCsI5sXtEZQqgfNaXQ5hfHA1sdOM_9i9/view" target="_blank" class="btn-open-drive">
-        <i class="fas fa-file-pdf"></i> Buka / Download PDF
+      <a href="https://drive.google.com/drive/folders/1Fb8KR4v_Lz0Ro9vtyuI8qQH2S0VdqB42?usp=sharing" target="_blank" class="btn-open-drive">
+        <i class="fab fa-google-drive"></i> Buka di Google Drive
       </a>
     </div>
 
@@ -185,15 +333,23 @@ body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min
       <div class="drive-card-head">
         <div class="drive-card-title">
           <i class="fab fa-google-drive" style="color:#4285f4"></i>
-          Laporan Audit SMKP Minerba Tahap I & II Tahun 2025
+          Evidance SMKP Minerba 2025
         </div>
-        <span style="font-size:11px;color:var(--muted)"><i class="fas fa-info-circle"></i> Laporan Audit SMKP Minerba Tahap I & II 2025</span>
+        <span style="font-size:11px;color:var(--muted)"><i class="fas fa-info-circle"></i> Klik file untuk membuka atau download</span>
       </div>
-      <iframe
-        class="drive-frame"
-        src="https://drive.google.com/file/d/1oCsI5sXtEZQqgfNaXQ5hfHA1sdOM_9i9/preview"
-        allowfullscreen>
-      </iframe>
+      <div class="frame-wrap" style="position:relative;">
+        <div class="frame-loading" id="frameLoading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Memuat dokumen...</div>
+          <div class="loading-sub">Mohon tunggu, Google Drive sedang dimuat</div>
+        </div>
+        <iframe
+          class="drive-frame"
+          src="https://drive.google.com/embeddedfolderview?id=1Fb8KR4v_Lz0Ro9vtyuI8qQH2S0VdqB42#list"
+          allowfullscreen
+          onload="document.getElementById('frameLoading').classList.add('hidden')">
+        </iframe>
+      </div>
     </div>
 
   </div>
@@ -219,6 +375,228 @@ function logout() {
     localStorage.clear();
     window.location.href = 'index.html';
   }
+}
+</script>
+
+<script>
+// ── NOTIFICATION SYSTEM ──────────────────────────────
+(function initNotif(){
+  const level = localStorage.getItem('userLevel') || '';
+  if(level !== 'Admin') return; // Hanya admin
+
+  // Firebase init (jika belum)
+  if(!window._notifFirebase){
+    try{
+      const cfg={apiKey:"AIzaSyCzEKC8AzK_wx-sg8tDg32JkCa-C4KNqY8",authDomain:"sigap-report-system.firebaseapp.com",projectId:"sigap-report-system",storageBucket:"sigap-report-system.firebasestorage.app",messagingSenderId:"794553302905",appId:"1:794553302905:web:673f1856a8c35cdc58f9a8"};
+      if(!firebase.apps.length) firebase.initializeApp(cfg);
+      window._notifDB = firebase.firestore();
+      window._notifFirebase = true;
+    }catch(e){ return; }
+  }
+
+  const db = window._notifDB;
+
+  // Update topbar bell button — tambahkan wrapper & badge
+  const bellBtn = document.querySelector('.topbar-btn');
+  if(bellBtn && !bellBtn.parentElement.classList.contains('notif-wrap')){
+    const wrap = document.createElement('div');
+    wrap.className = 'notif-wrap';
+    wrap.style.position = 'relative';
+    bellBtn.parentNode.insertBefore(wrap, bellBtn);
+    wrap.appendChild(bellBtn);
+    // Badge
+    const badge = document.createElement('span');
+    badge.className = 'notif-badge hidden';
+    badge.id = 'notifBadge';
+    wrap.appendChild(badge);
+    // Dropdown
+    const dd = document.createElement('div');
+    dd.className = 'notif-dropdown';
+    dd.id = 'notifDropdown';
+    dd.innerHTML = `
+      <div class="notif-header">
+        <div class="notif-header-title"><i class="fas fa-bell"></i> Notifikasi Laporan</div>
+        <button class="notif-mark-all" onclick="markAllRead()">Tandai semua dibaca</button>
+      </div>
+      <div class="notif-list" id="notifList"><div class="notif-empty"><i class="fas fa-bell-slash"></i>Belum ada laporan masuk</div></div>
+      <div class="notif-footer"><a href="laporan.html">Lihat Semua Laporan →</a></div>`;
+    wrap.appendChild(dd);
+
+    // Toggle dropdown
+    bellBtn.onclick = function(e){
+      e.stopPropagation();
+      dd.classList.toggle('open');
+    };
+    document.addEventListener('click', ()=> dd.classList.remove('open'));
+  }
+
+  // Real-time listener — 10 laporan terbaru
+  db.collection('aims_laporan')
+    .orderBy('createdAt','desc')
+    .limit(10)
+    .onSnapshot(snapshot => {
+      window._notifData = [];
+      snapshot.forEach(doc => window._notifData.push({id:doc.id,...doc.data()}));
+      renderNotif(window._notifData);
+    }, err => console.warn('Notif error:', err));
+})();
+
+function renderNotif(items){
+  const list  = document.getElementById('notifList');
+  const badge = document.getElementById('notifBadge');
+  if(!list) return;
+
+  const unread = items.filter(i => !i.isRead).length;
+  if(badge){
+    if(unread > 0){ badge.textContent = unread > 9 ? '9+' : unread; badge.classList.remove('hidden'); }
+    else           { badge.classList.add('hidden'); }
+  }
+
+  if(items.length === 0){
+    list.innerHTML = '<div class="notif-empty"><i class="fas fa-bell-slash"></i>Belum ada laporan masuk</div>';
+    return;
+  }
+
+  list.innerHTML = items.map(item => {
+    const isRead = item.isRead;
+    const tgl = item.createdAt?.toDate ? item.createdAt.toDate().toLocaleString('id-ID',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : (item.tanggal||'—');
+    const risikoColor = item.risiko==='Tinggi'?'#ff4e6a': item.risiko==='Sedang'?'#c9a227':'#22e0a1';
+    return `<div class="notif-item ${isRead?'read':'unread'}" onclick="openLaporanPopup('${item.id}')">
+      <div class="notif-dot ${isRead?'read':''}"></div>
+      <div class="notif-icon ${isRead?'read':'new'}"><i class="fas fa-file-alt"></i></div>
+      <div class="notif-body">
+        <div class="notif-title">${item.pelapor||'—'} — ${item.area||'—'}</div>
+        <div class="notif-meta">
+          <span>${item.jenis||'—'}</span>
+          <span style="color:${risikoColor}">● ${item.risiko||'—'}</span>
+          <span>${tgl}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// Buka popup detail
+let currentNotifId = null;
+function openLaporanPopup(id){
+  currentNotifId = id;
+  document.getElementById('notifDropdown')?.classList.remove('open');
+  const popup = document.getElementById('laporanPopup');
+  const body  = document.getElementById('laporanPopupBody');
+  if(!popup||!body) return;
+  popup.classList.add('open');
+
+  const item = (window._notifData||[]).find(i=>i.id===id);
+  if(!item){ body.innerHTML='<div style="text-align:center;padding:20px;color:#6b7fa0">Data tidak ditemukan</div>'; return; }
+
+  const tgl = item.createdAt?.toDate ? item.createdAt.toDate().toLocaleString('id-ID') : (item.tanggal||'—');
+  const badgeClass = item.risiko==='Tinggi'?'high': item.risiko==='Sedang'?'med':'low';
+
+  body.innerHTML = `
+    <div class="lp-row">
+      <div class="lp-field"><div class="lp-label">ID Laporan</div><div class="lp-value" style="font-family:monospace;font-size:12px;color:#c9a227">${item.id}</div></div>
+      <div class="lp-field"><div class="lp-label">Tanggal</div><div class="lp-value">${tgl}</div></div>
+      <div class="lp-field"><div class="lp-label">Nama Pelapor</div><div class="lp-value">${item.pelapor||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">NIK</div><div class="lp-value">${item.nik||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Jabatan</div><div class="lp-value">${item.jabatan||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Departemen</div><div class="lp-value">${item.departemen||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Area</div><div class="lp-value">${item.area||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Jenis Laporan</div><div class="lp-value">${item.jenis||'—'}</div></div>
+      <div class="lp-field full"><div class="lp-label">Aktivitas</div><div class="lp-value">${item.aktivitas||'—'}</div></div>
+      <div class="lp-field full"><div class="lp-label">Deskripsi</div><div class="lp-value">${item.deskripsi||'—'}</div></div>
+      <div class="lp-field full"><div class="lp-label">Tindakan</div><div class="lp-value">${item.tindakan||'—'}</div></div>
+      <div class="lp-field"><div class="lp-label">Kategori Risiko</div><div class="lp-value"><span class="lp-badge ${badgeClass}">${item.risiko||'—'}</span></div></div>
+      <div class="lp-field"><div class="lp-label">Status</div><div class="lp-value">${item.status||'—'}</div></div>
+      ${item.hasFoto?'<div class="lp-field full"><div class="lp-label">Foto</div><div class="lp-value" style="color:#c9a227"><i class="fas fa-image"></i> Ada foto (lihat di halaman laporan)</div></div>':''}
+    </div>`;
+
+  // Auto tandai dibaca
+  markAsRead(id);
+}
+
+function closeLaporanPopup(){
+  document.getElementById('laporanPopup')?.classList.remove('open');
+  currentNotifId = null;
+}
+
+function markAsRead(id){
+  if(!id||!window._notifDB) return;
+  window._notifDB.collection('aims_laporan').doc(id).update({isRead:true}).catch(()=>{});
+}
+
+function markAllRead(){
+  if(!window._notifData||!window._notifDB) return;
+  window._notifData.filter(i=>!i.isRead).forEach(i=>{
+    window._notifDB.collection('aims_laporan').doc(i.id).update({isRead:true}).catch(()=>{});
+  });
+  document.getElementById('notifDropdown')?.classList.remove('open');
+}
+</script>
+<script>
+// Cek login
+if(!localStorage.getItem('isLoggedIn')){window.location.href='index.html';}
+</script>
+<script>
+// ── TAMPILKAN FOTO PROFIL ─────────────────────────────
+(function showPhoto(){
+  const photo = localStorage.getItem('userPhoto') || '';
+  const name  = localStorage.getItem('userName')  || 'User';
+
+  function setAvatar(el, isTopbar) {
+    if (!el) return;
+    if (photo) {
+      el.style.background = 'none';
+      el.style.padding = '0';
+      el.style.overflow = 'hidden';
+      const img = document.createElement('img');
+      img.src = photo;
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%;';
+      img.onerror = function() {
+        this.style.display = 'none';
+        if (isTopbar) {
+          el.innerHTML = '<i class="fas fa-user"></i>';
+        } else {
+          el.textContent = name.charAt(0).toUpperCase();
+        }
+      };
+      el.innerHTML = '';
+      el.appendChild(img);
+    } else {
+      if (isTopbar) {
+        el.innerHTML = '<i class="fas fa-user"></i>';
+      } else {
+        el.textContent = name.charAt(0).toUpperCase();
+      }
+    }
+  }
+
+  setAvatar(document.getElementById('sidebarAvatarLetter'), false);
+  setAvatar(document.querySelector('.topbar-avatar'), true);
+})();
+</script>
+
+<script>
+// ── Register Service Worker (PWA) ──
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js')
+      .then(function(reg) {
+        console.log('[PWA] Service Worker terdaftar:', reg.scope);
+        // Cek update
+        reg.addEventListener('updatefound', function() {
+          const newWorker = reg.installing;
+          newWorker.addEventListener('statechange', function() {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // Ada versi baru — bisa tampilkan notif update
+              console.log('[PWA] Update tersedia, refresh untuk memperbarui');
+            }
+          });
+        });
+      })
+      .catch(function(err) {
+        console.log('[PWA] Service Worker gagal:', err);
+      });
+  });
 }
 </script>
 </body>
